@@ -99,6 +99,17 @@ _NO_LINE_NOTE: Final = "줄 번호 기록이 없어 정규화된 문서 기준 �
 _WINDOWS_ABSOLUTE: Final = re.compile(r"^[A-Za-z]:[\\/]|^\\\\")
 
 
+def _complete_drive(drive: str) -> bool:
+    """A drive letter, or a UNC drive naming both server and share (``\\\\server\\share``).
+
+    Python 3.11's pathlib calls ``\\\\server\\`` absolute (and makes ``file://server//`` of it) while
+    3.12 does not; requiring the share keeps the URI the same on every supported version.
+    """
+    if not drive.startswith(("\\\\", "//")):
+        return True
+    return len([part for part in re.split(r"[\\/]", drive) if part]) == 2
+
+
 #: SARIF §3.11.5/§3.11.6: literal braces are doubled (they would read as ``{0}`` placeholders) and
 #: literal brackets are backslash-escaped (they would read as embedded ``[text](link)`` links).
 _MESSAGE_ESCAPES: Final = str.maketrans({"[": "\\[", "]": "\\]", "{": "{{", "}": "}}"})
@@ -127,7 +138,7 @@ def artifact_uri(ref: DocumentRef) -> str:
     path = printable(ref.path or "").strip()
     if _WINDOWS_ABSOLUTE.match(path):
         windows = PureWindowsPath(path)
-        if windows.is_absolute():
+        if windows.is_absolute() and _complete_drive(windows.drive):
             return windows.as_uri()
         # "\\host" without a share (or an upload named "\\x.md") is no complete UNC path and has
         # no file URI — pathlib raises for it — so it is named like any other relative path.
