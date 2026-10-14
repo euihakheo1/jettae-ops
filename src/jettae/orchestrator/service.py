@@ -50,9 +50,10 @@ import threading
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-from typing import Any, Final, Literal, TypedDict
+from typing import Any, Final, Literal
 
 from pydantic import BaseModel, ConfigDict
+from typing_extensions import TypedDict
 
 from jettae import __version__
 from jettae.check.context import CheckContext
