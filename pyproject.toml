@@ -30,6 +30,8 @@ dependencies = [
   "uvicorn[standard]>=0.32",
   "python-multipart>=0.0.18",
   "langgraph>=1.0,<2",
+  # pydantic이 TypedDict 응답 모델을 Python 3.11에서도 읽으려면 typing_extensions 판이 필요합니다
+  "typing-extensions>=4.12",
 ]
 
 [project.optional-dependencies]

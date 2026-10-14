@@ -23,7 +23,9 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 from decimal import ROUND_HALF_UP, Context, Decimal
-from typing import Final, TypedDict
+from typing import Final
+
+from typing_extensions import TypedDict
 
 from jettae.check.context import CheckContext
 from jettae.check.elements import GENERAL_SEMANTICS_KO, SEMANTICS_KO, evaluate_service

@@ -25,7 +25,7 @@ http://localhost:5173 → `별빛상점 예제로 바로 보기` 또는 http://l
 ### 2) API와 함께
 
 ```bash
-# 저장소 루트(J:\jettae-ops)에서
+# 저장소 루트(jettae-ops 폴더)에서
 jettae serve                # FastAPI — http://127.0.0.1:8765 (/api/v1, /healthz)
 # web/ 에서
 npm run dev                 # /api, /healthz 는 127.0.0.1:8765 으로 프록시

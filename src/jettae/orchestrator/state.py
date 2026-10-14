@@ -23,9 +23,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Annotated, Literal, TypedDict
+from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
+from typing_extensions import TypedDict
 
 from jettae.check.context import CheckContext
 from jettae.domain import (
