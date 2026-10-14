@@ -1,0 +1,266 @@
+"""Sealed fault-injection evaluation kit (봉인 결함 주입 평가셋).
+
+Ground truth is known *by construction* — no human or LLM labels the answers:
+
+1. :mod:`~jettae.evalkit.gold` generates fully READY organisation specs (20 Mapo/DMC startups).
+2. :mod:`~jettae.evalkit.render` turns a spec into a Korean runbook bundle in three styles with
+   exact fact spans.
+3. :mod:`~jettae.evalkit.mutate` breaks one service with a known operator → expected rule ids.
+4. :mod:`~jettae.evalkit.corpus` assembles the cases; :mod:`~jettae.evalkit.seal` hashes them.
+5. :mod:`~jettae.evalkit.injection` builds the prompt-injection self-test;
+   :mod:`~jettae.evalkit.kappa` measures agreement where human labels are used.
+
+The harness runs the product on that corpus:
+
+6. :mod:`~jettae.evalkit.facts` maps any graph to the gold fact vocabulary (and back: the
+   oracle graph); :mod:`~jettae.evalkit.conditions` defines the ablation arms A/B/C/D/DR/O.
+7. :mod:`~jettae.evalkit.harness` runs them (process pool offline, explicit LLM only) and checks
+   reproducibility; :mod:`~jettae.evalkit.metrics` computes the published numbers with Wilson
+   intervals; :mod:`~jettae.evalkit.benchmarks` times the blast radius and runs the injection
+   self-test; :mod:`~jettae.evalkit.report` writes ``metrics.json`` / ``report.md``.
+
+The generator modules (1–5) depend only on :mod:`jettae.domain`; the harness modules (6–7) sit in
+the top layer and drive ingest, extract, check and (when asked) an LLM. Run everything with
+``python -m jettae.evalkit --out docs/eval --generated-at YYYY-MM-DD``.
+"""
+
+from jettae.evalkit.benchmarks import (
+    ImpactBenchmark,
+    InjectionOutcome,
+    InjectionSelftest,
+    impact_benchmark,
+    injection_selftest,
+    structure_hash,
+    synthetic_catalog_graph,
+)
+from jettae.evalkit.conditions import (
+    DEFECT_RULE_IDS,
+    GRAPH_CONDITIONS,
+    KEYWORD_SIGNALS,
+    LLM_CONDITIONS,
+    OFFLINE_CONDITIONS,
+    CaseInputs,
+    CaseResult,
+    Condition,
+    DefectType,
+    DirectDefect,
+    DirectDefectPayload,
+    arun_llm_direct,
+    arun_llm_graphs,
+    case_inputs,
+    keyword_findings,
+    offline_graph,
+    run_offline_condition,
+)
+from jettae.evalkit.corpus import (
+    GENERATOR_VERSION,
+    EvalCase,
+    build_cases,
+    case_id,
+    clean_focus_service,
+    read_cases_jsonl,
+    split_held_out,
+    target_service_for,
+    write_cases_jsonl,
+)
+from jettae.evalkit.facts import (
+    ORACLE_REF,
+    RUNBOOK_ONLY_EDGE_KINDS,
+    canonical_keys,
+    graph_facts,
+    oracle_graph,
+    ungrounded_elements,
+)
+from jettae.evalkit.gold import (
+    DEFAULT_SEED,
+    FACT_ATTR_KEYS,
+    Fact,
+    GoldAction,
+    GoldEscalationStep,
+    GoldFallback,
+    GoldObligation,
+    GoldOrg,
+    GoldPerson,
+    GoldService,
+    GoldTrigger,
+    SpecFinding,
+    action_key,
+    catalog_facts,
+    generate_gold_orgs,
+    gold_facts,
+    response_facts,
+    roster_facts,
+    runbook_facts,
+    spec_findings,
+    trigger_key,
+)
+from jettae.evalkit.harness import (
+    ConditionCost,
+    CostEstimate,
+    EvalResults,
+    Reproducibility,
+    check_reproducibility,
+    default_workers,
+    estimate_llm_cost,
+    parse_conditions,
+    reproducibility_sample,
+    run_eval,
+)
+from jettae.evalkit.injection import InjectionCase, InjectionKind, build_injection_suite
+from jettae.evalkit.kappa import cohen_kappa, krippendorff_alpha_nominal
+from jettae.evalkit.metrics import (
+    DELETION_OPERATORS,
+    ORG_LEVEL_RULE_IDS,
+    EvalMetrics,
+    Rate,
+    compute_metrics,
+    credited_keys,
+    is_hit,
+    is_paired_hit,
+    wilson_interval,
+)
+from jettae.evalkit.mutate import (
+    ACTIVE_OPERATORS,
+    ALL_OPERATORS,
+    EXPECTED_RULE_IDS,
+    HELD_OUT_OPERATORS,
+    Mutation,
+    MutationError,
+    Operator,
+    apply,
+)
+from jettae.evalkit.render import (
+    POSITIONS,
+    STYLES,
+    FactSpan,
+    RenderedCase,
+    ServiceRegion,
+    catalog_entries,
+    policy_for,
+    render,
+    roster_entries,
+)
+from jettae.evalkit.report import render_report, run_evaluation, write_report
+from jettae.evalkit.seal import (
+    SealManifest,
+    build_manifest,
+    case_hash,
+    merkle_root,
+    read_manifest,
+    verify,
+    write_manifest,
+)
+
+__all__ = [
+    "ACTIVE_OPERATORS",
+    "ALL_OPERATORS",
+    "DEFAULT_SEED",
+    "DEFECT_RULE_IDS",
+    "DELETION_OPERATORS",
+    "EXPECTED_RULE_IDS",
+    "FACT_ATTR_KEYS",
+    "GENERATOR_VERSION",
+    "GRAPH_CONDITIONS",
+    "HELD_OUT_OPERATORS",
+    "KEYWORD_SIGNALS",
+    "LLM_CONDITIONS",
+    "OFFLINE_CONDITIONS",
+    "ORACLE_REF",
+    "ORG_LEVEL_RULE_IDS",
+    "POSITIONS",
+    "RUNBOOK_ONLY_EDGE_KINDS",
+    "STYLES",
+    "CaseInputs",
+    "CaseResult",
+    "Condition",
+    "ConditionCost",
+    "CostEstimate",
+    "DefectType",
+    "DirectDefect",
+    "DirectDefectPayload",
+    "EvalCase",
+    "EvalMetrics",
+    "EvalResults",
+    "Fact",
+    "FactSpan",
+    "GoldAction",
+    "GoldEscalationStep",
+    "GoldFallback",
+    "GoldObligation",
+    "GoldOrg",
+    "GoldPerson",
+    "GoldService",
+    "GoldTrigger",
+    "ImpactBenchmark",
+    "InjectionCase",
+    "InjectionKind",
+    "InjectionOutcome",
+    "InjectionSelftest",
+    "Mutation",
+    "MutationError",
+    "Operator",
+    "Rate",
+    "RenderedCase",
+    "Reproducibility",
+    "SealManifest",
+    "ServiceRegion",
+    "SpecFinding",
+    "action_key",
+    "apply",
+    "arun_llm_direct",
+    "arun_llm_graphs",
+    "build_cases",
+    "build_injection_suite",
+    "build_manifest",
+    "canonical_keys",
+    "case_hash",
+    "case_id",
+    "case_inputs",
+    "catalog_entries",
+    "catalog_facts",
+    "check_reproducibility",
+    "clean_focus_service",
+    "cohen_kappa",
+    "compute_metrics",
+    "credited_keys",
+    "default_workers",
+    "estimate_llm_cost",
+    "generate_gold_orgs",
+    "gold_facts",
+    "graph_facts",
+    "impact_benchmark",
+    "injection_selftest",
+    "is_hit",
+    "is_paired_hit",
+    "keyword_findings",
+    "krippendorff_alpha_nominal",
+    "merkle_root",
+    "offline_graph",
+    "oracle_graph",
+    "parse_conditions",
+    "policy_for",
+    "read_cases_jsonl",
+    "read_manifest",
+    "render",
+    "render_report",
+    "reproducibility_sample",
+    "response_facts",
+    "roster_entries",
+    "roster_facts",
+    "run_eval",
+    "run_evaluation",
+    "run_offline_condition",
+    "runbook_facts",
+    "spec_findings",
+    "split_held_out",
+    "structure_hash",
+    "synthetic_catalog_graph",
+    "target_service_for",
+    "trigger_key",
+    "ungrounded_elements",
+    "verify",
+    "wilson_interval",
+    "write_cases_jsonl",
+    "write_manifest",
+    "write_report",
+]

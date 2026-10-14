@@ -1,0 +1,118 @@
+# 제때옵스(JETTAE Ops) CI — 품질 게이트 (docs/ARCHITECTURE.md §7)
+#
+#   lint        ruff check · ruff format --check · mypy --strict(src) · import-linter(판정 경로 LLM 금지 계약 포함)
+#   test        pytest + 커버리지 (Python 3.11 · 3.12; hypothesis 속성 테스트 포함)
+#   eval-smoke  봉인 평가 스모크: B(규칙+그래프)·O(정답 그래프) 조건을 조직 1곳 결정적 표본에 실행 —
+#               재현성(새 프로세스에서 같은 결과)이나 오프라인 조건 오류가 있으면 실패. LLM은 쓰지 않음
+#   web         web/package.json이 있으면 npm ci && npm run build
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONUTF8: "1"
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  # CI에서는 어떤 경우에도 실제 LLM을 부르지 않습니다(P4: LLM을 꺼도 동작).
+  JETTAE_LLM_MODE: "off"
+
+jobs:
+  lint:
+    name: 정적 검사 (ruff · mypy · import-linter)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: 설치
+        run: python -m pip install -e ".[dev,anthropic,openai]"
+      - name: ruff check
+        run: ruff check .
+      - name: ruff format --check
+        run: ruff format --check .
+      - name: mypy (strict)
+        run: mypy src
+      - name: import-linter (계층·판정 경로 계약)
+        run: lint-imports
+
+  test:
+    name: 테스트 (Python ${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: 설치
+        run: python -m pip install -e ".[dev,anthropic,openai]"
+      - name: pytest (커버리지)
+        run: pytest --cov=jettae --cov-report=term-missing:skip-covered --cov-report=xml:coverage.xml
+      - name: 커버리지 보관
+        if: ${{ always() && matrix.python == '3.12' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage.xml
+          if-no-files-found: ignore
+
+  eval-smoke:
+    name: 평가 스모크 (B·O 조건)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: 설치
+        run: python -m pip install -e .
+      - name: 봉인 평가 스모크 (조직 1곳, 결정적 표본)
+        run: jettae eval run --smoke --conditions B,O --out "$RUNNER_TEMP/eval"
+      - name: 결과 보관
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-smoke
+          path: ${{ runner.temp }}/eval
+          if-no-files-found: ignore
+
+  web:
+    name: 웹 빌드
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Node.js 준비
+        if: ${{ hashFiles('web/package.json') != '' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: npm ci
+        if: ${{ hashFiles('web/package.json') != '' }}
+        working-directory: web
+        run: npm ci
+      - name: npm run build
+        if: ${{ hashFiles('web/package.json') != '' }}
+        working-directory: web
+        run: npm run build

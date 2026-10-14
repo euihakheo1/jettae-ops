@@ -1,0 +1,554 @@
+[
+ {
+  "id": "tpl:service:결제:baseline",
+  "title": "결제 · 기준",
+  "description": "교란 없이 런북에 적힌 대로 감지·호출·조치가 이어지는지 확인합니다.",
+  "service_id": "service:결제",
+  "incident_type": "outage",
+  "perturbations": [],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:결제:location_down",
+  "title": "결제 · 센터 장애(클라우드 서울 리전)",
+  "description": "클라우드 서울 리전 장애로 그곳에 의존하는 연락 수단까지 함께 끊길 때 대응이 가능한지 확인합니다.",
+  "service_id": "service:결제",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "location_down",
+    "target_id": "location:클라우드-서울-리전",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:결제:breach_report",
+  "title": "결제 · 침해사고 신고",
+  "description": "침해사고 발생 시 법정 시한 안에 신고가 이뤄지는지 확인합니다(과학기술정보통신부·한국인터넷진흥원(KISA) 24시간 이내).",
+  "service_id": "service:결제",
+  "incident_type": "breach",
+  "perturbations": [],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:배송:baseline",
+  "title": "배송 · 기준",
+  "description": "교란 없이 런북에 적힌 대로 감지·호출·조치가 이어지는지 확인합니다.",
+  "service_id": "service:배송",
+  "incident_type": "outage",
+  "perturbations": [],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:배송:location_down",
+  "title": "배송 · 센터 장애(클라우드 서울 리전)",
+  "description": "클라우드 서울 리전 장애로 그곳에 의존하는 연락 수단까지 함께 끊길 때 대응이 가능한지 확인합니다.",
+  "service_id": "service:배송",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "location_down",
+    "target_id": "location:클라우드-서울-리전",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:상품-카탈로그:baseline",
+  "title": "상품 카탈로그 · 기준",
+  "description": "교란 없이 런북에 적힌 대로 감지·호출·조치가 이어지는지 확인합니다.",
+  "service_id": "service:상품-카탈로그",
+  "incident_type": "outage",
+  "perturbations": [],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:상품-카탈로그:owner_absent",
+  "title": "상품 카탈로그 · 1차 담당 부재(박재현)",
+  "description": "1차 대응자(박재현)가 연락되지 않을 때 상향·대리 경로로 대응이 이어지는지 확인합니다.",
+  "service_id": "service:상품-카탈로그",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "person_unavailable",
+    "target_id": "person:박재현",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:상품-카탈로그:channel_down",
+  "title": "상품 카탈로그 · 주 채널 다운(phone)",
+  "description": "가장 많이 쓰는 연락 수단(phone)이 다운됐을 때 대체 채널로 호출이 닿는지 확인합니다.",
+  "service_id": "service:상품-카탈로그",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "channel_down",
+    "target_id": "channel:phone",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:상품-카탈로그:location_down",
+  "title": "상품 카탈로그 · 센터 장애(상암 IDC)",
+  "description": "상암 IDC 장애로 그곳에 의존하는 연락 수단까지 함께 끊길 때 대응이 가능한지 확인합니다.",
+  "service_id": "service:상품-카탈로그",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "location_down",
+    "target_id": "location:상암-idc",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:상품-카탈로그:concurrent",
+  "title": "상품 카탈로그 · 동시 장애(웹 프론트엔드)",
+  "description": "웹 프론트엔드 장애가 동시에 나서 같은 1차 대응자가 그쪽에 투입될 때 대응이 가능한지 확인합니다.",
+  "service_id": "service:상품-카탈로그",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "concurrent_incident",
+    "target_id": "service:웹-프론트엔드",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:웹-프론트엔드:baseline",
+  "title": "웹 프론트엔드 · 기준",
+  "description": "교란 없이 런북에 적힌 대로 감지·호출·조치가 이어지는지 확인합니다.",
+  "service_id": "service:웹-프론트엔드",
+  "incident_type": "outage",
+  "perturbations": [],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:웹-프론트엔드:owner_absent",
+  "title": "웹 프론트엔드 · 1차 담당 부재(이수진)",
+  "description": "1차 대응자(이수진)가 연락되지 않을 때 상향·대리 경로로 대응이 이어지는지 확인합니다.",
+  "service_id": "service:웹-프론트엔드",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "person_unavailable",
+    "target_id": "person:이수진",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:웹-프론트엔드:channel_down",
+  "title": "웹 프론트엔드 · 주 채널 다운(internal_messenger)",
+  "description": "가장 많이 쓰는 연락 수단(internal_messenger)이 다운됐을 때 대체 채널로 호출이 닿는지 확인합니다.",
+  "service_id": "service:웹-프론트엔드",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "channel_down",
+    "target_id": "channel:internal_messenger",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:웹-프론트엔드:approver_absent",
+  "title": "웹 프론트엔드 · 승인자 부재(박재현)",
+  "description": "조치 승인자(박재현)가 부재일 때 대리 승인으로 조치가 진행되는지 확인합니다.",
+  "service_id": "service:웹-프론트엔드",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "person_unavailable",
+    "target_id": "person:박재현",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:웹-프론트엔드:location_down",
+  "title": "웹 프론트엔드 · 센터 장애(상암 IDC)",
+  "description": "상암 IDC 장애로 그곳에 의존하는 연락 수단까지 함께 끊길 때 대응이 가능한지 확인합니다.",
+  "service_id": "service:웹-프론트엔드",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "location_down",
+    "target_id": "location:상암-idc",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:웹-프론트엔드:concurrent",
+  "title": "웹 프론트엔드 · 동시 장애(장바구니)",
+  "description": "장바구니 장애가 동시에 나서 같은 1차 대응자가 그쪽에 투입될 때 대응이 가능한지 확인합니다.",
+  "service_id": "service:웹-프론트엔드",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "concurrent_incident",
+    "target_id": "service:장바구니",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:이상거래-탐지:baseline",
+  "title": "이상거래 탐지 · 기준",
+  "description": "교란 없이 런북에 적힌 대로 감지·호출·조치가 이어지는지 확인합니다.",
+  "service_id": "service:이상거래-탐지",
+  "incident_type": "outage",
+  "perturbations": [],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:이상거래-탐지:location_down",
+  "title": "이상거래 탐지 · 센터 장애(상암 IDC)",
+  "description": "상암 IDC 장애로 그곳에 의존하는 연락 수단까지 함께 끊길 때 대응이 가능한지 확인합니다.",
+  "service_id": "service:이상거래-탐지",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "location_down",
+    "target_id": "location:상암-idc",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:장바구니:baseline",
+  "title": "장바구니 · 기준",
+  "description": "교란 없이 런북에 적힌 대로 감지·호출·조치가 이어지는지 확인합니다.",
+  "service_id": "service:장바구니",
+  "incident_type": "outage",
+  "perturbations": [],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:장바구니:owner_absent",
+  "title": "장바구니 · 1차 담당 부재(이수진)",
+  "description": "1차 대응자(이수진)가 연락되지 않을 때 상향·대리 경로로 대응이 이어지는지 확인합니다.",
+  "service_id": "service:장바구니",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "person_unavailable",
+    "target_id": "person:이수진",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:장바구니:channel_down",
+  "title": "장바구니 · 주 채널 다운(internal_messenger)",
+  "description": "가장 많이 쓰는 연락 수단(internal_messenger)이 다운됐을 때 대체 채널로 호출이 닿는지 확인합니다.",
+  "service_id": "service:장바구니",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "channel_down",
+    "target_id": "channel:internal_messenger",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:장바구니:approver_absent",
+  "title": "장바구니 · 승인자 부재(박재현)",
+  "description": "조치 승인자(박재현)가 부재일 때 대리 승인으로 조치가 진행되는지 확인합니다.",
+  "service_id": "service:장바구니",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "person_unavailable",
+    "target_id": "person:박재현",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:장바구니:location_down",
+  "title": "장바구니 · 센터 장애(클라우드 서울 리전)",
+  "description": "클라우드 서울 리전 장애로 그곳에 의존하는 연락 수단까지 함께 끊길 때 대응이 가능한지 확인합니다.",
+  "service_id": "service:장바구니",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "location_down",
+    "target_id": "location:클라우드-서울-리전",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:장바구니:concurrent",
+  "title": "장바구니 · 동시 장애(웹 프론트엔드)",
+  "description": "웹 프론트엔드 장애가 동시에 나서 같은 1차 대응자가 그쪽에 투입될 때 대응이 가능한지 확인합니다.",
+  "service_id": "service:장바구니",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "concurrent_incident",
+    "target_id": "service:웹-프론트엔드",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:정산:baseline",
+  "title": "정산 · 기준",
+  "description": "교란 없이 런북에 적힌 대로 감지·호출·조치가 이어지는지 확인합니다.",
+  "service_id": "service:정산",
+  "incident_type": "outage",
+  "perturbations": [],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:정산:location_down",
+  "title": "정산 · 센터 장애(상암 IDC)",
+  "description": "상암 IDC 장애로 그곳에 의존하는 연락 수단까지 함께 끊길 때 대응이 가능한지 확인합니다.",
+  "service_id": "service:정산",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "location_down",
+    "target_id": "location:상암-idc",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:주문:baseline",
+  "title": "주문 · 기준",
+  "description": "교란 없이 런북에 적힌 대로 감지·호출·조치가 이어지는지 확인합니다.",
+  "service_id": "service:주문",
+  "incident_type": "outage",
+  "perturbations": [],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:주문:owner_absent",
+  "title": "주문 · 1차 담당 부재(정민혁)",
+  "description": "1차 대응자(정민혁)가 연락되지 않을 때 상향·대리 경로로 대응이 이어지는지 확인합니다.",
+  "service_id": "service:주문",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "person_unavailable",
+    "target_id": "person:정민혁",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:주문:channel_down",
+  "title": "주문 · 주 채널 다운(phone)",
+  "description": "가장 많이 쓰는 연락 수단(phone)이 다운됐을 때 대체 채널로 호출이 닿는지 확인합니다.",
+  "service_id": "service:주문",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "channel_down",
+    "target_id": "channel:phone",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:주문:approver_absent",
+  "title": "주문 · 승인자 부재(한서윤)",
+  "description": "조치 승인자(한서윤)가 부재일 때 대리 승인으로 조치가 진행되는지 확인합니다.",
+  "service_id": "service:주문",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "person_unavailable",
+    "target_id": "person:한서윤",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:주문:location_down",
+  "title": "주문 · 센터 장애(상암 IDC)",
+  "description": "상암 IDC 장애로 그곳에 의존하는 연락 수단까지 함께 끊길 때 대응이 가능한지 확인합니다.",
+  "service_id": "service:주문",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "location_down",
+    "target_id": "location:상암-idc",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:주문:breach_report",
+  "title": "주문 · 침해사고 신고",
+  "description": "침해사고 발생 시 법정 시한 안에 신고가 이뤄지는지 확인합니다(과학기술정보통신부·한국인터넷진흥원(KISA) 24시간 이내).",
+  "service_id": "service:주문",
+  "incident_type": "breach",
+  "perturbations": [],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:환율:baseline",
+  "title": "환율 · 기준",
+  "description": "교란 없이 런북에 적힌 대로 감지·호출·조치가 이어지는지 확인합니다.",
+  "service_id": "service:환율",
+  "incident_type": "outage",
+  "perturbations": [],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:환율:owner_absent",
+  "title": "환율 · 1차 담당 부재(강현우)",
+  "description": "1차 대응자(강현우)가 연락되지 않을 때 상향·대리 경로로 대응이 이어지는지 확인합니다.",
+  "service_id": "service:환율",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "person_unavailable",
+    "target_id": "person:강현우",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:환율:channel_down",
+  "title": "환율 · 주 채널 다운(phone)",
+  "description": "가장 많이 쓰는 연락 수단(phone)이 다운됐을 때 대체 채널로 호출이 닿는지 확인합니다.",
+  "service_id": "service:환율",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "channel_down",
+    "target_id": "channel:phone",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:환율:approver_absent",
+  "title": "환율 · 승인자 부재(박재현)",
+  "description": "조치 승인자(박재현)가 부재일 때 대리 승인으로 조치가 진행되는지 확인합니다.",
+  "service_id": "service:환율",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "person_unavailable",
+    "target_id": "person:박재현",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ },
+ {
+  "id": "tpl:service:환율:location_down",
+  "title": "환율 · 센터 장애(클라우드 서울 리전)",
+  "description": "클라우드 서울 리전 장애로 그곳에 의존하는 연락 수단까지 함께 끊길 때 대응이 가능한지 확인합니다.",
+  "service_id": "service:환율",
+  "incident_type": "outage",
+  "perturbations": [
+   {
+    "kind": "location_down",
+    "target_id": "location:클라우드-서울-리전",
+    "start_minute": 0.0,
+    "end_minute": null
+   }
+  ],
+  "deadline_minutes": null,
+  "origin": "template"
+ }
+]

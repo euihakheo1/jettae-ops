@@ -1,0 +1,97 @@
+# Render Blueprint — 제때옵스 공개 베타(랜딩 페이지 · 수요 측정 · 익명 무료 런북 검진)
+#
+# 쓰는 법: Render 대시보드 → New → Blueprint → 이 저장소 선택 (자세한 순서: docs/deploy.md)
+# 이미지는 저장소의 Dockerfile로 만들고, 컨테이너가 뜰 때마다
+#   jettae db upgrade  →  jettae demo --host 0.0.0.0 --port $PORT
+# 순서로 스키마를 올리고 별빛상점 데모를 (다시) 불러온 뒤 서버를 띄웁니다.
+# 첫 배포가 끝나면 docs/deploy.md 「배포 직후 확인」대로 방문자 주소 설정(JETTAE_CLIENT_IP_SOURCE)을 꼭 확인하세요.
+
+services:
+  - type: web
+    name: jettae-ops
+    runtime: docker
+    region: singapore
+    # free 플랜은 15분 동안 요청이 없으면 잠들고, 다음 요청 때 깨어나는 데 1분 가까이 걸립니다.
+    # 첫 방문자가 기다리다 떠나면 방문·전환 수치가 왜곡되므로(수요 측정이 목적) 가장 작은 유료 사양을 씁니다.
+    plan: 0.5c-512mb
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      # 토큰이 없으면 익명 보기 전용, 토큰이 있으면 그 역할(관리자 토큰으로 지표·사전 신청 명단 조회)
+      - key: JETTAE_AUTH_MODE
+        value: public
+      # 공개 사이트에서는 생성형 AI를 쓰지 않습니다: API 비용 0, 방문자 런북을 외부 LLM에 보내지 않음
+      - key: JETTAE_LLM_MODE
+        value: "off"
+      - key: JETTAE_LOG_JSON
+        value: "true"
+      - key: PORT
+        value: "8765"
+      # Render 앞단 프록시가 HTTPS를 끝내고 X-Forwarded-Proto로 알려 줍니다. 컨테이너에는 그 프록시만
+      # 닿으므로 믿어도 됩니다 — 그래야 앱이 https 요청으로 알아보고 HSTS 헤더를 붙입니다(uvicorn 설정).
+      # 단, "*"이면 uvicorn은 X-Forwarded-For의 맨 앞 값(방문자가 마음대로 써 보낼 수 있음)을 접속 주소로 삼습니다.
+      # 그래서 접속 주소별 횟수 제한은 이 값이 아니라 아래 JETTAE_CLIENT_IP_SOURCE가 고른 주소로 셉니다.
+      - key: FORWARDED_ALLOW_IPS
+        value: "*"
+      # 접속 주소(IP)별 횟수 제한(무료 검진·화면 이벤트·사전 신청)에 쓸 방문자 주소를 어디서 읽을지.
+      # 형식: peer(uvicorn이 알려 준 주소) · header:<헤더 이름> · xff:<n>(X-Forwarded-For의 오른쪽에서 n번째).
+      # CF-Connecting-IP는 Render 앞단 Cloudflare가 넣는 값으로 보이나 문서화되지 않음 → 배포 직후
+      # /api/v1/admin/request-info로 확인하고 필요하면 xff:<n>으로 바꿀 것(docs/deploy.md 「배포 직후 확인」).
+      # 주소는 서버 메모리의 횟수 계산에만 쓰고 로그·DB에는 남기지 않습니다(uvicorn 접속 로그는 꺼 둠).
+      - key: JETTAE_CLIENT_IP_SOURCE
+        value: "header:CF-Connecting-IP"
+      # 익명·보기 전용 무료 검진의 하루(한국 시간) 한도 — 사이트 전체 합계. 결과를 7일 보관하므로 DB에는 최대
+      # 350건(50 × 7)이 남습니다. 검진 한 건이 수백 KB~수 MB라 1 GB 무료 DB가 차지 않게 50으로 둡니다(큰 검진 한 건 ≈ 2 MB 기준 최악 약 0.7 GB).
+      - key: JETTAE_DAILY_FREE_SCAN_LIMIT
+        value: "50"
+      # 같은 접속 주소(IP) 한 곳이 하루에 쓸 수 있는 무료 검진 수. 한 사람이 위 하루 한도를 혼자 다 쓰지 못하게 합니다.
+      - key: JETTAE_FREE_SCANS_PER_CLIENT_PER_DAY
+        value: "5"
+      # 업로드 한 번의 최대 크기(MB). 런북 몇 개면 수백 KB를 넘지 않습니다. 진단 비용은 입력과 함께 커지므로
+      # 0.5 CPU · 512 MB 서버 하나가 큰 업로드 한 번에 묶이지 않게 작게 둡니다(기본값 20 MB는 설치형용).
+      - key: JETTAE_MAX_UPLOAD_MB
+        value: "2"
+      # 변환한 런북 텍스트의 최대 글자 수(무료 검진 한 번에 올린 런북 전체 합계에도 적용). 파일은 작아도 PDF·DOCX를
+      # 풀면 커질 수 있으므로 글자 수로 한 번 더 막습니다. 검진 시간은 글자 수보다 빠르게 늘어납니다(데스크톱에서
+      # 41,000자 약 3초, 81,000자 12초, 162,000자 52초). 0.5 CPU에서는 몇 배 더 걸리고 그동안 다른 방문자는 503을
+      # 받으므로 50,000자(A4 20쪽 안팎, 예제 런북 세 개 합계의 약 20배)로 둡니다.
+      - key: JETTAE_MAX_DOCUMENT_CHARS
+        value: "50000"
+      # 방문자 진단을 동시에 몇 개까지 돌릴지. 0.5 CPU에서는 하나씩만 돌리고, 그동안 온 요청은 줄 세우지 않고 바로
+      # "잠시 후 다시 시도"(503)로 답합니다 — 줄을 세우면 기다리는 업로드가 메모리에 쌓여 512 MB를 넘깁니다.
+      - key: JETTAE_MAX_CONCURRENT_SCANS
+        value: "1"
+      # 하루에 기록하는 화면 이벤트(방문·클릭)의 사이트 전체 상한. 접속 주소별 1분 60회 제한을 주소를 바꿔 가며
+      # 피하더라도 이벤트 표가 1 GB 무료 DB를 채우지 못하게 합니다(한 줄이 수백 바이트 → 하루 많아야 몇 MB).
+      - key: JETTAE_EVENTS_PER_DAY
+        value: "20000"
+      # 무료 검진 결과(비공개 워크스페이스)를 며칠 뒤 지울지. 방문자 런북에서 나온 그래프·보고서(명부의 이름·직급 포함)를
+      # 오래 들고 있지 않고 1 GB 무료 DB가 차지 않게 합니다. 화면과 개인정보 처리방침(/privacy)의 안내도 7일입니다.
+      - key: JETTAE_FREE_SCAN_RETENTION_DAYS
+        value: "7"
+      # 사전 신청(이메일 등) 보관 일수. 수집·이용 동의문의 "1년"과 같아야 합니다. 지난 신청은 서버가 스스로 지웁니다.
+      - key: JETTAE_SIGNUP_RETENTION_DAYS
+        value: "365"
+      # 비밀 값: Blueprint를 처음 만들 때 대시보드에서 입력합니다(이 파일에 적지 마세요).
+      # 형식: {"<관리자 토큰>": {"user": "heo", "role": "admin"}} — 토큰은 공백 없이 16자 이상이고, 만드는 법은
+      # docs/deploy.md 2단계(43자 무작위 문자열)에 있습니다.
+      - key: JETTAE_API_TOKENS
+        sync: false
+      # Render가 넣어 주는 postgresql://… 주소는 앱이 psycopg 드라이버 주소로 바꿔 씁니다.
+      - key: JETTAE_DATABASE_URL
+        fromDatabase:
+          name: jettae-db
+          property: connectionString
+
+databases:
+  - name: jettae-db
+    # free Postgres는 만든 날로부터 30일 뒤 만료되어 앱이 쓸 수 없고, 그 뒤 14일 안에 유료로 올리지 않으면
+    # 데이터와 함께 삭제됩니다. 용량은 1 GB 고정, 백업 없음. 만료 전에 수요 지표와 사전 신청 명단을
+    # 내려받아 두세요(docs/deploy.md). 계속 쓰려면 plan을 0.1c-256mb로 바꿉니다.
+    plan: free
+    region: singapore
+    # 인터넷에서 DB로 바로 붙는 외부 접속을 모두 막습니다(빈 목록). 같은 리전의 jettae-ops 서비스는 내부 주소
+    # (위 fromDatabase의 connectionString)로 붙으므로 영향이 없습니다. 내 컴퓨터에서 psql로 직접 봐야 할 때만
+    # 대시보드의 jettae-db 접근 제어(Access Control) 목록에 내 IP를 잠깐 넣고, 끝나면 지우세요.
+    ipAllowList: []

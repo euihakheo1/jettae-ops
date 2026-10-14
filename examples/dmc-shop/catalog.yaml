@@ -1,0 +1,185 @@
+# 별빛상점 서비스 카탈로그
+#
+# 시스템 구성은 OpenTelemetry Demo 3.1.0(github.com/open-telemetry/opentelemetry-demo, tag 3.1.0,
+# Apache-2.0)의 서비스와 런타임 의존 관계를 그대로 따르고, 이름만 별빛상점 사내 명칭(한국어)으로 바꿨다.
+# 영문 OTel 서비스 이름은 aliases에 남겨 두어 트레이스·대시보드와 맞춰 볼 수 있다.
+#
+# 형식: 제때옵스 기본 카탈로그 형식
+#   services: [{name, kind, tier, aliases, depends_on, location, owner, description}]
+#   - kind     : service(사용자 기능) | system(인프라 구성요소) | channel(연락 수단)
+#   - tier     : 1 = 핵심(멈추면 매출 즉시 중단), 2 = 중요, 3 = 부가
+#   - location : 장애 도메인. '클라우드 서울 리전' = 퍼블릭 클라우드,
+#                '상암 IDC' = 상암 DMC 입주 건물 전산실에 둔 자체 서버(온프레미스)
+#   - owner    : 카탈로그에 등록된 담당 조직. 런북이 없는 서비스와 담당이 비어 있는 결제는 비워 둠
+
+services:
+  # ───────────────────────── 사용자 서비스 ─────────────────────────
+  - name: 웹 프론트엔드
+    kind: service
+    tier: 1
+    aliases: [frontend, 프론트엔드, 쇼핑몰 웹]
+    depends_on: [광고, 장바구니, 주문, 환율, 상품 카탈로그, 추천, 배송, flagd]
+    location: 클라우드 서울 리전
+    owner: 개발팀
+    description: 별빛상점 쇼핑몰 화면 (OTel Demo frontend, Next.js)
+
+  - name: 결제
+    kind: service
+    tier: 1
+    aliases: [payment, 결제 서비스, 결제팀 결제 API]
+    depends_on: [flagd]
+    location: 클라우드 서울 리전
+    # owner 비어 있음: 담당자였던 김민준 대리 퇴사(2026-08-31) 후 재지정되지 않음
+    description: 카드 결제 승인 요청 처리 (OTel Demo payment, Node.js)
+
+  - name: 주문
+    kind: service
+    tier: 1
+    aliases: [checkout, 체크아웃, 주문/체크아웃, 주문 서비스]
+    depends_on: [장바구니, 환율, 이메일, 결제, 상품 카탈로그, 배송, flagd, kafka]
+    location: 클라우드 서울 리전
+    owner: 주문팀
+    description: 주문서 작성부터 결제·배송 접수·주문 완료 이벤트 발행까지 (OTel Demo checkout, Go)
+
+  - name: 장바구니
+    kind: service
+    tier: 1
+    aliases: [cart, 장바구니 서비스]
+    depends_on: [valkey-cart, flagd]
+    location: 클라우드 서울 리전
+    owner: 개발팀
+    description: 회원·비회원 장바구니 (OTel Demo cart, .NET)
+
+  - name: 상품 카탈로그
+    kind: service
+    tier: 2
+    aliases: [product-catalog, 카탈로그, 상품 목록]
+    depends_on: [astronomy-db, flagd]
+    location: 클라우드 서울 리전
+    owner: 개발팀
+    description: 상품 목록·검색·상세 (OTel Demo product-catalog, Go). 상품 데이터는 상암 IDC의 astronomy-db에 있음
+
+  - name: 배송
+    kind: service
+    tier: 2
+    aliases: [shipping, 배송 서비스]
+    depends_on: [배송비 견적, flagd]
+    location: 클라우드 서울 리전
+    description: 배송 접수·송장 발급 (OTel Demo shipping, Rust)
+
+  - name: 배송비 견적
+    kind: service
+    tier: 3
+    aliases: [quote, 배송비 견적 서비스]
+    depends_on: []
+    location: 클라우드 서울 리전
+    description: 주소·수량 기준 배송비 계산 (OTel Demo quote, PHP)
+
+  - name: 추천
+    kind: service
+    tier: 3
+    aliases: [recommendation, 상품 추천]
+    depends_on: [상품 카탈로그, flagd]
+    location: 클라우드 서울 리전
+    owner: 개발팀
+    description: 상품 상세 화면의 "함께 보면 좋은 상품" 추천 (OTel Demo recommendation, Python)
+
+  - name: 광고
+    kind: service
+    tier: 3
+    aliases: [ad, 광고 서비스]
+    depends_on: [flagd]
+    location: 클라우드 서울 리전
+    owner: 개발팀
+    description: 쇼핑몰 화면 배너 광고 (OTel Demo ad, Java)
+
+  - name: 이메일
+    kind: service
+    tier: 3
+    aliases: [email, 주문 확인 메일, 메일 발송]
+    depends_on: [flagd]
+    location: 클라우드 서울 리전
+    owner: 개발팀
+    description: 주문 확인 메일 발송 (OTel Demo email, Ruby)
+
+  - name: 환율
+    kind: service
+    tier: 2
+    aliases: [currency, 환율 변환]
+    depends_on: []
+    location: 클라우드 서울 리전
+    owner: 개발팀
+    description: 원화·외화 가격 변환 (OTel Demo currency, C++)
+
+  - name: 정산
+    kind: service
+    tier: 2
+    aliases: [accounting, 정산 서비스]
+    depends_on: [kafka, astronomy-db]
+    location: 상암 IDC
+    description: 주문 완료 이벤트를 받아 매출·정산 장부 기록 (OTel Demo accounting, .NET)
+
+  - name: 이상거래 탐지
+    kind: service
+    tier: 2
+    aliases: [fraud-detection, 이상 거래 탐지, FDS]
+    depends_on: [kafka, flagd]
+    location: 클라우드 서울 리전
+    description: 주문 이벤트에서 의심 거래 탐지 (OTel Demo fraud-detection, Kotlin)
+
+  # ───────────────────────── 인프라 구성요소 ─────────────────────────
+  - name: frontend-proxy
+    kind: system
+    aliases: [Envoy, 앞단 프록시]
+    depends_on: [웹 프론트엔드, image-provider, flagd]
+    location: 클라우드 서울 리전
+    owner: 개발팀
+    description: 외부 트래픽 진입점 (OTel Demo frontend-proxy, Envoy)
+
+  - name: image-provider
+    kind: system
+    aliases: [이미지 서버]
+    depends_on: []
+    location: 클라우드 서울 리전
+    owner: 개발팀
+    description: 상품 이미지 정적 서버 (OTel Demo image-provider, nginx)
+
+  - name: flagd
+    kind: system
+    aliases: [flagd 서버, OpenFeature flagd]
+    depends_on: []
+    location: 클라우드 서울 리전
+    owner: 개발팀
+    description: 기능 플래그 서버 (OpenFeature flagd). 장애 리허설용 플래그도 여기서 켜고 끔
+
+  - name: valkey-cart
+    kind: system
+    aliases: [valkey, 장바구니 저장소]
+    depends_on: []
+    location: 클라우드 서울 리전
+    owner: 개발팀
+    description: 장바구니 데이터 저장소 (Valkey)
+
+  - name: astronomy-db
+    kind: system
+    aliases: [PostgreSQL, postgres, 상품 DB]
+    depends_on: []
+    location: 상암 IDC
+    owner: 개발팀
+    description: 상품·주문 데이터베이스 (PostgreSQL). 상암 IDC 단일 설치
+
+  - name: kafka
+    kind: system
+    aliases: [Kafka, 카프카, 이벤트 큐]
+    depends_on: []
+    location: 상암 IDC
+    owner: 개발팀
+    description: 주문 완료 이벤트 큐 (Apache Kafka). 정산·이상거래 탐지가 구독
+
+  # ───────────────────────── 연락 수단 ─────────────────────────
+  - name: 사내 메신저
+    kind: channel
+    aliases: [사내메신저, internal_messenger]
+    depends_on: []
+    location: 상암 IDC
+    description: 사내 구축형 메신저 — 상암 IDC 장애 시 함께 중단

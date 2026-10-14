@@ -1,0 +1,274 @@
+@import 'tailwindcss';
+@import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+@import '@xyflow/react/dist/base.css';
+
+/* 프로젝터 모드(밝은 고대비) 변형: projector:bg-white … */
+@custom-variant projector (&:where([data-theme='projector'], [data-theme='projector'] *));
+
+@theme inline {
+  --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo',
+    'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  --font-mono: ui-monospace, 'JetBrains Mono', 'D2Coding', SFMono-Regular, Menlo, Consolas, monospace;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-brand: var(--brand);
+  --color-brand-fg: var(--brand-fg);
+  --color-danger: var(--danger);
+  --color-warn: var(--warn);
+  --color-ok: var(--ok);
+  --color-info: var(--info);
+  --color-ghost: var(--ghost);
+}
+
+@theme {
+  --animate-flow: flow 1.1s linear infinite;
+  --animate-pulse-ring: pulse-ring 1.6s ease-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-fade-in: fade-in 0.25s ease-out both;
+  --animate-slide-in: slide-in 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+
+  @keyframes flow {
+    to {
+      stroke-dashoffset: -24;
+    }
+  }
+  @keyframes pulse-ring {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in oklab, var(--danger) 55%, transparent);
+    }
+    100% {
+      box-shadow: 0 0 0 14px transparent;
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------- 테마 토큰 */
+:root,
+:root[data-theme='dark'] {
+  --bg: #090b10;
+  --surface: #10131a;
+  --surface-2: #161a23;
+  --surface-3: #1d222d;
+  --line: #242a37;
+  --line-strong: #353d4f;
+  --fg: #eceff5;
+  --fg-muted: #aab2c2;
+  --fg-subtle: #7b8496;
+  --brand: #8e95ff;
+  --brand-fg: #0b0d14;
+  --danger: #ff6b6b;
+  --warn: #f6b94c;
+  --ok: #3ddc97;
+  --info: #5cc8ff;
+  --ghost: #ff8585;
+  --edge: #4a5468;
+  --edge-faded: #2a3140;
+  --shadow: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 8px 24px rgb(0 0 0 / 0.35);
+  --grid-dot: #1f2531;
+  font-size: 16px;
+  color-scheme: dark;
+}
+
+/* 프로젝터 모드: 흰 바탕 · 진한 글자 · 큰 글씨 (밝은 강당에서도 뒷줄까지 읽히도록) */
+:root[data-theme='projector'] {
+  --bg: #ffffff;
+  --surface: #f6f7f9;
+  --surface-2: #edeff3;
+  --surface-3: #e1e5eb;
+  --line: #c9ced8;
+  --line-strong: #8d96a7;
+  --fg: #03050a;
+  --fg-muted: #273041;
+  --fg-subtle: #475165;
+  --brand: #2f35c9;
+  --brand-fg: #ffffff;
+  --danger: #c01818;
+  --warn: #9a5200;
+  --ok: #036b47;
+  --info: #0a5aa8;
+  --ghost: #c01818;
+  --edge: #5d6678;
+  --edge-faded: #c3c8d2;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.08), 0 6px 18px rgb(0 0 0 / 0.08);
+  --grid-dot: #d5d9e1;
+  font-size: 17.5px;
+  color-scheme: light;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    line-height: 1.6;
+    font-feature-settings: 'ss06';
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 3px solid var(--brand);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--brand) 35%, transparent);
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+  code,
+  kbd {
+    @apply font-mono;
+  }
+  /* 한 글자·한 낱말만 다음 줄로 넘어가는 '외톨이 줄'을 막는다 */
+  p,
+  li,
+  dd,
+  blockquote {
+    text-wrap: pretty;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-line bg-surface;
+    box-shadow: var(--shadow);
+  }
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+  .hairline {
+    @apply border-line;
+  }
+  mark.quote-hit {
+    background: color-mix(in oklab, var(--warn) 32%, transparent);
+    color: var(--fg);
+    border-radius: 4px;
+    padding: 0 2px;
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--warn) 60%, transparent);
+  }
+}
+
+/* ---------------------------------------------------------------- React Flow 테마 */
+.react-flow {
+  --xy-background-color: transparent;
+  --xy-node-border-radius: 12px;
+  --xy-minimap-background-color: var(--surface);
+  --xy-minimap-mask-background-color: color-mix(in oklab, var(--bg) 70%, transparent);
+  --xy-minimap-node-background-color: var(--surface-3);
+  --xy-controls-button-background-color: var(--surface-2);
+  --xy-controls-button-background-color-hover: var(--surface-3);
+  --xy-controls-button-color: var(--fg);
+  --xy-controls-button-border-color: var(--line);
+  --xy-edge-stroke: var(--edge);
+}
+.react-flow__attribution {
+  background: transparent;
+  opacity: 0.55;
+  font-size: 10px;
+}
+.react-flow__attribution a {
+  color: var(--fg-subtle);
+}
+.react-flow__controls {
+  @apply overflow-hidden rounded-xl border border-line;
+  box-shadow: var(--shadow);
+}
+.react-flow__controls-button svg {
+  fill: currentColor;
+}
+.react-flow__minimap {
+  @apply overflow-hidden rounded-xl border border-line;
+}
+.react-flow__handle {
+  opacity: 0;
+  width: 6px;
+  height: 6px;
+  min-width: 0;
+  min-height: 0;
+  border: 0;
+}
+.react-flow__node {
+  cursor: pointer;
+}
+.react-flow__edge-path.edge-flow {
+  stroke-dasharray: 8 6;
+  animation: flow 1.1s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* 테마 변수 밖에서도 쓰는 키프레임 (트리 셰이킹 방지) */
+@keyframes flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--danger) 55%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 14px transparent;
+  }
+}
+
+/* 꺼진 버튼 위에서도 툴팁이 뜨도록 (꺼진 컨트롤은 마우스 이벤트를 받지 않는 브라우저가 있다) */
+.tt-wrap > button:disabled {
+  pointer-events: none;
+}

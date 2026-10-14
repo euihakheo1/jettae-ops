@@ -1,0 +1,75 @@
+# 별빛상점 모의 장애 리허설 시나리오 (사람이 작성)
+#
+# 제때옵스는 이 시나리오를 운영 그래프 위에서 결정적으로 재생(리플레이)할 뿐, 실제 시스템은 건드리지 않는다.
+# feature_flag 항목은 같은 상황을 OpenTelemetry Demo 3.1.0에서 실제로 재현할 때 켜는 flagd 플래그 이름이다.
+#
+# 항목
+#   id, title, description
+#   service        : 장애가 난 서비스(카탈로그 이름)
+#   incident_type  : outage(서비스 장애) | breach(침해사고) | privacy_leak(개인정보 유출)
+#   perturbations  : 리허설 중 함께 일어나는 일
+#       kind   : person_unavailable | channel_down | system_down | location_down | concurrent_incident
+#       target : 사람 이름, 연락 수단(slack, internal_messenger …), 시스템·위치·서비스 이름
+#   deadline_minutes (선택) : 비우면 policy.yaml의 등급별 목표 복구 시간을 쓴다
+#   feature_flag     (선택) : OTel Demo에서 재현할 때 쓰는 flagd 플래그
+
+- id: dmc-s1-chuseok-payment
+  title: 추석 연휴 새벽 결제 장애 (flagd paymentFailure=1.0)
+  description: >-
+    추석 연휴 첫날 새벽 3시, 결제 요청이 전부 실패한다(flagd의 paymentFailure를 1.0으로 설정).
+    연휴라 슬랙 알림은 대부분 방해 금지 상태이고, 한서윤 CTO는 해외 가족 여행 중이라 연락이 닿지 않는다.
+  service: 결제
+  incident_type: outage
+  perturbations:
+    - kind: channel_down
+      target: slack
+    - kind: person_unavailable
+      target: 한서윤
+  feature_flag: paymentFailure
+
+- id: dmc-s2-sangam-idc-fire
+  title: 상암 IDC 화재 — DB·Kafka·사내 메신저 동시 중단
+  description: >-
+    평일 오후 상암 IDC 배터리실 화재로 전산실 전원이 차단된다(2022년 10월 판교 데이터센터 화재와 같은 유형).
+    IDC에 있는 astronomy-db(PostgreSQL)·Kafka·사내 메신저가 한꺼번에 멈춰 상품 카탈로그가 상품 목록을 읽지 못하고,
+    Kafka 중단으로 주문 완료 이벤트 발행도 동시에 실패한다.
+  service: 상품 카탈로그
+  incident_type: outage
+  perturbations:
+    - kind: location_down
+      target: 상암 IDC
+    - kind: system_down
+      target: astronomy-db
+    - kind: system_down
+      target: kafka
+    - kind: channel_down
+      target: internal_messenger
+    - kind: concurrent_incident
+      target: 주문
+
+- id: dmc-s3-slack-outage-order
+  title: 슬랙 전사 장애 중 주문 실패 (paymentUnreachable)
+  description: >-
+    슬랙 전사 장애가 이어지는 평일 오전, 주문 서비스가 결제 서비스에 접속하지 못해 주문이 실패한다
+    (flagd의 paymentUnreachable을 켬). 주문 1차 담당 정민혁 과장은 연차로 제주행 비행기 안이라 연락이 되지 않는다.
+  service: 주문
+  incident_type: outage
+  perturbations:
+    - kind: channel_down
+      target: slack
+    - kind: person_unavailable
+      target: 정민혁
+  feature_flag: paymentUnreachable
+
+- id: dmc-s4-breach-report
+  title: 해킹 의심 접속 탐지 — 침해사고 24시간 신고 리허설
+  description: >-
+    금요일 밤, 결제 관리자 화면에 해외 IP의 비정상 로그인이 연달아 성공한 것이 탐지된다.
+    침해사고는 알게 된 때부터 24시간 안에 과학기술정보통신부 또는 KISA에 신고해야 하지만(정보통신망법 제48조의3),
+    오준석 CISO는 해외 보안 컨퍼런스 출장으로 비행 중이다.
+  service: 결제
+  incident_type: breach
+  perturbations:
+    - kind: person_unavailable
+      target: 오준석
+  deadline_minutes: 1440

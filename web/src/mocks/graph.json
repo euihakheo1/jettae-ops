@@ -1,0 +1,8725 @@
+{
+ "nodes": {
+  "action:결제-서비스-롤백": {
+   "id": "action:결제-서비스-롤백",
+   "kind": "action",
+   "name": "결제 서비스 롤백",
+   "attrs": {
+    "action_type": {
+     "value": "rollback",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 246,
+       "end": 248,
+       "quote": "롤백",
+       "line": 13
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 246,
+       "end": 248,
+       "quote": "롤백",
+       "line": 13
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 241,
+       "end": 249,
+       "quote": "안 되면 롤백.",
+       "line": 13
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "action:광고-기능-플래그-off": {
+   "id": "action:광고-기능-플래그-off",
+   "kind": "action",
+   "name": "광고 기능 플래그 OFF",
+   "attrs": {
+    "action_type": {
+     "value": "feature_flag",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 1079,
+       "end": 1088,
+       "quote": "기능 플래그 끄기",
+       "line": 51
+      }
+     ],
+     "source": "runbook"
+    },
+    "requires_approval": {
+     "value": true,
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 1067,
+       "end": 1113,
+       "quote": "adHighCpu)면 기능 플래그 끄기 — 박재현 팀장 승인 후 강현우 사원이 실행",
+       "line": 51
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 1067,
+       "end": 1113,
+       "quote": "adHighCpu)면 기능 플래그 끄기 — 박재현 팀장 승인 후 강현우 사원이 실행",
+       "line": 51
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "action:상품-카탈로그-기능-플래그-off": {
+   "id": "action:상품-카탈로그-기능-플래그-off",
+   "kind": "action",
+   "name": "상품 카탈로그 기능 플래그 OFF",
+   "attrs": {
+    "action_type": {
+     "value": "feature_flag",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 457,
+       "end": 466,
+       "quote": "기능 플래그 끄고",
+       "line": 25
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 457,
+       "end": 466,
+       "quote": "기능 플래그 끄고",
+       "line": 25
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 446,
+       "end": 506,
+       "quote": "DB 락 걸린 거면 기능 플래그 끄고(productCatalogLockContention) 원복하면 됩니다.",
+       "line": 25
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "action:상품-카탈로그-롤백": {
+   "id": "action:상품-카탈로그-롤백",
+   "kind": "action",
+   "name": "상품 카탈로그 롤백",
+   "attrs": {
+    "action_type": {
+     "value": "rollback",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 497,
+       "end": 499,
+       "quote": "원복",
+       "line": 25
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 497,
+       "end": 499,
+       "quote": "원복",
+       "line": 25
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 446,
+       "end": 506,
+       "quote": "DB 락 걸린 거면 기능 플래그 끄고(productCatalogLockContention) 원복하면 됩니다.",
+       "line": 25
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "action:웹-프론트엔드-롤백": {
+   "id": "action:웹-프론트엔드-롤백",
+   "kind": "action",
+   "name": "웹 프론트엔드 롤백",
+   "attrs": {
+    "action_type": {
+     "value": "rollback",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 671,
+       "end": 673,
+       "quote": "롤백",
+       "line": 35
+      }
+     ],
+     "source": "runbook"
+    },
+    "requires_approval": {
+     "value": true,
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 657,
+       "end": 663,
+       "quote": "박재현 팀장",
+       "line": 34
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 600,
+       "end": 673,
+       "quote": "| 감지 | 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향 |\n| 롤백",
+       "line": 33
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 600,
+       "end": 685,
+       "quote": "| 감지 | 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향 |\n| 롤백 승인 | 박재현 팀장",
+       "line": 33
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 600,
+       "end": 704,
+       "quote": "| 감지 | 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향 |\n| 롤백 승인 | 박재현 팀장 |\n| 롤백 실행 | 이수진 대리",
+       "line": 33
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 600,
+       "end": 676,
+       "quote": "| 감지 | 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향 |\n| 롤백 승인",
+       "line": 33
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "action:이메일-재시작": {
+   "id": "action:이메일-재시작",
+   "kind": "action",
+   "name": "이메일 재시작",
+   "attrs": {
+    "action_type": {
+     "value": "restart",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 758,
+       "end": 761,
+       "quote": "재시작",
+       "line": 39
+      }
+     ],
+     "source": "runbook"
+    },
+    "requires_approval": {
+     "value": true,
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 725,
+       "end": 786,
+       "quote": "조치: 메모리 누수(emailMemoryLeak) 의심 시 재시작 — 박재현 팀장 승인 후 이수진 대리가 실행",
+       "line": 39
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 758,
+       "end": 761,
+       "quote": "재시작",
+       "line": 39
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 725,
+       "end": 786,
+       "quote": "조치: 메모리 누수(emailMemoryLeak) 의심 시 재시작 — 박재현 팀장 승인 후 이수진 대리가 실행",
+       "line": 39
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 776,
+       "end": 786,
+       "quote": "이수진 대리가 실행",
+       "line": 39
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "action:장바구니-롤백": {
+   "id": "action:장바구니-롤백",
+   "kind": "action",
+   "name": "장바구니 롤백",
+   "attrs": {
+    "action_type": {
+     "value": "rollback",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 258,
+       "end": 260,
+       "quote": "롤백",
+       "line": 15
+      }
+     ],
+     "source": "runbook"
+    },
+    "requires_approval": {
+     "value": true,
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 256,
+       "end": 274,
+       "quote": "| 롤백 승인 | 박재현 팀장 |",
+       "line": 15
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 258,
+       "end": 260,
+       "quote": "롤백",
+       "line": 15
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 256,
+       "end": 274,
+       "quote": "| 롤백 승인 | 박재현 팀장 |",
+       "line": 15
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 275,
+       "end": 293,
+       "quote": "| 롤백 실행 | 이수진 대리 |",
+       "line": 16
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 258,
+       "end": 263,
+       "quote": "롤백 승인",
+       "line": 15
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "action:주문체크아웃-롤백": {
+   "id": "action:주문체크아웃-롤백",
+   "kind": "action",
+   "name": "주문/체크아웃 롤백",
+   "attrs": {
+    "action_type": {
+     "value": "rollback",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 361,
+       "end": 363,
+       "quote": "롤백",
+       "line": 20
+      }
+     ],
+     "source": "runbook"
+    },
+    "requires_approval": {
+     "value": true,
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 365,
+       "end": 377,
+       "quote": "한서윤 CTO 승인 후",
+       "line": 20
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 361,
+       "end": 388,
+       "quote": "롤백: 한서윤 CTO 승인 후 정민혁 과장이 실행",
+       "line": 20
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 365,
+       "end": 377,
+       "quote": "한서윤 CTO 승인 후",
+       "line": 20
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 378,
+       "end": 388,
+       "quote": "정민혁 과장이 실행",
+       "line": 20
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "action:추천-기능-플래그-off": {
+   "id": "action:추천-기능-플래그-off",
+   "kind": "action",
+   "name": "추천 기능 플래그 OFF",
+   "attrs": {
+    "action_type": {
+     "value": "feature_flag",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 903,
+       "end": 912,
+       "quote": "기능 플래그 끄기",
+       "line": 44
+      }
+     ],
+     "source": "runbook"
+    },
+    "requires_approval": {
+     "value": true,
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 915,
+       "end": 926,
+       "quote": "박재현 팀장 승인 후",
+       "line": 44
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 903,
+       "end": 912,
+       "quote": "기능 플래그 끄기",
+       "line": 44
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 915,
+       "end": 926,
+       "quote": "박재현 팀장 승인 후",
+       "line": 44
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 927,
+       "end": 937,
+       "quote": "강현우 사원이 실행",
+       "line": 44
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 861,
+       "end": 937,
+       "quote": "조치: 추천 캐시 장애(recommendationCacheFailure)면 기능 플래그 끄기 — 박재현 팀장 승인 후 강현우 사원이 실행",
+       "line": 44
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "action:환율-롤백": {
+   "id": "action:환율-롤백",
+   "kind": "action",
+   "name": "환율 롤백",
+   "attrs": {
+    "action_type": {
+     "value": "rollback",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 582,
+       "end": 584,
+       "quote": "롤백",
+       "line": 32
+      }
+     ],
+     "source": "runbook"
+    },
+    "requires_approval": {
+     "value": true,
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 586,
+       "end": 597,
+       "quote": "박재현 팀장 승인 후",
+       "line": 32
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 582,
+       "end": 608,
+       "quote": "롤백: 박재현 팀장 승인 후 강현우 사원이 실행",
+       "line": 32
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 586,
+       "end": 597,
+       "quote": "박재현 팀장 승인 후",
+       "line": 32
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 598,
+       "end": 608,
+       "quote": "강현우 사원이 실행",
+       "line": 32
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "channel:email": {
+   "id": "channel:email",
+   "kind": "channel",
+   "name": "email",
+   "attrs": {
+    "medium": {
+     "value": "email",
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:오준석"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:윤아름"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:한서윤"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-4d955efdddac",
+       "start": 267,
+       "end": 270,
+       "quote": "이메일",
+       "line": 15
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "channel:internal_messenger": {
+   "id": "channel:internal_messenger",
+   "kind": "channel",
+   "name": "internal_messenger",
+   "attrs": {
+    "medium": {
+     "value": "internal_messenger",
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:이수진"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:사내 메신저"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 676,
+       "end": 682,
+       "quote": "사내 메신저",
+       "line": 37
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 148,
+       "end": 154,
+       "quote": "사내 메신저",
+       "line": 12
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 576,
+       "end": 582,
+       "quote": "사내 메신저",
+       "line": 32
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "channel:kakaotalk": {
+   "id": "channel:kakaotalk",
+   "kind": "channel",
+   "name": "kakaotalk",
+   "attrs": {
+    "medium": {
+     "value": "kakaotalk",
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:박재현"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:한서윤"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "channel:phone": {
+   "id": "channel:phone",
+   "kind": "channel",
+   "name": "phone",
+   "attrs": {
+    "medium": {
+     "value": "phone",
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:강현우"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:김민준"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:김서연"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:박재현"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:오준석"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:윤아름"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:이수진"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:정민혁"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:조영석"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:한서윤"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 320,
+       "end": 322,
+       "quote": "전화",
+       "line": 18
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 167,
+       "end": 169,
+       "quote": "전화",
+       "line": 12
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-4d955efdddac",
+       "start": 262,
+       "end": 265,
+       "quote": "휴대폰",
+       "line": 15
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 537,
+       "end": 539,
+       "quote": "전화",
+       "line": 30
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 573,
+       "end": 575,
+       "quote": "전화",
+       "line": 31
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 684,
+       "end": 686,
+       "quote": "전화",
+       "line": 37
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 595,
+       "end": 597,
+       "quote": "전화",
+       "line": 32
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 1001,
+       "end": 1003,
+       "quote": "전화",
+       "line": 49
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 816,
+       "end": 818,
+       "quote": "전화",
+       "line": 42
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 852,
+       "end": 854,
+       "quote": "전화",
+       "line": 43
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 437,
+       "end": 439,
+       "quote": "전화",
+       "line": 24
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-4d955efdddac",
+       "start": 252,
+       "end": 271,
+       "quote": "오준석 CISO (휴대폰, 이메일)",
+       "line": 15
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "channel:slack": {
+   "id": "channel:slack",
+   "kind": "channel",
+   "name": "slack",
+   "attrs": {
+    "medium": {
+     "value": "slack",
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:강현우"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:김민준"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:김서연"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:박재현"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:배은지"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:정민혁"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:최영훈"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 316,
+       "end": 318,
+       "quote": "슬랙",
+       "line": 18
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 401,
+       "end": 403,
+       "quote": "슬랙",
+       "line": 23
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 533,
+       "end": 535,
+       "quote": "슬랙",
+       "line": 30
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 997,
+       "end": 999,
+       "quote": "슬랙",
+       "line": 49
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 812,
+       "end": 814,
+       "quote": "슬랙",
+       "line": 42
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "location:상암-idc": {
+   "id": "location:상암-idc",
+   "kind": "location",
+   "name": "상암 IDC",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:astronomy-db"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:kafka"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:사내 메신저"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:정산"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "location:클라우드-서울-리전": {
+   "id": "location:클라우드-서울-리전",
+   "kind": "location",
+   "name": "클라우드 서울 리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:flagd"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:frontend-proxy"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:image-provider"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:valkey-cart"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:결제"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:광고"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:배송"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:배송비 견적"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:상품 카탈로그"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:이메일"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:이상거래 탐지"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:장바구니"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:추천"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:환율"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "obligation:kisa-침해사고-신고": {
+   "id": "obligation:kisa-침해사고-신고",
+   "kind": "obligation",
+   "name": "KISA 침해사고 신고",
+   "attrs": {
+    "deadline_minutes": {
+     "value": 2880,
+     "spans": [
+      {
+       "doc_id": "doc-4d955efdddac",
+       "start": 225,
+       "end": 232,
+       "quote": "48시간 이내",
+       "line": 13
+      }
+     ],
+     "source": "runbook"
+    },
+    "incident_type": {
+     "value": "breach",
+     "spans": [
+      {
+       "doc_id": "doc-4d955efdddac",
+       "start": 198,
+       "end": 244,
+       "quote": "침해사고(해킹 등)를 인지하면 오준석 CISO가 48시간 이내 KISA에 신고한다.",
+       "line": 13
+      }
+     ],
+     "source": "runbook"
+    },
+    "recipient": {
+     "value": "KISA",
+     "spans": [
+      {
+       "doc_id": "doc-4d955efdddac",
+       "start": 233,
+       "end": 237,
+       "quote": "KISA",
+       "line": 13
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-4d955efdddac",
+       "start": 225,
+       "end": 238,
+       "quote": "48시간 이내 KISA에",
+       "line": 13
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-4d955efdddac",
+       "start": 215,
+       "end": 243,
+       "quote": "오준석 CISO가 48시간 이내 KISA에 신고한다",
+       "line": 13
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "person:강현우": {
+   "id": "person:강현우",
+   "kind": "person",
+   "name": "강현우",
+   "attrs": {
+    "status": {
+     "value": "active",
+     "spans": [],
+     "source": "roster"
+    },
+    "title": {
+     "value": "사원",
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:강현우"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:강현우"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 509,
+       "end": 515,
+       "quote": "강현우 사원",
+       "line": 29
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 788,
+       "end": 794,
+       "quote": "강현우 사원",
+       "line": 41
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 547,
+       "end": 553,
+       "quote": "강현우 사원",
+       "line": 31
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 598,
+       "end": 604,
+       "quote": "강현우 사원",
+       "line": 32
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 525,
+       "end": 531,
+       "quote": "강현우 사원",
+       "line": 30
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 973,
+       "end": 979,
+       "quote": "강현우 사원",
+       "line": 48
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 826,
+       "end": 832,
+       "quote": "강현우 사원",
+       "line": 43
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 1103,
+       "end": 1109,
+       "quote": "강현우 사원",
+       "line": 51
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 927,
+       "end": 933,
+       "quote": "강현우 사원",
+       "line": 44
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 804,
+       "end": 810,
+       "quote": "강현우 사원",
+       "line": 42
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "person:김민준": {
+   "id": "person:김민준",
+   "kind": "person",
+   "name": "김민준",
+   "attrs": {
+    "status": {
+     "value": "departed",
+     "spans": [],
+     "source": "roster"
+    },
+    "title": {
+     "value": "대리",
+     "spans": [],
+     "source": "roster"
+    },
+    "aliases": {
+     "value": [
+      "김대리"
+     ],
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:김민준"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:김민준"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 231,
+       "end": 234,
+       "quote": "김대리",
+       "line": 13
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "person:김서연": {
+   "id": "person:김서연",
+   "kind": "person",
+   "name": "김서연",
+   "attrs": {
+    "status": {
+     "value": "active",
+     "spans": [],
+     "source": "roster"
+    },
+    "title": {
+     "value": "사원",
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:김서연"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:김서연"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "person:박재현": {
+   "id": "person:박재현",
+   "kind": "person",
+   "name": "박재현",
+   "attrs": {
+    "status": {
+     "value": "active",
+     "spans": [],
+     "source": "roster"
+    },
+    "title": {
+     "value": "팀장",
+     "spans": [],
+     "source": "roster"
+    },
+    "aliases": {
+     "value": [
+      "재현 팀장",
+      "재현"
+     ],
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:박재현"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:박재현"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 564,
+       "end": 570,
+       "quote": "박재현 팀장",
+       "line": 31
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 244,
+       "end": 250,
+       "quote": "박재현 팀장",
+       "line": 14
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 389,
+       "end": 395,
+       "quote": "재현 팀장님",
+       "line": 23
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 764,
+       "end": 770,
+       "quote": "박재현 팀장",
+       "line": 39
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 586,
+       "end": 592,
+       "quote": "박재현 팀장",
+       "line": 32
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 711,
+       "end": 717,
+       "quote": "박재현 팀장",
+       "line": 38
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 1091,
+       "end": 1097,
+       "quote": "박재현 팀장",
+       "line": 51
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 657,
+       "end": 663,
+       "quote": "박재현 팀장",
+       "line": 34
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 266,
+       "end": 272,
+       "quote": "박재현 팀장",
+       "line": 15
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 915,
+       "end": 921,
+       "quote": "박재현 팀장",
+       "line": 44
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 1028,
+       "end": 1034,
+       "quote": "박재현 팀장",
+       "line": 50
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 843,
+       "end": 849,
+       "quote": "박재현 팀장",
+       "line": 43
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 389,
+       "end": 394,
+       "quote": "재현 팀장",
+       "line": 23
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "person:배은지": {
+   "id": "person:배은지",
+   "kind": "person",
+   "name": "배은지",
+   "attrs": {
+    "status": {
+     "value": "on_leave",
+     "spans": [],
+     "source": "roster"
+    },
+    "title": {
+     "value": "대리",
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:배은지"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "person:오준석": {
+   "id": "person:오준석",
+   "kind": "person",
+   "name": "오준석",
+   "attrs": {
+    "status": {
+     "value": "active",
+     "spans": [],
+     "source": "roster"
+    },
+    "title": {
+     "value": "이사",
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:오준석"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-4d955efdddac",
+       "start": 215,
+       "end": 223,
+       "quote": "오준석 CISO",
+       "line": 13
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-4d955efdddac",
+       "start": 252,
+       "end": 260,
+       "quote": "오준석 CISO",
+       "line": 15
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "person:윤아름": {
+   "id": "person:윤아름",
+   "kind": "person",
+   "name": "윤아름",
+   "attrs": {
+    "status": {
+     "value": "active",
+     "spans": [],
+     "source": "roster"
+    },
+    "title": {
+     "value": "과장",
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:윤아름"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "person:이수진": {
+   "id": "person:이수진",
+   "kind": "person",
+   "name": "이수진",
+   "attrs": {
+    "status": {
+     "value": "active",
+     "spans": [],
+     "source": "roster"
+    },
+    "title": {
+     "value": "대리",
+     "spans": [],
+     "source": "roster"
+    },
+    "aliases": {
+     "value": [
+      "수진"
+     ],
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:이수진"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:이수진"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 652,
+       "end": 658,
+       "quote": "이수진 대리",
+       "line": 36
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 132,
+       "end": 138,
+       "quote": "이수진 대리",
+       "line": 11
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 694,
+       "end": 700,
+       "quote": "이수진 대리",
+       "line": 38
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 776,
+       "end": 782,
+       "quote": "이수진 대리",
+       "line": 39
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 668,
+       "end": 674,
+       "quote": "이수진 대리",
+       "line": 37
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 560,
+       "end": 566,
+       "quote": "이수진 대리",
+       "line": 31
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 698,
+       "end": 704,
+       "quote": "이수진 대리",
+       "line": 36
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 285,
+       "end": 291,
+       "quote": "이수진 대리",
+       "line": 16
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "person:정민혁": {
+   "id": "person:정민혁",
+   "kind": "person",
+   "name": "정민혁",
+   "attrs": {
+    "status": {
+     "value": "active",
+     "spans": [],
+     "source": "roster"
+    },
+    "title": {
+     "value": "과장",
+     "spans": [],
+     "source": "roster"
+    },
+    "aliases": {
+     "value": [
+      "민혁"
+     ],
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:정민혁"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:정민혁"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 292,
+       "end": 298,
+       "quote": "정민혁 과장",
+       "line": 17
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 330,
+       "end": 336,
+       "quote": "정민혁 과장",
+       "line": 19
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 454,
+       "end": 460,
+       "quote": "정민혁 과장",
+       "line": 25
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 378,
+       "end": 384,
+       "quote": "정민혁 과장",
+       "line": 20
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 308,
+       "end": 314,
+       "quote": "정민혁 과장",
+       "line": 18
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "person:조영석": {
+   "id": "person:조영석",
+   "kind": "person",
+   "name": "조영석",
+   "attrs": {
+    "status": {
+     "value": "active",
+     "spans": [],
+     "source": "roster"
+    },
+    "title": {
+     "value": "대표",
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:조영석"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "person:최영훈": {
+   "id": "person:최영훈",
+   "kind": "person",
+   "name": "최영훈",
+   "attrs": {
+    "status": {
+     "value": "active",
+     "spans": [],
+     "source": "roster"
+    },
+    "title": {
+     "value": "차장",
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:최영훈"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:최영훈"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 347,
+       "end": 353,
+       "quote": "최영훈 차장",
+       "line": 19
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 437,
+       "end": 443,
+       "quote": "최영훈 차장",
+       "line": 25
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "person:한서윤": {
+   "id": "person:한서윤",
+   "kind": "person",
+   "name": "한서윤",
+   "attrs": {
+    "status": {
+     "value": "active",
+     "spans": [],
+     "source": "roster"
+    },
+    "title": {
+     "value": "CTO",
+     "spans": [],
+     "source": "roster"
+    }
+   },
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:한서윤"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 365,
+       "end": 372,
+       "quote": "한서윤 CTO",
+       "line": 20
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 427,
+       "end": 435,
+       "quote": "한서윤 CTO님",
+       "line": 24
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 427,
+       "end": 434,
+       "quote": "한서윤 CTO",
+       "line": 24
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "role:1차-당직": {
+   "id": "role:1차-당직",
+   "kind": "role",
+   "name": "1차 당직",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:김서연"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:강현우"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:김민준"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:김서연"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:박재현"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:이수진"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:정민혁"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:최영훈"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "role:2차-당직": {
+   "id": "role:2차-당직",
+   "kind": "role",
+   "name": "2차 당직",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:강현우"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:김서연"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:박재현"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:이수진"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:정민혁"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:최영훈"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "role:ceo": {
+   "id": "role:ceo",
+   "kind": "role",
+   "name": "CEO",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:조영석"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "role:ciso": {
+   "id": "role:ciso",
+   "kind": "role",
+   "name": "CISO",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:오준석"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "role:cto": {
+   "id": "role:cto",
+   "kind": "role",
+   "name": "CTO",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:한서윤"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "role:개인정보-보호책임자": {
+   "id": "role:개인정보-보호책임자",
+   "kind": "role",
+   "name": "개인정보 보호책임자",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:윤아름"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "role:대표": {
+   "id": "role:대표",
+   "kind": "role",
+   "name": "대표",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:조영석"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "role:보안-담당자": {
+   "id": "role:보안-담당자",
+   "kind": "role",
+   "name": "보안 담당자",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:오준석"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "role:팀장": {
+   "id": "role:팀장",
+   "kind": "role",
+   "name": "팀장",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:박재현"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 409,
+       "end": 445,
+       "quote": "팀장님이 20분 넘게 답 없으면 한서윤 CTO님께 전화 드리고요.",
+       "line": 24
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 409,
+       "end": 411,
+       "quote": "팀장",
+       "line": 24
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "service:결제": {
+   "id": "service:결제",
+   "kind": "service",
+   "name": "결제",
+   "attrs": {
+    "tier": {
+     "value": 1,
+     "spans": [],
+     "source": "catalog"
+    },
+    "description": {
+     "value": "카드 결제 승인 요청 처리 (OTel Demo payment, Node.js)",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "payment",
+      "결제 서비스",
+      "결제팀 결제 API"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:결제"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 2,
+       "end": 4,
+       "quote": "결제",
+       "line": 1
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 163,
+       "end": 169,
+       "quote": "결제 서비스",
+       "line": 10
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 181,
+       "end": 204,
+       "quote": "결제 실패율 알람(5% 초과 3분 지속)이",
+       "line": 12
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 219,
+       "end": 230,
+       "quote": "결제 장애가 계속되면",
+       "line": 13
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 241,
+       "end": 249,
+       "quote": "안 되면 롤백.",
+       "line": 13
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 231,
+       "end": 239,
+       "quote": "김대리에게 연락",
+       "line": 13
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "service:광고": {
+   "id": "service:광고",
+   "kind": "service",
+   "name": "광고",
+   "attrs": {
+    "tier": {
+     "value": 3,
+     "spans": [],
+     "source": "catalog"
+    },
+    "description": {
+     "value": "쇼핑몰 화면 배너 광고 (OTel Demo ad, Java)",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "ad",
+      "광고 서비스"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:광고"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 942,
+       "end": 944,
+       "quote": "광고",
+       "line": 46
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 957,
+       "end": 959,
+       "quote": "광고",
+       "line": 48
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 1067,
+       "end": 1113,
+       "quote": "adHighCpu)면 기능 플래그 끄기 — 박재현 팀장 승인 후 강현우 사원이 실행",
+       "line": 51
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "service:배송": {
+   "id": "service:배송",
+   "kind": "service",
+   "name": "배송",
+   "attrs": {
+    "tier": {
+     "value": 2,
+     "spans": [],
+     "source": "catalog"
+    },
+    "description": {
+     "value": "배송 접수·송장 발급 (OTel Demo shipping, Rust)",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "shipping",
+      "배송 서비스"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:배송"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "service:배송비-견적": {
+   "id": "service:배송비-견적",
+   "kind": "service",
+   "name": "배송비 견적",
+   "attrs": {
+    "tier": {
+     "value": 3,
+     "spans": [],
+     "source": "catalog"
+    },
+    "description": {
+     "value": "주소·수량 기준 배송비 계산 (OTel Demo quote, PHP)",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "quote",
+      "배송비 견적 서비스"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:배송"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:배송비 견적"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "service:상품-카탈로그": {
+   "id": "service:상품-카탈로그",
+   "kind": "service",
+   "name": "상품 카탈로그",
+   "attrs": {
+    "tier": {
+     "value": 2,
+     "spans": [],
+     "source": "catalog"
+    },
+    "description": {
+     "value": "상품 목록·검색·상세 (OTel Demo product-catalog, Go). 상품 데이터는 상암 IDC의 astronomy-db에 있음",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "product-catalog",
+      "상품 목록",
+      "카탈로그"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:상품 카탈로그"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:추천"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 331,
+       "end": 356,
+       "quote": "상품 카탈로그 (product-catalog)",
+       "line": 19
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 446,
+       "end": 506,
+       "quote": "DB 락 걸린 거면 기능 플래그 끄고(productCatalogLockContention) 원복하면 됩니다.",
+       "line": 25
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 389,
+       "end": 407,
+       "quote": "재현 팀장님한테 바로 슬랙 주세요",
+       "line": 23
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "service:웹-프론트엔드": {
+   "id": "service:웹-프론트엔드",
+   "kind": "service",
+   "name": "웹 프론트엔드",
+   "attrs": {
+    "tier": {
+     "value": 1,
+     "spans": [],
+     "source": "catalog"
+    },
+    "description": {
+     "value": "별빛상점 쇼핑몰 화면 (OTel Demo frontend, Next.js)",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "frontend",
+      "쇼핑몰 웹",
+      "프론트엔드"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:frontend-proxy"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 511,
+       "end": 518,
+       "quote": "웹 프론트엔드",
+       "line": 27
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 607,
+       "end": 637,
+       "quote": "프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속)",
+       "line": 33
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 600,
+       "end": 676,
+       "quote": "| 감지 | 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향 |\n| 롤백 승인",
+       "line": 33
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "service:이메일": {
+   "id": "service:이메일",
+   "kind": "service",
+   "name": "이메일",
+   "attrs": {
+    "tier": {
+     "value": 3,
+     "spans": [],
+     "source": "catalog"
+    },
+    "description": {
+     "value": "주문 확인 메일 발송 (OTel Demo email, Ruby)",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "email",
+      "메일 발송",
+      "주문 확인 메일"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:이메일"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 613,
+       "end": 624,
+       "quote": "이메일 (email)",
+       "line": 34
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 632,
+       "end": 649,
+       "quote": "주문 확인 메일 발송 실패 알람",
+       "line": 36
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 725,
+       "end": 786,
+       "quote": "조치: 메모리 누수(emailMemoryLeak) 의심 시 재시작 — 박재현 팀장 승인 후 이수진 대리가 실행",
+       "line": 39
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 613,
+       "end": 616,
+       "quote": "이메일",
+       "line": 34
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "service:이상거래-탐지": {
+   "id": "service:이상거래-탐지",
+   "kind": "service",
+   "name": "이상거래 탐지",
+   "attrs": {
+    "tier": {
+     "value": 2,
+     "spans": [],
+     "source": "catalog"
+    },
+    "description": {
+     "value": "주문 이벤트에서 의심 거래 탐지 (OTel Demo fraud-detection, Kotlin)",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "FDS",
+      "fraud-detection",
+      "이상 거래 탐지"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:이상거래 탐지"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "service:장바구니": {
+   "id": "service:장바구니",
+   "kind": "service",
+   "name": "장바구니",
+   "attrs": {
+    "tier": {
+     "value": 1,
+     "spans": [],
+     "source": "catalog"
+    },
+    "description": {
+     "value": "회원·비회원 장바구니 (OTel Demo cart, .NET)",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "cart",
+      "장바구니 서비스"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:장바구니"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 15,
+       "end": 19,
+       "quote": "장바구니",
+       "line": 1
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 199,
+       "end": 203,
+       "quote": "장바구니",
+       "line": 13
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 258,
+       "end": 263,
+       "quote": "롤백 승인",
+       "line": 15
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 132,
+       "end": 138,
+       "quote": "이수진 대리",
+       "line": 11
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "service:정산": {
+   "id": "service:정산",
+   "kind": "service",
+   "name": "정산",
+   "attrs": {
+    "tier": {
+     "value": 2,
+     "spans": [],
+     "source": "catalog"
+    },
+    "description": {
+     "value": "주문 완료 이벤트를 받아 매출·정산 장부 기록 (OTel Demo accounting, .NET)",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "accounting",
+      "정산 서비스"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:정산"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "service:주문": {
+   "id": "service:주문",
+   "kind": "service",
+   "name": "주문",
+   "attrs": {
+    "tier": {
+     "value": 1,
+     "spans": [],
+     "source": "catalog"
+    },
+    "description": {
+     "value": "주문서 작성부터 결제·배송 접수·주문 완료 이벤트 발행까지 (OTel Demo checkout, Go)",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "checkout",
+      "주문 서비스",
+      "주문/체크아웃",
+      "체크아웃"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 254,
+       "end": 261,
+       "quote": "주문/체크아웃",
+       "line": 15
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 280,
+       "end": 289,
+       "quote": "주문 실패율 알람",
+       "line": 17
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 361,
+       "end": 388,
+       "quote": "롤백: 한서윤 CTO 승인 후 정민혁 과장이 실행",
+       "line": 20
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 304,
+       "end": 314,
+       "quote": "담당: 정민혁 과장",
+       "line": 18
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "service:추천": {
+   "id": "service:추천",
+   "kind": "service",
+   "name": "추천",
+   "attrs": {
+    "tier": {
+     "value": 3,
+     "spans": [],
+     "source": "catalog"
+    },
+    "description": {
+     "value": "상품 상세 화면의 \"함께 보면 좋은 상품\" 추천 (OTel Demo recommendation, Python)",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "recommendation",
+      "상품 추천"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:추천"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 745,
+       "end": 747,
+       "quote": "추천",
+       "line": 39
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 772,
+       "end": 774,
+       "quote": "추천",
+       "line": 41
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 865,
+       "end": 867,
+       "quote": "추천",
+       "line": 44
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 800,
+       "end": 810,
+       "quote": "담당: 강현우 사원",
+       "line": 42
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "service:환율": {
+   "id": "service:환율",
+   "kind": "service",
+   "name": "환율",
+   "attrs": {
+    "tier": {
+     "value": 2,
+     "spans": [],
+     "source": "catalog"
+    },
+    "description": {
+     "value": "원화·외화 가격 변환 (OTel Demo currency, C++)",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "currency",
+      "환율 변환"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:환율"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 473,
+       "end": 486,
+       "quote": "환율 (currency)",
+       "line": 27
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 494,
+       "end": 496,
+       "quote": "환율",
+       "line": 29
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 582,
+       "end": 608,
+       "quote": "롤백: 박재현 팀장 승인 후 강현우 사원이 실행",
+       "line": 32
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 521,
+       "end": 531,
+       "quote": "담당: 강현우 사원",
+       "line": 30
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "system:astronomy-db": {
+   "id": "system:astronomy-db",
+   "kind": "system",
+   "name": "astronomy-db",
+   "attrs": {
+    "description": {
+     "value": "상품·주문 데이터베이스 (PostgreSQL). 상암 IDC 단일 설치",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "PostgreSQL",
+      "postgres",
+      "상품 DB"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:astronomy-db"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:상품 카탈로그"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:정산"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "system:flagd": {
+   "id": "system:flagd",
+   "kind": "system",
+   "name": "flagd",
+   "attrs": {
+    "description": {
+     "value": "기능 플래그 서버 (OpenFeature flagd). 장애 리허설용 플래그도 여기서 켜고 끔",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "OpenFeature flagd",
+      "flagd 서버"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:flagd"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:frontend-proxy"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:결제"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:광고"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:배송"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:상품 카탈로그"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:이메일"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:이상거래 탐지"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:장바구니"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:추천"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "system:frontend-proxy": {
+   "id": "system:frontend-proxy",
+   "kind": "system",
+   "name": "frontend-proxy",
+   "attrs": {
+    "description": {
+     "value": "외부 트래픽 진입점 (OTel Demo frontend-proxy, Envoy)",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "Envoy",
+      "앞단 프록시"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:frontend-proxy"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "system:image-provider": {
+   "id": "system:image-provider",
+   "kind": "system",
+   "name": "image-provider",
+   "attrs": {
+    "description": {
+     "value": "상품 이미지 정적 서버 (OTel Demo image-provider, nginx)",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "이미지 서버"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:frontend-proxy"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:image-provider"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "system:kafka": {
+   "id": "system:kafka",
+   "kind": "system",
+   "name": "kafka",
+   "attrs": {
+    "description": {
+     "value": "주문 완료 이벤트 큐 (Apache Kafka). 정산·이상거래 탐지가 구독",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "Kafka",
+      "이벤트 큐",
+      "카프카"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:kafka"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:이상거래 탐지"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:정산"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "system:valkey-cart": {
+   "id": "system:valkey-cart",
+   "kind": "system",
+   "name": "valkey-cart",
+   "attrs": {
+    "description": {
+     "value": "장바구니 데이터 저장소 (Valkey)",
+     "spans": [],
+     "source": "catalog"
+    },
+    "aliases": {
+     "value": [
+      "valkey",
+      "장바구니 저장소"
+     ],
+     "spans": [],
+     "source": "catalog"
+    }
+   },
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:valkey-cart"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:장바구니"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "team:개발팀": {
+   "id": "team:개발팀",
+   "kind": "team",
+   "name": "개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:강현우"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:박재현"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:배은지"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:이수진"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:astronomy-db"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:flagd"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:frontend-proxy"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:image-provider"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:kafka"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:valkey-cart"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:광고"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:상품 카탈로그"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:이메일"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:장바구니"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:추천"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:환율"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "team:결제팀": {
+   "id": "team:결제팀",
+   "kind": "team",
+   "name": "결제팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:김민준"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:김서연"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "team:경영": {
+   "id": "team:경영",
+   "kind": "team",
+   "name": "경영",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:조영석"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:한서윤"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "team:경영지원": {
+   "id": "team:경영지원",
+   "kind": "team",
+   "name": "경영지원",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:윤아름"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "team:보안": {
+   "id": "team:보안",
+   "kind": "team",
+   "name": "보안",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:오준석"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "team:주문팀": {
+   "id": "team:주문팀",
+   "kind": "team",
+   "name": "주문팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:정민혁"
+    },
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:최영훈"
+    },
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "trigger:결제-서비스-실패율-알람5-초과-3분-지속": {
+   "id": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+   "kind": "trigger",
+   "name": "결제 서비스 실패율 알람(5% 초과 3분 지속)",
+   "attrs": {
+    "condition": {
+     "value": "결제 실패율 알람(5% 초과 3분 지속)",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 181,
+       "end": 203,
+       "quote": "결제 실패율 알람(5% 초과 3분 지속)",
+       "line": 12
+      }
+     ],
+     "source": "runbook"
+    },
+    "delay_minutes": {
+     "value": 3,
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 197,
+       "end": 199,
+       "quote": "3분",
+       "line": 12
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 181,
+       "end": 204,
+       "quote": "결제 실패율 알람(5% 초과 3분 지속)이",
+       "line": 12
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 181,
+       "end": 203,
+       "quote": "결제 실패율 알람(5% 초과 3분 지속)",
+       "line": 12
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "trigger:결제-서비스-장애-지속": {
+   "id": "trigger:결제-서비스-장애-지속",
+   "kind": "trigger",
+   "name": "결제 서비스 장애 지속",
+   "attrs": {
+    "condition": {
+     "value": "결제 장애가 계속되면",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 219,
+       "end": 230,
+       "quote": "결제 장애가 계속되면",
+       "line": 13
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 219,
+       "end": 230,
+       "quote": "결제 장애가 계속되면",
+       "line": 13
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 219,
+       "end": 239,
+       "quote": "결제 장애가 계속되면 김대리에게 연락",
+       "line": 13
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "trigger:광고-api-오류율-알람": {
+   "id": "trigger:광고-api-오류율-알람",
+   "kind": "trigger",
+   "name": "광고 API 오류율 알람",
+   "attrs": {
+    "condition": {
+     "value": "광고 API 오류율 알람",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 957,
+       "end": 970,
+       "quote": "광고 API 오류율 알람",
+       "line": 48
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 957,
+       "end": 970,
+       "quote": "광고 API 오류율 알람",
+       "line": 48
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속": {
+   "id": "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+   "kind": "trigger",
+   "name": "웹 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속)",
+   "attrs": {
+    "condition": {
+     "value": "프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속)",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 607,
+       "end": 637,
+       "quote": "프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속)",
+       "line": 33
+      }
+     ],
+     "source": "runbook"
+    },
+    "delay_minutes": {
+     "value": 5,
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 607,
+       "end": 637,
+       "quote": "프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속)",
+       "line": 33
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 607,
+       "end": 637,
+       "quote": "프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속)",
+       "line": 33
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 605,
+       "end": 637,
+       "quote": "| 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속)",
+       "line": 33
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "trigger:이메일-주문-확인-메일-발송-실패-알람": {
+   "id": "trigger:이메일-주문-확인-메일-발송-실패-알람",
+   "kind": "trigger",
+   "name": "이메일 주문 확인 메일 발송 실패 알람",
+   "attrs": {
+    "condition": {
+     "value": "주문 확인 메일 발송 실패 알람",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 632,
+       "end": 649,
+       "quote": "주문 확인 메일 발송 실패 알람",
+       "line": 36
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 632,
+       "end": 649,
+       "quote": "주문 확인 메일 발송 실패 알람",
+       "line": 36
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 632,
+       "end": 661,
+       "quote": "주문 확인 메일 발송 실패 알람 → 이수진 대리 호출",
+       "line": 36
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "trigger:장바구니-api-오류율-2-초과-5분-지속": {
+   "id": "trigger:장바구니-api-오류율-2-초과-5분-지속",
+   "kind": "trigger",
+   "name": "장바구니 API 오류율 2% 초과 5분 지속",
+   "attrs": {
+    "condition": {
+     "value": "장바구니 API 오류율 2% 초과 5분 지속",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 199,
+       "end": 223,
+       "quote": "장바구니 API 오류율 2% 초과 5분 지속",
+       "line": 13
+      }
+     ],
+     "source": "runbook"
+    },
+    "delay_minutes": {
+     "value": 5,
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 218,
+       "end": 220,
+       "quote": "5분",
+       "line": 13
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 199,
+       "end": 223,
+       "quote": "장바구니 API 오류율 2% 초과 5분 지속",
+       "line": 13
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "trigger:주문체크아웃-주문-실패율-알람": {
+   "id": "trigger:주문체크아웃-주문-실패율-알람",
+   "kind": "trigger",
+   "name": "주문/체크아웃 주문 실패율 알람",
+   "attrs": {
+    "condition": {
+     "value": "주문 실패율 알람",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 280,
+       "end": 289,
+       "quote": "주문 실패율 알람",
+       "line": 17
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 280,
+       "end": 289,
+       "quote": "주문 실패율 알람",
+       "line": 17
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 280,
+       "end": 301,
+       "quote": "주문 실패율 알람 → 정민혁 과장 호출",
+       "line": 17
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "trigger:추천-api-오류율-알람": {
+   "id": "trigger:추천-api-오류율-알람",
+   "kind": "trigger",
+   "name": "추천 API 오류율 알람",
+   "attrs": {
+    "condition": {
+     "value": "추천 API 오류율 알람",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 772,
+       "end": 785,
+       "quote": "추천 API 오류율 알람",
+       "line": 41
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 772,
+       "end": 785,
+       "quote": "추천 API 오류율 알람",
+       "line": 41
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "trigger:환율-변환-오류율-알람": {
+   "id": "trigger:환율-변환-오류율-알람",
+   "kind": "trigger",
+   "name": "환율 변환 오류율 알람",
+   "attrs": {
+    "condition": {
+     "value": "환율 변환 오류율 알람",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 494,
+       "end": 506,
+       "quote": "환율 변환 오류율 알람",
+       "line": 29
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 494,
+       "end": 506,
+       "quote": "환율 변환 오류율 알람",
+       "line": 29
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  }
+ },
+ "edges": {
+  "approved_by:action:광고-기능-플래그-off->person:박재현": {
+   "id": "approved_by:action:광고-기능-플래그-off->person:박재현",
+   "kind": "approved_by",
+   "src": "action:광고-기능-플래그-off",
+   "dst": "person:박재현",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 1067,
+       "end": 1113,
+       "quote": "adHighCpu)면 기능 플래그 끄기 — 박재현 팀장 승인 후 강현우 사원이 실행",
+       "line": 51
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "approved_by:action:웹-프론트엔드-롤백->person:박재현": {
+   "id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+   "kind": "approved_by",
+   "src": "action:웹-프론트엔드-롤백",
+   "dst": "person:박재현",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 600,
+       "end": 685,
+       "quote": "| 감지 | 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향 |\n| 롤백 승인 | 박재현 팀장",
+       "line": 33
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "approved_by:action:이메일-재시작->person:박재현": {
+   "id": "approved_by:action:이메일-재시작->person:박재현",
+   "kind": "approved_by",
+   "src": "action:이메일-재시작",
+   "dst": "person:박재현",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 725,
+       "end": 786,
+       "quote": "조치: 메모리 누수(emailMemoryLeak) 의심 시 재시작 — 박재현 팀장 승인 후 이수진 대리가 실행",
+       "line": 39
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "approved_by:action:장바구니-롤백->person:박재현": {
+   "id": "approved_by:action:장바구니-롤백->person:박재현",
+   "kind": "approved_by",
+   "src": "action:장바구니-롤백",
+   "dst": "person:박재현",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 256,
+       "end": 274,
+       "quote": "| 롤백 승인 | 박재현 팀장 |",
+       "line": 15
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "approved_by:action:주문체크아웃-롤백->person:한서윤": {
+   "id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+   "kind": "approved_by",
+   "src": "action:주문체크아웃-롤백",
+   "dst": "person:한서윤",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 365,
+       "end": 377,
+       "quote": "한서윤 CTO 승인 후",
+       "line": 20
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "approved_by:action:추천-기능-플래그-off->person:박재현": {
+   "id": "approved_by:action:추천-기능-플래그-off->person:박재현",
+   "kind": "approved_by",
+   "src": "action:추천-기능-플래그-off",
+   "dst": "person:박재현",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 915,
+       "end": 926,
+       "quote": "박재현 팀장 승인 후",
+       "line": 44
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "approved_by:action:환율-롤백->person:박재현": {
+   "id": "approved_by:action:환율-롤백->person:박재현",
+   "kind": "approved_by",
+   "src": "action:환율-롤백",
+   "dst": "person:박재현",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 586,
+       "end": 597,
+       "quote": "박재현 팀장 승인 후",
+       "line": 32
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:결제->system:flagd": {
+   "id": "depends_on:service:결제->system:flagd",
+   "kind": "depends_on",
+   "src": "service:결제",
+   "dst": "system:flagd",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:결제"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:광고->system:flagd": {
+   "id": "depends_on:service:광고->system:flagd",
+   "kind": "depends_on",
+   "src": "service:광고",
+   "dst": "system:flagd",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:광고"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:배송->service:배송비-견적": {
+   "id": "depends_on:service:배송->service:배송비-견적",
+   "kind": "depends_on",
+   "src": "service:배송",
+   "dst": "service:배송비-견적",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:배송"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:배송->system:flagd": {
+   "id": "depends_on:service:배송->system:flagd",
+   "kind": "depends_on",
+   "src": "service:배송",
+   "dst": "system:flagd",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:배송"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:상품-카탈로그->system:astronomy-db": {
+   "id": "depends_on:service:상품-카탈로그->system:astronomy-db",
+   "kind": "depends_on",
+   "src": "service:상품-카탈로그",
+   "dst": "system:astronomy-db",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:상품 카탈로그"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:상품-카탈로그->system:flagd": {
+   "id": "depends_on:service:상품-카탈로그->system:flagd",
+   "kind": "depends_on",
+   "src": "service:상품-카탈로그",
+   "dst": "system:flagd",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:상품 카탈로그"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:웹-프론트엔드->service:광고": {
+   "id": "depends_on:service:웹-프론트엔드->service:광고",
+   "kind": "depends_on",
+   "src": "service:웹-프론트엔드",
+   "dst": "service:광고",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:웹-프론트엔드->service:배송": {
+   "id": "depends_on:service:웹-프론트엔드->service:배송",
+   "kind": "depends_on",
+   "src": "service:웹-프론트엔드",
+   "dst": "service:배송",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:웹-프론트엔드->service:상품-카탈로그": {
+   "id": "depends_on:service:웹-프론트엔드->service:상품-카탈로그",
+   "kind": "depends_on",
+   "src": "service:웹-프론트엔드",
+   "dst": "service:상품-카탈로그",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:웹-프론트엔드->service:장바구니": {
+   "id": "depends_on:service:웹-프론트엔드->service:장바구니",
+   "kind": "depends_on",
+   "src": "service:웹-프론트엔드",
+   "dst": "service:장바구니",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:웹-프론트엔드->service:주문": {
+   "id": "depends_on:service:웹-프론트엔드->service:주문",
+   "kind": "depends_on",
+   "src": "service:웹-프론트엔드",
+   "dst": "service:주문",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:웹-프론트엔드->service:추천": {
+   "id": "depends_on:service:웹-프론트엔드->service:추천",
+   "kind": "depends_on",
+   "src": "service:웹-프론트엔드",
+   "dst": "service:추천",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:웹-프론트엔드->service:환율": {
+   "id": "depends_on:service:웹-프론트엔드->service:환율",
+   "kind": "depends_on",
+   "src": "service:웹-프론트엔드",
+   "dst": "service:환율",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:웹-프론트엔드->system:flagd": {
+   "id": "depends_on:service:웹-프론트엔드->system:flagd",
+   "kind": "depends_on",
+   "src": "service:웹-프론트엔드",
+   "dst": "system:flagd",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:이메일->system:flagd": {
+   "id": "depends_on:service:이메일->system:flagd",
+   "kind": "depends_on",
+   "src": "service:이메일",
+   "dst": "system:flagd",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:이메일"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:이상거래-탐지->system:flagd": {
+   "id": "depends_on:service:이상거래-탐지->system:flagd",
+   "kind": "depends_on",
+   "src": "service:이상거래-탐지",
+   "dst": "system:flagd",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:이상거래 탐지"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:이상거래-탐지->system:kafka": {
+   "id": "depends_on:service:이상거래-탐지->system:kafka",
+   "kind": "depends_on",
+   "src": "service:이상거래-탐지",
+   "dst": "system:kafka",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:이상거래 탐지"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:장바구니->system:flagd": {
+   "id": "depends_on:service:장바구니->system:flagd",
+   "kind": "depends_on",
+   "src": "service:장바구니",
+   "dst": "system:flagd",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:장바구니"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:장바구니->system:valkey-cart": {
+   "id": "depends_on:service:장바구니->system:valkey-cart",
+   "kind": "depends_on",
+   "src": "service:장바구니",
+   "dst": "system:valkey-cart",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:장바구니"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:정산->system:astronomy-db": {
+   "id": "depends_on:service:정산->system:astronomy-db",
+   "kind": "depends_on",
+   "src": "service:정산",
+   "dst": "system:astronomy-db",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:정산"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:정산->system:kafka": {
+   "id": "depends_on:service:정산->system:kafka",
+   "kind": "depends_on",
+   "src": "service:정산",
+   "dst": "system:kafka",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:정산"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:주문->service:결제": {
+   "id": "depends_on:service:주문->service:결제",
+   "kind": "depends_on",
+   "src": "service:주문",
+   "dst": "service:결제",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:주문->service:배송": {
+   "id": "depends_on:service:주문->service:배송",
+   "kind": "depends_on",
+   "src": "service:주문",
+   "dst": "service:배송",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:주문->service:상품-카탈로그": {
+   "id": "depends_on:service:주문->service:상품-카탈로그",
+   "kind": "depends_on",
+   "src": "service:주문",
+   "dst": "service:상품-카탈로그",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:주문->service:이메일": {
+   "id": "depends_on:service:주문->service:이메일",
+   "kind": "depends_on",
+   "src": "service:주문",
+   "dst": "service:이메일",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:주문->service:장바구니": {
+   "id": "depends_on:service:주문->service:장바구니",
+   "kind": "depends_on",
+   "src": "service:주문",
+   "dst": "service:장바구니",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:주문->service:환율": {
+   "id": "depends_on:service:주문->service:환율",
+   "kind": "depends_on",
+   "src": "service:주문",
+   "dst": "service:환율",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:주문->system:flagd": {
+   "id": "depends_on:service:주문->system:flagd",
+   "kind": "depends_on",
+   "src": "service:주문",
+   "dst": "system:flagd",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:주문->system:kafka": {
+   "id": "depends_on:service:주문->system:kafka",
+   "kind": "depends_on",
+   "src": "service:주문",
+   "dst": "system:kafka",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:추천->service:상품-카탈로그": {
+   "id": "depends_on:service:추천->service:상품-카탈로그",
+   "kind": "depends_on",
+   "src": "service:추천",
+   "dst": "service:상품-카탈로그",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:추천"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:service:추천->system:flagd": {
+   "id": "depends_on:service:추천->system:flagd",
+   "kind": "depends_on",
+   "src": "service:추천",
+   "dst": "system:flagd",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:추천"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:system:frontend-proxy->service:웹-프론트엔드": {
+   "id": "depends_on:system:frontend-proxy->service:웹-프론트엔드",
+   "kind": "depends_on",
+   "src": "system:frontend-proxy",
+   "dst": "service:웹-프론트엔드",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:frontend-proxy"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:system:frontend-proxy->system:flagd": {
+   "id": "depends_on:system:frontend-proxy->system:flagd",
+   "kind": "depends_on",
+   "src": "system:frontend-proxy",
+   "dst": "system:flagd",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:frontend-proxy"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "depends_on:system:frontend-proxy->system:image-provider": {
+   "id": "depends_on:system:frontend-proxy->system:image-provider",
+   "kind": "depends_on",
+   "src": "system:frontend-proxy",
+   "dst": "system:image-provider",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:frontend-proxy"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속": {
+   "id": "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+   "kind": "detected_by",
+   "src": "service:결제",
+   "dst": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 181,
+       "end": 204,
+       "quote": "결제 실패율 알람(5% 초과 3분 지속)이",
+       "line": 12
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "detected_by:service:결제->trigger:결제-서비스-장애-지속": {
+   "id": "detected_by:service:결제->trigger:결제-서비스-장애-지속",
+   "kind": "detected_by",
+   "src": "service:결제",
+   "dst": "trigger:결제-서비스-장애-지속",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 219,
+       "end": 230,
+       "quote": "결제 장애가 계속되면",
+       "line": 13
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "detected_by:service:광고->trigger:광고-api-오류율-알람": {
+   "id": "detected_by:service:광고->trigger:광고-api-오류율-알람",
+   "kind": "detected_by",
+   "src": "service:광고",
+   "dst": "trigger:광고-api-오류율-알람",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 957,
+       "end": 970,
+       "quote": "광고 API 오류율 알람",
+       "line": 48
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "detected_by:service:웹-프론트엔드->trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속": {
+   "id": "detected_by:service:웹-프론트엔드->trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+   "kind": "detected_by",
+   "src": "service:웹-프론트엔드",
+   "dst": "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 607,
+       "end": 637,
+       "quote": "프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속)",
+       "line": 33
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "detected_by:service:이메일->trigger:이메일-주문-확인-메일-발송-실패-알람": {
+   "id": "detected_by:service:이메일->trigger:이메일-주문-확인-메일-발송-실패-알람",
+   "kind": "detected_by",
+   "src": "service:이메일",
+   "dst": "trigger:이메일-주문-확인-메일-발송-실패-알람",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 632,
+       "end": 649,
+       "quote": "주문 확인 메일 발송 실패 알람",
+       "line": 36
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "detected_by:service:장바구니->trigger:장바구니-api-오류율-2-초과-5분-지속": {
+   "id": "detected_by:service:장바구니->trigger:장바구니-api-오류율-2-초과-5분-지속",
+   "kind": "detected_by",
+   "src": "service:장바구니",
+   "dst": "trigger:장바구니-api-오류율-2-초과-5분-지속",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 199,
+       "end": 223,
+       "quote": "장바구니 API 오류율 2% 초과 5분 지속",
+       "line": 13
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람": {
+   "id": "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+   "kind": "detected_by",
+   "src": "service:주문",
+   "dst": "trigger:주문체크아웃-주문-실패율-알람",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 280,
+       "end": 289,
+       "quote": "주문 실패율 알람",
+       "line": 17
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "detected_by:service:추천->trigger:추천-api-오류율-알람": {
+   "id": "detected_by:service:추천->trigger:추천-api-오류율-알람",
+   "kind": "detected_by",
+   "src": "service:추천",
+   "dst": "trigger:추천-api-오류율-알람",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 772,
+       "end": 785,
+       "quote": "추천 API 오류율 알람",
+       "line": 41
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "detected_by:service:환율->trigger:환율-변환-오류율-알람": {
+   "id": "detected_by:service:환율->trigger:환율-변환-오류율-알람",
+   "kind": "detected_by",
+   "src": "service:환율",
+   "dst": "trigger:환율-변환-오류율-알람",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 494,
+       "end": 506,
+       "quote": "환율 변환 오류율 알람",
+       "line": 29
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "escalates_to:person:강현우->person:박재현": {
+   "id": "escalates_to:person:강현우->person:박재현",
+   "kind": "escalates_to",
+   "src": "person:강현우",
+   "dst": "person:박재현",
+   "attrs": {
+    "after_minutes": {
+     "value": 10,
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 554,
+       "end": 557,
+       "quote": "10분",
+       "line": 31
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 547,
+       "end": 579,
+       "quote": "강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+       "line": 31
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 951,
+       "end": 1043,
+       "quote": "- 감지: 광고 API 오류율 알람 → 강현우 사원 호출\n- 담당: 강현우 사원 (슬랙, 전화)\n- 상향: 강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+       "line": 48
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 826,
+       "end": 858,
+       "quote": "강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+       "line": 43
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "escalates_to:person:이수진->person:박재현": {
+   "id": "escalates_to:person:이수진->person:박재현",
+   "kind": "escalates_to",
+   "src": "person:이수진",
+   "dst": "person:박재현",
+   "attrs": {
+    "after_minutes": {
+     "value": 10,
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 694,
+       "end": 722,
+       "quote": "이수진 대리 10분 미응답 시 박재현 팀장에게 상향",
+       "line": 38
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 694,
+       "end": 722,
+       "quote": "이수진 대리 10분 미응답 시 박재현 팀장에게 상향",
+       "line": 38
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 132,
+       "end": 253,
+       "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화 |\n| 감지 | cartFailure 오류율 알람 (장바구니 API 오류율 2% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향",
+       "line": 11
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 560,
+       "end": 666,
+       "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화 |\n| 감지 | 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향",
+       "line": 31
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "escalates_to:person:정민혁->person:최영훈": {
+   "id": "escalates_to:person:정민혁->person:최영훈",
+   "kind": "escalates_to",
+   "src": "person:정민혁",
+   "dst": "person:최영훈",
+   "attrs": {
+    "after_minutes": {
+     "value": 15,
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 337,
+       "end": 340,
+       "quote": "15분",
+       "line": 19
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 330,
+       "end": 358,
+       "quote": "정민혁 과장 15분 미응답 시 최영훈 차장에게 상향",
+       "line": 19
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "escalates_to:person:최영훈->person:정민혁": {
+   "id": "escalates_to:person:최영훈->person:정민혁",
+   "kind": "escalates_to",
+   "src": "person:최영훈",
+   "dst": "person:정민혁",
+   "attrs": {
+    "after_minutes": {
+     "value": 20,
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 444,
+       "end": 447,
+       "quote": "20분",
+       "line": 25
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 437,
+       "end": 465,
+       "quote": "최영훈 차장 20분 미응답 시 정민혁 과장에게 다시",
+       "line": 25
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "escalates_to:role:팀장->person:한서윤": {
+   "id": "escalates_to:role:팀장->person:한서윤",
+   "kind": "escalates_to",
+   "src": "role:팀장",
+   "dst": "person:한서윤",
+   "attrs": {
+    "after_minutes": {
+     "value": 20,
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 414,
+       "end": 417,
+       "quote": "20분",
+       "line": 24
+      }
+     ],
+     "source": "runbook"
+    }
+   },
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 409,
+       "end": 444,
+       "quote": "팀장님이 20분 넘게 답 없으면 한서윤 CTO님께 전화 드리고요",
+       "line": 24
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "executed_by:action:광고-기능-플래그-off->person:강현우": {
+   "id": "executed_by:action:광고-기능-플래그-off->person:강현우",
+   "kind": "executed_by",
+   "src": "action:광고-기능-플래그-off",
+   "dst": "person:강현우",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 1067,
+       "end": 1113,
+       "quote": "adHighCpu)면 기능 플래그 끄기 — 박재현 팀장 승인 후 강현우 사원이 실행",
+       "line": 51
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "executed_by:action:웹-프론트엔드-롤백->person:이수진": {
+   "id": "executed_by:action:웹-프론트엔드-롤백->person:이수진",
+   "kind": "executed_by",
+   "src": "action:웹-프론트엔드-롤백",
+   "dst": "person:이수진",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 600,
+       "end": 704,
+       "quote": "| 감지 | 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향 |\n| 롤백 승인 | 박재현 팀장 |\n| 롤백 실행 | 이수진 대리",
+       "line": 33
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "executed_by:action:이메일-재시작->person:이수진": {
+   "id": "executed_by:action:이메일-재시작->person:이수진",
+   "kind": "executed_by",
+   "src": "action:이메일-재시작",
+   "dst": "person:이수진",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 776,
+       "end": 786,
+       "quote": "이수진 대리가 실행",
+       "line": 39
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "executed_by:action:장바구니-롤백->person:이수진": {
+   "id": "executed_by:action:장바구니-롤백->person:이수진",
+   "kind": "executed_by",
+   "src": "action:장바구니-롤백",
+   "dst": "person:이수진",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 275,
+       "end": 293,
+       "quote": "| 롤백 실행 | 이수진 대리 |",
+       "line": 16
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "executed_by:action:주문체크아웃-롤백->person:정민혁": {
+   "id": "executed_by:action:주문체크아웃-롤백->person:정민혁",
+   "kind": "executed_by",
+   "src": "action:주문체크아웃-롤백",
+   "dst": "person:정민혁",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 378,
+       "end": 388,
+       "quote": "정민혁 과장이 실행",
+       "line": 20
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "executed_by:action:추천-기능-플래그-off->person:강현우": {
+   "id": "executed_by:action:추천-기능-플래그-off->person:강현우",
+   "kind": "executed_by",
+   "src": "action:추천-기능-플래그-off",
+   "dst": "person:강현우",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 927,
+       "end": 937,
+       "quote": "강현우 사원이 실행",
+       "line": 44
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "executed_by:action:환율-롤백->person:강현우": {
+   "id": "executed_by:action:환율-롤백->person:강현우",
+   "kind": "executed_by",
+   "src": "action:환율-롤백",
+   "dst": "person:강현우",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 598,
+       "end": 608,
+       "quote": "강현우 사원이 실행",
+       "line": 32
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "fallback_to:channel:internal_messenger->channel:phone": {
+   "id": "fallback_to:channel:internal_messenger->channel:phone",
+   "kind": "fallback_to",
+   "src": "channel:internal_messenger",
+   "dst": "channel:phone",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 508,
+       "end": 597,
+       "quote": "## 웹 프론트엔드 (frontend)\n\n| 항목 | 내용 |\n|---|---|\n| 담당 | 이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화",
+       "line": 27
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 148,
+       "end": 169,
+       "quote": "사내 메신저(1순위) → 안 되면 전화",
+       "line": 12
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:강현우->role:1차-당직": {
+   "id": "holds_role:person:강현우->role:1차-당직",
+   "kind": "holds_role",
+   "src": "person:강현우",
+   "dst": "role:1차-당직",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:강현우"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:강현우->role:2차-당직": {
+   "id": "holds_role:person:강현우->role:2차-당직",
+   "kind": "holds_role",
+   "src": "person:강현우",
+   "dst": "role:2차-당직",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:강현우"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:김민준->role:1차-당직": {
+   "id": "holds_role:person:김민준->role:1차-당직",
+   "kind": "holds_role",
+   "src": "person:김민준",
+   "dst": "role:1차-당직",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:김민준"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:김서연->role:1차-당직": {
+   "id": "holds_role:person:김서연->role:1차-당직",
+   "kind": "holds_role",
+   "src": "person:김서연",
+   "dst": "role:1차-당직",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:김서연"
+    },
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:김서연"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:김서연->role:2차-당직": {
+   "id": "holds_role:person:김서연->role:2차-당직",
+   "kind": "holds_role",
+   "src": "person:김서연",
+   "dst": "role:2차-당직",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:김서연"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:박재현->role:1차-당직": {
+   "id": "holds_role:person:박재현->role:1차-당직",
+   "kind": "holds_role",
+   "src": "person:박재현",
+   "dst": "role:1차-당직",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:박재현"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:박재현->role:2차-당직": {
+   "id": "holds_role:person:박재현->role:2차-당직",
+   "kind": "holds_role",
+   "src": "person:박재현",
+   "dst": "role:2차-당직",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:박재현"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:박재현->role:팀장": {
+   "id": "holds_role:person:박재현->role:팀장",
+   "kind": "holds_role",
+   "src": "person:박재현",
+   "dst": "role:팀장",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:박재현"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:오준석->role:ciso": {
+   "id": "holds_role:person:오준석->role:ciso",
+   "kind": "holds_role",
+   "src": "person:오준석",
+   "dst": "role:ciso",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:오준석"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:오준석->role:보안-담당자": {
+   "id": "holds_role:person:오준석->role:보안-담당자",
+   "kind": "holds_role",
+   "src": "person:오준석",
+   "dst": "role:보안-담당자",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:오준석"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:윤아름->role:개인정보-보호책임자": {
+   "id": "holds_role:person:윤아름->role:개인정보-보호책임자",
+   "kind": "holds_role",
+   "src": "person:윤아름",
+   "dst": "role:개인정보-보호책임자",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:윤아름"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:이수진->role:1차-당직": {
+   "id": "holds_role:person:이수진->role:1차-당직",
+   "kind": "holds_role",
+   "src": "person:이수진",
+   "dst": "role:1차-당직",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:이수진"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:이수진->role:2차-당직": {
+   "id": "holds_role:person:이수진->role:2차-당직",
+   "kind": "holds_role",
+   "src": "person:이수진",
+   "dst": "role:2차-당직",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:이수진"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:정민혁->role:1차-당직": {
+   "id": "holds_role:person:정민혁->role:1차-당직",
+   "kind": "holds_role",
+   "src": "person:정민혁",
+   "dst": "role:1차-당직",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:정민혁"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:정민혁->role:2차-당직": {
+   "id": "holds_role:person:정민혁->role:2차-당직",
+   "kind": "holds_role",
+   "src": "person:정민혁",
+   "dst": "role:2차-당직",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:정민혁"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:조영석->role:ceo": {
+   "id": "holds_role:person:조영석->role:ceo",
+   "kind": "holds_role",
+   "src": "person:조영석",
+   "dst": "role:ceo",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:조영석"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:조영석->role:대표": {
+   "id": "holds_role:person:조영석->role:대표",
+   "kind": "holds_role",
+   "src": "person:조영석",
+   "dst": "role:대표",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:조영석"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:최영훈->role:1차-당직": {
+   "id": "holds_role:person:최영훈->role:1차-당직",
+   "kind": "holds_role",
+   "src": "person:최영훈",
+   "dst": "role:1차-당직",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:최영훈"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:최영훈->role:2차-당직": {
+   "id": "holds_role:person:최영훈->role:2차-당직",
+   "kind": "holds_role",
+   "src": "person:최영훈",
+   "dst": "role:2차-당직",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "oncall",
+     "extractor": "import",
+     "spans": [],
+     "ref": "oncall:최영훈"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "holds_role:person:한서윤->role:cto": {
+   "id": "holds_role:person:한서윤->role:cto",
+   "kind": "holds_role",
+   "src": "person:한서윤",
+   "dst": "role:cto",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:한서윤"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "member_of:person:강현우->team:개발팀": {
+   "id": "member_of:person:강현우->team:개발팀",
+   "kind": "member_of",
+   "src": "person:강현우",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:강현우"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "member_of:person:김민준->team:결제팀": {
+   "id": "member_of:person:김민준->team:결제팀",
+   "kind": "member_of",
+   "src": "person:김민준",
+   "dst": "team:결제팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:김민준"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "member_of:person:김서연->team:결제팀": {
+   "id": "member_of:person:김서연->team:결제팀",
+   "kind": "member_of",
+   "src": "person:김서연",
+   "dst": "team:결제팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:김서연"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "member_of:person:박재현->team:개발팀": {
+   "id": "member_of:person:박재현->team:개발팀",
+   "kind": "member_of",
+   "src": "person:박재현",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:박재현"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "member_of:person:배은지->team:개발팀": {
+   "id": "member_of:person:배은지->team:개발팀",
+   "kind": "member_of",
+   "src": "person:배은지",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:배은지"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "member_of:person:오준석->team:보안": {
+   "id": "member_of:person:오준석->team:보안",
+   "kind": "member_of",
+   "src": "person:오준석",
+   "dst": "team:보안",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:오준석"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "member_of:person:윤아름->team:경영지원": {
+   "id": "member_of:person:윤아름->team:경영지원",
+   "kind": "member_of",
+   "src": "person:윤아름",
+   "dst": "team:경영지원",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:윤아름"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "member_of:person:이수진->team:개발팀": {
+   "id": "member_of:person:이수진->team:개발팀",
+   "kind": "member_of",
+   "src": "person:이수진",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:이수진"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "member_of:person:정민혁->team:주문팀": {
+   "id": "member_of:person:정민혁->team:주문팀",
+   "kind": "member_of",
+   "src": "person:정민혁",
+   "dst": "team:주문팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:정민혁"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "member_of:person:조영석->team:경영": {
+   "id": "member_of:person:조영석->team:경영",
+   "kind": "member_of",
+   "src": "person:조영석",
+   "dst": "team:경영",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:조영석"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "member_of:person:최영훈->team:주문팀": {
+   "id": "member_of:person:최영훈->team:주문팀",
+   "kind": "member_of",
+   "src": "person:최영훈",
+   "dst": "team:주문팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:최영훈"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "member_of:person:한서윤->team:경영": {
+   "id": "member_of:person:한서윤->team:경영",
+   "kind": "member_of",
+   "src": "person:한서윤",
+   "dst": "team:경영",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:한서윤"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "mitigated_by:service:결제->action:결제-서비스-롤백": {
+   "id": "mitigated_by:service:결제->action:결제-서비스-롤백",
+   "kind": "mitigated_by",
+   "src": "service:결제",
+   "dst": "action:결제-서비스-롤백",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 241,
+       "end": 249,
+       "quote": "안 되면 롤백.",
+       "line": 13
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "mitigated_by:service:광고->action:광고-기능-플래그-off": {
+   "id": "mitigated_by:service:광고->action:광고-기능-플래그-off",
+   "kind": "mitigated_by",
+   "src": "service:광고",
+   "dst": "action:광고-기능-플래그-off",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 1067,
+       "end": 1113,
+       "quote": "adHighCpu)면 기능 플래그 끄기 — 박재현 팀장 승인 후 강현우 사원이 실행",
+       "line": 51
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "mitigated_by:service:상품-카탈로그->action:상품-카탈로그-기능-플래그-off": {
+   "id": "mitigated_by:service:상품-카탈로그->action:상품-카탈로그-기능-플래그-off",
+   "kind": "mitigated_by",
+   "src": "service:상품-카탈로그",
+   "dst": "action:상품-카탈로그-기능-플래그-off",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 446,
+       "end": 506,
+       "quote": "DB 락 걸린 거면 기능 플래그 끄고(productCatalogLockContention) 원복하면 됩니다.",
+       "line": 25
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "mitigated_by:service:상품-카탈로그->action:상품-카탈로그-롤백": {
+   "id": "mitigated_by:service:상품-카탈로그->action:상품-카탈로그-롤백",
+   "kind": "mitigated_by",
+   "src": "service:상품-카탈로그",
+   "dst": "action:상품-카탈로그-롤백",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 446,
+       "end": 506,
+       "quote": "DB 락 걸린 거면 기능 플래그 끄고(productCatalogLockContention) 원복하면 됩니다.",
+       "line": 25
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "mitigated_by:service:웹-프론트엔드->action:웹-프론트엔드-롤백": {
+   "id": "mitigated_by:service:웹-프론트엔드->action:웹-프론트엔드-롤백",
+   "kind": "mitigated_by",
+   "src": "service:웹-프론트엔드",
+   "dst": "action:웹-프론트엔드-롤백",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 600,
+       "end": 676,
+       "quote": "| 감지 | 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향 |\n| 롤백 승인",
+       "line": 33
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "mitigated_by:service:이메일->action:이메일-재시작": {
+   "id": "mitigated_by:service:이메일->action:이메일-재시작",
+   "kind": "mitigated_by",
+   "src": "service:이메일",
+   "dst": "action:이메일-재시작",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 725,
+       "end": 786,
+       "quote": "조치: 메모리 누수(emailMemoryLeak) 의심 시 재시작 — 박재현 팀장 승인 후 이수진 대리가 실행",
+       "line": 39
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "mitigated_by:service:장바구니->action:장바구니-롤백": {
+   "id": "mitigated_by:service:장바구니->action:장바구니-롤백",
+   "kind": "mitigated_by",
+   "src": "service:장바구니",
+   "dst": "action:장바구니-롤백",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 258,
+       "end": 263,
+       "quote": "롤백 승인",
+       "line": 15
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "mitigated_by:service:주문->action:주문체크아웃-롤백": {
+   "id": "mitigated_by:service:주문->action:주문체크아웃-롤백",
+   "kind": "mitigated_by",
+   "src": "service:주문",
+   "dst": "action:주문체크아웃-롤백",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 361,
+       "end": 388,
+       "quote": "롤백: 한서윤 CTO 승인 후 정민혁 과장이 실행",
+       "line": 20
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "mitigated_by:service:추천->action:추천-기능-플래그-off": {
+   "id": "mitigated_by:service:추천->action:추천-기능-플래그-off",
+   "kind": "mitigated_by",
+   "src": "service:추천",
+   "dst": "action:추천-기능-플래그-off",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 861,
+       "end": 937,
+       "quote": "조치: 추천 캐시 장애(recommendationCacheFailure)면 기능 플래그 끄기 — 박재현 팀장 승인 후 강현우 사원이 실행",
+       "line": 44
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "mitigated_by:service:환율->action:환율-롤백": {
+   "id": "mitigated_by:service:환율->action:환율-롤백",
+   "kind": "mitigated_by",
+   "src": "service:환율",
+   "dst": "action:환율-롤백",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 582,
+       "end": 608,
+       "quote": "롤백: 박재현 팀장 승인 후 강현우 사원이 실행",
+       "line": 32
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준": {
+   "id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준",
+   "kind": "notifies",
+   "src": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+   "dst": "person:김민준",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 181,
+       "end": 239,
+       "quote": "결제 실패율 알람(5% 초과 3분 지속)이 오면 결제 장애로 본다.\n결제 장애가 계속되면 김대리에게 연락",
+       "line": 12
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "notifies:trigger:결제-서비스-장애-지속->person:김민준": {
+   "id": "notifies:trigger:결제-서비스-장애-지속->person:김민준",
+   "kind": "notifies",
+   "src": "trigger:결제-서비스-장애-지속",
+   "dst": "person:김민준",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 219,
+       "end": 239,
+       "quote": "결제 장애가 계속되면 김대리에게 연락",
+       "line": 13
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "notifies:trigger:광고-api-오류율-알람->person:강현우": {
+   "id": "notifies:trigger:광고-api-오류율-알람->person:강현우",
+   "kind": "notifies",
+   "src": "trigger:광고-api-오류율-알람",
+   "dst": "person:강현우",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 957,
+       "end": 982,
+       "quote": "광고 API 오류율 알람 → 강현우 사원 호출",
+       "line": 48
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진": {
+   "id": "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+   "kind": "notifies",
+   "src": "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+   "dst": "person:이수진",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 560,
+       "end": 637,
+       "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화 |\n| 감지 | 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속)",
+       "line": 31
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "notifies:trigger:이메일-주문-확인-메일-발송-실패-알람->person:이수진": {
+   "id": "notifies:trigger:이메일-주문-확인-메일-발송-실패-알람->person:이수진",
+   "kind": "notifies",
+   "src": "trigger:이메일-주문-확인-메일-발송-실패-알람",
+   "dst": "person:이수진",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 632,
+       "end": 661,
+       "quote": "주문 확인 메일 발송 실패 알람 → 이수진 대리 호출",
+       "line": 36
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진": {
+   "id": "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+   "kind": "notifies",
+   "src": "trigger:장바구니-api-오류율-2-초과-5분-지속",
+   "dst": "person:이수진",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 132,
+       "end": 223,
+       "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화 |\n| 감지 | cartFailure 오류율 알람 (장바구니 API 오류율 2% 초과 5분 지속",
+       "line": 11
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁": {
+   "id": "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+   "kind": "notifies",
+   "src": "trigger:주문체크아웃-주문-실패율-알람",
+   "dst": "person:정민혁",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 280,
+       "end": 301,
+       "quote": "주문 실패율 알람 → 정민혁 과장 호출",
+       "line": 17
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "notifies:trigger:추천-api-오류율-알람->person:강현우": {
+   "id": "notifies:trigger:추천-api-오류율-알람->person:강현우",
+   "kind": "notifies",
+   "src": "trigger:추천-api-오류율-알람",
+   "dst": "person:강현우",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 772,
+       "end": 797,
+       "quote": "추천 API 오류율 알람 → 강현우 사원 호출",
+       "line": 41
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "notifies:trigger:환율-변환-오류율-알람->person:강현우": {
+   "id": "notifies:trigger:환율-변환-오류율-알람->person:강현우",
+   "kind": "notifies",
+   "src": "trigger:환율-변환-오류율-알람",
+   "dst": "person:강현우",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 494,
+       "end": 518,
+       "quote": "환율 변환 오류율 알람 → 강현우 사원 호출",
+       "line": 29
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:결제->person:김민준": {
+   "id": "owned_by:service:결제->person:김민준",
+   "kind": "owned_by",
+   "src": "service:결제",
+   "dst": "person:김민준",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 231,
+       "end": 239,
+       "quote": "김대리에게 연락",
+       "line": 13
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:광고->person:강현우": {
+   "id": "owned_by:service:광고->person:강현우",
+   "kind": "owned_by",
+   "src": "service:광고",
+   "dst": "person:강현우",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 951,
+       "end": 995,
+       "quote": "- 감지: 광고 API 오류율 알람 → 강현우 사원 호출\n- 담당: 강현우 사원",
+       "line": 48
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:광고->team:개발팀": {
+   "id": "owned_by:service:광고->team:개발팀",
+   "kind": "owned_by",
+   "src": "service:광고",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:광고"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:상품-카탈로그->person:박재현": {
+   "id": "owned_by:service:상품-카탈로그->person:박재현",
+   "kind": "owned_by",
+   "src": "service:상품-카탈로그",
+   "dst": "person:박재현",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 389,
+       "end": 407,
+       "quote": "재현 팀장님한테 바로 슬랙 주세요",
+       "line": 23
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:상품-카탈로그->team:개발팀": {
+   "id": "owned_by:service:상품-카탈로그->team:개발팀",
+   "kind": "owned_by",
+   "src": "service:상품-카탈로그",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:상품 카탈로그"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:웹-프론트엔드->person:이수진": {
+   "id": "owned_by:service:웹-프론트엔드->person:이수진",
+   "kind": "owned_by",
+   "src": "service:웹-프론트엔드",
+   "dst": "person:이수진",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 508,
+       "end": 566,
+       "quote": "## 웹 프론트엔드 (frontend)\n\n| 항목 | 내용 |\n|---|---|\n| 담당 | 이수진 대리",
+       "line": 27
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:웹-프론트엔드->team:개발팀": {
+   "id": "owned_by:service:웹-프론트엔드->team:개발팀",
+   "kind": "owned_by",
+   "src": "service:웹-프론트엔드",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:이메일->person:이수진": {
+   "id": "owned_by:service:이메일->person:이수진",
+   "kind": "owned_by",
+   "src": "service:이메일",
+   "dst": "person:이수진",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 613,
+       "end": 674,
+       "quote": "이메일 (email)\n\n- 감지: 주문 확인 메일 발송 실패 알람 → 이수진 대리 호출\n- 담당: 이수진 대리",
+       "line": 34
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:이메일->team:개발팀": {
+   "id": "owned_by:service:이메일->team:개발팀",
+   "kind": "owned_by",
+   "src": "service:이메일",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:이메일"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:장바구니->person:이수진": {
+   "id": "owned_by:service:장바구니->person:이수진",
+   "kind": "owned_by",
+   "src": "service:장바구니",
+   "dst": "person:이수진",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 132,
+       "end": 138,
+       "quote": "이수진 대리",
+       "line": 11
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:장바구니->team:개발팀": {
+   "id": "owned_by:service:장바구니->team:개발팀",
+   "kind": "owned_by",
+   "src": "service:장바구니",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:장바구니"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:주문->person:정민혁": {
+   "id": "owned_by:service:주문->person:정민혁",
+   "kind": "owned_by",
+   "src": "service:주문",
+   "dst": "person:정민혁",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 304,
+       "end": 314,
+       "quote": "담당: 정민혁 과장",
+       "line": 18
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:주문->team:주문팀": {
+   "id": "owned_by:service:주문->team:주문팀",
+   "kind": "owned_by",
+   "src": "service:주문",
+   "dst": "team:주문팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:추천->person:강현우": {
+   "id": "owned_by:service:추천->person:강현우",
+   "kind": "owned_by",
+   "src": "service:추천",
+   "dst": "person:강현우",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 800,
+       "end": 810,
+       "quote": "담당: 강현우 사원",
+       "line": 42
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:추천->team:개발팀": {
+   "id": "owned_by:service:추천->team:개발팀",
+   "kind": "owned_by",
+   "src": "service:추천",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:추천"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:환율->person:강현우": {
+   "id": "owned_by:service:환율->person:강현우",
+   "kind": "owned_by",
+   "src": "service:환율",
+   "dst": "person:강현우",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 521,
+       "end": 531,
+       "quote": "담당: 강현우 사원",
+       "line": 30
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:service:환율->team:개발팀": {
+   "id": "owned_by:service:환율->team:개발팀",
+   "kind": "owned_by",
+   "src": "service:환율",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:환율"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:system:astronomy-db->team:개발팀": {
+   "id": "owned_by:system:astronomy-db->team:개발팀",
+   "kind": "owned_by",
+   "src": "system:astronomy-db",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:astronomy-db"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:system:flagd->team:개발팀": {
+   "id": "owned_by:system:flagd->team:개발팀",
+   "kind": "owned_by",
+   "src": "system:flagd",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:flagd"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:system:frontend-proxy->team:개발팀": {
+   "id": "owned_by:system:frontend-proxy->team:개발팀",
+   "kind": "owned_by",
+   "src": "system:frontend-proxy",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:frontend-proxy"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:system:image-provider->team:개발팀": {
+   "id": "owned_by:system:image-provider->team:개발팀",
+   "kind": "owned_by",
+   "src": "system:image-provider",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:image-provider"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:system:kafka->team:개발팀": {
+   "id": "owned_by:system:kafka->team:개발팀",
+   "kind": "owned_by",
+   "src": "system:kafka",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:kafka"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "owned_by:system:valkey-cart->team:개발팀": {
+   "id": "owned_by:system:valkey-cart->team:개발팀",
+   "kind": "owned_by",
+   "src": "system:valkey-cart",
+   "dst": "team:개발팀",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:valkey-cart"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:강현우->channel:phone": {
+   "id": "reachable_via:person:강현우->channel:phone",
+   "kind": "reachable_via",
+   "src": "person:강현우",
+   "dst": "channel:phone",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:강현우"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 525,
+       "end": 540,
+       "quote": "강현우 사원 (슬랙, 전화)",
+       "line": 30
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 951,
+       "end": 1004,
+       "quote": "- 감지: 광고 API 오류율 알람 → 강현우 사원 호출\n- 담당: 강현우 사원 (슬랙, 전화)",
+       "line": 48
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 804,
+       "end": 819,
+       "quote": "강현우 사원 (슬랙, 전화)",
+       "line": 42
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:강현우->channel:slack": {
+   "id": "reachable_via:person:강현우->channel:slack",
+   "kind": "reachable_via",
+   "src": "person:강현우",
+   "dst": "channel:slack",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:강현우"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 525,
+       "end": 540,
+       "quote": "강현우 사원 (슬랙, 전화)",
+       "line": 30
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 951,
+       "end": 1004,
+       "quote": "- 감지: 광고 API 오류율 알람 → 강현우 사원 호출\n- 담당: 강현우 사원 (슬랙, 전화)",
+       "line": 48
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 804,
+       "end": 819,
+       "quote": "강현우 사원 (슬랙, 전화)",
+       "line": 42
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:김민준->channel:phone": {
+   "id": "reachable_via:person:김민준->channel:phone",
+   "kind": "reachable_via",
+   "src": "person:김민준",
+   "dst": "channel:phone",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:김민준"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:김민준->channel:slack": {
+   "id": "reachable_via:person:김민준->channel:slack",
+   "kind": "reachable_via",
+   "src": "person:김민준",
+   "dst": "channel:slack",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:김민준"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:김서연->channel:phone": {
+   "id": "reachable_via:person:김서연->channel:phone",
+   "kind": "reachable_via",
+   "src": "person:김서연",
+   "dst": "channel:phone",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:김서연"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:김서연->channel:slack": {
+   "id": "reachable_via:person:김서연->channel:slack",
+   "kind": "reachable_via",
+   "src": "person:김서연",
+   "dst": "channel:slack",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:김서연"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:박재현->channel:kakaotalk": {
+   "id": "reachable_via:person:박재현->channel:kakaotalk",
+   "kind": "reachable_via",
+   "src": "person:박재현",
+   "dst": "channel:kakaotalk",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:박재현"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:박재현->channel:phone": {
+   "id": "reachable_via:person:박재현->channel:phone",
+   "kind": "reachable_via",
+   "src": "person:박재현",
+   "dst": "channel:phone",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:박재현"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 547,
+       "end": 579,
+       "quote": "강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+       "line": 31
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 951,
+       "end": 1043,
+       "quote": "- 감지: 광고 API 오류율 알람 → 강현우 사원 호출\n- 담당: 강현우 사원 (슬랙, 전화)\n- 상향: 강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+       "line": 48
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 826,
+       "end": 858,
+       "quote": "강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+       "line": 43
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:박재현->channel:slack": {
+   "id": "reachable_via:person:박재현->channel:slack",
+   "kind": "reachable_via",
+   "src": "person:박재현",
+   "dst": "channel:slack",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:박재현"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 389,
+       "end": 407,
+       "quote": "재현 팀장님한테 바로 슬랙 주세요",
+       "line": 23
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:배은지->channel:slack": {
+   "id": "reachable_via:person:배은지->channel:slack",
+   "kind": "reachable_via",
+   "src": "person:배은지",
+   "dst": "channel:slack",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:배은지"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:오준석->channel:email": {
+   "id": "reachable_via:person:오준석->channel:email",
+   "kind": "reachable_via",
+   "src": "person:오준석",
+   "dst": "channel:email",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:오준석"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-4d955efdddac",
+       "start": 252,
+       "end": 271,
+       "quote": "오준석 CISO (휴대폰, 이메일)",
+       "line": 15
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:오준석->channel:phone": {
+   "id": "reachable_via:person:오준석->channel:phone",
+   "kind": "reachable_via",
+   "src": "person:오준석",
+   "dst": "channel:phone",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:오준석"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-4d955efdddac",
+       "start": 252,
+       "end": 271,
+       "quote": "오준석 CISO (휴대폰, 이메일)",
+       "line": 15
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:윤아름->channel:email": {
+   "id": "reachable_via:person:윤아름->channel:email",
+   "kind": "reachable_via",
+   "src": "person:윤아름",
+   "dst": "channel:email",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:윤아름"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:윤아름->channel:phone": {
+   "id": "reachable_via:person:윤아름->channel:phone",
+   "kind": "reachable_via",
+   "src": "person:윤아름",
+   "dst": "channel:phone",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:윤아름"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:이수진->channel:internal_messenger": {
+   "id": "reachable_via:person:이수진->channel:internal_messenger",
+   "kind": "reachable_via",
+   "src": "person:이수진",
+   "dst": "channel:internal_messenger",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:이수진"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 668,
+       "end": 687,
+       "quote": "이수진 대리 (사내 메신저, 전화)",
+       "line": 37
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 508,
+       "end": 597,
+       "quote": "## 웹 프론트엔드 (frontend)\n\n| 항목 | 내용 |\n|---|---|\n| 담당 | 이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화",
+       "line": 27
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 132,
+       "end": 169,
+       "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화",
+       "line": 11
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:이수진->channel:phone": {
+   "id": "reachable_via:person:이수진->channel:phone",
+   "kind": "reachable_via",
+   "src": "person:이수진",
+   "dst": "channel:phone",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:이수진"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 668,
+       "end": 687,
+       "quote": "이수진 대리 (사내 메신저, 전화)",
+       "line": 37
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 508,
+       "end": 597,
+       "quote": "## 웹 프론트엔드 (frontend)\n\n| 항목 | 내용 |\n|---|---|\n| 담당 | 이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화",
+       "line": 27
+      }
+     ],
+     "ref": null
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 132,
+       "end": 169,
+       "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화",
+       "line": 11
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:정민혁->channel:phone": {
+   "id": "reachable_via:person:정민혁->channel:phone",
+   "kind": "reachable_via",
+   "src": "person:정민혁",
+   "dst": "channel:phone",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:정민혁"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 308,
+       "end": 323,
+       "quote": "정민혁 과장 (슬랙, 전화)",
+       "line": 18
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:정민혁->channel:slack": {
+   "id": "reachable_via:person:정민혁->channel:slack",
+   "kind": "reachable_via",
+   "src": "person:정민혁",
+   "dst": "channel:slack",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:정민혁"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-c6998bc94c89",
+       "start": 308,
+       "end": 323,
+       "quote": "정민혁 과장 (슬랙, 전화)",
+       "line": 18
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:조영석->channel:phone": {
+   "id": "reachable_via:person:조영석->channel:phone",
+   "kind": "reachable_via",
+   "src": "person:조영석",
+   "dst": "channel:phone",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:조영석"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:최영훈->channel:slack": {
+   "id": "reachable_via:person:최영훈->channel:slack",
+   "kind": "reachable_via",
+   "src": "person:최영훈",
+   "dst": "channel:slack",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:최영훈"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:한서윤->channel:email": {
+   "id": "reachable_via:person:한서윤->channel:email",
+   "kind": "reachable_via",
+   "src": "person:한서윤",
+   "dst": "channel:email",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:한서윤"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:한서윤->channel:kakaotalk": {
+   "id": "reachable_via:person:한서윤->channel:kakaotalk",
+   "kind": "reachable_via",
+   "src": "person:한서윤",
+   "dst": "channel:kakaotalk",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:한서윤"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reachable_via:person:한서윤->channel:phone": {
+   "id": "reachable_via:person:한서윤->channel:phone",
+   "kind": "reachable_via",
+   "src": "person:한서윤",
+   "dst": "channel:phone",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "roster",
+     "extractor": "import",
+     "spans": [],
+     "ref": "roster:한서윤"
+    },
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-3183be527d24",
+       "start": 409,
+       "end": 444,
+       "quote": "팀장님이 20분 넘게 답 없으면 한서윤 CTO님께 전화 드리고요",
+       "line": 24
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "reported_by:obligation:kisa-침해사고-신고->person:오준석": {
+   "id": "reported_by:obligation:kisa-침해사고-신고->person:오준석",
+   "kind": "reported_by",
+   "src": "obligation:kisa-침해사고-신고",
+   "dst": "person:오준석",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "runbook",
+     "extractor": "rule",
+     "spans": [
+      {
+       "doc_id": "doc-4d955efdddac",
+       "start": 215,
+       "end": 243,
+       "quote": "오준석 CISO가 48시간 이내 KISA에 신고한다",
+       "line": 13
+      }
+     ],
+     "ref": null
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:channel:internal_messenger->location:상암-idc": {
+   "id": "runs_in:channel:internal_messenger->location:상암-idc",
+   "kind": "runs_in",
+   "src": "channel:internal_messenger",
+   "dst": "location:상암-idc",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:사내 메신저"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:service:결제->location:클라우드-서울-리전": {
+   "id": "runs_in:service:결제->location:클라우드-서울-리전",
+   "kind": "runs_in",
+   "src": "service:결제",
+   "dst": "location:클라우드-서울-리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:결제"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:service:광고->location:클라우드-서울-리전": {
+   "id": "runs_in:service:광고->location:클라우드-서울-리전",
+   "kind": "runs_in",
+   "src": "service:광고",
+   "dst": "location:클라우드-서울-리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:광고"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:service:배송->location:클라우드-서울-리전": {
+   "id": "runs_in:service:배송->location:클라우드-서울-리전",
+   "kind": "runs_in",
+   "src": "service:배송",
+   "dst": "location:클라우드-서울-리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:배송"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:service:배송비-견적->location:클라우드-서울-리전": {
+   "id": "runs_in:service:배송비-견적->location:클라우드-서울-리전",
+   "kind": "runs_in",
+   "src": "service:배송비-견적",
+   "dst": "location:클라우드-서울-리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:배송비 견적"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:service:상품-카탈로그->location:클라우드-서울-리전": {
+   "id": "runs_in:service:상품-카탈로그->location:클라우드-서울-리전",
+   "kind": "runs_in",
+   "src": "service:상품-카탈로그",
+   "dst": "location:클라우드-서울-리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:상품 카탈로그"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:service:웹-프론트엔드->location:클라우드-서울-리전": {
+   "id": "runs_in:service:웹-프론트엔드->location:클라우드-서울-리전",
+   "kind": "runs_in",
+   "src": "service:웹-프론트엔드",
+   "dst": "location:클라우드-서울-리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:웹 프론트엔드"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:service:이메일->location:클라우드-서울-리전": {
+   "id": "runs_in:service:이메일->location:클라우드-서울-리전",
+   "kind": "runs_in",
+   "src": "service:이메일",
+   "dst": "location:클라우드-서울-리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:이메일"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:service:이상거래-탐지->location:클라우드-서울-리전": {
+   "id": "runs_in:service:이상거래-탐지->location:클라우드-서울-리전",
+   "kind": "runs_in",
+   "src": "service:이상거래-탐지",
+   "dst": "location:클라우드-서울-리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:이상거래 탐지"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:service:장바구니->location:클라우드-서울-리전": {
+   "id": "runs_in:service:장바구니->location:클라우드-서울-리전",
+   "kind": "runs_in",
+   "src": "service:장바구니",
+   "dst": "location:클라우드-서울-리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:장바구니"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:service:정산->location:상암-idc": {
+   "id": "runs_in:service:정산->location:상암-idc",
+   "kind": "runs_in",
+   "src": "service:정산",
+   "dst": "location:상암-idc",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:정산"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:service:주문->location:클라우드-서울-리전": {
+   "id": "runs_in:service:주문->location:클라우드-서울-리전",
+   "kind": "runs_in",
+   "src": "service:주문",
+   "dst": "location:클라우드-서울-리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:주문"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:service:추천->location:클라우드-서울-리전": {
+   "id": "runs_in:service:추천->location:클라우드-서울-리전",
+   "kind": "runs_in",
+   "src": "service:추천",
+   "dst": "location:클라우드-서울-리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:추천"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:service:환율->location:클라우드-서울-리전": {
+   "id": "runs_in:service:환율->location:클라우드-서울-리전",
+   "kind": "runs_in",
+   "src": "service:환율",
+   "dst": "location:클라우드-서울-리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:환율"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:system:astronomy-db->location:상암-idc": {
+   "id": "runs_in:system:astronomy-db->location:상암-idc",
+   "kind": "runs_in",
+   "src": "system:astronomy-db",
+   "dst": "location:상암-idc",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:astronomy-db"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:system:flagd->location:클라우드-서울-리전": {
+   "id": "runs_in:system:flagd->location:클라우드-서울-리전",
+   "kind": "runs_in",
+   "src": "system:flagd",
+   "dst": "location:클라우드-서울-리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:flagd"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:system:frontend-proxy->location:클라우드-서울-리전": {
+   "id": "runs_in:system:frontend-proxy->location:클라우드-서울-리전",
+   "kind": "runs_in",
+   "src": "system:frontend-proxy",
+   "dst": "location:클라우드-서울-리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:frontend-proxy"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:system:image-provider->location:클라우드-서울-리전": {
+   "id": "runs_in:system:image-provider->location:클라우드-서울-리전",
+   "kind": "runs_in",
+   "src": "system:image-provider",
+   "dst": "location:클라우드-서울-리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:image-provider"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:system:kafka->location:상암-idc": {
+   "id": "runs_in:system:kafka->location:상암-idc",
+   "kind": "runs_in",
+   "src": "system:kafka",
+   "dst": "location:상암-idc",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:kafka"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  },
+  "runs_in:system:valkey-cart->location:클라우드-서울-리전": {
+   "id": "runs_in:system:valkey-cart->location:클라우드-서울-리전",
+   "kind": "runs_in",
+   "src": "system:valkey-cart",
+   "dst": "location:클라우드-서울-리전",
+   "attrs": {},
+   "prov": [
+    {
+     "source": "catalog",
+     "extractor": "import",
+     "spans": [],
+     "ref": "catalog:valkey-cart"
+    }
+   ],
+   "verification": "verified",
+   "hold_reason": null
+  }
+ },
+ "docs": {
+  "doc-3183be527d24": {
+   "doc_id": "doc-3183be527d24",
+   "title": "쇼핑 화면 장애 대응 (장바구니·상품 카탈로그)",
+   "sha256": "62396a9b443a39a0b6c234b515648a864dee51f8b6f5663ef64a943b3c45e302",
+   "path": "runbooks/02-장바구니-카탈로그.md"
+  },
+  "doc-4d955efdddac": {
+   "doc_id": "doc-4d955efdddac",
+   "title": "보안·개인정보 사고 신고 절차",
+   "sha256": "db597c1914b64cd8ce8a5e1d2da3a3bf4667d1c438d30e990f864adc4e282b16",
+   "path": "runbooks/03-보안-개인정보-신고.md"
+  },
+  "doc-c6998bc94c89": {
+   "doc_id": "doc-c6998bc94c89",
+   "title": "결제·주문 장애 대응",
+   "sha256": "5ce38d07b430aaabb53742de0b8a1965f48cf94cecf034215328ad7a4c073f2d",
+   "path": "runbooks/01-결제-주문-장애대응.md"
+  }
+ }
+}
