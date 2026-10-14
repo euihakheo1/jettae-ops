@@ -1,0 +1,3052 @@
+[
+ {
+  "scenario_id": "tpl:service:결제:baseline",
+  "scenario_fingerprint": "45e40f226788d7f3",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 60.0,
+  "failed_element": "owner",
+  "failed_at_id": "person:김민준",
+  "reason": "담당 호출이 김민준에서 끊김 — 상향 경로 없음",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:결제",
+    "edge_id": null,
+    "note": "결제 장애 발생"
+   },
+   {
+    "t": 3.0,
+    "kind": "detected",
+    "actor_id": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+    "target_id": "service:결제",
+    "edge_id": "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+    "note": "결제 서비스 실패율 알람(5% 초과 3분 지속)(으)로 감지(장애 후 3분)"
+   },
+   {
+    "t": 3.0,
+    "kind": "no_answer",
+    "actor_id": null,
+    "target_id": "person:김민준",
+    "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준",
+    "note": "담당 호출: 김민준 응답 불가 — 퇴사"
+   },
+   {
+    "t": 5.0,
+    "kind": "no_answer",
+    "actor_id": null,
+    "target_id": "person:김민준",
+    "edge_id": "notifies:trigger:결제-서비스-장애-지속->person:김민준",
+    "note": "담당 호출: 김민준 응답 불가 — 퇴사"
+   },
+   {
+    "t": 5.0,
+    "kind": "dead_end",
+    "actor_id": null,
+    "target_id": "person:김민준",
+    "edge_id": null,
+    "note": "담당 호출 중단: 김민준 이후 진행 불가 — 상향 경로 없음"
+   }
+  ],
+  "path_ids": [
+   "service:결제",
+   "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+   "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+   "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준",
+   "person:김민준",
+   "detected_by:service:결제->trigger:결제-서비스-장애-지속",
+   "trigger:결제-서비스-장애-지속",
+   "notifies:trigger:결제-서비스-장애-지속->person:김민준"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:결제:location_down",
+  "scenario_fingerprint": "b675019204a093c5",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 60.0,
+  "failed_element": "owner",
+  "failed_at_id": "person:김민준",
+  "reason": "담당 호출이 김민준에서 끊김 — 상향 경로 없음",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:결제",
+    "edge_id": null,
+    "note": "결제 장애 발생 · 클라우드 서울 리전 장애 — 영향 서비스: 결제, 광고, 배송, 배송비 견적, 상품 카탈로그, 웹 프론트엔드, 이메일, 이상거래 탐지, 장바구니, 주문, 추천, 환율"
+   },
+   {
+    "t": 3.0,
+    "kind": "detected",
+    "actor_id": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+    "target_id": "service:결제",
+    "edge_id": "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+    "note": "결제 서비스 실패율 알람(5% 초과 3분 지속)(으)로 감지(장애 후 3분)"
+   },
+   {
+    "t": 3.0,
+    "kind": "no_answer",
+    "actor_id": null,
+    "target_id": "person:김민준",
+    "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준",
+    "note": "담당 호출: 김민준 응답 불가 — 퇴사"
+   },
+   {
+    "t": 5.0,
+    "kind": "no_answer",
+    "actor_id": null,
+    "target_id": "person:김민준",
+    "edge_id": "notifies:trigger:결제-서비스-장애-지속->person:김민준",
+    "note": "담당 호출: 김민준 응답 불가 — 퇴사"
+   },
+   {
+    "t": 5.0,
+    "kind": "dead_end",
+    "actor_id": null,
+    "target_id": "person:김민준",
+    "edge_id": null,
+    "note": "담당 호출 중단: 김민준 이후 진행 불가 — 상향 경로 없음"
+   }
+  ],
+  "path_ids": [
+   "service:결제",
+   "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+   "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+   "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준",
+   "person:김민준",
+   "detected_by:service:결제->trigger:결제-서비스-장애-지속",
+   "trigger:결제-서비스-장애-지속",
+   "notifies:trigger:결제-서비스-장애-지속->person:김민준"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:결제:breach_report",
+  "scenario_fingerprint": "ced3eac328876117",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 60.0,
+  "failed_element": "owner",
+  "failed_at_id": "person:김민준",
+  "reason": "담당 호출이 김민준에서 끊김 — 상향 경로 없음 / 과학기술정보통신부·한국인터넷진흥원(KISA) 신고 절차가 런북에 없음 (근거: 정보통신망법 제48조의3 제1항(침해사고의 신고 등, 법률 제21500호·2026.10.1 시행): 침해사고를 알게 된 때부터 24시간 이내 과학기술정보통신부장관 또는 KISA에 신고, 추가 확인 사항은 확인한 때부터 24시간 이내 보완 신고(시행령 제58조의8))",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:결제",
+    "edge_id": null,
+    "note": "결제 침해사고 발생"
+   },
+   {
+    "t": 3.0,
+    "kind": "detected",
+    "actor_id": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+    "target_id": "service:결제",
+    "edge_id": "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+    "note": "결제 서비스 실패율 알람(5% 초과 3분 지속)(으)로 감지(장애 후 3분)"
+   },
+   {
+    "t": 3.0,
+    "kind": "no_answer",
+    "actor_id": null,
+    "target_id": "person:김민준",
+    "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준",
+    "note": "담당 호출: 김민준 응답 불가 — 퇴사"
+   },
+   {
+    "t": 3.0,
+    "kind": "report_missed",
+    "actor_id": null,
+    "target_id": "service:결제",
+    "edge_id": null,
+    "note": "과학기술정보통신부·한국인터넷진흥원(KISA) 신고 절차가 런북에 없음 (근거: 정보통신망법 제48조의3 제1항(침해사고의 신고 등, 법률 제21500호·2026.10.1 시행): 침해사고를 알게 된 때부터 24시간 이내 과학기술정보통신부장관 또는 KISA에 신고, 추가 확인 사항은 확인한 때부터 24시간 이내 보완 신고(시행령 제58조의8))"
+   },
+   {
+    "t": 5.0,
+    "kind": "no_answer",
+    "actor_id": null,
+    "target_id": "person:김민준",
+    "edge_id": "notifies:trigger:결제-서비스-장애-지속->person:김민준",
+    "note": "담당 호출: 김민준 응답 불가 — 퇴사"
+   },
+   {
+    "t": 5.0,
+    "kind": "dead_end",
+    "actor_id": null,
+    "target_id": "person:김민준",
+    "edge_id": null,
+    "note": "담당 호출 중단: 김민준 이후 진행 불가 — 상향 경로 없음"
+   }
+  ],
+  "path_ids": [
+   "service:결제",
+   "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+   "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+   "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준",
+   "person:김민준",
+   "detected_by:service:결제->trigger:결제-서비스-장애-지속",
+   "trigger:결제-서비스-장애-지속",
+   "notifies:trigger:결제-서비스-장애-지속->person:김민준"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:배송:baseline",
+  "scenario_fingerprint": "364cc8c6156b0597",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 240.0,
+  "failed_element": "detection",
+  "failed_at_id": "service:배송",
+  "reason": "감지 경로 없음 — 배송 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:배송",
+    "edge_id": null,
+    "note": "배송 장애 발생"
+   },
+   {
+    "t": 0.0,
+    "kind": "undetected",
+    "actor_id": null,
+    "target_id": "service:배송",
+    "edge_id": null,
+    "note": "배송 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함"
+   }
+  ],
+  "path_ids": [
+   "service:배송"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:배송:location_down",
+  "scenario_fingerprint": "9bd23ae347b788eb",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 240.0,
+  "failed_element": "detection",
+  "failed_at_id": "service:배송",
+  "reason": "감지 경로 없음 — 배송 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:배송",
+    "edge_id": null,
+    "note": "배송 장애 발생 · 클라우드 서울 리전 장애 — 영향 서비스: 결제, 광고, 배송, 배송비 견적, 상품 카탈로그, 웹 프론트엔드, 이메일, 이상거래 탐지, 장바구니, 주문, 추천, 환율"
+   },
+   {
+    "t": 0.0,
+    "kind": "undetected",
+    "actor_id": null,
+    "target_id": "service:배송",
+    "edge_id": null,
+    "note": "배송 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함"
+   }
+  ],
+  "path_ids": [
+   "service:배송"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:상품-카탈로그:baseline",
+  "scenario_fingerprint": "1ad644f54b5d2470",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 240.0,
+  "failed_element": "detection",
+  "failed_at_id": "service:상품-카탈로그",
+  "reason": "감지 경로 없음 — 상품 카탈로그 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:상품-카탈로그",
+    "edge_id": null,
+    "note": "상품 카탈로그 장애 발생"
+   },
+   {
+    "t": 0.0,
+    "kind": "undetected",
+    "actor_id": null,
+    "target_id": "service:상품-카탈로그",
+    "edge_id": null,
+    "note": "상품 카탈로그 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함"
+   }
+  ],
+  "path_ids": [
+   "service:상품-카탈로그"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:상품-카탈로그:owner_absent",
+  "scenario_fingerprint": "1e59aa159ae0cb68",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 240.0,
+  "failed_element": "detection",
+  "failed_at_id": "service:상품-카탈로그",
+  "reason": "감지 경로 없음 — 상품 카탈로그 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:상품-카탈로그",
+    "edge_id": null,
+    "note": "상품 카탈로그 장애 발생 · 박재현 부재"
+   },
+   {
+    "t": 0.0,
+    "kind": "undetected",
+    "actor_id": null,
+    "target_id": "service:상품-카탈로그",
+    "edge_id": null,
+    "note": "상품 카탈로그 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함"
+   }
+  ],
+  "path_ids": [
+   "service:상품-카탈로그"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:상품-카탈로그:channel_down",
+  "scenario_fingerprint": "7c0929aacabaf19c",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 240.0,
+  "failed_element": "detection",
+  "failed_at_id": "service:상품-카탈로그",
+  "reason": "감지 경로 없음 — 상품 카탈로그 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:상품-카탈로그",
+    "edge_id": null,
+    "note": "상품 카탈로그 장애 발생 · phone 다운"
+   },
+   {
+    "t": 0.0,
+    "kind": "undetected",
+    "actor_id": null,
+    "target_id": "service:상품-카탈로그",
+    "edge_id": null,
+    "note": "상품 카탈로그 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함"
+   }
+  ],
+  "path_ids": [
+   "service:상품-카탈로그"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:상품-카탈로그:location_down",
+  "scenario_fingerprint": "f58fc39df15cedbc",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 240.0,
+  "failed_element": "detection",
+  "failed_at_id": "service:상품-카탈로그",
+  "reason": "감지 경로 없음 — 상품 카탈로그 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:상품-카탈로그",
+    "edge_id": null,
+    "note": "상품 카탈로그 장애 발생 · 상암 IDC 장애 — 영향 채널: internal_messenger — 영향 서비스: 상품 카탈로그, 웹 프론트엔드, 이상거래 탐지, 정산, 주문, 추천"
+   },
+   {
+    "t": 0.0,
+    "kind": "undetected",
+    "actor_id": null,
+    "target_id": "service:상품-카탈로그",
+    "edge_id": null,
+    "note": "상품 카탈로그 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함"
+   }
+  ],
+  "path_ids": [
+   "service:상품-카탈로그"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:상품-카탈로그:concurrent",
+  "scenario_fingerprint": "2942941cf04d1611",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 240.0,
+  "failed_element": "detection",
+  "failed_at_id": "service:상품-카탈로그",
+  "reason": "감지 경로 없음 — 상품 카탈로그 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:상품-카탈로그",
+    "edge_id": null,
+    "note": "상품 카탈로그 장애 발생 · 웹 프론트엔드 동시 장애 — 이수진 투입"
+   },
+   {
+    "t": 0.0,
+    "kind": "undetected",
+    "actor_id": null,
+    "target_id": "service:상품-카탈로그",
+    "edge_id": null,
+    "note": "상품 카탈로그 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함"
+   }
+  ],
+  "path_ids": [
+   "service:상품-카탈로그"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:웹-프론트엔드:baseline",
+  "scenario_fingerprint": "524e671f3135aa34",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 30.0,
+  "deadline_minutes": 60.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 60분 안에 완화(30분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": null,
+    "note": "웹 프론트엔드 장애 발생"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": "detected_by:service:웹-프론트엔드->trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+    "note": "웹 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속)(으)로 감지(장애 후 5분)"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:internal_messenger",
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진에게 internal_messenger(으)로 호출"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:이수진",
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진이 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "page",
+    "actor_id": "channel:kakaotalk",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "승인 요청: 박재현에게 kakaotalk(으)로 호출"
+   },
+   {
+    "t": 15.0,
+    "kind": "ack",
+    "actor_id": "person:박재현",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "승인 요청: 박재현이 응답"
+   },
+   {
+    "t": 15.0,
+    "kind": "approval_requested",
+    "actor_id": "person:이수진",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "이수진이 박재현에게 웹 프론트엔드 롤백 승인 요청"
+   },
+   {
+    "t": 20.0,
+    "kind": "approved",
+    "actor_id": "person:박재현",
+    "target_id": "action:웹-프론트엔드-롤백",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "박재현이 웹 프론트엔드 롤백 승인"
+   },
+   {
+    "t": 20.0,
+    "kind": "action_started",
+    "actor_id": "person:이수진",
+    "target_id": "action:웹-프론트엔드-롤백",
+    "edge_id": "executed_by:action:웹-프론트엔드-롤백->person:이수진",
+    "note": "이수진이 웹 프론트엔드 롤백 실행 시작"
+   },
+   {
+    "t": 30.0,
+    "kind": "mitigated",
+    "actor_id": "person:이수진",
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": "mitigated_by:service:웹-프론트엔드->action:웹-프론트엔드-롤백",
+    "note": "웹 프론트엔드 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:웹-프론트엔드",
+   "detected_by:service:웹-프론트엔드->trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+   "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+   "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+   "person:이수진",
+   "reachable_via:person:이수진->channel:internal_messenger",
+   "channel:internal_messenger",
+   "mitigated_by:service:웹-프론트엔드->action:웹-프론트엔드-롤백",
+   "action:웹-프론트엔드-롤백",
+   "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+   "person:박재현",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "channel:kakaotalk",
+   "executed_by:action:웹-프론트엔드-롤백->person:이수진"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:웹-프론트엔드:owner_absent",
+  "scenario_fingerprint": "6c770f74b25caa0c",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 35.0,
+  "deadline_minutes": 60.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 60분 안에 완화(35분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": null,
+    "note": "웹 프론트엔드 장애 발생 · 이수진 부재"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": "detected_by:service:웹-프론트엔드->trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+    "note": "웹 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속)(으)로 감지(장애 후 5분)"
+   },
+   {
+    "t": 5.0,
+    "kind": "no_answer",
+    "actor_id": null,
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진 응답 불가 — 시나리오상 부재"
+   },
+   {
+    "t": 15.0,
+    "kind": "escalate",
+    "actor_id": "person:이수진",
+    "target_id": "person:박재현",
+    "edge_id": "escalates_to:person:이수진->person:박재현",
+    "note": "담당 호출: 이수진 미응답 10분 → 박재현으로 상향"
+   },
+   {
+    "t": 15.0,
+    "kind": "page",
+    "actor_id": "channel:kakaotalk",
+    "target_id": "person:박재현",
+    "edge_id": "escalates_to:person:이수진->person:박재현",
+    "note": "담당 호출: 박재현에게 kakaotalk(으)로 호출"
+   },
+   {
+    "t": 20.0,
+    "kind": "ack",
+    "actor_id": "person:박재현",
+    "target_id": "person:박재현",
+    "edge_id": "escalates_to:person:이수진->person:박재현",
+    "note": "담당 호출: 박재현이 응답"
+   },
+   {
+    "t": 20.0,
+    "kind": "approval_requested",
+    "actor_id": "person:박재현",
+    "target_id": "action:웹-프론트엔드-롤백",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "박재현이 승인 권한 보유(박재현) — 직접 승인"
+   },
+   {
+    "t": 25.0,
+    "kind": "approved",
+    "actor_id": "person:박재현",
+    "target_id": "action:웹-프론트엔드-롤백",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "박재현이 웹 프론트엔드 롤백 승인"
+   },
+   {
+    "t": 25.0,
+    "kind": "action_started",
+    "actor_id": "person:박재현",
+    "target_id": "action:웹-프론트엔드-롤백",
+    "edge_id": "mitigated_by:service:웹-프론트엔드->action:웹-프론트엔드-롤백",
+    "note": "웹 프론트엔드 롤백 실행 시작 — 지정 실행자 응답 불가 → 응답자가 실행(가정)"
+   },
+   {
+    "t": 35.0,
+    "kind": "mitigated",
+    "actor_id": "person:박재현",
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": "mitigated_by:service:웹-프론트엔드->action:웹-프론트엔드-롤백",
+    "note": "웹 프론트엔드 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:웹-프론트엔드",
+   "detected_by:service:웹-프론트엔드->trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+   "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+   "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+   "person:이수진",
+   "escalates_to:person:이수진->person:박재현",
+   "person:박재현",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "channel:kakaotalk",
+   "mitigated_by:service:웹-프론트엔드->action:웹-프론트엔드-롤백",
+   "action:웹-프론트엔드-롤백",
+   "approved_by:action:웹-프론트엔드-롤백->person:박재현"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:웹-프론트엔드:channel_down",
+  "scenario_fingerprint": "b2083b1fc6e6e64c",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 30.0,
+  "deadline_minutes": 60.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 60분 안에 완화(30분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": null,
+    "note": "웹 프론트엔드 장애 발생 · internal_messenger 다운"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": "detected_by:service:웹-프론트엔드->trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+    "note": "웹 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속)(으)로 감지(장애 후 5분)"
+   },
+   {
+    "t": 5.0,
+    "kind": "channel_unavailable",
+    "actor_id": "channel:internal_messenger",
+    "target_id": "person:이수진",
+    "edge_id": "reachable_via:person:이수진->channel:internal_messenger",
+    "note": "담당 호출: 이수진의 internal_messenger 사용 불가 — 시나리오상 다운"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:phone",
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진에게 phone(으)로 호출"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:이수진",
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진이 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "page",
+    "actor_id": "channel:kakaotalk",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "승인 요청: 박재현에게 kakaotalk(으)로 호출"
+   },
+   {
+    "t": 15.0,
+    "kind": "ack",
+    "actor_id": "person:박재현",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "승인 요청: 박재현이 응답"
+   },
+   {
+    "t": 15.0,
+    "kind": "approval_requested",
+    "actor_id": "person:이수진",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "이수진이 박재현에게 웹 프론트엔드 롤백 승인 요청"
+   },
+   {
+    "t": 20.0,
+    "kind": "approved",
+    "actor_id": "person:박재현",
+    "target_id": "action:웹-프론트엔드-롤백",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "박재현이 웹 프론트엔드 롤백 승인"
+   },
+   {
+    "t": 20.0,
+    "kind": "action_started",
+    "actor_id": "person:이수진",
+    "target_id": "action:웹-프론트엔드-롤백",
+    "edge_id": "executed_by:action:웹-프론트엔드-롤백->person:이수진",
+    "note": "이수진이 웹 프론트엔드 롤백 실행 시작"
+   },
+   {
+    "t": 30.0,
+    "kind": "mitigated",
+    "actor_id": "person:이수진",
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": "mitigated_by:service:웹-프론트엔드->action:웹-프론트엔드-롤백",
+    "note": "웹 프론트엔드 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:웹-프론트엔드",
+   "detected_by:service:웹-프론트엔드->trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+   "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+   "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+   "person:이수진",
+   "reachable_via:person:이수진->channel:internal_messenger",
+   "channel:internal_messenger",
+   "fallback_to:channel:internal_messenger->channel:phone",
+   "channel:phone",
+   "mitigated_by:service:웹-프론트엔드->action:웹-프론트엔드-롤백",
+   "action:웹-프론트엔드-롤백",
+   "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+   "person:박재현",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "channel:kakaotalk",
+   "executed_by:action:웹-프론트엔드-롤백->person:이수진"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:웹-프론트엔드:approver_absent",
+  "scenario_fingerprint": "6867ac6bb5b55948",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 60.0,
+  "failed_element": "approver",
+  "failed_at_id": "person:박재현",
+  "reason": "웹 프론트엔드 롤백 승인이 박재현에서 막힘 — 상향 경로 없음",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": null,
+    "note": "웹 프론트엔드 장애 발생 · 박재현 부재"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": "detected_by:service:웹-프론트엔드->trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+    "note": "웹 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속)(으)로 감지(장애 후 5분)"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:internal_messenger",
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진에게 internal_messenger(으)로 호출"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:이수진",
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진이 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "no_answer",
+    "actor_id": null,
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "승인 요청: 박재현 응답 불가 — 시나리오상 부재"
+   },
+   {
+    "t": 10.0,
+    "kind": "dead_end",
+    "actor_id": null,
+    "target_id": "person:박재현",
+    "edge_id": null,
+    "note": "승인 요청 중단: 박재현 이후 진행 불가 — 상향 경로 없음"
+   },
+   {
+    "t": 10.0,
+    "kind": "approval_blocked",
+    "actor_id": null,
+    "target_id": "action:웹-프론트엔드-롤백",
+    "edge_id": null,
+    "note": "웹 프론트엔드 롤백 승인 불가 — 상향 경로 없음"
+   }
+  ],
+  "path_ids": [
+   "service:웹-프론트엔드",
+   "detected_by:service:웹-프론트엔드->trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+   "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+   "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+   "person:이수진",
+   "reachable_via:person:이수진->channel:internal_messenger",
+   "channel:internal_messenger",
+   "mitigated_by:service:웹-프론트엔드->action:웹-프론트엔드-롤백",
+   "action:웹-프론트엔드-롤백",
+   "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+   "person:박재현"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:웹-프론트엔드:location_down",
+  "scenario_fingerprint": "1e345b92d1eb350d",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 30.0,
+  "deadline_minutes": 60.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 60분 안에 완화(30분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": null,
+    "note": "웹 프론트엔드 장애 발생 · 상암 IDC 장애 — 영향 채널: internal_messenger — 영향 서비스: 상품 카탈로그, 웹 프론트엔드, 이상거래 탐지, 정산, 주문, 추천"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": "detected_by:service:웹-프론트엔드->trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+    "note": "웹 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속)(으)로 감지(장애 후 5분)"
+   },
+   {
+    "t": 5.0,
+    "kind": "channel_unavailable",
+    "actor_id": "channel:internal_messenger",
+    "target_id": "person:이수진",
+    "edge_id": "reachable_via:person:이수진->channel:internal_messenger",
+    "note": "담당 호출: 이수진의 internal_messenger 사용 불가 — 상암 IDC 장애 영향"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:phone",
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진에게 phone(으)로 호출"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:이수진",
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진이 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "page",
+    "actor_id": "channel:kakaotalk",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "승인 요청: 박재현에게 kakaotalk(으)로 호출"
+   },
+   {
+    "t": 15.0,
+    "kind": "ack",
+    "actor_id": "person:박재현",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "승인 요청: 박재현이 응답"
+   },
+   {
+    "t": 15.0,
+    "kind": "approval_requested",
+    "actor_id": "person:이수진",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "이수진이 박재현에게 웹 프론트엔드 롤백 승인 요청"
+   },
+   {
+    "t": 20.0,
+    "kind": "approved",
+    "actor_id": "person:박재현",
+    "target_id": "action:웹-프론트엔드-롤백",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "박재현이 웹 프론트엔드 롤백 승인"
+   },
+   {
+    "t": 20.0,
+    "kind": "action_started",
+    "actor_id": "person:이수진",
+    "target_id": "action:웹-프론트엔드-롤백",
+    "edge_id": "executed_by:action:웹-프론트엔드-롤백->person:이수진",
+    "note": "이수진이 웹 프론트엔드 롤백 실행 시작"
+   },
+   {
+    "t": 30.0,
+    "kind": "mitigated",
+    "actor_id": "person:이수진",
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": "mitigated_by:service:웹-프론트엔드->action:웹-프론트엔드-롤백",
+    "note": "웹 프론트엔드 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:웹-프론트엔드",
+   "detected_by:service:웹-프론트엔드->trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+   "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+   "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+   "person:이수진",
+   "reachable_via:person:이수진->channel:internal_messenger",
+   "channel:internal_messenger",
+   "fallback_to:channel:internal_messenger->channel:phone",
+   "channel:phone",
+   "mitigated_by:service:웹-프론트엔드->action:웹-프론트엔드-롤백",
+   "action:웹-프론트엔드-롤백",
+   "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+   "person:박재현",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "channel:kakaotalk",
+   "executed_by:action:웹-프론트엔드-롤백->person:이수진"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:웹-프론트엔드:concurrent",
+  "scenario_fingerprint": "ac03e2418ed9577d",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 35.0,
+  "deadline_minutes": 60.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 60분 안에 완화(35분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": null,
+    "note": "웹 프론트엔드 장애 발생 · 장바구니 동시 장애 — 이수진 투입"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": "detected_by:service:웹-프론트엔드->trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+    "note": "웹 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속)(으)로 감지(장애 후 5분)"
+   },
+   {
+    "t": 5.0,
+    "kind": "no_answer",
+    "actor_id": null,
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진 응답 불가 — 장바구니 동시 장애 대응 중"
+   },
+   {
+    "t": 15.0,
+    "kind": "escalate",
+    "actor_id": "person:이수진",
+    "target_id": "person:박재현",
+    "edge_id": "escalates_to:person:이수진->person:박재현",
+    "note": "담당 호출: 이수진 미응답 10분 → 박재현으로 상향"
+   },
+   {
+    "t": 15.0,
+    "kind": "page",
+    "actor_id": "channel:kakaotalk",
+    "target_id": "person:박재현",
+    "edge_id": "escalates_to:person:이수진->person:박재현",
+    "note": "담당 호출: 박재현에게 kakaotalk(으)로 호출"
+   },
+   {
+    "t": 20.0,
+    "kind": "ack",
+    "actor_id": "person:박재현",
+    "target_id": "person:박재현",
+    "edge_id": "escalates_to:person:이수진->person:박재현",
+    "note": "담당 호출: 박재현이 응답"
+   },
+   {
+    "t": 20.0,
+    "kind": "approval_requested",
+    "actor_id": "person:박재현",
+    "target_id": "action:웹-프론트엔드-롤백",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "박재현이 승인 권한 보유(박재현) — 직접 승인"
+   },
+   {
+    "t": 25.0,
+    "kind": "approved",
+    "actor_id": "person:박재현",
+    "target_id": "action:웹-프론트엔드-롤백",
+    "edge_id": "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+    "note": "박재현이 웹 프론트엔드 롤백 승인"
+   },
+   {
+    "t": 25.0,
+    "kind": "action_started",
+    "actor_id": "person:박재현",
+    "target_id": "action:웹-프론트엔드-롤백",
+    "edge_id": "mitigated_by:service:웹-프론트엔드->action:웹-프론트엔드-롤백",
+    "note": "웹 프론트엔드 롤백 실행 시작 — 지정 실행자 응답 불가 → 응답자가 실행(가정)"
+   },
+   {
+    "t": 35.0,
+    "kind": "mitigated",
+    "actor_id": "person:박재현",
+    "target_id": "service:웹-프론트엔드",
+    "edge_id": "mitigated_by:service:웹-프론트엔드->action:웹-프론트엔드-롤백",
+    "note": "웹 프론트엔드 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:웹-프론트엔드",
+   "detected_by:service:웹-프론트엔드->trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+   "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+   "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+   "person:이수진",
+   "escalates_to:person:이수진->person:박재현",
+   "person:박재현",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "channel:kakaotalk",
+   "mitigated_by:service:웹-프론트엔드->action:웹-프론트엔드-롤백",
+   "action:웹-프론트엔드-롤백",
+   "approved_by:action:웹-프론트엔드-롤백->person:박재현"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:이상거래-탐지:baseline",
+  "scenario_fingerprint": "ce765b5b0d26061f",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 240.0,
+  "failed_element": "detection",
+  "failed_at_id": "service:이상거래-탐지",
+  "reason": "감지 경로 없음 — 이상거래 탐지 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:이상거래-탐지",
+    "edge_id": null,
+    "note": "이상거래 탐지 장애 발생"
+   },
+   {
+    "t": 0.0,
+    "kind": "undetected",
+    "actor_id": null,
+    "target_id": "service:이상거래-탐지",
+    "edge_id": null,
+    "note": "이상거래 탐지 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함"
+   }
+  ],
+  "path_ids": [
+   "service:이상거래-탐지"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:이상거래-탐지:location_down",
+  "scenario_fingerprint": "50ff09d8d986ca76",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 240.0,
+  "failed_element": "detection",
+  "failed_at_id": "service:이상거래-탐지",
+  "reason": "감지 경로 없음 — 이상거래 탐지 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:이상거래-탐지",
+    "edge_id": null,
+    "note": "이상거래 탐지 장애 발생 · 상암 IDC 장애 — 영향 채널: internal_messenger — 영향 서비스: 상품 카탈로그, 웹 프론트엔드, 이상거래 탐지, 정산, 주문, 추천"
+   },
+   {
+    "t": 0.0,
+    "kind": "undetected",
+    "actor_id": null,
+    "target_id": "service:이상거래-탐지",
+    "edge_id": null,
+    "note": "이상거래 탐지 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함"
+   }
+  ],
+  "path_ids": [
+   "service:이상거래-탐지"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:장바구니:baseline",
+  "scenario_fingerprint": "91cf26755fc769f7",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 30.0,
+  "deadline_minutes": 60.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 60분 안에 완화(30분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:장바구니",
+    "edge_id": null,
+    "note": "장바구니 장애 발생"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:장바구니-api-오류율-2-초과-5분-지속",
+    "target_id": "service:장바구니",
+    "edge_id": "detected_by:service:장바구니->trigger:장바구니-api-오류율-2-초과-5분-지속",
+    "note": "장바구니 API 오류율 2% 초과 5분 지속으로 감지(장애 후 5분)"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:internal_messenger",
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진에게 internal_messenger(으)로 호출"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:이수진",
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진이 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "page",
+    "actor_id": "channel:kakaotalk",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "승인 요청: 박재현에게 kakaotalk(으)로 호출"
+   },
+   {
+    "t": 15.0,
+    "kind": "ack",
+    "actor_id": "person:박재현",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "승인 요청: 박재현이 응답"
+   },
+   {
+    "t": 15.0,
+    "kind": "approval_requested",
+    "actor_id": "person:이수진",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "이수진이 박재현에게 장바구니 롤백 승인 요청"
+   },
+   {
+    "t": 20.0,
+    "kind": "approved",
+    "actor_id": "person:박재현",
+    "target_id": "action:장바구니-롤백",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "박재현이 장바구니 롤백 승인"
+   },
+   {
+    "t": 20.0,
+    "kind": "action_started",
+    "actor_id": "person:이수진",
+    "target_id": "action:장바구니-롤백",
+    "edge_id": "executed_by:action:장바구니-롤백->person:이수진",
+    "note": "이수진이 장바구니 롤백 실행 시작"
+   },
+   {
+    "t": 30.0,
+    "kind": "mitigated",
+    "actor_id": "person:이수진",
+    "target_id": "service:장바구니",
+    "edge_id": "mitigated_by:service:장바구니->action:장바구니-롤백",
+    "note": "장바구니 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:장바구니",
+   "detected_by:service:장바구니->trigger:장바구니-api-오류율-2-초과-5분-지속",
+   "trigger:장바구니-api-오류율-2-초과-5분-지속",
+   "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+   "person:이수진",
+   "reachable_via:person:이수진->channel:internal_messenger",
+   "channel:internal_messenger",
+   "mitigated_by:service:장바구니->action:장바구니-롤백",
+   "action:장바구니-롤백",
+   "approved_by:action:장바구니-롤백->person:박재현",
+   "person:박재현",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "channel:kakaotalk",
+   "executed_by:action:장바구니-롤백->person:이수진"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:장바구니:owner_absent",
+  "scenario_fingerprint": "59eda67f8ebe4be9",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 35.0,
+  "deadline_minutes": 60.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 60분 안에 완화(35분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:장바구니",
+    "edge_id": null,
+    "note": "장바구니 장애 발생 · 이수진 부재"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:장바구니-api-오류율-2-초과-5분-지속",
+    "target_id": "service:장바구니",
+    "edge_id": "detected_by:service:장바구니->trigger:장바구니-api-오류율-2-초과-5분-지속",
+    "note": "장바구니 API 오류율 2% 초과 5분 지속으로 감지(장애 후 5분)"
+   },
+   {
+    "t": 5.0,
+    "kind": "no_answer",
+    "actor_id": null,
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진 응답 불가 — 시나리오상 부재"
+   },
+   {
+    "t": 15.0,
+    "kind": "escalate",
+    "actor_id": "person:이수진",
+    "target_id": "person:박재현",
+    "edge_id": "escalates_to:person:이수진->person:박재현",
+    "note": "담당 호출: 이수진 미응답 10분 → 박재현으로 상향"
+   },
+   {
+    "t": 15.0,
+    "kind": "page",
+    "actor_id": "channel:kakaotalk",
+    "target_id": "person:박재현",
+    "edge_id": "escalates_to:person:이수진->person:박재현",
+    "note": "담당 호출: 박재현에게 kakaotalk(으)로 호출"
+   },
+   {
+    "t": 20.0,
+    "kind": "ack",
+    "actor_id": "person:박재현",
+    "target_id": "person:박재현",
+    "edge_id": "escalates_to:person:이수진->person:박재현",
+    "note": "담당 호출: 박재현이 응답"
+   },
+   {
+    "t": 20.0,
+    "kind": "approval_requested",
+    "actor_id": "person:박재현",
+    "target_id": "action:장바구니-롤백",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "박재현이 승인 권한 보유(박재현) — 직접 승인"
+   },
+   {
+    "t": 25.0,
+    "kind": "approved",
+    "actor_id": "person:박재현",
+    "target_id": "action:장바구니-롤백",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "박재현이 장바구니 롤백 승인"
+   },
+   {
+    "t": 25.0,
+    "kind": "action_started",
+    "actor_id": "person:박재현",
+    "target_id": "action:장바구니-롤백",
+    "edge_id": "mitigated_by:service:장바구니->action:장바구니-롤백",
+    "note": "장바구니 롤백 실행 시작 — 지정 실행자 응답 불가 → 응답자가 실행(가정)"
+   },
+   {
+    "t": 35.0,
+    "kind": "mitigated",
+    "actor_id": "person:박재현",
+    "target_id": "service:장바구니",
+    "edge_id": "mitigated_by:service:장바구니->action:장바구니-롤백",
+    "note": "장바구니 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:장바구니",
+   "detected_by:service:장바구니->trigger:장바구니-api-오류율-2-초과-5분-지속",
+   "trigger:장바구니-api-오류율-2-초과-5분-지속",
+   "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+   "person:이수진",
+   "escalates_to:person:이수진->person:박재현",
+   "person:박재현",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "channel:kakaotalk",
+   "mitigated_by:service:장바구니->action:장바구니-롤백",
+   "action:장바구니-롤백",
+   "approved_by:action:장바구니-롤백->person:박재현"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:장바구니:channel_down",
+  "scenario_fingerprint": "4a09b130f8429daf",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 30.0,
+  "deadline_minutes": 60.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 60분 안에 완화(30분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:장바구니",
+    "edge_id": null,
+    "note": "장바구니 장애 발생 · internal_messenger 다운"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:장바구니-api-오류율-2-초과-5분-지속",
+    "target_id": "service:장바구니",
+    "edge_id": "detected_by:service:장바구니->trigger:장바구니-api-오류율-2-초과-5분-지속",
+    "note": "장바구니 API 오류율 2% 초과 5분 지속으로 감지(장애 후 5분)"
+   },
+   {
+    "t": 5.0,
+    "kind": "channel_unavailable",
+    "actor_id": "channel:internal_messenger",
+    "target_id": "person:이수진",
+    "edge_id": "reachable_via:person:이수진->channel:internal_messenger",
+    "note": "담당 호출: 이수진의 internal_messenger 사용 불가 — 시나리오상 다운"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:phone",
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진에게 phone(으)로 호출"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:이수진",
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진이 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "page",
+    "actor_id": "channel:kakaotalk",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "승인 요청: 박재현에게 kakaotalk(으)로 호출"
+   },
+   {
+    "t": 15.0,
+    "kind": "ack",
+    "actor_id": "person:박재현",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "승인 요청: 박재현이 응답"
+   },
+   {
+    "t": 15.0,
+    "kind": "approval_requested",
+    "actor_id": "person:이수진",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "이수진이 박재현에게 장바구니 롤백 승인 요청"
+   },
+   {
+    "t": 20.0,
+    "kind": "approved",
+    "actor_id": "person:박재현",
+    "target_id": "action:장바구니-롤백",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "박재현이 장바구니 롤백 승인"
+   },
+   {
+    "t": 20.0,
+    "kind": "action_started",
+    "actor_id": "person:이수진",
+    "target_id": "action:장바구니-롤백",
+    "edge_id": "executed_by:action:장바구니-롤백->person:이수진",
+    "note": "이수진이 장바구니 롤백 실행 시작"
+   },
+   {
+    "t": 30.0,
+    "kind": "mitigated",
+    "actor_id": "person:이수진",
+    "target_id": "service:장바구니",
+    "edge_id": "mitigated_by:service:장바구니->action:장바구니-롤백",
+    "note": "장바구니 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:장바구니",
+   "detected_by:service:장바구니->trigger:장바구니-api-오류율-2-초과-5분-지속",
+   "trigger:장바구니-api-오류율-2-초과-5분-지속",
+   "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+   "person:이수진",
+   "reachable_via:person:이수진->channel:internal_messenger",
+   "channel:internal_messenger",
+   "fallback_to:channel:internal_messenger->channel:phone",
+   "channel:phone",
+   "mitigated_by:service:장바구니->action:장바구니-롤백",
+   "action:장바구니-롤백",
+   "approved_by:action:장바구니-롤백->person:박재현",
+   "person:박재현",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "channel:kakaotalk",
+   "executed_by:action:장바구니-롤백->person:이수진"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:장바구니:approver_absent",
+  "scenario_fingerprint": "e721bb0746df06a1",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 60.0,
+  "failed_element": "approver",
+  "failed_at_id": "person:박재현",
+  "reason": "장바구니 롤백 승인이 박재현에서 막힘 — 상향 경로 없음",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:장바구니",
+    "edge_id": null,
+    "note": "장바구니 장애 발생 · 박재현 부재"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:장바구니-api-오류율-2-초과-5분-지속",
+    "target_id": "service:장바구니",
+    "edge_id": "detected_by:service:장바구니->trigger:장바구니-api-오류율-2-초과-5분-지속",
+    "note": "장바구니 API 오류율 2% 초과 5분 지속으로 감지(장애 후 5분)"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:internal_messenger",
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진에게 internal_messenger(으)로 호출"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:이수진",
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진이 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "no_answer",
+    "actor_id": null,
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "승인 요청: 박재현 응답 불가 — 시나리오상 부재"
+   },
+   {
+    "t": 10.0,
+    "kind": "dead_end",
+    "actor_id": null,
+    "target_id": "person:박재현",
+    "edge_id": null,
+    "note": "승인 요청 중단: 박재현 이후 진행 불가 — 상향 경로 없음"
+   },
+   {
+    "t": 10.0,
+    "kind": "approval_blocked",
+    "actor_id": null,
+    "target_id": "action:장바구니-롤백",
+    "edge_id": null,
+    "note": "장바구니 롤백 승인 불가 — 상향 경로 없음"
+   }
+  ],
+  "path_ids": [
+   "service:장바구니",
+   "detected_by:service:장바구니->trigger:장바구니-api-오류율-2-초과-5분-지속",
+   "trigger:장바구니-api-오류율-2-초과-5분-지속",
+   "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+   "person:이수진",
+   "reachable_via:person:이수진->channel:internal_messenger",
+   "channel:internal_messenger",
+   "mitigated_by:service:장바구니->action:장바구니-롤백",
+   "action:장바구니-롤백",
+   "approved_by:action:장바구니-롤백->person:박재현",
+   "person:박재현"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:장바구니:location_down",
+  "scenario_fingerprint": "b160c716b91c23e7",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 30.0,
+  "deadline_minutes": 60.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 60분 안에 완화(30분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:장바구니",
+    "edge_id": null,
+    "note": "장바구니 장애 발생 · 클라우드 서울 리전 장애 — 영향 서비스: 결제, 광고, 배송, 배송비 견적, 상품 카탈로그, 웹 프론트엔드, 이메일, 이상거래 탐지, 장바구니, 주문, 추천, 환율"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:장바구니-api-오류율-2-초과-5분-지속",
+    "target_id": "service:장바구니",
+    "edge_id": "detected_by:service:장바구니->trigger:장바구니-api-오류율-2-초과-5분-지속",
+    "note": "장바구니 API 오류율 2% 초과 5분 지속으로 감지(장애 후 5분)"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:internal_messenger",
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진에게 internal_messenger(으)로 호출"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:이수진",
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진이 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "page",
+    "actor_id": "channel:kakaotalk",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "승인 요청: 박재현에게 kakaotalk(으)로 호출"
+   },
+   {
+    "t": 15.0,
+    "kind": "ack",
+    "actor_id": "person:박재현",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "승인 요청: 박재현이 응답"
+   },
+   {
+    "t": 15.0,
+    "kind": "approval_requested",
+    "actor_id": "person:이수진",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "이수진이 박재현에게 장바구니 롤백 승인 요청"
+   },
+   {
+    "t": 20.0,
+    "kind": "approved",
+    "actor_id": "person:박재현",
+    "target_id": "action:장바구니-롤백",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "박재현이 장바구니 롤백 승인"
+   },
+   {
+    "t": 20.0,
+    "kind": "action_started",
+    "actor_id": "person:이수진",
+    "target_id": "action:장바구니-롤백",
+    "edge_id": "executed_by:action:장바구니-롤백->person:이수진",
+    "note": "이수진이 장바구니 롤백 실행 시작"
+   },
+   {
+    "t": 30.0,
+    "kind": "mitigated",
+    "actor_id": "person:이수진",
+    "target_id": "service:장바구니",
+    "edge_id": "mitigated_by:service:장바구니->action:장바구니-롤백",
+    "note": "장바구니 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:장바구니",
+   "detected_by:service:장바구니->trigger:장바구니-api-오류율-2-초과-5분-지속",
+   "trigger:장바구니-api-오류율-2-초과-5분-지속",
+   "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+   "person:이수진",
+   "reachable_via:person:이수진->channel:internal_messenger",
+   "channel:internal_messenger",
+   "mitigated_by:service:장바구니->action:장바구니-롤백",
+   "action:장바구니-롤백",
+   "approved_by:action:장바구니-롤백->person:박재현",
+   "person:박재현",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "channel:kakaotalk",
+   "executed_by:action:장바구니-롤백->person:이수진"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:장바구니:concurrent",
+  "scenario_fingerprint": "ca26aab5601e1be0",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 35.0,
+  "deadline_minutes": 60.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 60분 안에 완화(35분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:장바구니",
+    "edge_id": null,
+    "note": "장바구니 장애 발생 · 웹 프론트엔드 동시 장애 — 이수진 투입"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:장바구니-api-오류율-2-초과-5분-지속",
+    "target_id": "service:장바구니",
+    "edge_id": "detected_by:service:장바구니->trigger:장바구니-api-오류율-2-초과-5분-지속",
+    "note": "장바구니 API 오류율 2% 초과 5분 지속으로 감지(장애 후 5분)"
+   },
+   {
+    "t": 5.0,
+    "kind": "no_answer",
+    "actor_id": null,
+    "target_id": "person:이수진",
+    "edge_id": "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+    "note": "담당 호출: 이수진 응답 불가 — 웹 프론트엔드 동시 장애 대응 중"
+   },
+   {
+    "t": 15.0,
+    "kind": "escalate",
+    "actor_id": "person:이수진",
+    "target_id": "person:박재현",
+    "edge_id": "escalates_to:person:이수진->person:박재현",
+    "note": "담당 호출: 이수진 미응답 10분 → 박재현으로 상향"
+   },
+   {
+    "t": 15.0,
+    "kind": "page",
+    "actor_id": "channel:kakaotalk",
+    "target_id": "person:박재현",
+    "edge_id": "escalates_to:person:이수진->person:박재현",
+    "note": "담당 호출: 박재현에게 kakaotalk(으)로 호출"
+   },
+   {
+    "t": 20.0,
+    "kind": "ack",
+    "actor_id": "person:박재현",
+    "target_id": "person:박재현",
+    "edge_id": "escalates_to:person:이수진->person:박재현",
+    "note": "담당 호출: 박재현이 응답"
+   },
+   {
+    "t": 20.0,
+    "kind": "approval_requested",
+    "actor_id": "person:박재현",
+    "target_id": "action:장바구니-롤백",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "박재현이 승인 권한 보유(박재현) — 직접 승인"
+   },
+   {
+    "t": 25.0,
+    "kind": "approved",
+    "actor_id": "person:박재현",
+    "target_id": "action:장바구니-롤백",
+    "edge_id": "approved_by:action:장바구니-롤백->person:박재현",
+    "note": "박재현이 장바구니 롤백 승인"
+   },
+   {
+    "t": 25.0,
+    "kind": "action_started",
+    "actor_id": "person:박재현",
+    "target_id": "action:장바구니-롤백",
+    "edge_id": "mitigated_by:service:장바구니->action:장바구니-롤백",
+    "note": "장바구니 롤백 실행 시작 — 지정 실행자 응답 불가 → 응답자가 실행(가정)"
+   },
+   {
+    "t": 35.0,
+    "kind": "mitigated",
+    "actor_id": "person:박재현",
+    "target_id": "service:장바구니",
+    "edge_id": "mitigated_by:service:장바구니->action:장바구니-롤백",
+    "note": "장바구니 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:장바구니",
+   "detected_by:service:장바구니->trigger:장바구니-api-오류율-2-초과-5분-지속",
+   "trigger:장바구니-api-오류율-2-초과-5분-지속",
+   "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+   "person:이수진",
+   "escalates_to:person:이수진->person:박재현",
+   "person:박재현",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "channel:kakaotalk",
+   "mitigated_by:service:장바구니->action:장바구니-롤백",
+   "action:장바구니-롤백",
+   "approved_by:action:장바구니-롤백->person:박재현"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:정산:baseline",
+  "scenario_fingerprint": "06e30d2c74592202",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 240.0,
+  "failed_element": "detection",
+  "failed_at_id": "service:정산",
+  "reason": "감지 경로 없음 — 정산 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:정산",
+    "edge_id": null,
+    "note": "정산 장애 발생"
+   },
+   {
+    "t": 0.0,
+    "kind": "undetected",
+    "actor_id": null,
+    "target_id": "service:정산",
+    "edge_id": null,
+    "note": "정산 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함"
+   }
+  ],
+  "path_ids": [
+   "service:정산"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:정산:location_down",
+  "scenario_fingerprint": "b806c54868357880",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 240.0,
+  "failed_element": "detection",
+  "failed_at_id": "service:정산",
+  "reason": "감지 경로 없음 — 정산 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:정산",
+    "edge_id": null,
+    "note": "정산 장애 발생 · 상암 IDC 장애 — 영향 채널: internal_messenger — 영향 서비스: 상품 카탈로그, 웹 프론트엔드, 이상거래 탐지, 정산, 주문, 추천"
+   },
+   {
+    "t": 0.0,
+    "kind": "undetected",
+    "actor_id": null,
+    "target_id": "service:정산",
+    "edge_id": null,
+    "note": "정산 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함"
+   }
+  ],
+  "path_ids": [
+   "service:정산"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:주문:baseline",
+  "scenario_fingerprint": "1274bb819ea81e58",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 30.0,
+  "deadline_minutes": 60.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 60분 안에 완화(30분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:주문",
+    "edge_id": null,
+    "note": "주문 장애 발생"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:주문체크아웃-주문-실패율-알람",
+    "target_id": "service:주문",
+    "edge_id": "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+    "note": "주문/체크아웃 주문 실패율 알람으로 감지(장애 후 5분 — 감지 지연 미기재로 기본값 가정)"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:phone",
+    "target_id": "person:정민혁",
+    "edge_id": "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+    "note": "담당 호출: 정민혁에게 phone(으)로 호출"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:정민혁",
+    "target_id": "person:정민혁",
+    "edge_id": "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+    "note": "담당 호출: 정민혁이 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "page",
+    "actor_id": "channel:email",
+    "target_id": "person:한서윤",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "승인 요청: 한서윤에게 email(으)로 호출"
+   },
+   {
+    "t": 15.0,
+    "kind": "ack",
+    "actor_id": "person:한서윤",
+    "target_id": "person:한서윤",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "승인 요청: 한서윤이 응답"
+   },
+   {
+    "t": 15.0,
+    "kind": "approval_requested",
+    "actor_id": "person:정민혁",
+    "target_id": "person:한서윤",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "정민혁이 한서윤에게 주문/체크아웃 롤백 승인 요청"
+   },
+   {
+    "t": 20.0,
+    "kind": "approved",
+    "actor_id": "person:한서윤",
+    "target_id": "action:주문체크아웃-롤백",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "한서윤이 주문/체크아웃 롤백 승인"
+   },
+   {
+    "t": 20.0,
+    "kind": "action_started",
+    "actor_id": "person:정민혁",
+    "target_id": "action:주문체크아웃-롤백",
+    "edge_id": "executed_by:action:주문체크아웃-롤백->person:정민혁",
+    "note": "정민혁이 주문/체크아웃 롤백 실행 시작"
+   },
+   {
+    "t": 30.0,
+    "kind": "mitigated",
+    "actor_id": "person:정민혁",
+    "target_id": "service:주문",
+    "edge_id": "mitigated_by:service:주문->action:주문체크아웃-롤백",
+    "note": "주문/체크아웃 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:주문",
+   "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+   "trigger:주문체크아웃-주문-실패율-알람",
+   "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+   "person:정민혁",
+   "reachable_via:person:정민혁->channel:phone",
+   "channel:phone",
+   "mitigated_by:service:주문->action:주문체크아웃-롤백",
+   "action:주문체크아웃-롤백",
+   "approved_by:action:주문체크아웃-롤백->person:한서윤",
+   "person:한서윤",
+   "reachable_via:person:한서윤->channel:email",
+   "channel:email",
+   "executed_by:action:주문체크아웃-롤백->person:정민혁"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:주문:owner_absent",
+  "scenario_fingerprint": "27798782be51e1cd",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 45.0,
+  "deadline_minutes": 60.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 60분 안에 완화(45분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:주문",
+    "edge_id": null,
+    "note": "주문 장애 발생 · 정민혁 부재"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:주문체크아웃-주문-실패율-알람",
+    "target_id": "service:주문",
+    "edge_id": "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+    "note": "주문/체크아웃 주문 실패율 알람으로 감지(장애 후 5분 — 감지 지연 미기재로 기본값 가정)"
+   },
+   {
+    "t": 5.0,
+    "kind": "no_answer",
+    "actor_id": null,
+    "target_id": "person:정민혁",
+    "edge_id": "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+    "note": "담당 호출: 정민혁 응답 불가 — 시나리오상 부재"
+   },
+   {
+    "t": 20.0,
+    "kind": "escalate",
+    "actor_id": "person:정민혁",
+    "target_id": "person:최영훈",
+    "edge_id": "escalates_to:person:정민혁->person:최영훈",
+    "note": "담당 호출: 정민혁 미응답 15분 → 최영훈으로 상향"
+   },
+   {
+    "t": 20.0,
+    "kind": "page",
+    "actor_id": "channel:slack",
+    "target_id": "person:최영훈",
+    "edge_id": "escalates_to:person:정민혁->person:최영훈",
+    "note": "담당 호출: 최영훈에게 slack(으)로 호출"
+   },
+   {
+    "t": 25.0,
+    "kind": "ack",
+    "actor_id": "person:최영훈",
+    "target_id": "person:최영훈",
+    "edge_id": "escalates_to:person:정민혁->person:최영훈",
+    "note": "담당 호출: 최영훈이 응답"
+   },
+   {
+    "t": 25.0,
+    "kind": "page",
+    "actor_id": "channel:email",
+    "target_id": "person:한서윤",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "승인 요청: 한서윤에게 email(으)로 호출"
+   },
+   {
+    "t": 30.0,
+    "kind": "ack",
+    "actor_id": "person:한서윤",
+    "target_id": "person:한서윤",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "승인 요청: 한서윤이 응답"
+   },
+   {
+    "t": 30.0,
+    "kind": "approval_requested",
+    "actor_id": "person:최영훈",
+    "target_id": "person:한서윤",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "최영훈이 한서윤에게 주문/체크아웃 롤백 승인 요청"
+   },
+   {
+    "t": 35.0,
+    "kind": "approved",
+    "actor_id": "person:한서윤",
+    "target_id": "action:주문체크아웃-롤백",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "한서윤이 주문/체크아웃 롤백 승인"
+   },
+   {
+    "t": 35.0,
+    "kind": "action_started",
+    "actor_id": "person:최영훈",
+    "target_id": "action:주문체크아웃-롤백",
+    "edge_id": "mitigated_by:service:주문->action:주문체크아웃-롤백",
+    "note": "주문/체크아웃 롤백 실행 시작 — 지정 실행자 응답 불가 → 응답자가 실행(가정)"
+   },
+   {
+    "t": 45.0,
+    "kind": "mitigated",
+    "actor_id": "person:최영훈",
+    "target_id": "service:주문",
+    "edge_id": "mitigated_by:service:주문->action:주문체크아웃-롤백",
+    "note": "주문/체크아웃 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:주문",
+   "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+   "trigger:주문체크아웃-주문-실패율-알람",
+   "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+   "person:정민혁",
+   "escalates_to:person:정민혁->person:최영훈",
+   "person:최영훈",
+   "reachable_via:person:최영훈->channel:slack",
+   "channel:slack",
+   "mitigated_by:service:주문->action:주문체크아웃-롤백",
+   "action:주문체크아웃-롤백",
+   "approved_by:action:주문체크아웃-롤백->person:한서윤",
+   "person:한서윤",
+   "reachable_via:person:한서윤->channel:email",
+   "channel:email"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:주문:channel_down",
+  "scenario_fingerprint": "717d016344316754",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 30.0,
+  "deadline_minutes": 60.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 60분 안에 완화(30분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:주문",
+    "edge_id": null,
+    "note": "주문 장애 발생 · phone 다운"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:주문체크아웃-주문-실패율-알람",
+    "target_id": "service:주문",
+    "edge_id": "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+    "note": "주문/체크아웃 주문 실패율 알람으로 감지(장애 후 5분 — 감지 지연 미기재로 기본값 가정)"
+   },
+   {
+    "t": 5.0,
+    "kind": "channel_unavailable",
+    "actor_id": "channel:phone",
+    "target_id": "person:정민혁",
+    "edge_id": "reachable_via:person:정민혁->channel:phone",
+    "note": "담당 호출: 정민혁의 phone 사용 불가 — 시나리오상 다운"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:slack",
+    "target_id": "person:정민혁",
+    "edge_id": "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+    "note": "담당 호출: 정민혁에게 slack(으)로 호출"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:정민혁",
+    "target_id": "person:정민혁",
+    "edge_id": "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+    "note": "담당 호출: 정민혁이 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "page",
+    "actor_id": "channel:email",
+    "target_id": "person:한서윤",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "승인 요청: 한서윤에게 email(으)로 호출"
+   },
+   {
+    "t": 15.0,
+    "kind": "ack",
+    "actor_id": "person:한서윤",
+    "target_id": "person:한서윤",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "승인 요청: 한서윤이 응답"
+   },
+   {
+    "t": 15.0,
+    "kind": "approval_requested",
+    "actor_id": "person:정민혁",
+    "target_id": "person:한서윤",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "정민혁이 한서윤에게 주문/체크아웃 롤백 승인 요청"
+   },
+   {
+    "t": 20.0,
+    "kind": "approved",
+    "actor_id": "person:한서윤",
+    "target_id": "action:주문체크아웃-롤백",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "한서윤이 주문/체크아웃 롤백 승인"
+   },
+   {
+    "t": 20.0,
+    "kind": "action_started",
+    "actor_id": "person:정민혁",
+    "target_id": "action:주문체크아웃-롤백",
+    "edge_id": "executed_by:action:주문체크아웃-롤백->person:정민혁",
+    "note": "정민혁이 주문/체크아웃 롤백 실행 시작"
+   },
+   {
+    "t": 30.0,
+    "kind": "mitigated",
+    "actor_id": "person:정민혁",
+    "target_id": "service:주문",
+    "edge_id": "mitigated_by:service:주문->action:주문체크아웃-롤백",
+    "note": "주문/체크아웃 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:주문",
+   "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+   "trigger:주문체크아웃-주문-실패율-알람",
+   "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+   "person:정민혁",
+   "reachable_via:person:정민혁->channel:phone",
+   "channel:phone",
+   "reachable_via:person:정민혁->channel:slack",
+   "channel:slack",
+   "mitigated_by:service:주문->action:주문체크아웃-롤백",
+   "action:주문체크아웃-롤백",
+   "approved_by:action:주문체크아웃-롤백->person:한서윤",
+   "person:한서윤",
+   "reachable_via:person:한서윤->channel:email",
+   "channel:email",
+   "executed_by:action:주문체크아웃-롤백->person:정민혁"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:주문:approver_absent",
+  "scenario_fingerprint": "04cc8b5c6b425a71",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 60.0,
+  "failed_element": "approver",
+  "failed_at_id": "person:한서윤",
+  "reason": "주문/체크아웃 롤백 승인이 한서윤에서 막힘 — 상향 경로 없음",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:주문",
+    "edge_id": null,
+    "note": "주문 장애 발생 · 한서윤 부재"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:주문체크아웃-주문-실패율-알람",
+    "target_id": "service:주문",
+    "edge_id": "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+    "note": "주문/체크아웃 주문 실패율 알람으로 감지(장애 후 5분 — 감지 지연 미기재로 기본값 가정)"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:phone",
+    "target_id": "person:정민혁",
+    "edge_id": "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+    "note": "담당 호출: 정민혁에게 phone(으)로 호출"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:정민혁",
+    "target_id": "person:정민혁",
+    "edge_id": "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+    "note": "담당 호출: 정민혁이 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "no_answer",
+    "actor_id": null,
+    "target_id": "person:한서윤",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "승인 요청: 한서윤 응답 불가 — 시나리오상 부재"
+   },
+   {
+    "t": 10.0,
+    "kind": "dead_end",
+    "actor_id": null,
+    "target_id": "person:한서윤",
+    "edge_id": null,
+    "note": "승인 요청 중단: 한서윤 이후 진행 불가 — 상향 경로 없음"
+   },
+   {
+    "t": 10.0,
+    "kind": "approval_blocked",
+    "actor_id": null,
+    "target_id": "action:주문체크아웃-롤백",
+    "edge_id": null,
+    "note": "주문/체크아웃 롤백 승인 불가 — 상향 경로 없음"
+   }
+  ],
+  "path_ids": [
+   "service:주문",
+   "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+   "trigger:주문체크아웃-주문-실패율-알람",
+   "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+   "person:정민혁",
+   "reachable_via:person:정민혁->channel:phone",
+   "channel:phone",
+   "mitigated_by:service:주문->action:주문체크아웃-롤백",
+   "action:주문체크아웃-롤백",
+   "approved_by:action:주문체크아웃-롤백->person:한서윤",
+   "person:한서윤"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:주문:location_down",
+  "scenario_fingerprint": "53774a6ef66e67d1",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 30.0,
+  "deadline_minutes": 60.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 60분 안에 완화(30분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:주문",
+    "edge_id": null,
+    "note": "주문 장애 발생 · 상암 IDC 장애 — 영향 채널: internal_messenger — 영향 서비스: 상품 카탈로그, 웹 프론트엔드, 이상거래 탐지, 정산, 주문, 추천"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:주문체크아웃-주문-실패율-알람",
+    "target_id": "service:주문",
+    "edge_id": "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+    "note": "주문/체크아웃 주문 실패율 알람으로 감지(장애 후 5분 — 감지 지연 미기재로 기본값 가정)"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:phone",
+    "target_id": "person:정민혁",
+    "edge_id": "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+    "note": "담당 호출: 정민혁에게 phone(으)로 호출"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:정민혁",
+    "target_id": "person:정민혁",
+    "edge_id": "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+    "note": "담당 호출: 정민혁이 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "page",
+    "actor_id": "channel:email",
+    "target_id": "person:한서윤",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "승인 요청: 한서윤에게 email(으)로 호출"
+   },
+   {
+    "t": 15.0,
+    "kind": "ack",
+    "actor_id": "person:한서윤",
+    "target_id": "person:한서윤",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "승인 요청: 한서윤이 응답"
+   },
+   {
+    "t": 15.0,
+    "kind": "approval_requested",
+    "actor_id": "person:정민혁",
+    "target_id": "person:한서윤",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "정민혁이 한서윤에게 주문/체크아웃 롤백 승인 요청"
+   },
+   {
+    "t": 20.0,
+    "kind": "approved",
+    "actor_id": "person:한서윤",
+    "target_id": "action:주문체크아웃-롤백",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "한서윤이 주문/체크아웃 롤백 승인"
+   },
+   {
+    "t": 20.0,
+    "kind": "action_started",
+    "actor_id": "person:정민혁",
+    "target_id": "action:주문체크아웃-롤백",
+    "edge_id": "executed_by:action:주문체크아웃-롤백->person:정민혁",
+    "note": "정민혁이 주문/체크아웃 롤백 실행 시작"
+   },
+   {
+    "t": 30.0,
+    "kind": "mitigated",
+    "actor_id": "person:정민혁",
+    "target_id": "service:주문",
+    "edge_id": "mitigated_by:service:주문->action:주문체크아웃-롤백",
+    "note": "주문/체크아웃 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:주문",
+   "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+   "trigger:주문체크아웃-주문-실패율-알람",
+   "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+   "person:정민혁",
+   "reachable_via:person:정민혁->channel:phone",
+   "channel:phone",
+   "mitigated_by:service:주문->action:주문체크아웃-롤백",
+   "action:주문체크아웃-롤백",
+   "approved_by:action:주문체크아웃-롤백->person:한서윤",
+   "person:한서윤",
+   "reachable_via:person:한서윤->channel:email",
+   "channel:email",
+   "executed_by:action:주문체크아웃-롤백->person:정민혁"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:주문:breach_report",
+  "scenario_fingerprint": "2212737058bc684e",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": 30.0,
+  "deadline_minutes": 60.0,
+  "failed_element": null,
+  "failed_at_id": "service:주문",
+  "reason": "과학기술정보통신부·한국인터넷진흥원(KISA) 신고 절차가 런북에 없음 (근거: 정보통신망법 제48조의3 제1항(침해사고의 신고 등, 법률 제21500호·2026.10.1 시행): 침해사고를 알게 된 때부터 24시간 이내 과학기술정보통신부장관 또는 KISA에 신고, 추가 확인 사항은 확인한 때부터 24시간 이내 보완 신고(시행령 제58조의8))",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:주문",
+    "edge_id": null,
+    "note": "주문 침해사고 발생"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:주문체크아웃-주문-실패율-알람",
+    "target_id": "service:주문",
+    "edge_id": "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+    "note": "주문/체크아웃 주문 실패율 알람으로 감지(장애 후 5분 — 감지 지연 미기재로 기본값 가정)"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:phone",
+    "target_id": "person:정민혁",
+    "edge_id": "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+    "note": "담당 호출: 정민혁에게 phone(으)로 호출"
+   },
+   {
+    "t": 5.0,
+    "kind": "report_missed",
+    "actor_id": null,
+    "target_id": "service:주문",
+    "edge_id": null,
+    "note": "과학기술정보통신부·한국인터넷진흥원(KISA) 신고 절차가 런북에 없음 (근거: 정보통신망법 제48조의3 제1항(침해사고의 신고 등, 법률 제21500호·2026.10.1 시행): 침해사고를 알게 된 때부터 24시간 이내 과학기술정보통신부장관 또는 KISA에 신고, 추가 확인 사항은 확인한 때부터 24시간 이내 보완 신고(시행령 제58조의8))"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:정민혁",
+    "target_id": "person:정민혁",
+    "edge_id": "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+    "note": "담당 호출: 정민혁이 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "page",
+    "actor_id": "channel:email",
+    "target_id": "person:한서윤",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "승인 요청: 한서윤에게 email(으)로 호출"
+   },
+   {
+    "t": 15.0,
+    "kind": "ack",
+    "actor_id": "person:한서윤",
+    "target_id": "person:한서윤",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "승인 요청: 한서윤이 응답"
+   },
+   {
+    "t": 15.0,
+    "kind": "approval_requested",
+    "actor_id": "person:정민혁",
+    "target_id": "person:한서윤",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "정민혁이 한서윤에게 주문/체크아웃 롤백 승인 요청"
+   },
+   {
+    "t": 20.0,
+    "kind": "approved",
+    "actor_id": "person:한서윤",
+    "target_id": "action:주문체크아웃-롤백",
+    "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+    "note": "한서윤이 주문/체크아웃 롤백 승인"
+   },
+   {
+    "t": 20.0,
+    "kind": "action_started",
+    "actor_id": "person:정민혁",
+    "target_id": "action:주문체크아웃-롤백",
+    "edge_id": "executed_by:action:주문체크아웃-롤백->person:정민혁",
+    "note": "정민혁이 주문/체크아웃 롤백 실행 시작"
+   },
+   {
+    "t": 30.0,
+    "kind": "mitigated",
+    "actor_id": "person:정민혁",
+    "target_id": "service:주문",
+    "edge_id": "mitigated_by:service:주문->action:주문체크아웃-롤백",
+    "note": "주문/체크아웃 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:주문",
+   "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+   "trigger:주문체크아웃-주문-실패율-알람",
+   "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+   "person:정민혁",
+   "reachable_via:person:정민혁->channel:phone",
+   "channel:phone",
+   "mitigated_by:service:주문->action:주문체크아웃-롤백",
+   "action:주문체크아웃-롤백",
+   "approved_by:action:주문체크아웃-롤백->person:한서윤",
+   "person:한서윤",
+   "reachable_via:person:한서윤->channel:email",
+   "channel:email",
+   "executed_by:action:주문체크아웃-롤백->person:정민혁"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:환율:baseline",
+  "scenario_fingerprint": "b2395c809c1b9502",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 30.0,
+  "deadline_minutes": 240.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 240분 안에 완화(30분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:환율",
+    "edge_id": null,
+    "note": "환율 장애 발생"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:환율-변환-오류율-알람",
+    "target_id": "service:환율",
+    "edge_id": "detected_by:service:환율->trigger:환율-변환-오류율-알람",
+    "note": "환율 변환 오류율 알람으로 감지(장애 후 5분 — 감지 지연 미기재로 기본값 가정)"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:phone",
+    "target_id": "person:강현우",
+    "edge_id": "notifies:trigger:환율-변환-오류율-알람->person:강현우",
+    "note": "담당 호출: 강현우에게 phone(으)로 호출"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:강현우",
+    "target_id": "person:강현우",
+    "edge_id": "notifies:trigger:환율-변환-오류율-알람->person:강현우",
+    "note": "담당 호출: 강현우가 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "page",
+    "actor_id": "channel:kakaotalk",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:환율-롤백->person:박재현",
+    "note": "승인 요청: 박재현에게 kakaotalk(으)로 호출"
+   },
+   {
+    "t": 15.0,
+    "kind": "ack",
+    "actor_id": "person:박재현",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:환율-롤백->person:박재현",
+    "note": "승인 요청: 박재현이 응답"
+   },
+   {
+    "t": 15.0,
+    "kind": "approval_requested",
+    "actor_id": "person:강현우",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:환율-롤백->person:박재현",
+    "note": "강현우가 박재현에게 환율 롤백 승인 요청"
+   },
+   {
+    "t": 20.0,
+    "kind": "approved",
+    "actor_id": "person:박재현",
+    "target_id": "action:환율-롤백",
+    "edge_id": "approved_by:action:환율-롤백->person:박재현",
+    "note": "박재현이 환율 롤백 승인"
+   },
+   {
+    "t": 20.0,
+    "kind": "action_started",
+    "actor_id": "person:강현우",
+    "target_id": "action:환율-롤백",
+    "edge_id": "executed_by:action:환율-롤백->person:강현우",
+    "note": "강현우가 환율 롤백 실행 시작"
+   },
+   {
+    "t": 30.0,
+    "kind": "mitigated",
+    "actor_id": "person:강현우",
+    "target_id": "service:환율",
+    "edge_id": "mitigated_by:service:환율->action:환율-롤백",
+    "note": "환율 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:환율",
+   "detected_by:service:환율->trigger:환율-변환-오류율-알람",
+   "trigger:환율-변환-오류율-알람",
+   "notifies:trigger:환율-변환-오류율-알람->person:강현우",
+   "person:강현우",
+   "reachable_via:person:강현우->channel:phone",
+   "channel:phone",
+   "mitigated_by:service:환율->action:환율-롤백",
+   "action:환율-롤백",
+   "approved_by:action:환율-롤백->person:박재현",
+   "person:박재현",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "channel:kakaotalk",
+   "executed_by:action:환율-롤백->person:강현우"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:환율:owner_absent",
+  "scenario_fingerprint": "d7166ebf1428cd0b",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 35.0,
+  "deadline_minutes": 240.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 240분 안에 완화(35분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:환율",
+    "edge_id": null,
+    "note": "환율 장애 발생 · 강현우 부재"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:환율-변환-오류율-알람",
+    "target_id": "service:환율",
+    "edge_id": "detected_by:service:환율->trigger:환율-변환-오류율-알람",
+    "note": "환율 변환 오류율 알람으로 감지(장애 후 5분 — 감지 지연 미기재로 기본값 가정)"
+   },
+   {
+    "t": 5.0,
+    "kind": "no_answer",
+    "actor_id": null,
+    "target_id": "person:강현우",
+    "edge_id": "notifies:trigger:환율-변환-오류율-알람->person:강현우",
+    "note": "담당 호출: 강현우 응답 불가 — 시나리오상 부재"
+   },
+   {
+    "t": 15.0,
+    "kind": "escalate",
+    "actor_id": "person:강현우",
+    "target_id": "person:박재현",
+    "edge_id": "escalates_to:person:강현우->person:박재현",
+    "note": "담당 호출: 강현우 미응답 10분 → 박재현으로 상향"
+   },
+   {
+    "t": 15.0,
+    "kind": "page",
+    "actor_id": "channel:kakaotalk",
+    "target_id": "person:박재현",
+    "edge_id": "escalates_to:person:강현우->person:박재현",
+    "note": "담당 호출: 박재현에게 kakaotalk(으)로 호출"
+   },
+   {
+    "t": 20.0,
+    "kind": "ack",
+    "actor_id": "person:박재현",
+    "target_id": "person:박재현",
+    "edge_id": "escalates_to:person:강현우->person:박재현",
+    "note": "담당 호출: 박재현이 응답"
+   },
+   {
+    "t": 20.0,
+    "kind": "approval_requested",
+    "actor_id": "person:박재현",
+    "target_id": "action:환율-롤백",
+    "edge_id": "approved_by:action:환율-롤백->person:박재현",
+    "note": "박재현이 승인 권한 보유(박재현) — 직접 승인"
+   },
+   {
+    "t": 25.0,
+    "kind": "approved",
+    "actor_id": "person:박재현",
+    "target_id": "action:환율-롤백",
+    "edge_id": "approved_by:action:환율-롤백->person:박재현",
+    "note": "박재현이 환율 롤백 승인"
+   },
+   {
+    "t": 25.0,
+    "kind": "action_started",
+    "actor_id": "person:박재현",
+    "target_id": "action:환율-롤백",
+    "edge_id": "mitigated_by:service:환율->action:환율-롤백",
+    "note": "환율 롤백 실행 시작 — 지정 실행자 응답 불가 → 응답자가 실행(가정)"
+   },
+   {
+    "t": 35.0,
+    "kind": "mitigated",
+    "actor_id": "person:박재현",
+    "target_id": "service:환율",
+    "edge_id": "mitigated_by:service:환율->action:환율-롤백",
+    "note": "환율 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:환율",
+   "detected_by:service:환율->trigger:환율-변환-오류율-알람",
+   "trigger:환율-변환-오류율-알람",
+   "notifies:trigger:환율-변환-오류율-알람->person:강현우",
+   "person:강현우",
+   "escalates_to:person:강현우->person:박재현",
+   "person:박재현",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "channel:kakaotalk",
+   "mitigated_by:service:환율->action:환율-롤백",
+   "action:환율-롤백",
+   "approved_by:action:환율-롤백->person:박재현"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:환율:channel_down",
+  "scenario_fingerprint": "175faa427b1080d1",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 30.0,
+  "deadline_minutes": 240.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 240분 안에 완화(30분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:환율",
+    "edge_id": null,
+    "note": "환율 장애 발생 · phone 다운"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:환율-변환-오류율-알람",
+    "target_id": "service:환율",
+    "edge_id": "detected_by:service:환율->trigger:환율-변환-오류율-알람",
+    "note": "환율 변환 오류율 알람으로 감지(장애 후 5분 — 감지 지연 미기재로 기본값 가정)"
+   },
+   {
+    "t": 5.0,
+    "kind": "channel_unavailable",
+    "actor_id": "channel:phone",
+    "target_id": "person:강현우",
+    "edge_id": "reachable_via:person:강현우->channel:phone",
+    "note": "담당 호출: 강현우의 phone 사용 불가 — 시나리오상 다운"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:slack",
+    "target_id": "person:강현우",
+    "edge_id": "notifies:trigger:환율-변환-오류율-알람->person:강현우",
+    "note": "담당 호출: 강현우에게 slack(으)로 호출"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:강현우",
+    "target_id": "person:강현우",
+    "edge_id": "notifies:trigger:환율-변환-오류율-알람->person:강현우",
+    "note": "담당 호출: 강현우가 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "page",
+    "actor_id": "channel:kakaotalk",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:환율-롤백->person:박재현",
+    "note": "승인 요청: 박재현에게 kakaotalk(으)로 호출"
+   },
+   {
+    "t": 15.0,
+    "kind": "ack",
+    "actor_id": "person:박재현",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:환율-롤백->person:박재현",
+    "note": "승인 요청: 박재현이 응답"
+   },
+   {
+    "t": 15.0,
+    "kind": "approval_requested",
+    "actor_id": "person:강현우",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:환율-롤백->person:박재현",
+    "note": "강현우가 박재현에게 환율 롤백 승인 요청"
+   },
+   {
+    "t": 20.0,
+    "kind": "approved",
+    "actor_id": "person:박재현",
+    "target_id": "action:환율-롤백",
+    "edge_id": "approved_by:action:환율-롤백->person:박재현",
+    "note": "박재현이 환율 롤백 승인"
+   },
+   {
+    "t": 20.0,
+    "kind": "action_started",
+    "actor_id": "person:강현우",
+    "target_id": "action:환율-롤백",
+    "edge_id": "executed_by:action:환율-롤백->person:강현우",
+    "note": "강현우가 환율 롤백 실행 시작"
+   },
+   {
+    "t": 30.0,
+    "kind": "mitigated",
+    "actor_id": "person:강현우",
+    "target_id": "service:환율",
+    "edge_id": "mitigated_by:service:환율->action:환율-롤백",
+    "note": "환율 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:환율",
+   "detected_by:service:환율->trigger:환율-변환-오류율-알람",
+   "trigger:환율-변환-오류율-알람",
+   "notifies:trigger:환율-변환-오류율-알람->person:강현우",
+   "person:강현우",
+   "reachable_via:person:강현우->channel:phone",
+   "channel:phone",
+   "reachable_via:person:강현우->channel:slack",
+   "channel:slack",
+   "mitigated_by:service:환율->action:환율-롤백",
+   "action:환율-롤백",
+   "approved_by:action:환율-롤백->person:박재현",
+   "person:박재현",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "channel:kakaotalk",
+   "executed_by:action:환율-롤백->person:강현우"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:환율:approver_absent",
+  "scenario_fingerprint": "3aff96b32883f677",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "fail",
+  "time_to_mitigate": null,
+  "deadline_minutes": 240.0,
+  "failed_element": "approver",
+  "failed_at_id": "person:박재현",
+  "reason": "환율 롤백 승인이 박재현에서 막힘 — 상향 경로 없음",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:환율",
+    "edge_id": null,
+    "note": "환율 장애 발생 · 박재현 부재"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:환율-변환-오류율-알람",
+    "target_id": "service:환율",
+    "edge_id": "detected_by:service:환율->trigger:환율-변환-오류율-알람",
+    "note": "환율 변환 오류율 알람으로 감지(장애 후 5분 — 감지 지연 미기재로 기본값 가정)"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:phone",
+    "target_id": "person:강현우",
+    "edge_id": "notifies:trigger:환율-변환-오류율-알람->person:강현우",
+    "note": "담당 호출: 강현우에게 phone(으)로 호출"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:강현우",
+    "target_id": "person:강현우",
+    "edge_id": "notifies:trigger:환율-변환-오류율-알람->person:강현우",
+    "note": "담당 호출: 강현우가 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "no_answer",
+    "actor_id": null,
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:환율-롤백->person:박재현",
+    "note": "승인 요청: 박재현 응답 불가 — 시나리오상 부재"
+   },
+   {
+    "t": 10.0,
+    "kind": "dead_end",
+    "actor_id": null,
+    "target_id": "person:박재현",
+    "edge_id": null,
+    "note": "승인 요청 중단: 박재현 이후 진행 불가 — 상향 경로 없음"
+   },
+   {
+    "t": 10.0,
+    "kind": "approval_blocked",
+    "actor_id": null,
+    "target_id": "action:환율-롤백",
+    "edge_id": null,
+    "note": "환율 롤백 승인 불가 — 상향 경로 없음"
+   }
+  ],
+  "path_ids": [
+   "service:환율",
+   "detected_by:service:환율->trigger:환율-변환-오류율-알람",
+   "trigger:환율-변환-오류율-알람",
+   "notifies:trigger:환율-변환-오류율-알람->person:강현우",
+   "person:강현우",
+   "reachable_via:person:강현우->channel:phone",
+   "channel:phone",
+   "mitigated_by:service:환율->action:환율-롤백",
+   "action:환율-롤백",
+   "approved_by:action:환율-롤백->person:박재현",
+   "person:박재현"
+  ]
+ },
+ {
+  "scenario_id": "tpl:service:환율:location_down",
+  "scenario_fingerprint": "c97fb99705febceb",
+  "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+  "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+  "outcome": "pass",
+  "time_to_mitigate": 30.0,
+  "deadline_minutes": 240.0,
+  "failed_element": null,
+  "failed_at_id": null,
+  "reason": "목표 복구 시간 240분 안에 완화(30분)",
+  "events": [
+   {
+    "t": 0.0,
+    "kind": "incident_start",
+    "actor_id": null,
+    "target_id": "service:환율",
+    "edge_id": null,
+    "note": "환율 장애 발생 · 클라우드 서울 리전 장애 — 영향 서비스: 결제, 광고, 배송, 배송비 견적, 상품 카탈로그, 웹 프론트엔드, 이메일, 이상거래 탐지, 장바구니, 주문, 추천, 환율"
+   },
+   {
+    "t": 5.0,
+    "kind": "detected",
+    "actor_id": "trigger:환율-변환-오류율-알람",
+    "target_id": "service:환율",
+    "edge_id": "detected_by:service:환율->trigger:환율-변환-오류율-알람",
+    "note": "환율 변환 오류율 알람으로 감지(장애 후 5분 — 감지 지연 미기재로 기본값 가정)"
+   },
+   {
+    "t": 5.0,
+    "kind": "page",
+    "actor_id": "channel:phone",
+    "target_id": "person:강현우",
+    "edge_id": "notifies:trigger:환율-변환-오류율-알람->person:강현우",
+    "note": "담당 호출: 강현우에게 phone(으)로 호출"
+   },
+   {
+    "t": 10.0,
+    "kind": "ack",
+    "actor_id": "person:강현우",
+    "target_id": "person:강현우",
+    "edge_id": "notifies:trigger:환율-변환-오류율-알람->person:강현우",
+    "note": "담당 호출: 강현우가 응답"
+   },
+   {
+    "t": 10.0,
+    "kind": "page",
+    "actor_id": "channel:kakaotalk",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:환율-롤백->person:박재현",
+    "note": "승인 요청: 박재현에게 kakaotalk(으)로 호출"
+   },
+   {
+    "t": 15.0,
+    "kind": "ack",
+    "actor_id": "person:박재현",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:환율-롤백->person:박재현",
+    "note": "승인 요청: 박재현이 응답"
+   },
+   {
+    "t": 15.0,
+    "kind": "approval_requested",
+    "actor_id": "person:강현우",
+    "target_id": "person:박재현",
+    "edge_id": "approved_by:action:환율-롤백->person:박재현",
+    "note": "강현우가 박재현에게 환율 롤백 승인 요청"
+   },
+   {
+    "t": 20.0,
+    "kind": "approved",
+    "actor_id": "person:박재현",
+    "target_id": "action:환율-롤백",
+    "edge_id": "approved_by:action:환율-롤백->person:박재현",
+    "note": "박재현이 환율 롤백 승인"
+   },
+   {
+    "t": 20.0,
+    "kind": "action_started",
+    "actor_id": "person:강현우",
+    "target_id": "action:환율-롤백",
+    "edge_id": "executed_by:action:환율-롤백->person:강현우",
+    "note": "강현우가 환율 롤백 실행 시작"
+   },
+   {
+    "t": 30.0,
+    "kind": "mitigated",
+    "actor_id": "person:강현우",
+    "target_id": "service:환율",
+    "edge_id": "mitigated_by:service:환율->action:환율-롤백",
+    "note": "환율 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+   }
+  ],
+  "path_ids": [
+   "service:환율",
+   "detected_by:service:환율->trigger:환율-변환-오류율-알람",
+   "trigger:환율-변환-오류율-알람",
+   "notifies:trigger:환율-변환-오류율-알람->person:강현우",
+   "person:강현우",
+   "reachable_via:person:강현우->channel:phone",
+   "channel:phone",
+   "mitigated_by:service:환율->action:환율-롤백",
+   "action:환율-롤백",
+   "approved_by:action:환율-롤백->person:박재현",
+   "person:박재현",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "channel:kakaotalk",
+   "executed_by:action:환율-롤백->person:강현우"
+  ]
+ }
+]

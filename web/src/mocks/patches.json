@@ -1,0 +1,892 @@
+[
+  {
+    "workspace_id": "dmc-shop",
+    "base_version": 1,
+    "status": "validated",
+    "decided_by": null,
+    "decided_at": null,
+    "llm_usage": {
+      "calls": 1,
+      "input_tokens": 2140,
+      "output_tokens": 162
+    },
+    "id": "patch-dmc-01",
+    "finding_ids": [
+      "JT-PPL-001:9dfa62f887",
+      "JT-PPL-001:ba930f7b56",
+      "JT-PATH-010:eb3034bca8",
+      "JT-ESC-001:a88a3fb8a3",
+      "JT-PATH-002:fbe2805cd8",
+      "JT-PATH-030:5389ca61b1"
+    ],
+    "ops": [
+      {
+        "op": "remove_edge",
+        "edge_id": "owned_by:service:결제->person:김민준",
+        "snapshot": {
+          "id": "owned_by:service:결제->person:김민준",
+          "kind": "owned_by",
+          "src": "service:결제",
+          "dst": "person:김민준",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "runbook",
+              "extractor": "rule",
+              "spans": [
+                {
+                  "doc_id": "doc-c6998bc94c89",
+                  "start": 231,
+                  "end": 239,
+                  "quote": "김대리에게 연락",
+                  "line": 13
+                }
+              ],
+              "ref": null
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "owned_by:service:결제->person:김서연",
+          "kind": "owned_by",
+          "src": "service:결제",
+          "dst": "person:김서연",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-01"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "remove_edge",
+        "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준",
+        "snapshot": {
+          "id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준",
+          "kind": "notifies",
+          "src": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "dst": "person:김민준",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "runbook",
+              "extractor": "rule",
+              "spans": [
+                {
+                  "doc_id": "doc-c6998bc94c89",
+                  "start": 181,
+                  "end": 239,
+                  "quote": "결제 실패율 알람(5% 초과 3분 지속)이 오면 결제 장애로 본다.\n결제 장애가 계속되면 김대리에게 연락",
+                  "line": 12
+                }
+              ],
+              "ref": null
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+          "kind": "notifies",
+          "src": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "dst": "person:김서연",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-01"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "remove_edge",
+        "edge_id": "notifies:trigger:결제-서비스-장애-지속->person:김민준",
+        "snapshot": {
+          "id": "notifies:trigger:결제-서비스-장애-지속->person:김민준",
+          "kind": "notifies",
+          "src": "trigger:결제-서비스-장애-지속",
+          "dst": "person:김민준",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "runbook",
+              "extractor": "rule",
+              "spans": [
+                {
+                  "doc_id": "doc-c6998bc94c89",
+                  "start": 219,
+                  "end": 239,
+                  "quote": "결제 장애가 계속되면 김대리에게 연락",
+                  "line": 13
+                }
+              ],
+              "ref": null
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "notifies:trigger:결제-서비스-장애-지속->person:김서연",
+          "kind": "notifies",
+          "src": "trigger:결제-서비스-장애-지속",
+          "dst": "person:김서연",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-01"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "escalates_to:person:김서연->person:박재현",
+          "kind": "escalates_to",
+          "src": "person:김서연",
+          "dst": "person:박재현",
+          "attrs": {
+            "after_minutes": {
+              "value": 5,
+              "spans": [],
+              "source": "patch"
+            },
+            "channel": {
+              "value": "channel:phone",
+              "spans": [],
+              "source": "patch"
+            }
+          },
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-01"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      }
+    ],
+    "runbook_text": "결제 장애 알람 시 1차 담당은 김서연 사원, 5분 미응답 시 박재현 팀장에게 전화로 상향",
+    "rationale": "런북의 유일한 연락 대상 '김대리'는 명부상 김민준 대리이며 2026-08-31에 퇴사했습니다. 명부에서 결제팀 재직자는 김서연 사원(1차 당직)뿐이고, 박재현 팀장은 슬랙·전화·카톡으로 연락되며 팀장 → 한서윤 CTO 상향이 이미 적혀 있어 최종 책임자에서 끝납니다.",
+    "author": "ai",
+    "created_at": "2026-10-12T09:04:12+09:00",
+    "validation": {
+      "passed": true,
+      "resolved_finding_ids": [],
+      "unresolved_finding_ids": [],
+      "new_finding_ids": [],
+      "rehearsals_fixed": [],
+      "rehearsals_regressed": [],
+      "unknown_people": [],
+      "integrity_errors": [],
+      "score_before": null,
+      "score_after": null,
+      "notes": [
+        "롤백 승인자가 아직 없어 결제 리허설은 승인 단계에서 막힙니다. 2번 수정안(롤백 승인·실행)과 함께 승인하면 통과합니다."
+      ]
+    }
+  },
+  {
+    "workspace_id": "dmc-shop",
+    "base_version": 1,
+    "status": "validated",
+    "decided_by": null,
+    "decided_at": null,
+    "llm_usage": {
+      "calls": 1,
+      "input_tokens": 1980,
+      "output_tokens": 141
+    },
+    "id": "patch-dmc-02",
+    "finding_ids": [
+      "JT-PATH-020:08e9c34f06",
+      "JT-PATH-041:85e9e6c6e5"
+    ],
+    "ops": [
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "approved_by:action:결제-서비스-롤백->person:박재현",
+          "kind": "approved_by",
+          "src": "action:결제-서비스-롤백",
+          "dst": "person:박재현",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-02"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "executed_by:action:결제-서비스-롤백->person:김서연",
+          "kind": "executed_by",
+          "src": "action:결제-서비스-롤백",
+          "dst": "person:김서연",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-02"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      }
+    ],
+    "runbook_text": "결제 롤백은 박재현 팀장 승인 후 김서연 사원이 실행",
+    "rationale": "롤백은 승인이 필요한 조치인데 승인자와 실행자가 적혀 있지 않습니다. 한서윤 CTO를 승인자로 한 초안은 추석 연휴 새벽 리허설(한서윤 CTO 해외 여행)에서 회귀가 생겨 검증 단계에서 탈락했고, 전화·카톡으로 연락되는 박재현 팀장으로 정했습니다.",
+    "author": "ai",
+    "created_at": "2026-10-12T09:04:15+09:00",
+    "validation": {
+      "passed": true,
+      "resolved_finding_ids": [],
+      "unresolved_finding_ids": [],
+      "new_finding_ids": [],
+      "rehearsals_fixed": [
+        "dmc-s1-chuseok-payment",
+        "tpl:service:결제:baseline",
+        "tpl:service:결제:location_down"
+      ],
+      "rehearsals_regressed": [],
+      "unknown_people": [],
+      "integrity_errors": [],
+      "score_before": null,
+      "score_after": null,
+      "notes": [
+        "승인 가능한 사람이 박재현 팀장 1명뿐이라 승인자 항목은 부분 점수(0.8)입니다. 대리 승인자를 정하면 만점이 됩니다."
+      ]
+    }
+  },
+  {
+    "workspace_id": "dmc-shop",
+    "base_version": 1,
+    "status": "rejected_by_validator",
+    "decided_by": null,
+    "decided_at": null,
+    "llm_usage": {
+      "calls": 1,
+      "input_tokens": 1975,
+      "output_tokens": 98
+    },
+    "id": "patch-dmc-03",
+    "finding_ids": [
+      "JT-PATH-020:08e9c34f06"
+    ],
+    "ops": [
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "approved_by:action:결제-서비스-롤백->person:한서윤",
+          "kind": "approved_by",
+          "src": "action:결제-서비스-롤백",
+          "dst": "person:한서윤",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-03"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      }
+    ],
+    "runbook_text": "결제 롤백은 한서윤 CTO 승인 후 실행",
+    "rationale": "승인자 후보 중 최종 책임자(CTO)를 고른 AI 초안입니다.",
+    "author": "ai",
+    "created_at": "2026-10-12T09:04:14+09:00",
+    "validation": {
+      "passed": false,
+      "resolved_finding_ids": [],
+      "unresolved_finding_ids": [],
+      "new_finding_ids": [],
+      "rehearsals_fixed": [],
+      "rehearsals_regressed": [
+        "dmc-s1-chuseok-payment"
+      ],
+      "unknown_people": [],
+      "integrity_errors": [],
+      "score_before": null,
+      "score_after": null,
+      "notes": [
+        "추석 연휴 새벽 결제 장애 리허설에서 한서윤 CTO가 해외 여행 중이라 승인 단계에서 막힙니다(과거 리허설 무회귀 위반). 이 초안은 승인 대상에서 빠졌습니다."
+      ]
+    }
+  },
+  {
+    "workspace_id": "dmc-shop",
+    "base_version": 1,
+    "status": "validated",
+    "decided_by": null,
+    "decided_at": null,
+    "llm_usage": {},
+    "id": "patch-dmc-04",
+    "finding_ids": [
+      "JT-ESC-002:6077cdadb4"
+    ],
+    "ops": [
+      {
+        "op": "remove_edge",
+        "edge_id": "escalates_to:person:최영훈->person:정민혁",
+        "snapshot": {
+          "id": "escalates_to:person:최영훈->person:정민혁",
+          "kind": "escalates_to",
+          "src": "person:최영훈",
+          "dst": "person:정민혁",
+          "attrs": {
+            "after_minutes": {
+              "value": 20,
+              "spans": [
+                {
+                  "doc_id": "doc-c6998bc94c89",
+                  "start": 444,
+                  "end": 447,
+                  "quote": "20분",
+                  "line": 25
+                }
+              ],
+              "source": "runbook"
+            }
+          },
+          "prov": [
+            {
+              "source": "runbook",
+              "extractor": "rule",
+              "spans": [
+                {
+                  "doc_id": "doc-c6998bc94c89",
+                  "start": 437,
+                  "end": 465,
+                  "quote": "최영훈 차장 20분 미응답 시 정민혁 과장에게 다시",
+                  "line": 25
+                }
+              ],
+              "ref": null
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "escalates_to:person:최영훈->person:한서윤",
+          "kind": "escalates_to",
+          "src": "person:최영훈",
+          "dst": "person:한서윤",
+          "attrs": {
+            "after_minutes": {
+              "value": 20,
+              "spans": [],
+              "source": "patch"
+            },
+            "channel": {
+              "value": "channel:phone",
+              "spans": [],
+              "source": "patch"
+            }
+          },
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-04"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      }
+    ],
+    "runbook_text": "최영훈 차장 20분 미응답 시 한서윤 CTO에게 전화로 상향",
+    "rationale": "상향이 정민혁 과장 → 최영훈 차장 → 다시 정민혁 과장으로 돌기만 하고 최종 책임자에 닿지 않습니다. '최영훈 → 정민혁' 상향을 지우고 최종 책임자 역할(CTO)인 한서윤 CTO로 잇습니다.",
+    "author": "template",
+    "created_at": "2026-10-12T09:04:16+09:00",
+    "validation": {
+      "passed": true,
+      "resolved_finding_ids": [],
+      "unresolved_finding_ids": [],
+      "new_finding_ids": [],
+      "rehearsals_fixed": [],
+      "rehearsals_regressed": [],
+      "unknown_people": [],
+      "integrity_errors": [],
+      "score_before": null,
+      "score_after": null,
+      "notes": [
+        "명부에 최영훈 차장의 연락 수단이 슬랙 하나뿐입니다. 슬랙 장애 때는 이 상향도 늦어지므로 명부에 전화 연락처를 등록해 주세요(명부 보완은 사람 몫)."
+      ]
+    }
+  },
+  {
+    "workspace_id": "dmc-shop",
+    "base_version": 1,
+    "status": "validated",
+    "decided_by": null,
+    "decided_at": null,
+    "llm_usage": {
+      "calls": 1,
+      "input_tokens": 2210,
+      "output_tokens": 155
+    },
+    "id": "patch-dmc-05",
+    "finding_ids": [
+      "JT-PATH-020:800f3f895c",
+      "JT-PATH-041:15844371eb",
+      "JT-PATH-041:2f7f0c42f2"
+    ],
+    "ops": [
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "approved_by:action:상품-카탈로그-기능-플래그-off->person:한서윤",
+          "kind": "approved_by",
+          "src": "action:상품-카탈로그-기능-플래그-off",
+          "dst": "person:한서윤",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-05"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "approved_by:action:상품-카탈로그-롤백->person:한서윤",
+          "kind": "approved_by",
+          "src": "action:상품-카탈로그-롤백",
+          "dst": "person:한서윤",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-05"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "executed_by:action:상품-카탈로그-기능-플래그-off->person:박재현",
+          "kind": "executed_by",
+          "src": "action:상품-카탈로그-기능-플래그-off",
+          "dst": "person:박재현",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-05"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "executed_by:action:상품-카탈로그-롤백->person:박재현",
+          "kind": "executed_by",
+          "src": "action:상품-카탈로그-롤백",
+          "dst": "person:박재현",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-05"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "set_attr",
+        "target_id": "action:상품-카탈로그-기능-플래그-off",
+        "key": "requires_approval",
+        "value": {
+          "value": true,
+          "spans": [],
+          "source": "patch"
+        },
+        "previous": null
+      }
+    ],
+    "runbook_text": "상품 카탈로그 기능 플래그 끄기·원복은 한서윤 CTO 승인 후 박재현 팀장이 실행",
+    "rationale": "'DB 락 걸린 거면 기능 플래그 끄고 원복하면 됩니다'에는 누가 승인하고 누가 실행하는지 없습니다. 제때옵스는 이를 정상으로 보지 않습니다(확인 불가 ≠ 정상). 담당 박재현 팀장이 실행하고, 그 위 상향 대상인 한서윤 CTO가 승인하도록 잇습니다.",
+    "author": "ai",
+    "created_at": "2026-10-12T09:04:18+09:00",
+    "validation": {
+      "passed": true,
+      "resolved_finding_ids": [],
+      "unresolved_finding_ids": [],
+      "new_finding_ids": [],
+      "rehearsals_fixed": [],
+      "rehearsals_regressed": [],
+      "unknown_people": [],
+      "integrity_errors": [],
+      "score_before": null,
+      "score_after": null,
+      "notes": [
+        "감지 알람이 없어 상품 카탈로그 리허설은 여전히 감지 단계에서 실패합니다. 측정 가능한 감지 조건(예: 오류율 2% 초과 5분)을 런북에 적어 주세요."
+      ]
+    }
+  },
+  {
+    "workspace_id": "dmc-shop",
+    "base_version": 1,
+    "status": "validated",
+    "decided_by": null,
+    "decided_at": null,
+    "llm_usage": {},
+    "id": "patch-dmc-06",
+    "finding_ids": [
+      "JT-DDL-002:9e0a8288bc",
+      "JT-KR-001:1a4c869406"
+    ],
+    "ops": [
+      {
+        "op": "set_attr",
+        "target_id": "obligation:kisa-침해사고-신고",
+        "key": "deadline_minutes",
+        "value": {
+          "value": 1440,
+          "spans": [],
+          "source": "patch"
+        },
+        "previous": {
+          "value": 2880,
+          "spans": [
+            {
+              "doc_id": "doc-4d955efdddac",
+              "start": 225,
+              "end": 232,
+              "quote": "48시간 이내",
+              "line": 13
+            }
+          ],
+          "source": "runbook"
+        }
+      },
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "reported_by:obligation:kisa-침해사고-신고->person:한서윤",
+          "kind": "reported_by",
+          "src": "obligation:kisa-침해사고-신고",
+          "dst": "person:한서윤",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-06"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "must_report:service:결제->obligation:kisa-침해사고-신고",
+          "kind": "must_report",
+          "src": "service:결제",
+          "dst": "obligation:kisa-침해사고-신고",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-06"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "must_report:service:주문->obligation:kisa-침해사고-신고",
+          "kind": "must_report",
+          "src": "service:주문",
+          "dst": "obligation:kisa-침해사고-신고",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-06"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      }
+    ],
+    "runbook_text": "침해사고는 인지 후 24시간 이내 KISA 신고(담당 오준석 CISO, 부재 시 한서윤 CTO)",
+    "rationale": "정보통신망법 제48조의3 제1항은 침해사고를 알게 된 때부터 24시간 이내 신고를 요구합니다. 런북의 48시간은 법정 기준보다 늦고, 신고 담당이 오준석 CISO 한 명뿐이라 부재 시 신고할 사람이 없습니다.",
+    "author": "template",
+    "created_at": "2026-10-12T09:04:20+09:00",
+    "validation": {
+      "passed": true,
+      "resolved_finding_ids": [],
+      "unresolved_finding_ids": [],
+      "new_finding_ids": [],
+      "rehearsals_fixed": [
+        "tpl:service:주문:breach_report"
+      ],
+      "rehearsals_regressed": [],
+      "unknown_people": [],
+      "integrity_errors": [],
+      "score_before": null,
+      "score_after": null,
+      "notes": [
+        "신고 뒤 추가로 확인된 사실은 확인한 때부터 24시간 이내 보완 신고합니다(시행령 제58조의8)."
+      ]
+    }
+  },
+  {
+    "workspace_id": "dmc-shop",
+    "base_version": 1,
+    "status": "validated",
+    "decided_by": null,
+    "decided_at": null,
+    "llm_usage": {},
+    "id": "patch-dmc-07",
+    "finding_ids": [
+      "JT-KR-003:2a4aeae989"
+    ],
+    "ops": [
+      {
+        "op": "add_node",
+        "node": {
+          "id": "obligation:개인정보-유출-신고",
+          "kind": "obligation",
+          "name": "개인정보 유출 신고",
+          "attrs": {
+            "incident_type": {
+              "value": "privacy_leak",
+              "spans": [],
+              "source": "patch"
+            },
+            "recipient": {
+              "value": "개인정보보호위원회·한국인터넷진흥원(KISA)",
+              "spans": [],
+              "source": "patch"
+            },
+            "deadline_minutes": {
+              "value": 4320,
+              "spans": [],
+              "source": "patch"
+            },
+            "legal_basis": {
+              "value": "개인정보 보호법 제34조 제1항·제4항, 시행령 제39조(통지)·제40조(신고): 유출등을 알게 된 때부터 72시간 이내 정보주체 통지, 1천명 이상·민감/고유식별정보·외부 불법접근 시 개인정보보호위원회 또는 KISA 신고",
+              "spans": [],
+              "source": "patch"
+            }
+          },
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-06"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "must_report:service:결제->obligation:개인정보-유출-신고",
+          "kind": "must_report",
+          "src": "service:결제",
+          "dst": "obligation:개인정보-유출-신고",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-07"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "must_report:service:주문->obligation:개인정보-유출-신고",
+          "kind": "must_report",
+          "src": "service:주문",
+          "dst": "obligation:개인정보-유출-신고",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-07"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      },
+      {
+        "op": "add_edge",
+        "edge": {
+          "id": "reported_by:obligation:개인정보-유출-신고->person:윤아름",
+          "kind": "reported_by",
+          "src": "obligation:개인정보-유출-신고",
+          "dst": "person:윤아름",
+          "attrs": {},
+          "prov": [
+            {
+              "source": "patch",
+              "extractor": "human",
+              "spans": [],
+              "ref": "patch-dmc-07"
+            }
+          ],
+          "verification": "verified",
+          "hold_reason": null
+        }
+      }
+    ],
+    "runbook_text": "개인정보 유출 시 72시간 이내 개인정보보호위원회·KISA 신고(담당 윤아름 과장)",
+    "rationale": "문서 제목은 '보안·개인정보 사고 신고 절차'인데 개인정보 유출 신고·통지 절차가 한 줄도 없습니다. 개인정보 보호법 제34조에 따라 72시간 이내 통지·신고 단계를 넣고, 명부 역할이 '개인정보 보호책임자'인 윤아름 과장을 담당으로 지정합니다.",
+    "author": "template",
+    "created_at": "2026-10-12T09:04:22+09:00",
+    "validation": {
+      "passed": true,
+      "resolved_finding_ids": [],
+      "unresolved_finding_ids": [],
+      "new_finding_ids": [],
+      "rehearsals_fixed": [],
+      "rehearsals_regressed": [],
+      "unknown_people": [],
+      "integrity_errors": [],
+      "score_before": null,
+      "score_after": null,
+      "notes": [
+        "해킹으로 고객 정보가 새면 침해사고 24시간 신고와 개인정보 72시간 신고·통지가 동시에 걸립니다."
+      ]
+    }
+  },
+  {
+    "workspace_id": "dmc-shop",
+    "base_version": 1,
+    "status": "draft",
+    "decided_by": null,
+    "decided_at": null,
+    "llm_usage": {},
+    "id": "patch-dmc-08",
+    "finding_ids": [
+      "JT-CAT-001:3c9f5fe484",
+      "JT-PATH-010:6da8cd3cfd",
+      "JT-PATH-001:215798aa08"
+    ],
+    "ops": [],
+    "runbook_text": "배송 장애 알람 시 1차 담당은 (담당자 지정), 10분 미응답 시 박재현 팀장에게 전화로 상향",
+    "rationale": "배송은 카탈로그에 있지만 어느 런북에도 나오지 않습니다. 담당자는 조직이 정할 일이라 제때옵스가 확정하지 않고 빈칸이 있는 뼈대만 제시합니다.",
+    "author": "template",
+    "created_at": "2026-10-12T09:04:24+09:00",
+    "validation": null
+  },
+  {
+    "workspace_id": "dmc-shop",
+    "base_version": 1,
+    "status": "draft",
+    "decided_by": null,
+    "decided_at": null,
+    "llm_usage": {},
+    "id": "patch-dmc-09",
+    "finding_ids": [
+      "JT-ONC-004:1c1d2d6c6a",
+      "JT-ONC-001:29573b62fa",
+      "JT-ONC-002:6a92a9c48f"
+    ],
+    "ops": [],
+    "runbook_text": "10/29(목) 야간 1차 김민준(퇴사) 배정을 재직자로 바꾸고, 강현우 사원 10/24(토) 야간 1차와 김서연 사원 10/31(토) 오전 대타 중 하나를 다른 재직자로 교체해 주세요",
+    "rationale": "당직표는 신뢰 원천이라 제때옵스가 직접 고치지 않고 수정 요청만 냅니다. 평일 야간은 2차가 없어 그대로 두면 그날 밤 당직 공백이 생깁니다.",
+    "author": "template",
+    "created_at": "2026-10-12T09:04:26+09:00",
+    "validation": null
+  }
+]

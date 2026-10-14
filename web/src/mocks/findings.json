@@ -1,0 +1,2115 @@
+[
+ {
+  "id": "JT-DDL-002:9e0a8288bc",
+  "rule_id": "JT-DDL-002",
+  "severity": "critical",
+  "status": "broken",
+  "title": "신고 시한이 법정 기준보다 늦음",
+  "message": "'KISA 침해사고 신고'의 신고 시한이 48시간으로 적혀 있지만, 법정 기준은 과학기술정보통신부·한국인터넷진흥원(KISA)에 24시간 이내입니다. 런북대로 하면 법정 기한을 넘깁니다.",
+  "service_id": null,
+  "element": null,
+  "subject_ids": [
+   "obligation:kisa-침해사고-신고"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-4d955efdddac",
+    "start": 225,
+    "end": 232,
+    "quote": "48시간 이내",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-4d955efdddac",
+    "start": 225,
+    "end": 238,
+    "quote": "48시간 이내 KISA에",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-4d955efdddac",
+    "start": 215,
+    "end": 243,
+    "quote": "오준석 CISO가 48시간 이내 KISA에 신고한다",
+    "line": 13
+   }
+  ],
+  "fix": {
+   "kind": "fix_deadline",
+   "params": {
+    "obligation_id": "obligation:kisa-침해사고-신고",
+    "required_minutes": 1440
+   }
+  },
+  "legal_basis": "정보통신망법 제48조의3 제1항(침해사고의 신고 등, 법률 제21500호·2026.10.1 시행): 침해사고를 알게 된 때부터 24시간 이내 과학기술정보통신부장관 또는 KISA에 신고, 추가 확인 사항은 확인한 때부터 24시간 이내 보완 신고(시행령 제58조의8)"
+ },
+ {
+  "id": "JT-PATH-001:215798aa08",
+  "rule_id": "JT-PATH-001",
+  "severity": "critical",
+  "status": "broken",
+  "title": "감지 경로 없음",
+  "message": "'배송' 서비스는 장애를 알아챌 감지 신호(알람·모니터)가 런북에 없습니다. 누군가 우연히 발견하기 전까지 대응이 시작되지 않습니다.",
+  "service_id": "service:배송",
+  "element": "detection",
+  "subject_ids": [
+   "service:배송"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "add_detection",
+   "params": {
+    "service_id": "service:배송",
+    "trigger_ids": [],
+    "notify_candidates": [
+     "person:오준석",
+     "person:조영석",
+     "person:한서윤"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-001:79f1e845b7",
+  "rule_id": "JT-PATH-001",
+  "severity": "critical",
+  "status": "broken",
+  "title": "감지 경로 없음",
+  "message": "'정산' 서비스는 장애를 알아챌 감지 신호(알람·모니터)가 런북에 없습니다. 누군가 우연히 발견하기 전까지 대응이 시작되지 않습니다.",
+  "service_id": "service:정산",
+  "element": "detection",
+  "subject_ids": [
+   "service:정산"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "add_detection",
+   "params": {
+    "service_id": "service:정산",
+    "trigger_ids": [],
+    "notify_candidates": [
+     "person:오준석",
+     "person:조영석",
+     "person:한서윤"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-001:b770071840",
+  "rule_id": "JT-PATH-001",
+  "severity": "critical",
+  "status": "broken",
+  "title": "감지 경로 없음",
+  "message": "'상품 카탈로그' 서비스는 장애를 알아챌 감지 신호(알람·모니터)가 런북에 없습니다. 누군가 우연히 발견하기 전까지 대응이 시작되지 않습니다.",
+  "service_id": "service:상품-카탈로그",
+  "element": "detection",
+  "subject_ids": [
+   "service:상품-카탈로그"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 331,
+    "end": 356,
+    "quote": "상품 카탈로그 (product-catalog)",
+    "line": 19
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 389,
+    "end": 407,
+    "quote": "재현 팀장님한테 바로 슬랙 주세요",
+    "line": 23
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 446,
+    "end": 506,
+    "quote": "DB 락 걸린 거면 기능 플래그 끄고(productCatalogLockContention) 원복하면 됩니다.",
+    "line": 25
+   }
+  ],
+  "fix": {
+   "kind": "add_detection",
+   "params": {
+    "service_id": "service:상품-카탈로그",
+    "trigger_ids": [],
+    "notify_candidates": [
+     "person:강현우",
+     "person:박재현",
+     "person:이수진"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-001:d3f4ab1650",
+  "rule_id": "JT-PATH-001",
+  "severity": "critical",
+  "status": "broken",
+  "title": "감지 경로 없음",
+  "message": "'이상거래 탐지' 서비스는 장애를 알아챌 감지 신호(알람·모니터)가 런북에 없습니다. 누군가 우연히 발견하기 전까지 대응이 시작되지 않습니다.",
+  "service_id": "service:이상거래-탐지",
+  "element": "detection",
+  "subject_ids": [
+   "service:이상거래-탐지"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "add_detection",
+   "params": {
+    "service_id": "service:이상거래-탐지",
+    "trigger_ids": [],
+    "notify_candidates": [
+     "person:오준석",
+     "person:조영석",
+     "person:한서윤"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-010:4771e6d499",
+  "rule_id": "JT-PATH-010",
+  "severity": "critical",
+  "status": "broken",
+  "title": "담당자 없음",
+  "message": "'정산' 서비스: 담당자가 지정되어 있지 않습니다. 장애가 나면 책임지고 움직일 사람이 없습니다.",
+  "service_id": "service:정산",
+  "element": "owner",
+  "subject_ids": [
+   "service:정산"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "assign_owner",
+   "params": {
+    "service_id": "service:정산",
+    "current_owner_ids": [],
+    "candidates": [
+     "person:오준석",
+     "person:조영석",
+     "person:한서윤"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-010:6da8cd3cfd",
+  "rule_id": "JT-PATH-010",
+  "severity": "critical",
+  "status": "broken",
+  "title": "담당자 없음",
+  "message": "'배송' 서비스: 담당자가 지정되어 있지 않습니다. 장애가 나면 책임지고 움직일 사람이 없습니다.",
+  "service_id": "service:배송",
+  "element": "owner",
+  "subject_ids": [
+   "service:배송"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "assign_owner",
+   "params": {
+    "service_id": "service:배송",
+    "current_owner_ids": [],
+    "candidates": [
+     "person:오준석",
+     "person:조영석",
+     "person:한서윤"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-010:8d87e91061",
+  "rule_id": "JT-PATH-010",
+  "severity": "critical",
+  "status": "broken",
+  "title": "담당자 없음",
+  "message": "'이상거래 탐지' 서비스: 담당자가 지정되어 있지 않습니다. 장애가 나면 책임지고 움직일 사람이 없습니다.",
+  "service_id": "service:이상거래-탐지",
+  "element": "owner",
+  "subject_ids": [
+   "service:이상거래-탐지"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "assign_owner",
+   "params": {
+    "service_id": "service:이상거래-탐지",
+    "current_owner_ids": [],
+    "candidates": [
+     "person:오준석",
+     "person:조영석",
+     "person:한서윤"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-010:eb3034bca8",
+  "rule_id": "JT-PATH-010",
+  "severity": "critical",
+  "status": "broken",
+  "title": "담당자 없음",
+  "message": "'결제' 서비스: 지정된 담당자 '김민준'(퇴사)은 활동 중이 아닙니다. 장애가 나면 책임지고 움직일 사람이 없습니다.",
+  "service_id": "service:결제",
+  "element": "owner",
+  "subject_ids": [
+   "service:결제",
+   "owned_by:service:결제->person:김민준",
+   "person:김민준"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 2,
+    "end": 4,
+    "quote": "결제",
+    "line": 1
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 163,
+    "end": 169,
+    "quote": "결제 서비스",
+    "line": 10
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 181,
+    "end": 204,
+    "quote": "결제 실패율 알람(5% 초과 3분 지속)이",
+    "line": 12
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 219,
+    "end": 230,
+    "quote": "결제 장애가 계속되면",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 231,
+    "end": 234,
+    "quote": "김대리",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 231,
+    "end": 239,
+    "quote": "김대리에게 연락",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 241,
+    "end": 249,
+    "quote": "안 되면 롤백.",
+    "line": 13
+   }
+  ],
+  "fix": {
+   "kind": "assign_owner",
+   "params": {
+    "service_id": "service:결제",
+    "current_owner_ids": [
+     "person:김민준"
+    ],
+    "candidates": [
+     "person:오준석",
+     "person:조영석",
+     "person:한서윤",
+     "person:김서연"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PPL-001:9dfa62f887",
+  "rule_id": "JT-PPL-001",
+  "severity": "critical",
+  "status": "broken",
+  "title": "퇴사자에게 대응이 걸려 있음",
+  "message": "'결제' 서비스의 호출이 퇴사자 '김민준'에게 걸려 있습니다. 장애가 나면 이 연결은 아무에게도 닿지 않습니다.",
+  "service_id": "service:결제",
+  "element": "detection",
+  "subject_ids": [
+   "person:김민준",
+   "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준",
+   "notifies:trigger:결제-서비스-장애-지속->person:김민준"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 181,
+    "end": 239,
+    "quote": "결제 실패율 알람(5% 초과 3분 지속)이 오면 결제 장애로 본다.\n결제 장애가 계속되면 김대리에게 연락",
+    "line": 12
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 219,
+    "end": 239,
+    "quote": "결제 장애가 계속되면 김대리에게 연락",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 231,
+    "end": 234,
+    "quote": "김대리",
+    "line": 13
+   }
+  ],
+  "fix": {
+   "kind": "replace_departed",
+   "params": {
+    "person_id": "person:김민준",
+    "edge_ids": [
+     "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준",
+     "notifies:trigger:결제-서비스-장애-지속->person:김민준"
+    ],
+    "candidates": [
+     "person:오준석",
+     "person:조영석",
+     "person:한서윤",
+     "person:김서연"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PPL-001:ba930f7b56",
+  "rule_id": "JT-PPL-001",
+  "severity": "critical",
+  "status": "broken",
+  "title": "퇴사자에게 대응이 걸려 있음",
+  "message": "'결제' 서비스의 담당이 퇴사자 '김민준'에게 걸려 있습니다. 장애가 나면 이 연결은 아무에게도 닿지 않습니다.",
+  "service_id": "service:결제",
+  "element": "owner",
+  "subject_ids": [
+   "person:김민준",
+   "owned_by:service:결제->person:김민준"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 231,
+    "end": 234,
+    "quote": "김대리",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 231,
+    "end": 239,
+    "quote": "김대리에게 연락",
+    "line": 13
+   }
+  ],
+  "fix": {
+   "kind": "replace_departed",
+   "params": {
+    "person_id": "person:김민준",
+    "edge_ids": [
+     "owned_by:service:결제->person:김민준"
+    ],
+    "candidates": [
+     "person:오준석",
+     "person:조영석",
+     "person:한서윤",
+     "person:김서연"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-CAT-001:0993353c59",
+  "rule_id": "JT-CAT-001",
+  "severity": "high",
+  "status": "broken",
+  "title": "담당·런북 없는 서비스",
+  "message": "'이상거래 탐지'은(는) 서비스 목록(카탈로그)에는 있지만 담당자도 장애 대응 런북도 없습니다. 장애가 나면 누가 무엇을 할지 아무 문서에도 없습니다.",
+  "service_id": "service:이상거래-탐지",
+  "element": "owner",
+  "subject_ids": [
+   "service:이상거래-탐지"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "add_service_runbook",
+   "params": {
+    "service_id": "service:이상거래-탐지"
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-CAT-001:3c9f5fe484",
+  "rule_id": "JT-CAT-001",
+  "severity": "high",
+  "status": "broken",
+  "title": "담당·런북 없는 서비스",
+  "message": "'배송'은(는) 서비스 목록(카탈로그)에는 있지만 담당자도 장애 대응 런북도 없습니다. 장애가 나면 누가 무엇을 할지 아무 문서에도 없습니다.",
+  "service_id": "service:배송",
+  "element": "owner",
+  "subject_ids": [
+   "service:배송"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "add_service_runbook",
+   "params": {
+    "service_id": "service:배송"
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-CAT-001:3cd7297ffd",
+  "rule_id": "JT-CAT-001",
+  "severity": "high",
+  "status": "broken",
+  "title": "담당·런북 없는 서비스",
+  "message": "'정산'은(는) 서비스 목록(카탈로그)에는 있지만 담당자도 장애 대응 런북도 없습니다. 장애가 나면 누가 무엇을 할지 아무 문서에도 없습니다.",
+  "service_id": "service:정산",
+  "element": "owner",
+  "subject_ids": [
+   "service:정산"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "add_service_runbook",
+   "params": {
+    "service_id": "service:정산"
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-CAT-001:6b4cdc583f",
+  "rule_id": "JT-CAT-001",
+  "severity": "high",
+  "status": "broken",
+  "title": "담당·런북 없는 서비스",
+  "message": "'배송비 견적'은(는) 서비스 목록(카탈로그)에는 있지만 담당자도 장애 대응 런북도 없습니다. 장애가 나면 누가 무엇을 할지 아무 문서에도 없습니다.",
+  "service_id": "service:배송비-견적",
+  "element": "owner",
+  "subject_ids": [
+   "service:배송비-견적"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "add_service_runbook",
+   "params": {
+    "service_id": "service:배송비-견적"
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-ESC-001:a88a3fb8a3",
+  "rule_id": "JT-ESC-001",
+  "severity": "high",
+  "status": "broken",
+  "title": "상향 경로 없음",
+  "message": "'결제' 서비스의 담당 '김민준'에게서 이어지는 상향 경로가 없습니다. 담당자가 응답하지 않으면 다음으로 부를 사람이 없습니다.",
+  "service_id": "service:결제",
+  "element": "owner",
+  "subject_ids": [
+   "service:결제",
+   "person:김민준"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 2,
+    "end": 4,
+    "quote": "결제",
+    "line": 1
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 163,
+    "end": 169,
+    "quote": "결제 서비스",
+    "line": 10
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 181,
+    "end": 204,
+    "quote": "결제 실패율 알람(5% 초과 3분 지속)이",
+    "line": 12
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 219,
+    "end": 230,
+    "quote": "결제 장애가 계속되면",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 231,
+    "end": 234,
+    "quote": "김대리",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 231,
+    "end": 239,
+    "quote": "김대리에게 연락",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 241,
+    "end": 249,
+    "quote": "안 되면 롤백.",
+    "line": 13
+   }
+  ],
+  "fix": {
+   "kind": "add_escalation",
+   "params": {
+    "service_id": "service:결제",
+    "from_id": "person:김민준",
+    "from_ids": [
+     "person:김민준"
+    ],
+    "candidates": [
+     "person:오준석",
+     "person:조영석",
+     "person:한서윤",
+     "person:김서연"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-ESC-002:6077cdadb4",
+  "rule_id": "JT-ESC-002",
+  "severity": "high",
+  "status": "broken",
+  "title": "상향 순환",
+  "message": "'주문' 서비스의 상향 경로가 '정민혁' → '최영훈' → '정민혁'으로 되돌아오는 순환이며, 최종 책임자나 순환 밖의 다른 사람에게 이어지지 않습니다. 아무도 응답하지 않으면 호출이 같은 사람들 사이를 맴돕니다.",
+  "service_id": "service:주문",
+  "element": "owner",
+  "subject_ids": [
+   "service:주문",
+   "person:정민혁",
+   "person:최영훈",
+   "escalates_to:person:정민혁->person:최영훈",
+   "escalates_to:person:최영훈->person:정민혁"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 254,
+    "end": 261,
+    "quote": "주문/체크아웃",
+    "line": 15
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 280,
+    "end": 289,
+    "quote": "주문 실패율 알람",
+    "line": 17
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 292,
+    "end": 298,
+    "quote": "정민혁 과장",
+    "line": 17
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 304,
+    "end": 314,
+    "quote": "담당: 정민혁 과장",
+    "line": 18
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 308,
+    "end": 314,
+    "quote": "정민혁 과장",
+    "line": 18
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 330,
+    "end": 336,
+    "quote": "정민혁 과장",
+    "line": 19
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 330,
+    "end": 358,
+    "quote": "정민혁 과장 15분 미응답 시 최영훈 차장에게 상향",
+    "line": 19
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 347,
+    "end": 353,
+    "quote": "최영훈 차장",
+    "line": 19
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 361,
+    "end": 388,
+    "quote": "롤백: 한서윤 CTO 승인 후 정민혁 과장이 실행",
+    "line": 20
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 378,
+    "end": 384,
+    "quote": "정민혁 과장",
+    "line": 20
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 437,
+    "end": 443,
+    "quote": "최영훈 차장",
+    "line": 25
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 437,
+    "end": 465,
+    "quote": "최영훈 차장 20분 미응답 시 정민혁 과장에게 다시",
+    "line": 25
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 454,
+    "end": 460,
+    "quote": "정민혁 과장",
+    "line": 25
+   }
+  ],
+  "fix": {
+   "kind": "break_escalation_cycle",
+   "params": {
+    "service_id": "service:주문",
+    "cycle": [
+     "person:정민혁",
+     "person:최영훈"
+    ],
+    "edge_ids": [
+     "escalates_to:person:정민혁->person:최영훈",
+     "escalates_to:person:최영훈->person:정민혁"
+    ],
+    "candidates": [
+     "person:오준석",
+     "person:조영석",
+     "person:한서윤"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-KR-001:1a4c869406",
+  "rule_id": "JT-KR-001",
+  "severity": "high",
+  "status": "broken",
+  "title": "침해사고 24시간 신고 단계 없음",
+  "message": "'결제', '주문' 런북에 침해사고 발생 시 과학기술정보통신부·한국인터넷진흥원(KISA)에 24시간 이내 신고하는 단계가 없습니다. 복구와 별개로 신고 기한을 놓치면 법 위반이 됩니다.",
+  "service_id": null,
+  "element": null,
+  "subject_ids": [
+   "service:결제",
+   "service:주문"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "add_reporting_step",
+   "params": {
+    "incident_type": "breach",
+    "recipient": "과학기술정보통신부·한국인터넷진흥원(KISA)",
+    "deadline_minutes": 1440,
+    "service_ids": [
+     "service:결제",
+     "service:주문"
+    ]
+   }
+  },
+  "legal_basis": "정보통신망법 제48조의3 제1항(침해사고의 신고 등, 법률 제21500호·2026.10.1 시행): 침해사고를 알게 된 때부터 24시간 이내 과학기술정보통신부장관 또는 KISA에 신고, 추가 확인 사항은 확인한 때부터 24시간 이내 보완 신고(시행령 제58조의8)"
+ },
+ {
+  "id": "JT-KR-003:2a4aeae989",
+  "rule_id": "JT-KR-003",
+  "severity": "high",
+  "status": "broken",
+  "title": "개인정보 유출 72시간 신고 단계 없음",
+  "message": "'결제', '주문' 런북에 개인정보 유출 발생 시 개인정보보호위원회·한국인터넷진흥원(KISA)에 72시간 이내 신고하는 단계가 없습니다. 복구와 별개로 신고 기한을 놓치면 법 위반이 됩니다.",
+  "service_id": null,
+  "element": null,
+  "subject_ids": [
+   "service:결제",
+   "service:주문"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "add_reporting_step",
+   "params": {
+    "incident_type": "privacy_leak",
+    "recipient": "개인정보보호위원회·한국인터넷진흥원(KISA)",
+    "deadline_minutes": 4320,
+    "service_ids": [
+     "service:결제",
+     "service:주문"
+    ]
+   }
+  },
+  "legal_basis": "개인정보 보호법 제34조 제1항·제4항, 시행령 제39조(통지)·제40조(신고): 유출등을 알게 된 때부터 72시간 이내 정보주체 통지, 1천명 이상·민감/고유식별정보·외부 불법접근 시 개인정보보호위원회 또는 KISA 신고"
+ },
+ {
+  "id": "JT-ONC-004:1c1d2d6c6a",
+  "rule_id": "JT-ONC-004",
+  "severity": "high",
+  "status": "broken",
+  "title": "당직표에 퇴사·부재자",
+  "message": "당직표의 김민준님은 명부상 '퇴사' 상태입니다. 2026-10-29 22:00 시작 당직 등 1건의 호출이 응답 없이 끝날 수 있습니다.",
+  "service_id": null,
+  "element": null,
+  "subject_ids": [
+   "person:김민준"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "adjust_oncall",
+   "params": {
+    "person": "김민준",
+    "shift_starts": [
+     "2026-10-29T22:00:00"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-002:fbe2805cd8",
+  "rule_id": "JT-PATH-002",
+  "severity": "high",
+  "status": "broken",
+  "title": "감지 후 호출 대상 없음",
+  "message": "'결제' 서비스의 감지 신호 '결제 서비스 실패율 알람(5% 초과 3분 지속)', '결제 서비스 장애 지속'이 울려도 호출 대상 '김민준'(퇴사)이 활동 중인 대응자로 이어지지 않습니다. 알람이 아무에게도 닿지 않습니다.",
+  "service_id": "service:결제",
+  "element": "detection",
+  "subject_ids": [
+   "service:결제",
+   "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+   "trigger:결제-서비스-장애-지속",
+   "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준",
+   "notifies:trigger:결제-서비스-장애-지속->person:김민준",
+   "person:김민준"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 2,
+    "end": 4,
+    "quote": "결제",
+    "line": 1
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 163,
+    "end": 169,
+    "quote": "결제 서비스",
+    "line": 10
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 181,
+    "end": 203,
+    "quote": "결제 실패율 알람(5% 초과 3분 지속)",
+    "line": 12
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 181,
+    "end": 204,
+    "quote": "결제 실패율 알람(5% 초과 3분 지속)이",
+    "line": 12
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 181,
+    "end": 239,
+    "quote": "결제 실패율 알람(5% 초과 3분 지속)이 오면 결제 장애로 본다.\n결제 장애가 계속되면 김대리에게 연락",
+    "line": 12
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 219,
+    "end": 230,
+    "quote": "결제 장애가 계속되면",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 219,
+    "end": 239,
+    "quote": "결제 장애가 계속되면 김대리에게 연락",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 231,
+    "end": 234,
+    "quote": "김대리",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 231,
+    "end": 239,
+    "quote": "김대리에게 연락",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 241,
+    "end": 249,
+    "quote": "안 되면 롤백.",
+    "line": 13
+   }
+  ],
+  "fix": {
+   "kind": "add_detection",
+   "params": {
+    "service_id": "service:결제",
+    "trigger_ids": [
+     "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+     "trigger:결제-서비스-장애-지속"
+    ],
+    "notify_candidates": [
+     "person:오준석",
+     "person:조영석",
+     "person:한서윤",
+     "person:김서연"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-020:08e9c34f06",
+  "rule_id": "JT-PATH-020",
+  "severity": "high",
+  "status": "broken",
+  "title": "승인자 없음",
+  "message": "'결제' 서비스의 조치 '결제 서비스 롤백'은 승인이 필요하지만 승인자가 적혀 있지 않습니다. 장애 중에 누구에게 승인을 받아야 하는지 몰라 조치가 늦어집니다.",
+  "service_id": "service:결제",
+  "element": "approver",
+  "subject_ids": [
+   "service:결제",
+   "action:결제-서비스-롤백"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 2,
+    "end": 4,
+    "quote": "결제",
+    "line": 1
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 163,
+    "end": 169,
+    "quote": "결제 서비스",
+    "line": 10
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 181,
+    "end": 204,
+    "quote": "결제 실패율 알람(5% 초과 3분 지속)이",
+    "line": 12
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 219,
+    "end": 230,
+    "quote": "결제 장애가 계속되면",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 231,
+    "end": 239,
+    "quote": "김대리에게 연락",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 241,
+    "end": 249,
+    "quote": "안 되면 롤백.",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 246,
+    "end": 248,
+    "quote": "롤백",
+    "line": 13
+   }
+  ],
+  "fix": {
+   "kind": "assign_approver",
+   "params": {
+    "service_id": "service:결제",
+    "action_id": "action:결제-서비스-롤백",
+    "current_approver_ids": [],
+    "candidates": [
+     "person:오준석",
+     "person:조영석",
+     "person:한서윤",
+     "person:김서연"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-020:800f3f895c",
+  "rule_id": "JT-PATH-020",
+  "severity": "high",
+  "status": "broken",
+  "title": "승인자 없음",
+  "message": "'상품 카탈로그' 서비스의 조치 '상품 카탈로그 롤백'은 승인이 필요하지만 승인자가 적혀 있지 않습니다. 장애 중에 누구에게 승인을 받아야 하는지 몰라 조치가 늦어집니다.",
+  "service_id": "service:상품-카탈로그",
+  "element": "approver",
+  "subject_ids": [
+   "service:상품-카탈로그",
+   "action:상품-카탈로그-롤백"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 331,
+    "end": 356,
+    "quote": "상품 카탈로그 (product-catalog)",
+    "line": 19
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 389,
+    "end": 407,
+    "quote": "재현 팀장님한테 바로 슬랙 주세요",
+    "line": 23
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 446,
+    "end": 506,
+    "quote": "DB 락 걸린 거면 기능 플래그 끄고(productCatalogLockContention) 원복하면 됩니다.",
+    "line": 25
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 497,
+    "end": 499,
+    "quote": "원복",
+    "line": 25
+   }
+  ],
+  "fix": {
+   "kind": "assign_approver",
+   "params": {
+    "service_id": "service:상품-카탈로그",
+    "action_id": "action:상품-카탈로그-롤백",
+    "current_approver_ids": [],
+    "candidates": [
+     "person:오준석",
+     "person:조영석",
+     "person:한서윤"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-030:142aabdf88",
+  "rule_id": "JT-PATH-030",
+  "severity": "high",
+  "status": "broken",
+  "title": "대체 채널 없음",
+  "message": "'정산' 서비스: 연락할 활동 중인 담당자·1차 상향 대상이 없어 쓸 수 있는 연락 수단이 없습니다.",
+  "service_id": "service:정산",
+  "element": "fallback_channel",
+  "subject_ids": [
+   "service:정산"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "add_fallback_channel",
+   "params": {
+    "service_id": "service:정산",
+    "person_ids": [],
+    "owner_ids": [],
+    "channel_ids": []
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-030:419c4af955",
+  "rule_id": "JT-PATH-030",
+  "severity": "high",
+  "status": "broken",
+  "title": "대체 채널 없음",
+  "message": "'배송' 서비스: 연락할 활동 중인 담당자·1차 상향 대상이 없어 쓸 수 있는 연락 수단이 없습니다.",
+  "service_id": "service:배송",
+  "element": "fallback_channel",
+  "subject_ids": [
+   "service:배송"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "add_fallback_channel",
+   "params": {
+    "service_id": "service:배송",
+    "person_ids": [],
+    "owner_ids": [],
+    "channel_ids": []
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-030:5389ca61b1",
+  "rule_id": "JT-PATH-030",
+  "severity": "high",
+  "status": "broken",
+  "title": "대체 채널 없음",
+  "message": "'결제' 서비스: 연락할 활동 중인 담당자·1차 상향 대상이 없어 쓸 수 있는 연락 수단이 없습니다.",
+  "service_id": "service:결제",
+  "element": "fallback_channel",
+  "subject_ids": [
+   "service:결제"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 2,
+    "end": 4,
+    "quote": "결제",
+    "line": 1
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 163,
+    "end": 169,
+    "quote": "결제 서비스",
+    "line": 10
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 181,
+    "end": 204,
+    "quote": "결제 실패율 알람(5% 초과 3분 지속)이",
+    "line": 12
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 219,
+    "end": 230,
+    "quote": "결제 장애가 계속되면",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 231,
+    "end": 239,
+    "quote": "김대리에게 연락",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 241,
+    "end": 249,
+    "quote": "안 되면 롤백.",
+    "line": 13
+   }
+  ],
+  "fix": {
+   "kind": "add_fallback_channel",
+   "params": {
+    "service_id": "service:결제",
+    "person_ids": [],
+    "owner_ids": [
+     "person:김민준"
+    ],
+    "channel_ids": []
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-030:5af3d48346",
+  "rule_id": "JT-PATH-030",
+  "severity": "high",
+  "status": "broken",
+  "title": "대체 채널 없음",
+  "message": "'이상거래 탐지' 서비스: 연락할 활동 중인 담당자·1차 상향 대상이 없어 쓸 수 있는 연락 수단이 없습니다.",
+  "service_id": "service:이상거래-탐지",
+  "element": "fallback_channel",
+  "subject_ids": [
+   "service:이상거래-탐지"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "add_fallback_channel",
+   "params": {
+    "service_id": "service:이상거래-탐지",
+    "person_ids": [],
+    "owner_ids": [],
+    "channel_ids": []
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-040:1db7efea92",
+  "rule_id": "JT-PATH-040",
+  "severity": "high",
+  "status": "broken",
+  "title": "롤백/완화 조치 없음",
+  "message": "'이상거래 탐지' 서비스에 롤백·페일오버 같은 완화 조치가 적혀 있지 않습니다. 장애 중에 무엇을 해야 할지 즉석에서 정해야 합니다.",
+  "service_id": "service:이상거래-탐지",
+  "element": "rollback",
+  "subject_ids": [
+   "service:이상거래-탐지"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "add_rollback",
+   "params": {
+    "service_id": "service:이상거래-탐지",
+    "existing_action_ids": []
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-040:37f81fed3c",
+  "rule_id": "JT-PATH-040",
+  "severity": "high",
+  "status": "broken",
+  "title": "롤백/완화 조치 없음",
+  "message": "'배송' 서비스에 롤백·페일오버 같은 완화 조치가 적혀 있지 않습니다. 장애 중에 무엇을 해야 할지 즉석에서 정해야 합니다.",
+  "service_id": "service:배송",
+  "element": "rollback",
+  "subject_ids": [
+   "service:배송"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "add_rollback",
+   "params": {
+    "service_id": "service:배송",
+    "existing_action_ids": []
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-040:5d74a8f0b1",
+  "rule_id": "JT-PATH-040",
+  "severity": "high",
+  "status": "broken",
+  "title": "롤백/완화 조치 없음",
+  "message": "'정산' 서비스에 롤백·페일오버 같은 완화 조치가 적혀 있지 않습니다. 장애 중에 무엇을 해야 할지 즉석에서 정해야 합니다.",
+  "service_id": "service:정산",
+  "element": "rollback",
+  "subject_ids": [
+   "service:정산"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "add_rollback",
+   "params": {
+    "service_id": "service:정산",
+    "existing_action_ids": []
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-ONC-001:29573b62fa",
+  "rule_id": "JT-ONC-001",
+  "severity": "medium",
+  "status": "broken",
+  "title": "연속 야간 당직 초과",
+  "message": "강현우님이 2026-10-22부터 2026-10-24까지 3일 연속 야간 당직을 맡습니다(팀 합의 기준: 최대 2일 연속).",
+  "service_id": null,
+  "element": null,
+  "subject_ids": [
+   "person:강현우"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "adjust_oncall",
+   "params": {
+    "person": "강현우",
+    "shift_starts": [
+     "2026-10-22T22:00:00",
+     "2026-10-23T22:00:00",
+     "2026-10-24T22:00:00"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-ONC-002:6a92a9c48f",
+  "rule_id": "JT-ONC-002",
+  "severity": "medium",
+  "status": "broken",
+  "title": "휴식 시간 미달",
+  "message": "김서연님은 2026-10-31 13:00에 당직을 마치고 9시간 만인 2026-10-31 22:00에 다시 당직을 시작합니다(팀 합의 최소 휴식 11시간).",
+  "service_id": null,
+  "element": null,
+  "subject_ids": [
+   "person:김서연"
+  ],
+  "evidence": [],
+  "fix": {
+   "kind": "adjust_oncall",
+   "params": {
+    "person": "김서연",
+    "shift_starts": [
+     "2026-10-31T08:00:00",
+     "2026-10-31T22:00:00"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-041:15844371eb",
+  "rule_id": "JT-PATH-041",
+  "severity": "medium",
+  "status": "broken",
+  "title": "롤백 실행자 미지정",
+  "message": "'상품 카탈로그' 서비스의 되돌리기 조치 '상품 카탈로그 롤백'에 실행자가 적혀 있지 않습니다. 장애 중에 누가 실행할지 정하느라 시간이 흐릅니다.",
+  "service_id": "service:상품-카탈로그",
+  "element": "rollback",
+  "subject_ids": [
+   "service:상품-카탈로그",
+   "action:상품-카탈로그-롤백"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 331,
+    "end": 356,
+    "quote": "상품 카탈로그 (product-catalog)",
+    "line": 19
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 389,
+    "end": 407,
+    "quote": "재현 팀장님한테 바로 슬랙 주세요",
+    "line": 23
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 446,
+    "end": 506,
+    "quote": "DB 락 걸린 거면 기능 플래그 끄고(productCatalogLockContention) 원복하면 됩니다.",
+    "line": 25
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 497,
+    "end": 499,
+    "quote": "원복",
+    "line": 25
+   }
+  ],
+  "fix": {
+   "kind": "assign_executor",
+   "params": {
+    "service_id": "service:상품-카탈로그",
+    "action_id": "action:상품-카탈로그-롤백",
+    "edge_kind": "executed_by",
+    "current_executor_ids": [],
+    "candidates": [
+     "person:강현우",
+     "person:박재현",
+     "person:이수진"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-041:2f7f0c42f2",
+  "rule_id": "JT-PATH-041",
+  "severity": "medium",
+  "status": "broken",
+  "title": "롤백 실행자 미지정",
+  "message": "'상품 카탈로그' 서비스의 되돌리기 조치 '상품 카탈로그 기능 플래그 OFF'에 실행자가 적혀 있지 않습니다. 장애 중에 누가 실행할지 정하느라 시간이 흐릅니다.",
+  "service_id": "service:상품-카탈로그",
+  "element": "rollback",
+  "subject_ids": [
+   "service:상품-카탈로그",
+   "action:상품-카탈로그-기능-플래그-off"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 331,
+    "end": 356,
+    "quote": "상품 카탈로그 (product-catalog)",
+    "line": 19
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 389,
+    "end": 407,
+    "quote": "재현 팀장님한테 바로 슬랙 주세요",
+    "line": 23
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 446,
+    "end": 506,
+    "quote": "DB 락 걸린 거면 기능 플래그 끄고(productCatalogLockContention) 원복하면 됩니다.",
+    "line": 25
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 457,
+    "end": 466,
+    "quote": "기능 플래그 끄고",
+    "line": 25
+   }
+  ],
+  "fix": {
+   "kind": "assign_executor",
+   "params": {
+    "service_id": "service:상품-카탈로그",
+    "action_id": "action:상품-카탈로그-기능-플래그-off",
+    "edge_kind": "executed_by",
+    "current_executor_ids": [],
+    "candidates": [
+     "person:강현우",
+     "person:박재현",
+     "person:이수진"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-PATH-041:85e9e6c6e5",
+  "rule_id": "JT-PATH-041",
+  "severity": "medium",
+  "status": "broken",
+  "title": "롤백 실행자 미지정",
+  "message": "'결제' 서비스의 되돌리기 조치 '결제 서비스 롤백'에 실행자가 적혀 있지 않습니다. 장애 중에 누가 실행할지 정하느라 시간이 흐릅니다.",
+  "service_id": "service:결제",
+  "element": "rollback",
+  "subject_ids": [
+   "service:결제",
+   "action:결제-서비스-롤백"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 2,
+    "end": 4,
+    "quote": "결제",
+    "line": 1
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 163,
+    "end": 169,
+    "quote": "결제 서비스",
+    "line": 10
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 181,
+    "end": 204,
+    "quote": "결제 실패율 알람(5% 초과 3분 지속)이",
+    "line": 12
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 219,
+    "end": 230,
+    "quote": "결제 장애가 계속되면",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 231,
+    "end": 239,
+    "quote": "김대리에게 연락",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 241,
+    "end": 249,
+    "quote": "안 되면 롤백.",
+    "line": 13
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 246,
+    "end": 248,
+    "quote": "롤백",
+    "line": 13
+   }
+  ],
+  "fix": {
+   "kind": "assign_executor",
+   "params": {
+    "service_id": "service:결제",
+    "action_id": "action:결제-서비스-롤백",
+    "edge_kind": "executed_by",
+    "current_executor_ids": [],
+    "candidates": [
+     "person:오준석",
+     "person:조영석",
+     "person:한서윤",
+     "person:김서연"
+    ]
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-SPF-001:0b1a607452",
+  "rule_id": "JT-SPF-001",
+  "severity": "medium",
+  "status": "broken",
+  "title": "단일 장애점(사람)",
+  "message": "'웹 프론트엔드'의 대응 경로가 박재현 한 사람에게 달려 있습니다(버스 팩터 1). 이 사람이 연락되지 않으면 '웹 프론트엔드 롤백' 승인 단계가 끊깁니다. 대리 담당자를 지정해 두세요.",
+  "service_id": "service:웹-프론트엔드",
+  "element": "approver",
+  "subject_ids": [
+   "service:웹-프론트엔드",
+   "person:박재현",
+   "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+   "escalates_to:person:강현우->person:박재현",
+   "escalates_to:person:이수진->person:박재현",
+   "member_of:person:박재현->team:개발팀",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "reachable_via:person:박재현->channel:phone",
+   "reachable_via:person:박재현->channel:slack"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 564,
+    "end": 570,
+    "quote": "박재현 팀장",
+    "line": 31
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 244,
+    "end": 250,
+    "quote": "박재현 팀장",
+    "line": 14
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 389,
+    "end": 395,
+    "quote": "재현 팀장님",
+    "line": 23
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 764,
+    "end": 770,
+    "quote": "박재현 팀장",
+    "line": 39
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 586,
+    "end": 592,
+    "quote": "박재현 팀장",
+    "line": 32
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 711,
+    "end": 717,
+    "quote": "박재현 팀장",
+    "line": 38
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 1091,
+    "end": 1097,
+    "quote": "박재현 팀장",
+    "line": 51
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 657,
+    "end": 663,
+    "quote": "박재현 팀장",
+    "line": 34
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 266,
+    "end": 272,
+    "quote": "박재현 팀장",
+    "line": 15
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 915,
+    "end": 921,
+    "quote": "박재현 팀장",
+    "line": 44
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 1028,
+    "end": 1034,
+    "quote": "박재현 팀장",
+    "line": 50
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 843,
+    "end": 849,
+    "quote": "박재현 팀장",
+    "line": 43
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 389,
+    "end": 394,
+    "quote": "재현 팀장",
+    "line": 23
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 600,
+    "end": 685,
+    "quote": "| 감지 | 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향 |\n| 롤백 승인 | 박재현 팀장",
+    "line": 33
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 547,
+    "end": 579,
+    "quote": "강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+    "line": 31
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 951,
+    "end": 1043,
+    "quote": "- 감지: 광고 API 오류율 알람 → 강현우 사원 호출\n- 담당: 강현우 사원 (슬랙, 전화)\n- 상향: 강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+    "line": 48
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 826,
+    "end": 858,
+    "quote": "강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+    "line": 43
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 694,
+    "end": 722,
+    "quote": "이수진 대리 10분 미응답 시 박재현 팀장에게 상향",
+    "line": 38
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 132,
+    "end": 253,
+    "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화 |\n| 감지 | cartFailure 오류율 알람 (장바구니 API 오류율 2% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향",
+    "line": 11
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 560,
+    "end": 666,
+    "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화 |\n| 감지 | 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향",
+    "line": 31
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 389,
+    "end": 407,
+    "quote": "재현 팀장님한테 바로 슬랙 주세요",
+    "line": 23
+   }
+  ],
+  "fix": {
+   "kind": "add_deputy",
+   "params": {
+    "person_id": "person:박재현",
+    "service_id": "service:웹-프론트엔드"
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-SPF-001:3bd033040d",
+  "rule_id": "JT-SPF-001",
+  "severity": "medium",
+  "status": "broken",
+  "title": "단일 장애점(사람)",
+  "message": "'주문'의 대응 경로가 한서윤 한 사람에게 달려 있습니다(버스 팩터 1). 이 사람이 연락되지 않으면 '주문/체크아웃 롤백' 승인 단계가 끊깁니다. 대리 담당자를 지정해 두세요.",
+  "service_id": "service:주문",
+  "element": "approver",
+  "subject_ids": [
+   "service:주문",
+   "person:한서윤",
+   "approved_by:action:주문체크아웃-롤백->person:한서윤",
+   "reachable_via:person:한서윤->channel:email",
+   "reachable_via:person:한서윤->channel:kakaotalk",
+   "reachable_via:person:한서윤->channel:phone"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 365,
+    "end": 372,
+    "quote": "한서윤 CTO",
+    "line": 20
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 427,
+    "end": 435,
+    "quote": "한서윤 CTO님",
+    "line": 24
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 427,
+    "end": 434,
+    "quote": "한서윤 CTO",
+    "line": 24
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 365,
+    "end": 377,
+    "quote": "한서윤 CTO 승인 후",
+    "line": 20
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 409,
+    "end": 444,
+    "quote": "팀장님이 20분 넘게 답 없으면 한서윤 CTO님께 전화 드리고요",
+    "line": 24
+   }
+  ],
+  "fix": {
+   "kind": "add_deputy",
+   "params": {
+    "person_id": "person:한서윤",
+    "service_id": "service:주문"
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-SPF-001:64cd9ee8e6",
+  "rule_id": "JT-SPF-001",
+  "severity": "medium",
+  "status": "broken",
+  "title": "단일 장애점(사람)",
+  "message": "'환율'의 대응 경로가 박재현 한 사람에게 달려 있습니다(버스 팩터 1). 이 사람이 연락되지 않으면 '환율 롤백' 승인 단계가 끊깁니다. 대리 담당자를 지정해 두세요.",
+  "service_id": "service:환율",
+  "element": "approver",
+  "subject_ids": [
+   "service:환율",
+   "person:박재현",
+   "approved_by:action:환율-롤백->person:박재현",
+   "escalates_to:person:강현우->person:박재현",
+   "escalates_to:person:이수진->person:박재현",
+   "member_of:person:박재현->team:개발팀",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "reachable_via:person:박재현->channel:phone",
+   "reachable_via:person:박재현->channel:slack"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 564,
+    "end": 570,
+    "quote": "박재현 팀장",
+    "line": 31
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 244,
+    "end": 250,
+    "quote": "박재현 팀장",
+    "line": 14
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 389,
+    "end": 395,
+    "quote": "재현 팀장님",
+    "line": 23
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 764,
+    "end": 770,
+    "quote": "박재현 팀장",
+    "line": 39
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 586,
+    "end": 592,
+    "quote": "박재현 팀장",
+    "line": 32
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 711,
+    "end": 717,
+    "quote": "박재현 팀장",
+    "line": 38
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 1091,
+    "end": 1097,
+    "quote": "박재현 팀장",
+    "line": 51
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 657,
+    "end": 663,
+    "quote": "박재현 팀장",
+    "line": 34
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 266,
+    "end": 272,
+    "quote": "박재현 팀장",
+    "line": 15
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 915,
+    "end": 921,
+    "quote": "박재현 팀장",
+    "line": 44
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 1028,
+    "end": 1034,
+    "quote": "박재현 팀장",
+    "line": 50
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 843,
+    "end": 849,
+    "quote": "박재현 팀장",
+    "line": 43
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 389,
+    "end": 394,
+    "quote": "재현 팀장",
+    "line": 23
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 586,
+    "end": 597,
+    "quote": "박재현 팀장 승인 후",
+    "line": 32
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 547,
+    "end": 579,
+    "quote": "강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+    "line": 31
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 951,
+    "end": 1043,
+    "quote": "- 감지: 광고 API 오류율 알람 → 강현우 사원 호출\n- 담당: 강현우 사원 (슬랙, 전화)\n- 상향: 강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+    "line": 48
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 826,
+    "end": 858,
+    "quote": "강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+    "line": 43
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 694,
+    "end": 722,
+    "quote": "이수진 대리 10분 미응답 시 박재현 팀장에게 상향",
+    "line": 38
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 132,
+    "end": 253,
+    "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화 |\n| 감지 | cartFailure 오류율 알람 (장바구니 API 오류율 2% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향",
+    "line": 11
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 560,
+    "end": 666,
+    "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화 |\n| 감지 | 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향",
+    "line": 31
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 389,
+    "end": 407,
+    "quote": "재현 팀장님한테 바로 슬랙 주세요",
+    "line": 23
+   }
+  ],
+  "fix": {
+   "kind": "add_deputy",
+   "params": {
+    "person_id": "person:박재현",
+    "service_id": "service:환율"
+   }
+  },
+  "legal_basis": null
+ },
+ {
+  "id": "JT-SPF-001:ae2beb4e4e",
+  "rule_id": "JT-SPF-001",
+  "severity": "medium",
+  "status": "broken",
+  "title": "단일 장애점(사람)",
+  "message": "'장바구니'의 대응 경로가 박재현 한 사람에게 달려 있습니다(버스 팩터 1). 이 사람이 연락되지 않으면 '장바구니 롤백' 승인 단계가 끊깁니다. 대리 담당자를 지정해 두세요.",
+  "service_id": "service:장바구니",
+  "element": "approver",
+  "subject_ids": [
+   "service:장바구니",
+   "person:박재현",
+   "approved_by:action:장바구니-롤백->person:박재현",
+   "escalates_to:person:강현우->person:박재현",
+   "escalates_to:person:이수진->person:박재현",
+   "member_of:person:박재현->team:개발팀",
+   "reachable_via:person:박재현->channel:kakaotalk",
+   "reachable_via:person:박재현->channel:phone",
+   "reachable_via:person:박재현->channel:slack"
+  ],
+  "evidence": [
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 564,
+    "end": 570,
+    "quote": "박재현 팀장",
+    "line": 31
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 244,
+    "end": 250,
+    "quote": "박재현 팀장",
+    "line": 14
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 389,
+    "end": 395,
+    "quote": "재현 팀장님",
+    "line": 23
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 764,
+    "end": 770,
+    "quote": "박재현 팀장",
+    "line": 39
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 586,
+    "end": 592,
+    "quote": "박재현 팀장",
+    "line": 32
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 711,
+    "end": 717,
+    "quote": "박재현 팀장",
+    "line": 38
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 1091,
+    "end": 1097,
+    "quote": "박재현 팀장",
+    "line": 51
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 657,
+    "end": 663,
+    "quote": "박재현 팀장",
+    "line": 34
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 266,
+    "end": 272,
+    "quote": "박재현 팀장",
+    "line": 15
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 915,
+    "end": 921,
+    "quote": "박재현 팀장",
+    "line": 44
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 1028,
+    "end": 1034,
+    "quote": "박재현 팀장",
+    "line": 50
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 843,
+    "end": 849,
+    "quote": "박재현 팀장",
+    "line": 43
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 389,
+    "end": 394,
+    "quote": "재현 팀장",
+    "line": 23
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 256,
+    "end": 274,
+    "quote": "| 롤백 승인 | 박재현 팀장 |",
+    "line": 15
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 547,
+    "end": 579,
+    "quote": "강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+    "line": 31
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 951,
+    "end": 1043,
+    "quote": "- 감지: 광고 API 오류율 알람 → 강현우 사원 호출\n- 담당: 강현우 사원 (슬랙, 전화)\n- 상향: 강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+    "line": 48
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 826,
+    "end": 858,
+    "quote": "강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+    "line": 43
+   },
+   {
+    "doc_id": "doc-c6998bc94c89",
+    "start": 694,
+    "end": 722,
+    "quote": "이수진 대리 10분 미응답 시 박재현 팀장에게 상향",
+    "line": 38
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 132,
+    "end": 253,
+    "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화 |\n| 감지 | cartFailure 오류율 알람 (장바구니 API 오류율 2% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향",
+    "line": 11
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 560,
+    "end": 666,
+    "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화 |\n| 감지 | 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향",
+    "line": 31
+   },
+   {
+    "doc_id": "doc-3183be527d24",
+    "start": 389,
+    "end": 407,
+    "quote": "재현 팀장님한테 바로 슬랙 주세요",
+    "line": 23
+   }
+  ],
+  "fix": {
+   "kind": "add_deputy",
+   "params": {
+    "person_id": "person:박재현",
+    "service_id": "service:장바구니"
+   }
+  },
+  "legal_basis": null
+ }
+]

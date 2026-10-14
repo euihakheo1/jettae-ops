@@ -1,0 +1,144 @@
+[project]
+name = "jettae-ops"
+version = "0.1.0"
+description = "제때옵스(JETTAE Ops) — 장애 대응 런북을 운영 그래프로 바꿔 끊긴 대응 경로를 장애 전에 찾아내는 런북 준비도 진단 멀티에이전트"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "허의학", email = "euihakeg@naver.com" }]
+keywords = ["sre", "runbook", "incident-response", "llm", "knowledge-graph", "readiness"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: Apache Software License",
+  "Natural Language :: Korean",
+]
+dependencies = [
+  "pydantic>=2.9,<3",
+  "pydantic-settings>=2.6",
+  "networkx>=3.4",
+  "rapidfuzz>=3.10",
+  "pyyaml>=6.0",
+  "markdown-it-py>=3.0",
+  "pypdf>=5.0",
+  "python-docx>=1.1",
+  "typer>=0.15",
+  "rich>=13.9",
+  "structlog>=24.4",
+  "sqlalchemy>=2.0.36",
+  "alembic>=1.14",
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.32",
+  "python-multipart>=0.0.18",
+  "langgraph>=1.0,<2",
+]
+
+[project.optional-dependencies]
+anthropic = ["anthropic>=1.0"]
+openai = ["openai>=1.50"]
+otel = [
+  "opentelemetry-sdk>=1.29",
+  "opentelemetry-exporter-otlp>=1.29",
+  "opentelemetry-instrumentation-fastapi>=0.50b0",
+]
+postgres = ["psycopg[binary]>=3.2"]
+dev = [
+  "pytest>=8.3",
+  "pytest-cov>=6.0",
+  "hypothesis>=6.120",
+  "httpx>=0.28",
+  "ruff>=0.8",
+  "mypy>=1.13",
+  "import-linter>=2.1",
+  "types-PyYAML",
+]
+all = ["jettae-ops[anthropic,openai,otel,postgres]"]
+
+[project.scripts]
+jettae = "jettae.cli.main:app"
+
+[project.urls]
+Homepage = "https://github.com/jettae-ops/jettae-ops"
+
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/jettae"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/jettae/py.typed" = "jettae/py.typed"
+
+# ---------------------------------------------------------------- tooling
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF", "PL", "PT", "N", "C4", "PERF"]
+ignore = [
+  "PLR0913",  # domain functions legitimately take several keyword args
+  "PLR2004",  # magic numbers are explicit policy constants in rules
+  "RUF001", "RUF002", "RUF003",  # Korean text contains full-width punctuation by design
+  "PLC0415",  # lazy imports for optional extras (anthropic/openai/otel)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["PLR2004", "S101", "PLR0915"]
+"src/jettae/**/__init__.py" = ["F401"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+plugins = ["pydantic.mypy"]
+mypy_path = "src"
+packages = ["jettae"]
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = ["networkx.*", "rapidfuzz.*", "markdown_it.*", "pypdf.*", "docx.*", "langgraph.*", "openai.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q -p no:cacheprovider"
+markers = [
+  "llm: needs a live LLM API key (skipped by default)",
+  "slow: long-running evaluation tests",
+]
+
+# Architecture guard-rails: the deterministic core must never depend on LLM adapters,
+# storage, or delivery layers. This is what makes "LLM을 꺼도 검사·점수·재생은 동작" a
+# structural property, not a promise.
+[tool.importlinter]
+root_package = "jettae"
+include_external_packages = true
+
+[[tool.importlinter.contracts]]
+name = "Domain is pure"
+type = "forbidden"
+source_modules = ["jettae.domain"]
+forbidden_modules = [
+  "jettae.llm", "jettae.store", "jettae.api", "jettae.cli", "jettae.extract",
+  "jettae.check", "jettae.rehearse", "jettae.improve", "jettae.orchestrator", "jettae.evalkit",
+]
+
+[[tool.importlinter.contracts]]
+name = "Judgement path never calls an LLM"
+type = "forbidden"
+source_modules = ["jettae.check", "jettae.rehearse.simulator", "jettae.improve.validator", "jettae.improve.patching"]
+forbidden_modules = ["jettae.llm", "anthropic", "openai"]
+
+[[tool.importlinter.contracts]]
+name = "Layers"
+type = "layers"
+layers = [
+  "jettae.api | jettae.cli | jettae.evalkit",
+  "jettae.orchestrator",
+  "jettae.improve | jettae.reporting",
+  "jettae.rehearse",
+  "jettae.extract | jettae.check | jettae.store",
+  "jettae.ingest | jettae.llm",
+  "jettae.domain",
+]

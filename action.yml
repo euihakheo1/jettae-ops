@@ -1,0 +1,148 @@
+# 제때옵스(JETTAE Ops) GitHub Action — 런북 건강검진
+#
+# 런북 저장소의 장애 대응 문서를 운영 그래프로 바꿔, 끊긴 대응 경로(퇴사자에게 걸린 호출, 상향 경로 없음,
+# 승인자 없음, 대체 채널 없음, 법정 신고 시한 위반 …)를 고정 규칙으로 찾습니다. 결과는
+#   * 코드 스캐닝 경고(SARIF, 런북의 해당 줄에 표시)
+#   * 작업 요약(Markdown 증적 리포트)
+#   * 출력 score(전체 준비도 0~100)
+# 로 남고, 준비도가 fail-under보다 낮으면 작업이 실패합니다.
+#
+# 데이터 경계: 런북 원문은 러너 밖의 외부 서비스로 나가지 않습니다. 예외는 llm: live 하나뿐이며, 그때도
+# 원문은 사용자가 넣은 자신의 LLM API 키(anthropic-api-key)로 그 제공자에게만 보내집니다. 판정·점수·리허설은
+# 어떤 모드에서도 LLM을 쓰지 않습니다(고정 규칙과 결정적 리플레이).
+# 단, 결과에는 근거가 된 원문 인용이 들어 있고, 그 결과는 이 저장소의 GitHub에 올라갑니다 — SARIF는 코드
+# 스캐닝(upload-sarif), 증적 리포트는 작업 요약(job-summary). 저장소의 Actions·보안 탭을 볼 수 있는 사람은
+# 인용도 볼 수 있습니다. 런북을 저장소 밖(위키 등)에서 받아 와 공개 저장소에서 진단한다면 두 입력을
+# false로 두고 sarif-file만 비공개 아티팩트로 보관하세요.
+#
+# 진단은 한 번만 실행합니다. SARIF와 작업 요약을 같은 실행에서 함께 쓰므로(--summary-md) 두 결과가 항상
+# 일치하고, llm: live일 때 LLM 비용이 두 번 들지 않습니다.
+
+name: "JETTAE Ops 런북 건강검진"
+description: >-
+  장애 대응 런북의 끊긴 대응 경로를 장애 전에 찾습니다. 고정 규칙으로 판정하고 결과를 코드 스캐닝(SARIF)과
+  작업 요약으로 남깁니다. 런북 원문은 러너 밖으로 나가지 않습니다(llm: live일 때만 사용자의 LLM 키로 전송,
+  근거 인용이 담긴 결과는 이 저장소의 코드 스캐닝·작업 요약에만 올라감).
+author: "JETTAE Ops"
+branding:
+  icon: "activity"
+  color: "orange"
+
+inputs:
+  path:
+    description: "런북 묶음 폴더(runbooks/, roster.csv, catalog.yaml …) 또는 런북 파일 하나. 저장소 루트 기준 경로"
+    required: false
+    default: "."
+  llm:
+    description: >-
+      LLM 모드: off(기본 — 규칙 파서만, 원문이 러너 밖으로 나가지 않음) · live(anthropic-api-key로 실시간 호출) ·
+      replay(녹화 재생). 어떤 모드에서도 판정·점수에는 LLM을 쓰지 않습니다
+    required: false
+    default: "off"
+  fail-under:
+    description: "전체 준비도(0~100)가 이 점수보다 낮으면 작업을 실패로 표시합니다. 0이면 점수로는 실패하지 않습니다"
+    required: false
+    default: "0"
+  fail-on-critical:
+    description: "true면 심각(critical) 끊김이 하나라도 있을 때 작업을 실패로 표시합니다(확인 불가 포함)"
+    required: false
+    default: "false"
+  anthropic-api-key:
+    description: "llm: live일 때만 필요합니다. 진단 단계에만 ANTHROPIC_API_KEY로 전달되며 다른 단계는 보지 못합니다"
+    required: false
+    default: ""
+  sarif-file:
+    description: "SARIF 결과 파일 경로"
+    required: false
+    default: "jettae-results.sarif"
+  upload-sarif:
+    description: "true면 SARIF를 GitHub 코드 스캐닝에 올립니다(security-events: write 권한 필요). 포크 PR에서는 false로 두세요"
+    required: false
+    default: "true"
+  job-summary:
+    description: "true면 Markdown 증적 리포트(근거 원문 인용 포함)를 작업 요약에 덧붙입니다"
+    required: false
+    default: "true"
+
+outputs:
+  score:
+    description: "전체 준비도(0~100)"
+    value: ${{ steps.scan.outputs.score }}
+  sarif-file:
+    description: "SARIF 결과 파일 경로"
+    value: ${{ steps.scan.outputs.sarif-file }}
+  passed:
+    description: "준비도 기준(fail-under, fail-on-critical)을 통과했으면 true"
+    value: ${{ steps.scan.outputs.passed }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Python 3.12 준비"
+      id: python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+        # 사용자 작업의 PATH와 Python을 바꾸지 않습니다. 제때옵스는 아래 전용 가상 환경에 설치합니다.
+        update-environment: false
+
+    - name: "제때옵스 설치"
+      id: install
+      shell: bash
+      env:
+        PYTHON: ${{ steps.python.outputs.python-path }}
+      run: |
+        venv="$RUNNER_TEMP/jettae-venv"
+        "$PYTHON" -m venv "$venv"
+        if [ -x "$venv/bin/python" ]; then bin="$venv/bin"; else bin="$venv/Scripts"; fi
+        "$bin/python" -m pip install --disable-pip-version-check --quiet "${{ github.action_path }}[anthropic]"
+        echo "bin=$bin" >> "$GITHUB_OUTPUT"
+
+    - name: "런북 진단"
+      id: scan
+      shell: bash
+      env:
+        # 입력값은 환경 변수로만 넘깁니다(스크립트에 직접 끼워 넣지 않음 — 스크립트 주입 방지).
+        JETTAE_BIN: ${{ steps.install.outputs.bin }}
+        INPUT_PATH: ${{ inputs.path }}
+        INPUT_LLM: ${{ inputs.llm }}
+        INPUT_FAIL_UNDER: ${{ inputs.fail-under }}
+        INPUT_FAIL_ON_CRITICAL: ${{ inputs.fail-on-critical }}
+        INPUT_SARIF: ${{ inputs.sarif-file }}
+        INPUT_JOB_SUMMARY: ${{ inputs.job-summary }}
+        # LLM 키는 이 단계에만 전달됩니다.
+        ANTHROPIC_API_KEY: ${{ inputs.anthropic-api-key }}
+        PYTHONUTF8: "1"
+      run: |
+        args=(scan "$INPUT_PATH" --llm "$INPUT_LLM" --format sarif --out "$INPUT_SARIF"
+              --fail-under "$INPUT_FAIL_UNDER")
+        if [ "$INPUT_JOB_SUMMARY" = "true" ]; then args+=(--summary-md "$GITHUB_STEP_SUMMARY"); fi
+        if [ "$INPUT_FAIL_ON_CRITICAL" = "true" ]; then args+=(--fail-on-critical); fi
+        set +e
+        "$JETTAE_BIN/jettae" "${args[@]}"
+        code=$?
+        set -e
+        # 0 = 통과, 1 = 기준 미달(결과 파일은 이미 저장됨), 그 밖 = 진단 자체가 실패
+        if [ "$code" -ne 0 ] && [ "$code" -ne 1 ]; then exit "$code"; fi
+        score=$("$JETTAE_BIN/python" -c 'import json, sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["runs"][0]["properties"]["readiness"])' "$INPUT_SARIF")
+        {
+          echo "score=$score"
+          echo "sarif-file=$INPUT_SARIF"
+          if [ "$code" -eq 0 ]; then echo "passed=true"; else echo "passed=false"; fi
+        } >> "$GITHUB_OUTPUT"
+
+    - name: "코드 스캐닝에 SARIF 올리기"
+      if: ${{ inputs.upload-sarif == 'true' && steps.scan.outputs.sarif-file != '' }}
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: ${{ steps.scan.outputs.sarif-file }}
+        category: jettae
+
+    - name: "준비도 기준 확인"
+      if: ${{ steps.scan.outputs.passed == 'false' }}
+      shell: bash
+      env:
+        SCORE: ${{ steps.scan.outputs.score }}
+      run: |
+        echo "::error title=JETTAE Ops 런북 건강검진::런북 준비도가 기준에 못 미칩니다(전체 준비도 ${SCORE}). 작업 요약과 코드 스캐닝 경고에서 끊긴 경로를 확인하세요."
+        exit 1

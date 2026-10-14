@@ -1,0 +1,46 @@
+# 제때옵스 로컬/파일럿 배포
+#   docker compose up --build                        # SQLite (볼륨 jettae-data)
+#   docker compose --profile postgres up --build     # PostgreSQL 사용 (.env에 JETTAE_DATABASE_URL 지정)
+#
+# .env 예시
+#   JETTAE_LLM_MODE=off            # off | live | replay
+#   ANTHROPIC_API_KEY=             # live 모드에서만 필요
+#   JETTAE_AUTH_MODE=token
+#   JETTAE_API_TOKENS={"<토큰>": {"user": "lead1", "role": "lead"}}
+#   JETTAE_DATABASE_URL=postgresql+psycopg://jettae:jettae@postgres:5432/jettae
+
+services:
+  api:
+    build: .
+    image: jettae-ops:local
+    ports:
+      - "8765:8765"
+    environment:
+      JETTAE_DATABASE_URL: ${JETTAE_DATABASE_URL:-sqlite:////data/jettae.db}
+      JETTAE_LLM_MODE: ${JETTAE_LLM_MODE:-off}
+      JETTAE_AUTH_MODE: ${JETTAE_AUTH_MODE:-dev}
+      JETTAE_API_TOKENS: ${JETTAE_API_TOKENS:-{}}
+      JETTAE_STORE_RAW_DOCUMENTS: ${JETTAE_STORE_RAW_DOCUMENTS:-false}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    volumes:
+      - jettae-data:/data
+    restart: unless-stopped
+
+  postgres:
+    profiles: ["postgres"]
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: jettae
+      POSTGRES_PASSWORD: jettae
+      POSTGRES_DB: jettae
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jettae"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  jettae-data:
+  pg-data:

@@ -1,0 +1,54 @@
+# 제때옵스 Action 사용 예제 — 런북 건강검진
+#
+# 이 저장소에서는 별빛상점 예제(examples/dmc-shop)를 로컬 Action(uses: ./)으로 진단합니다.
+# 다른 저장소에서는 uses: jettae-ops/jettae-ops@v1 처럼 태그를 지정해 쓰고, path에 런북 묶음 폴더를 적으세요.
+#
+# 데이터 경계: 기본값 llm: off에서는 런북 원문이 러너 밖으로 나가지 않습니다. llm: live로 바꾸면 원문이
+# 아래 anthropic-api-key(사용자 자신의 키)로 그 제공자에게만 보내집니다. 판정·점수는 어떤 경우에도 고정 규칙입니다.
+name: 런북 건강검진 (예제)
+
+on:
+  pull_request:
+    paths:
+      - "examples/dmc-shop/**"
+      - "action.yml"
+      - "src/**"
+  push:
+    branches: [main]
+    paths:
+      - "examples/dmc-shop/**"
+      - "action.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  # SARIF를 코드 스캐닝에 올리는 데 필요합니다.
+  security-events: write
+
+jobs:
+  runbook-health:
+    name: 런북 준비도 진단
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 제때옵스 런북 건강검진
+        id: jettae
+        uses: ./
+        with:
+          path: examples/dmc-shop
+          llm: "off"
+          # 전체 준비도가 50점보다 낮으면 실패(예제는 끊김을 일부러 심어 두었지만 이 기준은 넘습니다).
+          fail-under: "50"
+          sarif-file: jettae-results.sarif
+          # 포크에서 온 PR은 security-events 권한이 없어 업로드하지 않습니다.
+          upload-sarif: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
+          # llm: live일 때만:
+          # anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: 결과 보기
+        if: ${{ always() }}
+        env:
+          SCORE: ${{ steps.jettae.outputs.score }}
+          PASSED: ${{ steps.jettae.outputs.passed }}
+        run: echo "전체 준비도 ${SCORE}점, 기준 통과 ${PASSED}"

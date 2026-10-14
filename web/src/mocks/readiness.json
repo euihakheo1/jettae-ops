@@ -1,0 +1,793 @@
+{
+ "overall": 55.7,
+ "services": [
+  {
+   "service_id": "service:결제",
+   "service_name": "결제",
+   "tier": 1,
+   "weight": 3.0,
+   "score": 22.0,
+   "elements": [
+    {
+     "element": "detection",
+     "score": 0.5,
+     "status": "partial",
+     "reasons": [
+      "감지 신호 '결제 서비스 실패율 알람(5% 초과 3분 지속)', '결제 서비스 장애 지속'은 있으나 호출 대상이 없거나 활동 중인 대응자로 이어지지 않음"
+     ],
+     "finding_ids": [
+      "JT-PATH-002:fbe2805cd8",
+      "JT-PPL-001:9dfa62f887"
+     ]
+    },
+    {
+     "element": "owner",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "담당자 '김민준'(퇴사)은 활동 중이 아님",
+      "담당자에게서 이어지는 상향(에스컬레이션) 경로가 없음"
+     ],
+     "finding_ids": [
+      "JT-ESC-001:a88a3fb8a3",
+      "JT-PATH-010:eb3034bca8",
+      "JT-PPL-001:ba930f7b56"
+     ]
+    },
+    {
+     "element": "approver",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "조치 '결제 서비스 롤백': 승인자가 적혀 있지 않음"
+     ],
+     "finding_ids": [
+      "JT-PATH-020:08e9c34f06"
+     ]
+    },
+    {
+     "element": "fallback_channel",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "연락할 활동 중인 담당자·1차 상향 대상이 없어 채널을 확인할 수 없음"
+     ],
+     "finding_ids": [
+      "JT-PATH-030:5389ca61b1"
+     ]
+    },
+    {
+     "element": "rollback",
+     "score": 0.6,
+     "status": "partial",
+     "reasons": [
+      "되돌리기 조치 '결제 서비스 롤백'이 있으나 활동 중인 실행자가 지정되어 있지 않음"
+     ],
+     "finding_ids": [
+      "JT-PATH-041:85e9e6c6e5"
+     ]
+    }
+   ]
+  },
+  {
+   "service_id": "service:광고",
+   "service_name": "광고",
+   "tier": 3,
+   "weight": 1.0,
+   "score": 96.0,
+   "elements": [
+    {
+     "element": "detection",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "감지 신호 '광고 API 오류율 알람'이 활동 중인 대응자 '강현우'에게 호출을 보냄"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "owner",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "활동 중인 담당자 '강현우', '박재현', '이수진'에게 연락할 수 있음",
+      "상향 경로가 '박재현'에게 닿고 모든 단계에 대기 시간이 적혀 있음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "approver",
+     "score": 0.8,
+     "status": "partial",
+     "reasons": [
+      "조치 '광고 기능 플래그 OFF': 승인 가능한 사람이 '박재현' 1명뿐(부재 시 대행 없음)"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "fallback_channel",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "연락 수단 4개('internal_messenger', 'kakaotalk', 'phone', 'slack') 중 서비스와 함께 죽지 않는 'internal_messenger', 'kakaotalk', 'phone', 'slack'이(가) 있음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "rollback",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "되돌리기 조치 '광고 기능 플래그 OFF'의 실행자 '강현우'가 활동 중임"
+     ],
+     "finding_ids": []
+    }
+   ]
+  },
+  {
+   "service_id": "service:배송",
+   "service_name": "배송",
+   "tier": 2,
+   "weight": 2.0,
+   "score": 0.0,
+   "elements": [
+    {
+     "element": "detection",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "이 서비스의 장애를 알아챌 감지 신호(알람·모니터·고객 문의 경로)가 없음"
+     ],
+     "finding_ids": [
+      "JT-PATH-001:215798aa08"
+     ]
+    },
+    {
+     "element": "owner",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "담당자(OWNED_BY)가 지정되어 있지 않음",
+      "담당자에게서 이어지는 상향(에스컬레이션) 경로가 없음"
+     ],
+     "finding_ids": [
+      "JT-CAT-001:3c9f5fe484",
+      "JT-PATH-010:6da8cd3cfd"
+     ]
+    },
+    {
+     "element": "approver",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "조치가 없어 승인 경로를 평가할 수 없음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "fallback_channel",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "연락할 활동 중인 담당자·1차 상향 대상이 없어 채널을 확인할 수 없음"
+     ],
+     "finding_ids": [
+      "JT-PATH-030:419c4af955"
+     ]
+    },
+    {
+     "element": "rollback",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "롤백·페일오버 등 완화 조치가 적혀 있지 않음"
+     ],
+     "finding_ids": [
+      "JT-PATH-040:37f81fed3c"
+     ]
+    }
+   ]
+  },
+  {
+   "service_id": "service:배송비-견적",
+   "service_name": "배송비 견적",
+   "tier": 3,
+   "weight": 1.0,
+   "score": 0.0,
+   "elements": [
+    {
+     "element": "detection",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "이 서비스의 장애를 알아챌 감지 신호(알람·모니터·고객 문의 경로)가 없음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "owner",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "담당자(OWNED_BY)가 지정되어 있지 않음",
+      "담당자에게서 이어지는 상향(에스컬레이션) 경로가 없음"
+     ],
+     "finding_ids": [
+      "JT-CAT-001:6b4cdc583f"
+     ]
+    },
+    {
+     "element": "approver",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "조치가 없어 승인 경로를 평가할 수 없음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "fallback_channel",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "연락할 활동 중인 담당자·1차 상향 대상이 없어 채널을 확인할 수 없음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "rollback",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "롤백·페일오버 등 완화 조치가 적혀 있지 않음"
+     ],
+     "finding_ids": []
+    }
+   ]
+  },
+  {
+   "service_id": "service:상품-카탈로그",
+   "service_name": "상품 카탈로그",
+   "tier": 2,
+   "weight": 2.0,
+   "score": 52.0,
+   "elements": [
+    {
+     "element": "detection",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "이 서비스의 장애를 알아챌 감지 신호(알람·모니터·고객 문의 경로)가 없음"
+     ],
+     "finding_ids": [
+      "JT-PATH-001:b770071840"
+     ]
+    },
+    {
+     "element": "owner",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "활동 중인 담당자 '강현우', '박재현', '이수진'에게 연락할 수 있음",
+      "상향 경로가 '박재현'에게 닿고 모든 단계에 대기 시간이 적혀 있음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "approver",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "조치 '상품 카탈로그 롤백': 승인자가 적혀 있지 않음"
+     ],
+     "finding_ids": [
+      "JT-PATH-020:800f3f895c"
+     ]
+    },
+    {
+     "element": "fallback_channel",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "연락 수단 4개('internal_messenger', 'kakaotalk', 'phone', 'slack') 중 서비스와 함께 죽지 않는 'kakaotalk', 'phone', 'slack'이(가) 있음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "rollback",
+     "score": 0.6,
+     "status": "partial",
+     "reasons": [
+      "되돌리기 조치 '상품 카탈로그 롤백'이 있으나 활동 중인 실행자가 지정되어 있지 않음"
+     ],
+     "finding_ids": [
+      "JT-PATH-041:15844371eb",
+      "JT-PATH-041:2f7f0c42f2"
+     ]
+    }
+   ]
+  },
+  {
+   "service_id": "service:웹-프론트엔드",
+   "service_name": "웹 프론트엔드",
+   "tier": 1,
+   "weight": 3.0,
+   "score": 96.0,
+   "elements": [
+    {
+     "element": "detection",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "감지 신호 '웹 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속)'이 활동 중인 대응자 '이수진'에게 호출을 보냄"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "owner",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "활동 중인 담당자 '강현우', '박재현', '이수진'에게 연락할 수 있음",
+      "상향 경로가 '박재현'에게 닿고 모든 단계에 대기 시간이 적혀 있음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "approver",
+     "score": 0.8,
+     "status": "partial",
+     "reasons": [
+      "조치 '웹 프론트엔드 롤백': 승인 가능한 사람이 '박재현' 1명뿐(부재 시 대행 없음)"
+     ],
+     "finding_ids": [
+      "JT-SPF-001:0b1a607452"
+     ]
+    },
+    {
+     "element": "fallback_channel",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "연락 수단 4개('internal_messenger', 'kakaotalk', 'phone', 'slack') 중 서비스와 함께 죽지 않는 'kakaotalk', 'phone', 'slack'이(가) 있음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "rollback",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "되돌리기 조치 '웹 프론트엔드 롤백'의 실행자 '이수진'이 활동 중임"
+     ],
+     "finding_ids": []
+    }
+   ]
+  },
+  {
+   "service_id": "service:이메일",
+   "service_name": "이메일",
+   "tier": 3,
+   "weight": 1.0,
+   "score": 86.0,
+   "elements": [
+    {
+     "element": "detection",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "감지 신호 '이메일 주문 확인 메일 발송 실패 알람'이 활동 중인 대응자 '이수진'에게 호출을 보냄"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "owner",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "활동 중인 담당자 '강현우', '박재현', '이수진'에게 연락할 수 있음",
+      "상향 경로가 '박재현'에게 닿고 모든 단계에 대기 시간이 적혀 있음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "approver",
+     "score": 0.8,
+     "status": "partial",
+     "reasons": [
+      "조치 '이메일 재시작': 승인 가능한 사람이 '박재현' 1명뿐(부재 시 대행 없음)"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "fallback_channel",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "연락 수단 4개('internal_messenger', 'kakaotalk', 'phone', 'slack') 중 서비스와 함께 죽지 않는 'internal_messenger', 'kakaotalk', 'phone', 'slack'이(가) 있음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "rollback",
+     "score": 0.5,
+     "status": "partial",
+     "reasons": [
+      "재시작·확장 같은 조치('이메일 재시작')만 있고 롤백·페일오버·기능 플래그 같은 되돌리기 조치가 없음"
+     ],
+     "finding_ids": []
+    }
+   ]
+  },
+  {
+   "service_id": "service:이상거래-탐지",
+   "service_name": "이상거래 탐지",
+   "tier": 2,
+   "weight": 2.0,
+   "score": 0.0,
+   "elements": [
+    {
+     "element": "detection",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "이 서비스의 장애를 알아챌 감지 신호(알람·모니터·고객 문의 경로)가 없음"
+     ],
+     "finding_ids": [
+      "JT-PATH-001:d3f4ab1650"
+     ]
+    },
+    {
+     "element": "owner",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "담당자(OWNED_BY)가 지정되어 있지 않음",
+      "담당자에게서 이어지는 상향(에스컬레이션) 경로가 없음"
+     ],
+     "finding_ids": [
+      "JT-CAT-001:0993353c59",
+      "JT-PATH-010:8d87e91061"
+     ]
+    },
+    {
+     "element": "approver",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "조치가 없어 승인 경로를 평가할 수 없음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "fallback_channel",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "연락할 활동 중인 담당자·1차 상향 대상이 없어 채널을 확인할 수 없음"
+     ],
+     "finding_ids": [
+      "JT-PATH-030:5af3d48346"
+     ]
+    },
+    {
+     "element": "rollback",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "롤백·페일오버 등 완화 조치가 적혀 있지 않음"
+     ],
+     "finding_ids": [
+      "JT-PATH-040:1db7efea92"
+     ]
+    }
+   ]
+  },
+  {
+   "service_id": "service:장바구니",
+   "service_name": "장바구니",
+   "tier": 1,
+   "weight": 3.0,
+   "score": 96.0,
+   "elements": [
+    {
+     "element": "detection",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "감지 신호 '장바구니 API 오류율 2% 초과 5분 지속'이 활동 중인 대응자 '이수진'에게 호출을 보냄"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "owner",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "활동 중인 담당자 '강현우', '박재현', '이수진'에게 연락할 수 있음",
+      "상향 경로가 '박재현'에게 닿고 모든 단계에 대기 시간이 적혀 있음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "approver",
+     "score": 0.8,
+     "status": "partial",
+     "reasons": [
+      "조치 '장바구니 롤백': 승인 가능한 사람이 '박재현' 1명뿐(부재 시 대행 없음)"
+     ],
+     "finding_ids": [
+      "JT-SPF-001:ae2beb4e4e"
+     ]
+    },
+    {
+     "element": "fallback_channel",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "연락 수단 4개('internal_messenger', 'kakaotalk', 'phone', 'slack') 중 서비스와 함께 죽지 않는 'internal_messenger', 'kakaotalk', 'phone', 'slack'이(가) 있음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "rollback",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "되돌리기 조치 '장바구니 롤백'의 실행자 '이수진'이 활동 중임"
+     ],
+     "finding_ids": []
+    }
+   ]
+  },
+  {
+   "service_id": "service:정산",
+   "service_name": "정산",
+   "tier": 2,
+   "weight": 2.0,
+   "score": 0.0,
+   "elements": [
+    {
+     "element": "detection",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "이 서비스의 장애를 알아챌 감지 신호(알람·모니터·고객 문의 경로)가 없음"
+     ],
+     "finding_ids": [
+      "JT-PATH-001:79f1e845b7"
+     ]
+    },
+    {
+     "element": "owner",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "담당자(OWNED_BY)가 지정되어 있지 않음",
+      "담당자에게서 이어지는 상향(에스컬레이션) 경로가 없음"
+     ],
+     "finding_ids": [
+      "JT-CAT-001:3cd7297ffd",
+      "JT-PATH-010:4771e6d499"
+     ]
+    },
+    {
+     "element": "approver",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "조치가 없어 승인 경로를 평가할 수 없음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "fallback_channel",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "연락할 활동 중인 담당자·1차 상향 대상이 없어 채널을 확인할 수 없음"
+     ],
+     "finding_ids": [
+      "JT-PATH-030:142aabdf88"
+     ]
+    },
+    {
+     "element": "rollback",
+     "score": 0.0,
+     "status": "fail",
+     "reasons": [
+      "롤백·페일오버 등 완화 조치가 적혀 있지 않음"
+     ],
+     "finding_ids": [
+      "JT-PATH-040:5d74a8f0b1"
+     ]
+    }
+   ]
+  },
+  {
+   "service_id": "service:주문",
+   "service_name": "주문",
+   "tier": 1,
+   "weight": 3.0,
+   "score": 96.0,
+   "elements": [
+    {
+     "element": "detection",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "감지 신호 '주문/체크아웃 주문 실패율 알람'이 활동 중인 대응자 '정민혁'에게 호출을 보냄"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "owner",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "활동 중인 담당자 '정민혁', '최영훈'에게 연락할 수 있음",
+      "상향 경로가 '정민혁', '최영훈'에게 닿고 모든 단계에 대기 시간이 적혀 있음"
+     ],
+     "finding_ids": [
+      "JT-ESC-002:6077cdadb4"
+     ]
+    },
+    {
+     "element": "approver",
+     "score": 0.8,
+     "status": "partial",
+     "reasons": [
+      "조치 '주문/체크아웃 롤백': 승인 가능한 사람이 '한서윤' 1명뿐(부재 시 대행 없음)"
+     ],
+     "finding_ids": [
+      "JT-SPF-001:3bd033040d"
+     ]
+    },
+    {
+     "element": "fallback_channel",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "연락 수단 2개('phone', 'slack') 중 서비스와 함께 죽지 않는 'phone', 'slack'이(가) 있음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "rollback",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "되돌리기 조치 '주문/체크아웃 롤백'의 실행자 '정민혁'이 활동 중임"
+     ],
+     "finding_ids": []
+    }
+   ]
+  },
+  {
+   "service_id": "service:추천",
+   "service_name": "추천",
+   "tier": 3,
+   "weight": 1.0,
+   "score": 96.0,
+   "elements": [
+    {
+     "element": "detection",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "감지 신호 '추천 API 오류율 알람'이 활동 중인 대응자 '강현우'에게 호출을 보냄"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "owner",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "활동 중인 담당자 '강현우', '박재현', '이수진'에게 연락할 수 있음",
+      "상향 경로가 '박재현'에게 닿고 모든 단계에 대기 시간이 적혀 있음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "approver",
+     "score": 0.8,
+     "status": "partial",
+     "reasons": [
+      "조치 '추천 기능 플래그 OFF': 승인 가능한 사람이 '박재현' 1명뿐(부재 시 대행 없음)"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "fallback_channel",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "연락 수단 4개('internal_messenger', 'kakaotalk', 'phone', 'slack') 중 서비스와 함께 죽지 않는 'kakaotalk', 'phone', 'slack'이(가) 있음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "rollback",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "되돌리기 조치 '추천 기능 플래그 OFF'의 실행자 '강현우'가 활동 중임"
+     ],
+     "finding_ids": []
+    }
+   ]
+  },
+  {
+   "service_id": "service:환율",
+   "service_name": "환율",
+   "tier": 2,
+   "weight": 2.0,
+   "score": 96.0,
+   "elements": [
+    {
+     "element": "detection",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "감지 신호 '환율 변환 오류율 알람'이 활동 중인 대응자 '강현우'에게 호출을 보냄"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "owner",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "활동 중인 담당자 '강현우', '박재현', '이수진'에게 연락할 수 있음",
+      "상향 경로가 '박재현'에게 닿고 모든 단계에 대기 시간이 적혀 있음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "approver",
+     "score": 0.8,
+     "status": "partial",
+     "reasons": [
+      "조치 '환율 롤백': 승인 가능한 사람이 '박재현' 1명뿐(부재 시 대행 없음)"
+     ],
+     "finding_ids": [
+      "JT-SPF-001:64cd9ee8e6"
+     ]
+    },
+    {
+     "element": "fallback_channel",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "연락 수단 4개('internal_messenger', 'kakaotalk', 'phone', 'slack') 중 서비스와 함께 죽지 않는 'internal_messenger', 'kakaotalk', 'phone', 'slack'이(가) 있음"
+     ],
+     "finding_ids": []
+    },
+    {
+     "element": "rollback",
+     "score": 1.0,
+     "status": "pass",
+     "reasons": [
+      "되돌리기 조치 '환율 롤백'의 실행자 '강현우'가 활동 중임"
+     ],
+     "finding_ids": []
+    }
+   ]
+  }
+ ],
+ "weights_version": "v1",
+ "element_weights": {
+  "detection": 0.2,
+  "owner": 0.25,
+  "approver": 0.2,
+  "fallback_channel": 0.15,
+  "rollback": 0.2
+ },
+ "tier_weights": {
+  "1": 3.0,
+  "2": 2.0,
+  "3": 1.0
+ },
+ "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90"
+}

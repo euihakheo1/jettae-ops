@@ -1,0 +1,21 @@
+.git
+.venv
+**/__pycache__
+**/*.pyc
+.mypy_cache
+.ruff_cache
+.pytest_cache
+.hypothesis
+.grimp_cache
+.import_linter_cache
+.coverage
+# 비밀 값이 든 환경 파일은 빌드 컨텍스트에도 보내지 않습니다(이미지에 들어가지 않게)
+**/.env
+**/.env.*
+data/
+web/node_modules
+web/dist
+web/.shots-dist
+web/screenshots
+docs/eval/results.jsonl
+docs/research/

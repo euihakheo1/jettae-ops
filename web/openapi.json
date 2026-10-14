@@ -1,0 +1,5667 @@
+{
+  "components": {
+    "schemas": {
+      "Accepted": {
+        "examples": [
+          {
+            "accepted": true
+          }
+        ],
+        "properties": {
+          "accepted": {
+            "const": true,
+            "default": true,
+            "title": "Accepted",
+            "type": "boolean"
+          }
+        },
+        "title": "Accepted",
+        "type": "object"
+      },
+      "AddEdge": {
+        "properties": {
+          "edge": {
+            "$ref": "#/components/schemas/Edge"
+          },
+          "op": {
+            "const": "add_edge",
+            "default": "add_edge",
+            "title": "Op",
+            "type": "string"
+          }
+        },
+        "required": [
+          "edge"
+        ],
+        "title": "AddEdge",
+        "type": "object"
+      },
+      "AddNode": {
+        "properties": {
+          "node": {
+            "$ref": "#/components/schemas/Node"
+          },
+          "op": {
+            "const": "add_node",
+            "default": "add_node",
+            "title": "Op",
+            "type": "string"
+          }
+        },
+        "required": [
+          "node"
+        ],
+        "title": "AddNode",
+        "type": "object"
+      },
+      "ApiError": {
+        "description": "Body of every error response.",
+        "examples": [
+          {
+            "code": "not_found",
+            "detail": "워크스페이스 ws-0123456789abcdef을(를) 찾을 수 없습니다.",
+            "request_id": "6f1c2b0e9a8d4c7b8e5f4a3b2c1d0e9f"
+          }
+        ],
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "detail": {
+            "title": "Detail",
+            "type": "string"
+          },
+          "request_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Request Id"
+          }
+        },
+        "required": [
+          "detail",
+          "code"
+        ],
+        "title": "ApiError",
+        "type": "object"
+      },
+      "ApprovalResult": {
+        "description": "What an approval or a revert produced: the decided patch (if any), the new version and the\nreport re-judged on it by the fixed rules (no LLM).",
+        "properties": {
+          "patch": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Patch"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "report": {
+            "$ref": "#/components/schemas/DiagnosisReport"
+          },
+          "version": {
+            "$ref": "#/components/schemas/GraphVersion"
+          }
+        },
+        "required": [
+          "patch",
+          "version",
+          "report"
+        ],
+        "title": "ApprovalResult",
+        "type": "object"
+      },
+      "Attr": {
+        "description": "A single attribute value with the span(s) that justify it.",
+        "properties": {
+          "source": {
+            "$ref": "#/components/schemas/SourceKind",
+            "default": "runbook"
+          },
+          "spans": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/SourceSpan"
+            },
+            "title": "Spans",
+            "type": "array"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "title": "Attr",
+        "type": "object"
+      },
+      "AttrChange": {
+        "properties": {
+          "after": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Attr"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "before": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Attr"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "before",
+          "after"
+        ],
+        "title": "AttrChange",
+        "type": "object"
+      },
+      "Body_createFreeScan": {
+        "properties": {
+          "catalog": {
+            "anyOf": [
+              {
+                "contentMediaType": "application/octet-stream",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "서비스 카탈로그(YAML/JSON: Backstage·compose·Jaeger)",
+            "title": "Catalog"
+          },
+          "files": {
+            "description": "런북 파일(.md .txt .pdf .docx .html) — 하나 이상",
+            "items": {
+              "contentMediaType": "application/octet-stream",
+              "type": "string"
+            },
+            "title": "Files",
+            "type": "array"
+          },
+          "oncall": {
+            "anyOf": [
+              {
+                "contentMediaType": "application/octet-stream",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "당직표(CSV/YAML)",
+            "title": "Oncall"
+          },
+          "policy": {
+            "anyOf": [
+              {
+                "contentMediaType": "application/octet-stream",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "정책(YAML)",
+            "title": "Policy"
+          },
+          "roster": {
+            "anyOf": [
+              {
+                "contentMediaType": "application/octet-stream",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "인사 명부(CSV/YAML)",
+            "title": "Roster"
+          }
+        },
+        "required": [
+          "files"
+        ],
+        "title": "Body_createFreeScan",
+        "type": "object"
+      },
+      "Body_uploadInputs": {
+        "properties": {
+          "catalog": {
+            "anyOf": [
+              {
+                "contentMediaType": "application/octet-stream",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "서비스 카탈로그(YAML/JSON: Backstage·compose·Jaeger)",
+            "title": "Catalog"
+          },
+          "oncall": {
+            "anyOf": [
+              {
+                "contentMediaType": "application/octet-stream",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "당직표(CSV/YAML)",
+            "title": "Oncall"
+          },
+          "policy": {
+            "anyOf": [
+              {
+                "contentMediaType": "application/octet-stream",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "정책(YAML)",
+            "title": "Policy"
+          },
+          "roster": {
+            "anyOf": [
+              {
+                "contentMediaType": "application/octet-stream",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "인사 명부(CSV/YAML)",
+            "title": "Roster"
+          },
+          "runbooks": {
+            "anyOf": [
+              {
+                "items": {
+                  "contentMediaType": "application/octet-stream",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "런북 파일(.md .txt .pdf .docx .html) — 올리면 런북 묶음 전체를 바꿉니다",
+            "title": "Runbooks"
+          },
+          "scenarios": {
+            "anyOf": [
+              {
+                "contentMediaType": "application/octet-stream",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "사람이 쓴 리허설 시나리오(scenarios.yaml)",
+            "title": "Scenarios"
+          }
+        },
+        "title": "Body_uploadInputs",
+        "type": "object"
+      },
+      "CreateWorkspaceRequest": {
+        "examples": [
+          {
+            "name": "결제 플랫폼팀"
+          }
+        ],
+        "properties": {
+          "name": {
+            "description": "워크스페이스 이름(1~200자, 한 줄). 앞뒤 공백·보이지 않는 문자는 지우고 NFC로 맞춥니다",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "CreateWorkspaceRequest",
+        "type": "object"
+      },
+      "DemandMetrics": {
+        "description": "Pre-launch demand (수요 측정): distinct sign-ups and event counts per name.",
+        "properties": {
+          "events": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Events",
+            "type": "object"
+          },
+          "signups": {
+            "title": "Signups",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "signups",
+          "events"
+        ],
+        "title": "DemandMetrics",
+        "type": "object"
+      },
+      "DemoRequest": {
+        "examples": [
+          {
+            "llm_mode": "replay"
+          }
+        ],
+        "properties": {
+          "llm_mode": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LlmMode"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "off(규칙만, LLM 0회) · live(실제 LLM) · replay(녹화 재생). 비우면 서버 기본값. 보기 전용·익명 요청은 이 값을 무시하고 언제나 서버 기본값(JETTAE_LLM_MODE)을 씁니다"
+          }
+        },
+        "title": "DemoRequest",
+        "type": "object"
+      },
+      "DemoResult": {
+        "properties": {
+          "report": {
+            "$ref": "#/components/schemas/DiagnosisReport"
+          },
+          "workspace_id": {
+            "title": "Workspace Id",
+            "type": "string"
+          },
+          "workspace_name": {
+            "title": "Workspace Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "workspace_id",
+          "workspace_name",
+          "report"
+        ],
+        "title": "DemoResult",
+        "type": "object"
+      },
+      "DiagnoseRequest": {
+        "examples": [
+          {
+            "llm_mode": "off"
+          }
+        ],
+        "properties": {
+          "llm_mode": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LlmMode"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "off(규칙만, LLM 0회) · live(실제 LLM) · replay(녹화 재생). 비우면 서버 기본값. 보기 전용·익명 요청은 이 값을 무시하고 언제나 서버 기본값(JETTAE_LLM_MODE)을 씁니다"
+          }
+        },
+        "title": "DiagnoseRequest",
+        "type": "object"
+      },
+      "DiagnosisReport": {
+        "properties": {
+          "catalog_gaps": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Catalog Gaps",
+            "type": "array"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "findings": {
+            "items": {
+              "$ref": "#/components/schemas/Finding"
+            },
+            "title": "Findings",
+            "type": "array"
+          },
+          "graph_hash": {
+            "title": "Graph Hash",
+            "type": "string"
+          },
+          "graph_version": {
+            "title": "Graph Version",
+            "type": "integer"
+          },
+          "grounding": {
+            "$ref": "#/components/schemas/GroundingStatus",
+            "default": {
+              "dropped_examples": [],
+              "dropped_invalid": 0,
+              "dropped_quarantined": 0,
+              "dropped_ungrounded": 0,
+              "fuzzy_grounded": 0,
+              "grounded": 0,
+              "held_ambiguous_entity": 0,
+              "held_backtranslation": 0
+            }
+          },
+          "held_element_ids": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Held Element Ids",
+            "type": "array"
+          },
+          "llm": {
+            "$ref": "#/components/schemas/LlmUsageSummary"
+          },
+          "patches": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Patch"
+            },
+            "title": "Patches",
+            "type": "array"
+          },
+          "readiness": {
+            "$ref": "#/components/schemas/ReadinessReport"
+          },
+          "rehearsals": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/RehearsalResult"
+            },
+            "title": "Rehearsals",
+            "type": "array"
+          },
+          "run_id": {
+            "title": "Run Id",
+            "type": "string"
+          },
+          "scenarios": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Scenario"
+            },
+            "title": "Scenarios",
+            "type": "array"
+          },
+          "security": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/SecurityNotice"
+            },
+            "title": "Security",
+            "type": "array"
+          },
+          "timings_ms": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Timings Ms",
+            "type": "object"
+          },
+          "workspace_id": {
+            "title": "Workspace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "run_id",
+          "workspace_id",
+          "graph_version",
+          "graph_hash",
+          "created_at",
+          "findings",
+          "readiness",
+          "llm"
+        ],
+        "title": "DiagnosisReport",
+        "type": "object"
+      },
+      "DocumentRef": {
+        "properties": {
+          "doc_id": {
+            "title": "Doc Id",
+            "type": "string"
+          },
+          "path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Path"
+          },
+          "sha256": {
+            "title": "Sha256",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "doc_id",
+          "title",
+          "sha256"
+        ],
+        "title": "DocumentRef",
+        "type": "object"
+      },
+      "DraftRequest": {
+        "examples": [
+          {
+            "finding_ids": [
+              "JT-PATH-020:08e9c34f06"
+            ]
+          }
+        ],
+        "properties": {
+          "finding_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 500,
+                "minItems": 1,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "이 끊김들에 대해서만(비우면 모든 끊김)",
+            "title": "Finding Ids"
+          },
+          "llm_mode": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LlmMode"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "off(규칙만, LLM 0회) · live(실제 LLM) · replay(녹화 재생). 비우면 서버 기본값"
+          }
+        },
+        "title": "DraftRequest",
+        "type": "object"
+      },
+      "Edge": {
+        "properties": {
+          "attrs": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Attr"
+            },
+            "title": "Attrs",
+            "type": "object"
+          },
+          "dst": {
+            "title": "Dst",
+            "type": "string"
+          },
+          "hold_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hold Reason"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/EdgeKind"
+          },
+          "prov": {
+            "items": {
+              "$ref": "#/components/schemas/Provenance"
+            },
+            "title": "Prov",
+            "type": "array"
+          },
+          "src": {
+            "title": "Src",
+            "type": "string"
+          },
+          "verification": {
+            "$ref": "#/components/schemas/Verification",
+            "default": "verified"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "src",
+          "dst",
+          "prov"
+        ],
+        "title": "Edge",
+        "type": "object"
+      },
+      "EdgeChange": {
+        "properties": {
+          "after": {
+            "$ref": "#/components/schemas/Edge"
+          },
+          "attrs": {
+            "items": {
+              "$ref": "#/components/schemas/AttrChange"
+            },
+            "title": "Attrs",
+            "type": "array"
+          },
+          "before": {
+            "$ref": "#/components/schemas/Edge"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "before",
+          "after",
+          "attrs"
+        ],
+        "title": "EdgeChange",
+        "type": "object"
+      },
+      "EdgeKind": {
+        "enum": [
+          "depends_on",
+          "runs_in",
+          "owned_by",
+          "detected_by",
+          "notifies",
+          "escalates_to",
+          "mitigated_by",
+          "approved_by",
+          "executed_by",
+          "reachable_via",
+          "fallback_to",
+          "holds_role",
+          "member_of",
+          "must_report",
+          "reported_by"
+        ],
+        "title": "EdgeKind",
+        "type": "string"
+      },
+      "Element": {
+        "description": "The five required response-path elements per critical service (필수 경로 5요소).",
+        "enum": [
+          "detection",
+          "owner",
+          "approver",
+          "fallback_channel",
+          "rollback"
+        ],
+        "title": "Element",
+        "type": "string"
+      },
+      "ElementScore": {
+        "properties": {
+          "element": {
+            "$ref": "#/components/schemas/Element"
+          },
+          "finding_ids": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Finding Ids",
+            "type": "array"
+          },
+          "reasons": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Reasons",
+            "type": "array"
+          },
+          "score": {
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Score",
+            "type": "number"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ElementStatus"
+          }
+        },
+        "required": [
+          "element",
+          "score",
+          "status"
+        ],
+        "title": "ElementScore",
+        "type": "object"
+      },
+      "ElementStatus": {
+        "enum": [
+          "pass",
+          "partial",
+          "fail",
+          "unknown"
+        ],
+        "title": "ElementStatus",
+        "type": "string"
+      },
+      "EventRequest": {
+        "description": "A demand-measurement event (수요 측정). ``path`` names the screen, one of\n:data:`EVENT_SCREEN_PATHS` (a query or fragment is dropped first); ``props`` may hold only the\nkeys :data:`EVENT_PROPS` allows for the event, with allowed values.",
+        "examples": [
+          {
+            "name": "demo_start",
+            "path": "/",
+            "props": {
+              "from": "landing"
+            }
+          }
+        ],
+        "properties": {
+          "name": {
+            "enum": [
+              "landing_view",
+              "landing_first_view",
+              "upload_click",
+              "signup_click",
+              "demo_start",
+              "report_download"
+            ],
+            "title": "Name",
+            "type": "string"
+          },
+          "path": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "이벤트가 난 화면: / · /app · /app/report · /privacy 중 하나(쿼리·# 뒤는 버림)",
+            "title": "Path"
+          },
+          "props": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "description": "이벤트별 허용 항목(모두 선택, 그 밖의 항목은 422) — landing_view: referrer · landing_first_view: referrer · upload_click: files · signup_click: team_size, marketing · demo_start: from · report_download: kind",
+            "title": "Props",
+            "type": "object"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "EventRequest",
+        "type": "object"
+      },
+      "Extractor": {
+        "enum": [
+          "rule",
+          "llm",
+          "import",
+          "human"
+        ],
+        "title": "Extractor",
+        "type": "string"
+      },
+      "FieldError": {
+        "description": "One invalid input value.",
+        "properties": {
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "message",
+          "type"
+        ],
+        "title": "FieldError",
+        "type": "object"
+      },
+      "Finding": {
+        "properties": {
+          "element": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Element"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "evidence": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/SourceSpan"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "fix": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FixHint"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "legal_basis": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Legal Basis"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "rule_id": {
+            "title": "Rule Id",
+            "type": "string"
+          },
+          "service_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Service Id"
+          },
+          "severity": {
+            "$ref": "#/components/schemas/Severity"
+          },
+          "status": {
+            "$ref": "#/components/schemas/FindingStatus",
+            "default": "broken"
+          },
+          "subject_ids": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Subject Ids",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "rule_id",
+          "severity",
+          "title",
+          "message"
+        ],
+        "title": "Finding",
+        "type": "object"
+      },
+      "FindingStatus": {
+        "enum": [
+          "broken",
+          "unknown"
+        ],
+        "title": "FindingStatus",
+        "type": "string"
+      },
+      "FixHint": {
+        "properties": {
+          "kind": {
+            "$ref": "#/components/schemas/FixKind"
+          },
+          "params": {
+            "additionalProperties": true,
+            "title": "Params",
+            "type": "object"
+          }
+        },
+        "required": [
+          "kind"
+        ],
+        "title": "FixHint",
+        "type": "object"
+      },
+      "FixKind": {
+        "description": "Structured remediation intents. The drafter turns these into patch ops + a sentence.",
+        "enum": [
+          "assign_owner",
+          "replace_departed",
+          "add_escalation",
+          "break_escalation_cycle",
+          "assign_approver",
+          "add_deputy",
+          "add_fallback_channel",
+          "add_rollback",
+          "add_detection",
+          "fix_deadline",
+          "add_reporting_step",
+          "adjust_oncall",
+          "add_service_runbook",
+          "confirm_identity",
+          "assign_executor",
+          "add_failover",
+          "review_element"
+        ],
+        "title": "FixKind",
+        "type": "string"
+      },
+      "FreeScanResult": {
+        "description": "A finished anonymous free scan (무료 검진): its private workspace, the key that opens it, and\nthe headline of the report (the full report: ``GET /workspaces/{workspace_id}/report`` with the\nkey in ``X-Jettae-Workspace-Key``).",
+        "examples": [
+          {
+            "access_key": "q8Zr3N0vYk2bW5mD7xTfLh1sPcJ9uEaG4oRiK6nVwQy",
+            "findings": 17,
+            "readiness_overall": 41.2,
+            "workspace_id": "ws-3f9c2a1b7d4e5f60"
+          }
+        ],
+        "properties": {
+          "access_key": {
+            "description": "이 워크스페이스를 여는 접근 키(다시 보여 주지 않으므로 보관하세요). 요청 헤더 X-Jettae-Workspace-Key로 보냅니다",
+            "title": "Access Key",
+            "type": "string"
+          },
+          "findings": {
+            "description": "찾은 끊김 수",
+            "title": "Findings",
+            "type": "integer"
+          },
+          "readiness_overall": {
+            "description": "준비도 점수(0~100)",
+            "title": "Readiness Overall",
+            "type": "number"
+          },
+          "workspace_id": {
+            "description": "무료 검진이 만든 비공개 워크스페이스 id",
+            "title": "Workspace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "workspace_id",
+          "access_key",
+          "readiness_overall",
+          "findings"
+        ],
+        "title": "FreeScanResult",
+        "type": "object"
+      },
+      "GraphDiffView": {
+        "description": "What changed from version ``a`` to version ``b`` (every list sorted by id).",
+        "properties": {
+          "a": {
+            "title": "A",
+            "type": "integer"
+          },
+          "added_edges": {
+            "items": {
+              "$ref": "#/components/schemas/Edge"
+            },
+            "title": "Added Edges",
+            "type": "array"
+          },
+          "added_nodes": {
+            "items": {
+              "$ref": "#/components/schemas/Node"
+            },
+            "title": "Added Nodes",
+            "type": "array"
+          },
+          "b": {
+            "title": "B",
+            "type": "integer"
+          },
+          "changed_edges": {
+            "items": {
+              "$ref": "#/components/schemas/EdgeChange"
+            },
+            "title": "Changed Edges",
+            "type": "array"
+          },
+          "changed_nodes": {
+            "items": {
+              "$ref": "#/components/schemas/NodeChange"
+            },
+            "title": "Changed Nodes",
+            "type": "array"
+          },
+          "removed_edges": {
+            "items": {
+              "$ref": "#/components/schemas/Edge"
+            },
+            "title": "Removed Edges",
+            "type": "array"
+          },
+          "removed_nodes": {
+            "items": {
+              "$ref": "#/components/schemas/Node"
+            },
+            "title": "Removed Nodes",
+            "type": "array"
+          }
+        },
+        "required": [
+          "a",
+          "b",
+          "added_nodes",
+          "removed_nodes",
+          "changed_nodes",
+          "added_edges",
+          "removed_edges",
+          "changed_edges"
+        ],
+        "title": "GraphDiffView",
+        "type": "object"
+      },
+      "GraphVersion": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "created_by": {
+            "title": "Created By",
+            "type": "string"
+          },
+          "graph_hash": {
+            "title": "Graph Hash",
+            "type": "string"
+          },
+          "note": {
+            "default": "",
+            "title": "Note",
+            "type": "string"
+          },
+          "number": {
+            "title": "Number",
+            "type": "integer"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent"
+          },
+          "patch_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patch Id"
+          },
+          "rehearsal_ids": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Rehearsal Ids",
+            "type": "array"
+          },
+          "revert_of": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revert Of"
+          },
+          "workspace_id": {
+            "title": "Workspace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "workspace_id",
+          "number",
+          "parent",
+          "graph_hash",
+          "created_by",
+          "created_at"
+        ],
+        "title": "GraphVersion",
+        "type": "object"
+      },
+      "GraphView": {
+        "description": "One graph version ready to draw.\n\n``findings_by_element`` maps a node/edge id to the findings that name it, taken from the latest\nreport *only if that report judged this very graph* (``findings_run_id``); for any other\nversion it is empty rather than borrowed from a different graph (P3).",
+        "properties": {
+          "docs": {
+            "items": {
+              "$ref": "#/components/schemas/DocumentRef"
+            },
+            "title": "Docs",
+            "type": "array"
+          },
+          "edges": {
+            "items": {
+              "$ref": "#/components/schemas/GraphViewEdge"
+            },
+            "title": "Edges",
+            "type": "array"
+          },
+          "findings_by_element": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "title": "Findings By Element",
+            "type": "object"
+          },
+          "findings_run_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Findings Run Id"
+          },
+          "graph_hash": {
+            "title": "Graph Hash",
+            "type": "string"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/components/schemas/GraphViewNode"
+            },
+            "title": "Nodes",
+            "type": "array"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "graph_hash",
+          "nodes",
+          "edges",
+          "findings_by_element",
+          "findings_run_id",
+          "docs"
+        ],
+        "title": "GraphView",
+        "type": "object"
+      },
+      "GraphViewEdge": {
+        "properties": {
+          "attrs": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Attr"
+            },
+            "title": "Attrs",
+            "type": "object"
+          },
+          "dst": {
+            "title": "Dst",
+            "type": "string"
+          },
+          "hold_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hold Reason"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/EdgeKind"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/SourceKind"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "spans": {
+            "items": {
+              "$ref": "#/components/schemas/SourceSpan"
+            },
+            "title": "Spans",
+            "type": "array"
+          },
+          "src": {
+            "title": "Src",
+            "type": "string"
+          },
+          "values": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              ]
+            },
+            "title": "Values",
+            "type": "object"
+          },
+          "verification": {
+            "$ref": "#/components/schemas/Verification"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "src",
+          "dst",
+          "attrs",
+          "values",
+          "verification",
+          "hold_reason",
+          "spans",
+          "sources"
+        ],
+        "title": "GraphViewEdge",
+        "type": "object"
+      },
+      "GraphViewNode": {
+        "description": "A node for drawing: ``attrs`` keep each value's spans and source, ``values`` are the bare\nvalues of the same attributes, ``spans`` gather every evidence span of the node.",
+        "properties": {
+          "attrs": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Attr"
+            },
+            "title": "Attrs",
+            "type": "object"
+          },
+          "hold_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hold Reason"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/NodeKind"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/SourceKind"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "spans": {
+            "items": {
+              "$ref": "#/components/schemas/SourceSpan"
+            },
+            "title": "Spans",
+            "type": "array"
+          },
+          "values": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              ]
+            },
+            "title": "Values",
+            "type": "object"
+          },
+          "verification": {
+            "$ref": "#/components/schemas/Verification"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "name",
+          "attrs",
+          "values",
+          "verification",
+          "hold_reason",
+          "spans",
+          "sources"
+        ],
+        "title": "GraphViewNode",
+        "type": "object"
+      },
+      "GroundingStatus": {
+        "description": "Bookkeeping for the hallucination guard (KPI: 원문 근거 위치 없는 필드 0건).",
+        "properties": {
+          "dropped_examples": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Dropped Examples",
+            "type": "array"
+          },
+          "dropped_invalid": {
+            "default": 0,
+            "title": "Dropped Invalid",
+            "type": "integer"
+          },
+          "dropped_quarantined": {
+            "default": 0,
+            "title": "Dropped Quarantined",
+            "type": "integer"
+          },
+          "dropped_ungrounded": {
+            "default": 0,
+            "title": "Dropped Ungrounded",
+            "type": "integer"
+          },
+          "fuzzy_grounded": {
+            "default": 0,
+            "title": "Fuzzy Grounded",
+            "type": "integer"
+          },
+          "grounded": {
+            "default": 0,
+            "title": "Grounded",
+            "type": "integer"
+          },
+          "held_ambiguous_entity": {
+            "default": 0,
+            "title": "Held Ambiguous Entity",
+            "type": "integer"
+          },
+          "held_backtranslation": {
+            "default": 0,
+            "title": "Held Backtranslation",
+            "type": "integer"
+          }
+        },
+        "title": "GroundingStatus",
+        "type": "object"
+      },
+      "HealthStatus": {
+        "examples": [
+          {
+            "status": "ok",
+            "version": "0.1.0"
+          }
+        ],
+        "properties": {
+          "status": {
+            "const": "ok",
+            "default": "ok",
+            "title": "Status",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "version"
+        ],
+        "title": "HealthStatus",
+        "type": "object"
+      },
+      "IncidentType": {
+        "enum": [
+          "outage",
+          "breach",
+          "privacy_leak"
+        ],
+        "title": "IncidentType",
+        "type": "string"
+      },
+      "InputSummary": {
+        "description": "What a workspace will be diagnosed with, as the upload left it.",
+        "properties": {
+          "catalog": {
+            "title": "Catalog",
+            "type": "integer"
+          },
+          "diagnosable": {
+            "title": "Diagnosable",
+            "type": "boolean"
+          },
+          "documents": {
+            "items": {
+              "$ref": "#/components/schemas/DocumentRef"
+            },
+            "title": "Documents",
+            "type": "array"
+          },
+          "oncall": {
+            "title": "Oncall",
+            "type": "integer"
+          },
+          "pending_scenario_files": {
+            "title": "Pending Scenario Files",
+            "type": "integer"
+          },
+          "raw_stored": {
+            "title": "Raw Stored",
+            "type": "boolean"
+          },
+          "roster": {
+            "title": "Roster",
+            "type": "integer"
+          },
+          "security_notices": {
+            "title": "Security Notices",
+            "type": "integer"
+          },
+          "workspace_id": {
+            "title": "Workspace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "workspace_id",
+          "documents",
+          "roster",
+          "oncall",
+          "catalog",
+          "security_notices",
+          "raw_stored",
+          "diagnosable",
+          "pending_scenario_files"
+        ],
+        "title": "InputSummary",
+        "type": "object"
+      },
+      "LlmMode": {
+        "enum": [
+          "off",
+          "live",
+          "replay"
+        ],
+        "title": "LlmMode",
+        "type": "string"
+      },
+      "LlmUsageSummary": {
+        "description": "KPI: 1건당 LLM 호출 수·토큰 공개. The judgement path always reports 0 calls.",
+        "properties": {
+          "by_task": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "By Task",
+            "type": "object"
+          },
+          "cache_read_tokens": {
+            "default": 0,
+            "title": "Cache Read Tokens",
+            "type": "integer"
+          },
+          "calls": {
+            "default": 0,
+            "title": "Calls",
+            "type": "integer"
+          },
+          "input_tokens": {
+            "default": 0,
+            "title": "Input Tokens",
+            "type": "integer"
+          },
+          "judgement_path_calls": {
+            "default": 0,
+            "title": "Judgement Path Calls",
+            "type": "integer"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/LlmMode"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "output_tokens": {
+            "default": 0,
+            "title": "Output Tokens",
+            "type": "integer"
+          },
+          "provider": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider"
+          }
+        },
+        "required": [
+          "mode"
+        ],
+        "title": "LlmUsageSummary",
+        "type": "object"
+      },
+      "Node": {
+        "properties": {
+          "attrs": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Attr"
+            },
+            "title": "Attrs",
+            "type": "object"
+          },
+          "hold_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hold Reason"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/NodeKind"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "prov": {
+            "items": {
+              "$ref": "#/components/schemas/Provenance"
+            },
+            "title": "Prov",
+            "type": "array"
+          },
+          "verification": {
+            "$ref": "#/components/schemas/Verification",
+            "default": "verified"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "name",
+          "prov"
+        ],
+        "title": "Node",
+        "type": "object"
+      },
+      "NodeChange": {
+        "description": "A node present in both versions with different content (``attrs`` lists value changes;\nit is empty when only provenance, name or verification changed).",
+        "properties": {
+          "after": {
+            "$ref": "#/components/schemas/Node"
+          },
+          "attrs": {
+            "items": {
+              "$ref": "#/components/schemas/AttrChange"
+            },
+            "title": "Attrs",
+            "type": "array"
+          },
+          "before": {
+            "$ref": "#/components/schemas/Node"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "before",
+          "after",
+          "attrs"
+        ],
+        "title": "NodeChange",
+        "type": "object"
+      },
+      "NodeKind": {
+        "enum": [
+          "service",
+          "system",
+          "location",
+          "person",
+          "role",
+          "team",
+          "channel",
+          "trigger",
+          "action",
+          "obligation"
+        ],
+        "title": "NodeKind",
+        "type": "string"
+      },
+      "Outcome": {
+        "enum": [
+          "pass",
+          "fail"
+        ],
+        "title": "Outcome",
+        "type": "string"
+      },
+      "Patch": {
+        "properties": {
+          "author": {
+            "$ref": "#/components/schemas/PatchAuthor"
+          },
+          "base_version": {
+            "title": "Base Version",
+            "type": "integer"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "decided_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decided At"
+          },
+          "decided_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decided By"
+          },
+          "finding_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Finding Ids",
+            "type": "array"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "llm_usage": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Llm Usage",
+            "type": "object"
+          },
+          "ops": {
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "add_edge": "#/components/schemas/AddEdge",
+                  "add_node": "#/components/schemas/AddNode",
+                  "remove_edge": "#/components/schemas/RemoveEdge",
+                  "remove_node": "#/components/schemas/RemoveNode",
+                  "set_attr": "#/components/schemas/SetAttr"
+                },
+                "propertyName": "op"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/AddNode"
+                },
+                {
+                  "$ref": "#/components/schemas/AddEdge"
+                },
+                {
+                  "$ref": "#/components/schemas/RemoveEdge"
+                },
+                {
+                  "$ref": "#/components/schemas/RemoveNode"
+                },
+                {
+                  "$ref": "#/components/schemas/SetAttr"
+                }
+              ]
+            },
+            "title": "Ops",
+            "type": "array"
+          },
+          "rationale": {
+            "title": "Rationale",
+            "type": "string"
+          },
+          "runbook_text": {
+            "title": "Runbook Text",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PatchStatus",
+            "default": "draft"
+          },
+          "validation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PatchValidation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "workspace_id": {
+            "title": "Workspace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "workspace_id",
+          "base_version",
+          "finding_ids",
+          "ops",
+          "runbook_text",
+          "rationale",
+          "author"
+        ],
+        "title": "Patch",
+        "type": "object"
+      },
+      "PatchAuthor": {
+        "enum": [
+          "ai",
+          "template",
+          "human"
+        ],
+        "title": "PatchAuthor",
+        "type": "string"
+      },
+      "PatchStatus": {
+        "enum": [
+          "draft",
+          "validated",
+          "rejected_by_validator",
+          "approved",
+          "rejected",
+          "superseded"
+        ],
+        "title": "PatchStatus",
+        "type": "string"
+      },
+      "PatchValidation": {
+        "properties": {
+          "integrity_errors": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Integrity Errors",
+            "type": "array"
+          },
+          "new_finding_ids": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "New Finding Ids",
+            "type": "array"
+          },
+          "notes": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Notes",
+            "type": "array"
+          },
+          "passed": {
+            "title": "Passed",
+            "type": "boolean"
+          },
+          "rehearsals_fixed": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Rehearsals Fixed",
+            "type": "array"
+          },
+          "rehearsals_regressed": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Rehearsals Regressed",
+            "type": "array"
+          },
+          "resolved_finding_ids": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Resolved Finding Ids",
+            "type": "array"
+          },
+          "score_after": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score After"
+          },
+          "score_before": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score Before"
+          },
+          "unknown_people": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Unknown People",
+            "type": "array"
+          },
+          "unresolved_finding_ids": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Unresolved Finding Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "passed"
+        ],
+        "title": "PatchValidation",
+        "type": "object"
+      },
+      "Perturbation": {
+        "properties": {
+          "end_minute": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Minute"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/PerturbationKind"
+          },
+          "start_minute": {
+            "default": 0.0,
+            "title": "Start Minute",
+            "type": "number"
+          },
+          "target_id": {
+            "title": "Target Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "target_id"
+        ],
+        "title": "Perturbation",
+        "type": "object"
+      },
+      "PerturbationKind": {
+        "enum": [
+          "person_unavailable",
+          "channel_down",
+          "system_down",
+          "location_down",
+          "concurrent_incident"
+        ],
+        "title": "PerturbationKind",
+        "type": "string"
+      },
+      "Provenance": {
+        "properties": {
+          "extractor": {
+            "$ref": "#/components/schemas/Extractor"
+          },
+          "ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "catalog key, roster row, patch id …",
+            "title": "Ref"
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceKind"
+          },
+          "spans": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/SourceSpan"
+            },
+            "title": "Spans",
+            "type": "array"
+          }
+        },
+        "required": [
+          "source",
+          "extractor"
+        ],
+        "title": "Provenance",
+        "type": "object"
+      },
+      "ReadinessReport": {
+        "description": "준비도 점수(0~100). Weights are versioned and published (docs/scoring.md).",
+        "properties": {
+          "element_weights": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Element Weights",
+            "type": "object"
+          },
+          "graph_hash": {
+            "title": "Graph Hash",
+            "type": "string"
+          },
+          "overall": {
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Overall",
+            "type": "number"
+          },
+          "services": {
+            "items": {
+              "$ref": "#/components/schemas/ServiceReadiness"
+            },
+            "title": "Services",
+            "type": "array"
+          },
+          "tier_weights": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Tier Weights",
+            "type": "object"
+          },
+          "weights_version": {
+            "title": "Weights Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "overall",
+          "services",
+          "weights_version",
+          "element_weights",
+          "tier_weights",
+          "graph_hash"
+        ],
+        "title": "ReadinessReport",
+        "type": "object"
+      },
+      "ReadinessStatus": {
+        "examples": [
+          {
+            "status": "ready"
+          }
+        ],
+        "properties": {
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          },
+          "status": {
+            "enum": [
+              "ready",
+              "unavailable"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "ReadinessStatus",
+        "type": "object"
+      },
+      "RehearsalRequest": {
+        "description": "Which drills to replay on the head graph.\n\n``scenario_ids`` runs exactly those drills. Otherwise ``generate`` picks the sources:\n``template``/``human``/``llm``/``all``; ``true`` means ``all`` and ``false`` replays the\nexisting drills without asking an LLM for new ones (LLM mode forced off).",
+        "examples": [
+          {
+            "scenario_ids": [
+              "human:dmc-s1-chuseok-payment"
+            ]
+          },
+          {
+            "generate": "all"
+          }
+        ],
+        "properties": {
+          "generate": {
+            "anyOf": [
+              {
+                "enum": [
+                  "template",
+                  "llm",
+                  "human",
+                  "all"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "default": "all",
+            "description": "template·human·llm·all 중 출처. true는 all, false는 LLM에 새 시나리오를 묻지 않고 재생",
+            "title": "Generate"
+          },
+          "llm_mode": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LlmMode"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "off(규칙만, LLM 0회) · live(실제 LLM) · replay(녹화 재생). 비우면 서버 기본값"
+          },
+          "scenario_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 200,
+                "minItems": 1,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "이 시나리오만 재생(비우면 generate로 고름)",
+            "title": "Scenario Ids"
+          }
+        },
+        "title": "RehearsalRequest",
+        "type": "object"
+      },
+      "RehearsalResult": {
+        "properties": {
+          "config_hash": {
+            "title": "Config Hash",
+            "type": "string"
+          },
+          "deadline_minutes": {
+            "title": "Deadline Minutes",
+            "type": "number"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/SimEvent"
+            },
+            "title": "Events",
+            "type": "array"
+          },
+          "failed_at_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Failed At Id"
+          },
+          "failed_element": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Element"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "graph_hash": {
+            "title": "Graph Hash",
+            "type": "string"
+          },
+          "outcome": {
+            "$ref": "#/components/schemas/Outcome"
+          },
+          "path_ids": {
+            "default": [],
+            "description": "nodes/edges traversed (for highlighting)",
+            "items": {
+              "type": "string"
+            },
+            "title": "Path Ids",
+            "type": "array"
+          },
+          "reason": {
+            "default": "",
+            "title": "Reason",
+            "type": "string"
+          },
+          "scenario_fingerprint": {
+            "title": "Scenario Fingerprint",
+            "type": "string"
+          },
+          "scenario_id": {
+            "title": "Scenario Id",
+            "type": "string"
+          },
+          "time_to_mitigate": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Time To Mitigate"
+          }
+        },
+        "required": [
+          "scenario_id",
+          "scenario_fingerprint",
+          "graph_hash",
+          "config_hash",
+          "outcome",
+          "time_to_mitigate",
+          "deadline_minutes",
+          "events"
+        ],
+        "title": "RehearsalResult",
+        "type": "object"
+      },
+      "RejectRequest": {
+        "examples": [
+          {
+            "reason": "김서연 사원은 10월 말 휴직 예정이라 담당으로 둘 수 없습니다."
+          }
+        ],
+        "properties": {
+          "reason": {
+            "description": "거절 사유(감사 로그에 남습니다)",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason"
+        ],
+        "title": "RejectRequest",
+        "type": "object"
+      },
+      "RemoveEdge": {
+        "properties": {
+          "edge_id": {
+            "title": "Edge Id",
+            "type": "string"
+          },
+          "op": {
+            "const": "remove_edge",
+            "default": "remove_edge",
+            "title": "Op",
+            "type": "string"
+          },
+          "snapshot": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Edge"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "edge_id"
+        ],
+        "title": "RemoveEdge",
+        "type": "object"
+      },
+      "RemoveNode": {
+        "description": "Only allowed for nodes with no remaining edges (validator enforces).",
+        "properties": {
+          "node_id": {
+            "title": "Node Id",
+            "type": "string"
+          },
+          "op": {
+            "const": "remove_node",
+            "default": "remove_node",
+            "title": "Op",
+            "type": "string"
+          },
+          "snapshot": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Node"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "node_id"
+        ],
+        "title": "RemoveNode",
+        "type": "object"
+      },
+      "RequestInfo": {
+        "description": "What the server saw of the request that asked: the peer, the proxy headers that may carry\nthe visitor's address, and the per-client key ``JETTAE_CLIENT_IP_SOURCE`` derived from them.\n\nFor the operator to check, once deployed behind a proxy, which header holds the real address.\nHeader values are shown as received (several lines joined with ``\", \"``, cut at 512 characters).",
+        "examples": [
+          {
+            "cf_connecting_ip": "203.0.113.9",
+            "client_ip_source": "header:CF-Connecting-IP",
+            "peer": "10.214.3.7",
+            "resolved_client": "203.0.113.9",
+            "x_forwarded_for": "203.0.113.9, 10.214.3.7"
+          }
+        ],
+        "properties": {
+          "cf_connecting_ip": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cf Connecting Ip"
+          },
+          "client_ip_source": {
+            "description": "JETTAE_CLIENT_IP_SOURCE (peer · header:<헤더> · xff:<n>)",
+            "title": "Client Ip Source",
+            "type": "string"
+          },
+          "peer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "전송 계층의 상대 주소(uvicorn이 FORWARDED_ALLOW_IPS로 고친 값)",
+            "title": "Peer"
+          },
+          "resolved_client": {
+            "description": "횟수 제한에 쓰는 접속 주소 키(IPv4, IPv6는 /64 대역, 읽지 못하면 invalid·unknown)",
+            "title": "Resolved Client",
+            "type": "string"
+          },
+          "true_client_ip": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "True Client Ip"
+          },
+          "x_forwarded_for": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "X Forwarded For"
+          },
+          "x_real_ip": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "X Real Ip"
+          }
+        },
+        "required": [
+          "peer",
+          "x_forwarded_for",
+          "cf_connecting_ip",
+          "true_client_ip",
+          "x_real_ip",
+          "client_ip_source",
+          "resolved_client"
+        ],
+        "title": "RequestInfo",
+        "type": "object"
+      },
+      "RuleInfo": {
+        "description": "Catalog entry for a fixed rule (published so customers can audit the judge).",
+        "properties": {
+          "element": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Element"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "legal_basis": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Legal Basis"
+          },
+          "rationale": {
+            "title": "Rationale",
+            "type": "string"
+          },
+          "rule_id": {
+            "title": "Rule Id",
+            "type": "string"
+          },
+          "severity": {
+            "$ref": "#/components/schemas/Severity"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "rule_id",
+          "title",
+          "severity",
+          "element",
+          "rationale"
+        ],
+        "title": "RuleInfo",
+        "type": "object"
+      },
+      "Scenario": {
+        "properties": {
+          "deadline_minutes": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deadline Minutes"
+          },
+          "description": {
+            "default": "",
+            "title": "Description",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "incident_type": {
+            "$ref": "#/components/schemas/IncidentType",
+            "default": "outage"
+          },
+          "origin": {
+            "$ref": "#/components/schemas/ScenarioOrigin",
+            "default": "template"
+          },
+          "perturbations": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Perturbation"
+            },
+            "title": "Perturbations",
+            "type": "array"
+          },
+          "service_id": {
+            "title": "Service Id",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "service_id"
+        ],
+        "title": "Scenario",
+        "type": "object"
+      },
+      "ScenarioOrigin": {
+        "enum": [
+          "template",
+          "llm",
+          "human"
+        ],
+        "title": "ScenarioOrigin",
+        "type": "string"
+      },
+      "SecurityNotice": {
+        "description": "Prompt-injection attempts found in documents (quarantined, never obeyed).",
+        "properties": {
+          "doc_id": {
+            "title": "Doc Id",
+            "type": "string"
+          },
+          "end": {
+            "title": "End",
+            "type": "integer"
+          },
+          "excerpt": {
+            "title": "Excerpt",
+            "type": "string"
+          },
+          "pattern": {
+            "title": "Pattern",
+            "type": "string"
+          },
+          "start": {
+            "title": "Start",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "doc_id",
+          "start",
+          "end",
+          "excerpt",
+          "pattern"
+        ],
+        "title": "SecurityNotice",
+        "type": "object"
+      },
+      "ServiceReadiness": {
+        "properties": {
+          "elements": {
+            "items": {
+              "$ref": "#/components/schemas/ElementScore"
+            },
+            "title": "Elements",
+            "type": "array"
+          },
+          "score": {
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Score",
+            "type": "number"
+          },
+          "service_id": {
+            "title": "Service Id",
+            "type": "string"
+          },
+          "service_name": {
+            "title": "Service Name",
+            "type": "string"
+          },
+          "tier": {
+            "title": "Tier",
+            "type": "integer"
+          },
+          "weight": {
+            "title": "Weight",
+            "type": "number"
+          }
+        },
+        "required": [
+          "service_id",
+          "service_name",
+          "tier",
+          "weight",
+          "score",
+          "elements"
+        ],
+        "title": "ServiceReadiness",
+        "type": "object"
+      },
+      "SessionInfo": {
+        "description": "Who the server thinks the caller is, so the web app shows the real role (not a guess).",
+        "examples": [
+          {
+            "anonymous": true,
+            "auth_mode": "public",
+            "can_switch_role": false,
+            "role": "viewer",
+            "user": "anonymous"
+          }
+        ],
+        "properties": {
+          "anonymous": {
+            "title": "Anonymous",
+            "type": "boolean"
+          },
+          "auth_mode": {
+            "enum": [
+              "dev",
+              "token",
+              "public"
+            ],
+            "title": "Auth Mode",
+            "type": "string"
+          },
+          "can_switch_role": {
+            "title": "Can Switch Role",
+            "type": "boolean"
+          },
+          "role": {
+            "enum": [
+              "viewer",
+              "editor",
+              "lead",
+              "admin"
+            ],
+            "title": "Role",
+            "type": "string"
+          },
+          "user": {
+            "title": "User",
+            "type": "string"
+          }
+        },
+        "required": [
+          "user",
+          "role",
+          "anonymous",
+          "auth_mode",
+          "can_switch_role"
+        ],
+        "title": "SessionInfo",
+        "type": "object"
+      },
+      "SetAttr": {
+        "properties": {
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "op": {
+            "const": "set_attr",
+            "default": "set_attr",
+            "title": "Op",
+            "type": "string"
+          },
+          "previous": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Attr"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "target_id": {
+            "title": "Target Id",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Attr"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "target_id",
+          "key",
+          "value"
+        ],
+        "title": "SetAttr",
+        "type": "object"
+      },
+      "Severity": {
+        "enum": [
+          "critical",
+          "high",
+          "medium",
+          "low",
+          "info"
+        ],
+        "title": "Severity",
+        "type": "string"
+      },
+      "Signup": {
+        "description": "A pre-launch sign-up (사전 신청).\n\nPersonal data is only ever accepted with privacy consent, so the model itself refuses to\nexist without it — no backend can persist a sign-up that lacks consent. E-mail addresses\nare case-folded so one person never has two records: :meth:`SignupRepository.add_signup`\nreplaces the record (internal and admin use), while\n:meth:`SignupRepository.add_signup_if_absent` keeps the first one — anonymous submissions\nmust not let whoever knows an address rewrite that person's consent or its date.",
+        "properties": {
+          "consent_marketing": {
+            "default": false,
+            "title": "Consent Marketing",
+            "type": "boolean"
+          },
+          "consent_privacy": {
+            "title": "Consent Privacy",
+            "type": "boolean"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "email": {
+            "maxLength": 254,
+            "title": "Email",
+            "type": "string"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "maxLength": 2000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "organization": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Organization"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "maxLength": 64,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          },
+          "team_size": {
+            "anyOf": [
+              {
+                "maxLength": 50,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Team Size"
+          }
+        },
+        "required": [
+          "email",
+          "consent_privacy",
+          "created_at"
+        ],
+        "title": "Signup",
+        "type": "object"
+      },
+      "SignupDeleted": {
+        "description": "Outcome of an administrator's deletion of one sign-up (withdrawal of consent).",
+        "examples": [
+          {
+            "deleted": true
+          }
+        ],
+        "properties": {
+          "deleted": {
+            "description": "지운 신청이 있었는지(그 주소로 된 신청이 없었으면 false)",
+            "title": "Deleted",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "deleted"
+        ],
+        "title": "SignupDeleted",
+        "type": "object"
+      },
+      "SignupRequest": {
+        "description": "Pre-launch sign-up (사전 신청). ``consent_privacy`` must be true — personal data is never\naccepted without consent. ``org_name`` is accepted as an alias of ``organization``.",
+        "examples": [
+          {
+            "consent_marketing": false,
+            "consent_privacy": true,
+            "email": "sre-lead@example.com",
+            "message": "추석 대비 결제 런북을 점검하고 싶습니다.",
+            "organization": "별빛상점",
+            "source": "landing",
+            "team_size": "10-49"
+          }
+        ],
+        "properties": {
+          "consent_marketing": {
+            "default": false,
+            "title": "Consent Marketing",
+            "type": "boolean"
+          },
+          "consent_privacy": {
+            "description": "개인정보 수집·이용 동의(필수, true여야 저장)",
+            "title": "Consent Privacy",
+            "type": "boolean"
+          },
+          "email": {
+            "maxLength": 254,
+            "minLength": 3,
+            "title": "Email",
+            "type": "string"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "maxLength": 2000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "organization": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Organization"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "maxLength": 64,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          },
+          "team_size": {
+            "anyOf": [
+              {
+                "maxLength": 50,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Team Size"
+          }
+        },
+        "required": [
+          "email",
+          "consent_privacy"
+        ],
+        "title": "SignupRequest",
+        "type": "object"
+      },
+      "SimEvent": {
+        "properties": {
+          "actor_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor Id"
+          },
+          "edge_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Edge Id"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/SimEventKind"
+          },
+          "note": {
+            "default": "",
+            "title": "Note",
+            "type": "string"
+          },
+          "t": {
+            "title": "T",
+            "type": "number"
+          },
+          "target_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Id"
+          }
+        },
+        "required": [
+          "t",
+          "kind"
+        ],
+        "title": "SimEvent",
+        "type": "object"
+      },
+      "SimEventKind": {
+        "enum": [
+          "incident_start",
+          "detected",
+          "undetected",
+          "page",
+          "channel_unavailable",
+          "no_answer",
+          "ack",
+          "escalate",
+          "dead_end",
+          "approval_requested",
+          "approved",
+          "approval_blocked",
+          "action_started",
+          "mitigated",
+          "no_mitigation",
+          "report_filed",
+          "report_missed",
+          "deadline_missed"
+        ],
+        "title": "SimEventKind",
+        "type": "string"
+      },
+      "SourceKind": {
+        "enum": [
+          "runbook",
+          "catalog",
+          "roster",
+          "oncall",
+          "policy",
+          "patch"
+        ],
+        "title": "SourceKind",
+        "type": "string"
+      },
+      "SourceSpan": {
+        "description": "A character range in a normalized document (``Document.text``).",
+        "properties": {
+          "doc_id": {
+            "title": "Doc Id",
+            "type": "string"
+          },
+          "end": {
+            "minimum": 0.0,
+            "title": "End",
+            "type": "integer"
+          },
+          "line": {
+            "anyOf": [
+              {
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "1-based line of `start` (SARIF/GitHub)",
+            "title": "Line"
+          },
+          "quote": {
+            "title": "Quote",
+            "type": "string"
+          },
+          "start": {
+            "minimum": 0.0,
+            "title": "Start",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "doc_id",
+          "start",
+          "end",
+          "quote"
+        ],
+        "title": "SourceSpan",
+        "type": "object"
+      },
+      "ValidationApiError": {
+        "description": "Body of a 422 response: the first problem in ``detail``, all of them in ``errors``.",
+        "examples": [
+          {
+            "code": "validation_error",
+            "detail": "reason: 1자 이상이어야 합니다.",
+            "errors": [
+              {
+                "field": "reason",
+                "message": "1자 이상이어야 합니다.",
+                "type": "string_too_short"
+              }
+            ],
+            "request_id": "6f1c2b0e9a8d4c7b8e5f4a3b2c1d0e9f"
+          }
+        ],
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "detail": {
+            "title": "Detail",
+            "type": "string"
+          },
+          "errors": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/FieldError"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "request_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Request Id"
+          }
+        },
+        "required": [
+          "detail",
+          "code"
+        ],
+        "title": "ValidationApiError",
+        "type": "object"
+      },
+      "Verification": {
+        "enum": [
+          "verified",
+          "hold"
+        ],
+        "title": "Verification",
+        "type": "string"
+      },
+      "WorkspaceSummary": {
+        "description": "A workspace and, when it has been diagnosed, the headline of its latest report.",
+        "examples": [
+          {
+            "created_at": "2026-10-28T14:00:00Z",
+            "finding_count": 38,
+            "graph_hash": "883b5d40d60c09ebc5d73329f370baa77f9c7bec38081ebed3cd208673ceec90",
+            "id": "ws-b7212db3a067507c",
+            "is_demo": true,
+            "latest_version": 1,
+            "name": "별빛상점 (DMC 데모)",
+            "overall": 55.7
+          }
+        ],
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "finding_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "최신 진단의 끊김 수",
+            "title": "Finding Count"
+          },
+          "graph_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "그 그래프의 내용 해시(SHA-256)",
+            "title": "Graph Hash"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "is_demo": {
+            "default": false,
+            "description": "별빛상점 예제 워크스페이스인지",
+            "title": "Is Demo",
+            "type": "boolean"
+          },
+          "latest_version": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "최신 진단이 판정한 그래프 버전(진단 전이면 null)",
+            "title": "Latest Version"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "overall": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "최신 진단의 준비도 점수(0~100)",
+            "title": "Overall"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "created_at"
+        ],
+        "title": "WorkspaceSummary",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "제때옵스(JETTAE Ops) — 장애 대응 런북을 **운영 그래프**로 바꾸고, **고정 규칙**으로 끊긴 대응 경로를 찾고,\n**결정적 리플레이**로 모의 장애를 돌리고, **사람이 승인한 수정안**만 새 그래프 버전으로 만듭니다.\n\n* 판정·점수·리허설에는 LLM을 쓰지 않습니다(LLM 호출 0회). LLM은 추출·문장 다듬기에만 쓰이며 꺼도 동작합니다.\n* 오류 응답은 언제나 `{\"detail\": \"한국어 설명\", \"code\": \"기계용 코드\", \"request_id\": \"…\"}` 형태입니다.\n* 인증: 개발 모드는 `X-Jettae-User`·`X-Jettae-Role`(viewer·editor·lead·admin) 헤더,\n  토큰 모드는 `Authorization: Bearer <토큰>`입니다. 공개 모드는 토큰이 없으면 익명 보기 전용(viewer)이며,\n  익명 방문자는 예제 워크스페이스와 무료 검진(`POST /api/v1/free-scans`)이 돌려준 접근 키를\n  `X-Jettae-Workspace-Key` 헤더로 보낸 워크스페이스만 열 수 있습니다(그 밖에는 404).\n* 쓰기는 편집자(editor) 이상, 승인·거절·되돌리기는 팀 리드(lead)·관리자(admin)만 합니다.\n  사전 신청 명단(개인정보)은 관리자(admin)만 봅니다.",
+    "title": "제때옵스 API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v1/admin/request-info": {
+      "get": {
+        "description": "이 요청이 어떤 주소·프록시 헤더로 도착했는지와 그로부터 고른 접속 주소 키(관리자 전용).\n\n배포한 뒤 curl로 열어 방문자 실제 IP가 어느 헤더(`CF-Connecting-IP`, `X-Forwarded-For`의 오른쪽에서\n몇 번째 …)에 오는지 확인하고 `JETTAE_CLIENT_IP_SOURCE`를 맞추세요. 저장하거나 로그에 남기지 않습니다.",
+        "operationId": "getRequestInfo",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestInfo"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "권한 없음(역할 부족)"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "요청 주소 정보(관리자)",
+        "tags": [
+          "관리"
+        ]
+      }
+    },
+    "/api/v1/demo/dmc-shop": {
+      "post": {
+        "description": "예제 워크스페이스를 만들거나 다시 쓰고, 예제 입력을 올려 진단한 결과를 돌려줍니다.\n\n보기 전용·익명 요청은 이미 진단된 예제가 있으면 그 결과를 그대로 돌려줍니다(새로 진단하지 않고\n무료 진단 한도도 쓰지 않음). 다시 진단하는 것은 편집자 이상이거나 예제 결과가 아직 없을 때뿐이며,\nLLM 모드는 편집자 이상만 고를 수 있습니다(그 밖에는 서버 기본값).\n다시 부르면 같은 워크스페이스를 쓰며, 입력이 그대로면 승인한 수정안이 반영된 그래프를 유지합니다.",
+        "operationId": "bootstrapDemo",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/DemoRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemoResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "충돌(그래프 버전이 바뀌었거나 이미 결정된 수정안)"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "오늘의 무료 진단 한도 초과(Retry-After 헤더 참고)"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "예제 묶음이 없음(demo_unavailable) 또는 다른 진단이 진행 중(server_busy, Retry-After)"
+          }
+        },
+        "summary": "별빛상점 예제 진단",
+        "tags": [
+          "데모"
+        ]
+      }
+    },
+    "/api/v1/events": {
+      "post": {
+        "description": "허용된 이름의 이벤트만, 이벤트마다 정해진 항목·값의 props와 함께 기록합니다.\n\n허용 이름: landing_view·landing_first_view(브라우저당 첫 방문 1회)·upload_click·signup_click·\ndemo_start·report_download. 무료 검진 횟수(runbook_upload)는 서버가 직접 기록하므로 받지 않습니다.\npath는 화면 경로 `/`·`/app`·`/app/report`·`/privacy` 중 하나만 받습니다(쿼리·# 뒤는 버림).\nprops: landing_view·landing_first_view는 referrer(direct·external), upload_click은 files(0~100),\nsignup_click은 team_size(가입 양식의 팀 규모)·marketing(true/false), demo_start는\nfrom(landing·workspace_home), report_download는 kind(md·html·sarif)만 받습니다.\n같은 곳에서 너무 자주 보내면 429입니다(`JETTAE_EVENTS_PER_CLIENT_PER_MINUTE`).\n사이트 전체로 하루(한국 시간) `JETTAE_EVENTS_PER_DAY`건을 넘으면 202로 답하되 저장하지 않습니다.",
+        "operationId": "recordEvent",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Accepted"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "같은 곳에서 요청이 너무 잦음(Retry-After 헤더 참고)"
+          }
+        },
+        "summary": "수요 측정 이벤트",
+        "tags": [
+          "사전 신청·수요"
+        ]
+      }
+    },
+    "/api/v1/free-scans": {
+      "post": {
+        "description": "런북을 올려 바로 진단합니다(multipart/form-data, 로그인 불필요).\n\n비공개 워크스페이스를 새로 만들어 진단하고, 그 워크스페이스를 여는 **접근 키**를 돌려줍니다.\n접근 키는 다시 보여 주지 않습니다. 결과 화면·리포트를 열 때 `X-Jettae-Workspace-Key` 헤더로 보내세요.\n보기 전용·익명 요청은 하루(한국 시간) 무료 진단 한도(`JETTAE_DAILY_FREE_SCAN_LIMIT`, 접속 주소당\n`JETTAE_FREE_SCANS_PER_CLIENT_PER_DAY`)를 쓰며, 입력 오류로 실패해도 한 번으로 셉니다.\n동시에 돌 수 있는 진단 수(`JETTAE_MAX_CONCURRENT_SCANS`)가 차 있으면 503입니다.\n모든 파일을 합쳐 `JETTAE_MAX_UPLOAD_MB`까지 받으며 넘으면 413, 런북 텍스트가 파일마다·모두 합쳐\n`JETTAE_MAX_DOCUMENT_CHARS`자를 넘거나 명부·당직표·카탈로그가 1,000행을 넘으면 422입니다.\n명부·당직표·카탈로그·정책은 진단에만 쓰고 보관하지 않으며, 결과는\n`JETTAE_FREE_SCAN_RETENTION_DAYS`일 뒤 지워집니다.",
+        "operationId": "createFreeScan",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_createFreeScan"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FreeScanResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "요청이 너무 큼(JETTAE_MAX_UPLOAD_MB)"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "무료 진단 한도 초과(free_scan_limit) 또는 요청이 너무 잦음(rate_limited) — Retry-After 참고"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "생성형 AI 호출 실패"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "다른 진단이 진행 중이라 지금은 받을 수 없음(Retry-After 헤더 참고)"
+          }
+        },
+        "summary": "무료 런북 검진",
+        "tags": [
+          "무료 검진"
+        ]
+      }
+    },
+    "/api/v1/me": {
+      "get": {
+        "description": "토큰(또는 개발 모드의 헤더)으로 정해진 사용자와 역할을 돌려줍니다.\n\n공개 모드의 방문자는 보기 전용(viewer)이고, 역할 전환은 개발 모드에서만 됩니다.",
+        "operationId": "getSession",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionInfo"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "현재 사용자·역할",
+        "tags": [
+          "세션"
+        ]
+      }
+    },
+    "/api/v1/metrics/demand": {
+      "get": {
+        "description": "사전 신청 인원과 이벤트별 횟수(팀 리드·관리자). 무료 검진 횟수는 `runbook_upload`입니다.",
+        "operationId": "getDemandMetrics",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemandMetrics"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "권한 없음(역할 부족)"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "수요 지표",
+        "tags": [
+          "사전 신청·수요"
+        ]
+      }
+    },
+    "/api/v1/patches/{patch_id}": {
+      "get": {
+        "operationId": "getPatch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "patch_id",
+            "required": true,
+            "schema": {
+              "title": "Patch Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Patch"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "수정안 조회",
+        "tags": [
+          "수정안"
+        ]
+      }
+    },
+    "/api/v1/patches/{patch_id}/approve": {
+      "post": {
+        "description": "검증을 통과한 수정안을 승인해 새 그래프 버전을 만들고 다시 판정합니다(팀 리드·관리자).\n\n기준 버전이 바뀌어 무효가 된 수정안은 409입니다.",
+        "operationId": "approvePatch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "patch_id",
+            "required": true,
+            "schema": {
+              "title": "Patch Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApprovalResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "권한 없음(역할 부족)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "충돌(그래프 버전이 바뀌었거나 이미 결정된 수정안)"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "수정안 승인",
+        "tags": [
+          "수정안"
+        ]
+      }
+    },
+    "/api/v1/patches/{patch_id}/reject": {
+      "post": {
+        "description": "수정안을 거절합니다(팀 리드·관리자). 사유는 감사 로그에 남습니다.",
+        "operationId": "rejectPatch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "patch_id",
+            "required": true,
+            "schema": {
+              "title": "Patch Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejectRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Patch"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "권한 없음(역할 부족)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "충돌(그래프 버전이 바뀌었거나 이미 결정된 수정안)"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "수정안 거절",
+        "tags": [
+          "수정안"
+        ]
+      }
+    },
+    "/api/v1/rules": {
+      "get": {
+        "description": "끊김 판정에 쓰는 고정 규칙 전부(규칙 id·심각도·5요소·근거·법적 기준)를 돌려줍니다.",
+        "operationId": "listRules",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/RuleInfo"
+                  },
+                  "title": "Response Listrules",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "고정 규칙 카탈로그",
+        "tags": [
+          "규칙"
+        ]
+      }
+    },
+    "/api/v1/signups": {
+      "get": {
+        "description": "사전 신청 명단을 신청 시각순으로 돌려줍니다(관리자 전용 — 개인정보).\n\n`format=csv`면 `signups.csv` 첨부 파일(UTF-8 BOM, 엑셀에서 한글이 깨지지 않음)로 내려줍니다.\n조회할 때마다 누가 몇 건을 어떤 형식으로 봤는지 감사 로그에 남습니다.",
+        "operationId": "listSignups",
+        "parameters": [
+          {
+            "description": "json(기본) 또는 csv(UTF-8 BOM, 엑셀용)",
+            "in": "query",
+            "name": "format",
+            "required": false,
+            "schema": {
+              "default": "json",
+              "description": "json(기본) 또는 csv(UTF-8 BOM, 엑셀용)",
+              "enum": [
+                "json",
+                "csv"
+              ],
+              "title": "Format",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Signup"
+                  },
+                  "title": "Response Listsignups",
+                  "type": "array"
+                }
+              },
+              "text/csv": {}
+            },
+            "description": "사전 신청 명단(JSON 배열, 또는 format=csv면 엑셀용 CSV 첨부 파일)"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "권한 없음(역할 부족)"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "사전 신청 명단(관리자)",
+        "tags": [
+          "사전 신청·수요"
+        ]
+      },
+      "post": {
+        "description": "상세 진단 사전 신청을 저장합니다.\n\n같은 이메일로 이미 신청했다면 처음 신청한 내용(동의 여부·시각 포함)을 그대로 두며, 응답은 새 신청과\n똑같습니다(신청 여부를 알려 주지 않음). 내용을 바꾸거나 철회하려면 운영자에게 요청하세요.\n개인정보 수집·이용 동의(`consent_privacy: true`)가 없으면 저장하지 않고 422로 알립니다.\n같은 곳에서 너무 자주 보내면 429입니다(`JETTAE_SIGNUPS_PER_CLIENT_PER_HOUR`).",
+        "operationId": "createSignup",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignupRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Accepted"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "같은 곳에서 요청이 너무 잦음(Retry-After 헤더 참고)"
+          }
+        },
+        "summary": "사전 신청",
+        "tags": [
+          "사전 신청·수요"
+        ]
+      }
+    },
+    "/api/v1/signups/{email}": {
+      "delete": {
+        "description": "한 사람의 사전 신청을 지웁니다(관리자 전용 — 동의 철회·삭제 요청 처리).\n\n이메일은 신청할 때와 같은 방식으로 맞춰 찾습니다(대소문자·전각 문자 무시). 신청이 없었으면\n`deleted: false`입니다. 감사 로그에는 이메일 대신 그 짧은 해시(SHA-256 앞 12자리)만 남습니다.",
+        "operationId": "deleteSignup",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "title": "Email",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignupDeleted"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "권한 없음(역할 부족)"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "사전 신청 삭제(관리자)",
+        "tags": [
+          "사전 신청·수요"
+        ]
+      }
+    },
+    "/api/v1/workspaces": {
+      "get": {
+        "description": "만든 순서대로 워크스페이스와 최신 진단의 준비도 점수·끊김 수를 돌려줍니다.\n\n공개 모드(`JETTAE_AUTH_MODE=public`)의 익명 방문자에게는 예제 워크스페이스만 보입니다.",
+        "operationId": "listWorkspaces",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/WorkspaceSummary"
+                  },
+                  "title": "Response Listworkspaces",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "워크스페이스 목록",
+        "tags": [
+          "워크스페이스"
+        ]
+      },
+      "post": {
+        "description": "새 워크스페이스를 만듭니다(편집자 이상). id는 이름과 시각에서 결정적으로 정해집니다.\n\n예제 워크스페이스와 무료 검진의 이름은 예약되어 있습니다(예제는 `POST /api/v1/demo/dmc-shop`으로 엽니다).",
+        "operationId": "createWorkspace",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWorkspaceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceSummary"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "권한 없음(역할 부족)"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "충돌(그래프 버전이 바뀌었거나 이미 결정된 수정안)"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "워크스페이스 만들기",
+        "tags": [
+          "워크스페이스"
+        ]
+      }
+    },
+    "/api/v1/workspaces/{ws}": {
+      "get": {
+        "operationId": "getWorkspace",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ws",
+            "required": true,
+            "schema": {
+              "title": "Ws",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceSummary"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "워크스페이스 조회",
+        "tags": [
+          "워크스페이스"
+        ]
+      }
+    },
+    "/api/v1/workspaces/{ws}/diagnose": {
+      "post": {
+        "description": "현재 입력으로 진단하고 그래프 버전·보고서를 저장합니다.\n\n보기 전용·익명 요청은 하루(한국 시간) 무료 진단 한도(`JETTAE_DAILY_FREE_SCAN_LIMIT`, 접속 주소당\n`JETTAE_FREE_SCANS_PER_CLIENT_PER_DAY`)를 쓰고, 서버 기본 LLM 모드로만 진단하며, 동시에 돌 수 있는\n진단 수(`JETTAE_MAX_CONCURRENT_SCANS`)가 차 있으면 503입니다.\n예제(별빛상점) 워크스페이스는 보기 전용·익명 요청이면 다시 진단하지 않고 저장된 결과를 그대로 돌려줍니다\n(무료 진단 한도도 쓰지 않음). 진단하는 동안 다른 변경이 승인되면 409입니다.",
+        "operationId": "diagnoseWorkspace",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ws",
+            "required": true,
+            "schema": {
+              "title": "Ws",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/DiagnoseRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosisReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "충돌(그래프 버전이 바뀌었거나 이미 결정된 수정안)"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "오늘의 무료 진단 한도 초과(Retry-After 헤더 참고)"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "생성형 AI 호출 실패"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "다른 진단이 진행 중이라 지금은 받을 수 없음(Retry-After 헤더 참고)"
+          }
+        },
+        "summary": "진단 실행",
+        "tags": [
+          "진단"
+        ]
+      }
+    },
+    "/api/v1/workspaces/{ws}/diff": {
+      "get": {
+        "description": "버전 a → b 사이에 추가·삭제·변경된 노드와 엣지(변경은 속성별 전후 값 포함).",
+        "operationId": "diffVersions",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ws",
+            "required": true,
+            "schema": {
+              "title": "Ws",
+              "type": "string"
+            }
+          },
+          {
+            "description": "비교 기준 버전",
+            "in": "query",
+            "name": "a",
+            "required": true,
+            "schema": {
+              "description": "비교 기준 버전",
+              "minimum": 1,
+              "title": "A",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "비교 대상 버전",
+            "in": "query",
+            "name": "b",
+            "required": true,
+            "schema": {
+              "description": "비교 대상 버전",
+              "minimum": 1,
+              "title": "B",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GraphDiffView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "두 버전 비교",
+        "tags": [
+          "그래프"
+        ]
+      }
+    },
+    "/api/v1/workspaces/{ws}/graph": {
+      "get": {
+        "description": "그래프를 그리기 좋은 형태로 돌려줍니다(노드·엣지 id순, 근거 span, 요소별 끊김 id).\n\n요소별 끊김은 최신 진단이 **이 버전**을 판정했을 때만 채웁니다.",
+        "operationId": "getGraph",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ws",
+            "required": true,
+            "schema": {
+              "title": "Ws",
+              "type": "string"
+            }
+          },
+          {
+            "description": "그래프 버전(비우면 최신)",
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "그래프 버전(비우면 최신)",
+              "title": "Version"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GraphView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "운영 그래프",
+        "tags": [
+          "그래프"
+        ]
+      }
+    },
+    "/api/v1/workspaces/{ws}/inputs": {
+      "get": {
+        "description": "다음 진단에 쓰일 입력(런북 목록, 명부·당직표·카탈로그 건수, 격리된 지시문 수)을 요약합니다.",
+        "operationId": "getInputs",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ws",
+            "required": true,
+            "schema": {
+              "title": "Ws",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InputSummary"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "현재 입력 요약",
+        "tags": [
+          "워크스페이스"
+        ]
+      },
+      "post": {
+        "description": "다음 진단에 쓸 입력을 올립니다(편집자 이상, multipart/form-data).\n\n런북을 올리면 지금의 런북 묶음을 **바꾸고**, 명부·당직표·카탈로그·정책은 올린 것만 바꿉니다.\n모든 파일을 합쳐 `JETTAE_MAX_UPLOAD_MB`까지 받으며, 넘으면 413입니다.",
+        "operationId": "uploadInputs",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ws",
+            "required": true,
+            "schema": {
+              "title": "Ws",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_uploadInputs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InputSummary"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "권한 없음(역할 부족)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "요청이 너무 큼(JETTAE_MAX_UPLOAD_MB)"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "입력 올리기",
+        "tags": [
+          "워크스페이스"
+        ]
+      }
+    },
+    "/api/v1/workspaces/{ws}/patches": {
+      "get": {
+        "description": "워크스페이스의 모든 수정안(초안·검증됨·승인·거절·무효)을 만든 순서대로 돌려줍니다.",
+        "operationId": "listPatches",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ws",
+            "required": true,
+            "schema": {
+              "title": "Ws",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Patch"
+                  },
+                  "title": "Response Listpatches",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "수정안 목록",
+        "tags": [
+          "수정안"
+        ]
+      }
+    },
+    "/api/v1/workspaces/{ws}/patches/draft": {
+      "post": {
+        "description": "최신 그래프의 끊김(전부 또는 `finding_ids`)에 대한 수정안을 만들고 검증해 돌려줍니다(편집자 이상).",
+        "operationId": "draftPatches",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ws",
+            "required": true,
+            "schema": {
+              "title": "Ws",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/DraftRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Patch"
+                  },
+                  "title": "Response Draftpatches",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "권한 없음(역할 부족)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "충돌(그래프 버전이 바뀌었거나 이미 결정된 수정안)"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "생성형 AI 호출 실패"
+          }
+        },
+        "summary": "수정안 초안 만들기",
+        "tags": [
+          "수정안"
+        ]
+      }
+    },
+    "/api/v1/workspaces/{ws}/rehearsals": {
+      "post": {
+        "description": "최신 그래프에서 시나리오를 재생하고 결과를 저장합니다(편집자 이상).\n\n`scenario_ids`를 주면 그 시나리오만, 아니면 `generate`가 고른 출처의 시나리오를 재생합니다.\n지금 그래프에 없는 대상을 가리키는 시나리오는 422입니다(없는 것을 끊으면 이유 없이 통과하므로).",
+        "operationId": "runRehearsals",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ws",
+            "required": true,
+            "schema": {
+              "title": "Ws",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/RehearsalRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/RehearsalResult"
+                  },
+                  "title": "Response Runrehearsals",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "권한 없음(역할 부족)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "생성형 AI 호출 실패"
+          }
+        },
+        "summary": "리허설 실행",
+        "tags": [
+          "리허설"
+        ]
+      }
+    },
+    "/api/v1/workspaces/{ws}/report": {
+      "get": {
+        "description": "최신 진단 결과(끊김·점수·리허설·수정안·근거율·LLM 사용량)를 돌려줍니다.\n\n`version`을 주면 최신 결과가 그 버전을 판정한 것일 때만 돌려줍니다 — 지난 버전의 결과는\n보관하지 않으므로, 다른 버전의 결과를 대신 보여 주지 않고 404로 알립니다.",
+        "operationId": "getReport",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ws",
+            "required": true,
+            "schema": {
+              "title": "Ws",
+              "type": "string"
+            }
+          },
+          {
+            "description": "이 그래프 버전의 결과만(최신이 아니면 404)",
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "이 그래프 버전의 결과만(최신이 아니면 404)",
+              "title": "Version"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosisReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "최신 진단 결과",
+        "tags": [
+          "리포트"
+        ]
+      }
+    },
+    "/api/v1/workspaces/{ws}/report.html": {
+      "get": {
+        "description": "인쇄용 증적 리포트(HTML, 스크립트 없음)를 바로 볼 수 있게 내려줍니다.",
+        "operationId": "getReportHtml",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ws",
+            "required": true,
+            "schema": {
+              "title": "Ws",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "text/html": {}
+            },
+            "description": "인쇄용 증적 리포트"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "증적 리포트(HTML)",
+        "tags": [
+          "리포트"
+        ]
+      }
+    },
+    "/api/v1/workspaces/{ws}/report.md": {
+      "get": {
+        "description": "ISMS-P 증적 초안(Markdown)을 첨부 파일로 내려줍니다.",
+        "operationId": "getReportMarkdown",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ws",
+            "required": true,
+            "schema": {
+              "title": "Ws",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "text/markdown": {}
+            },
+            "description": "증적 리포트"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "증적 리포트(Markdown) 내려받기",
+        "tags": [
+          "리포트"
+        ]
+      }
+    },
+    "/api/v1/workspaces/{ws}/report.sarif": {
+      "get": {
+        "description": "끊김을 SARIF 2.1.0으로 내려줍니다(GitHub 코드 스캔·CI 연동용).",
+        "operationId": "getReportSarif",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ws",
+            "required": true,
+            "schema": {
+              "title": "Ws",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/sarif+json": {}
+            },
+            "description": "SARIF 2.1.0"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "SARIF 내려받기",
+        "tags": [
+          "리포트"
+        ]
+      }
+    },
+    "/api/v1/workspaces/{ws}/scenarios": {
+      "get": {
+        "description": "워크스페이스에 저장된 시나리오(템플릿·사람 작성·LLM 제안)를 id순으로 돌려줍니다.\n\n무료 검진 워크스페이스는 템플릿 시나리오를 따로 저장하지 않으므로(진단 결과 `scenarios`에 들어 있음)\n사람 작성·LLM 제안 시나리오만 나옵니다.",
+        "operationId": "listScenarios",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ws",
+            "required": true,
+            "schema": {
+              "title": "Ws",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Scenario"
+                  },
+                  "title": "Response Listscenarios",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "저장된 시나리오",
+        "tags": [
+          "리허설"
+        ]
+      }
+    },
+    "/api/v1/workspaces/{ws}/versions": {
+      "get": {
+        "description": "모든 그래프 버전을 번호순으로 돌려줍니다(승인된 수정안·되돌리기 포함).",
+        "operationId": "listVersions",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ws",
+            "required": true,
+            "schema": {
+              "title": "Ws",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/GraphVersion"
+                  },
+                  "title": "Response Listversions",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "그래프 버전 이력",
+        "tags": [
+          "그래프"
+        ]
+      }
+    },
+    "/api/v1/workspaces/{ws}/versions/{n}/revert": {
+      "post": {
+        "description": "버전 n과 같은 그래프를 **새 버전**으로 추가하고 고정 규칙으로 다시 판정합니다(팀 리드·관리자).",
+        "operationId": "revertVersion",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ws",
+            "required": true,
+            "schema": {
+              "title": "Ws",
+              "type": "string"
+            }
+          },
+          {
+            "description": "되돌아갈 그래프 버전",
+            "in": "path",
+            "name": "n",
+            "required": true,
+            "schema": {
+              "description": "되돌아갈 그래프 버전",
+              "minimum": 1,
+              "title": "N",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApprovalResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "인증 실패(토큰 모드에서 토큰이 없거나, 토큰·공개 모드에서 토큰이 올바르지 않음)"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "권한 없음(역할 부족)"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "대상을 찾을 수 없음"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "충돌(그래프 버전이 바뀌었거나 이미 결정된 수정안)"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationApiError"
+                }
+              }
+            },
+            "description": "입력값 오류(한국어 설명 + 항목별 오류)"
+          }
+        },
+        "summary": "이 버전으로 되돌리기",
+        "tags": [
+          "그래프"
+        ]
+      }
+    },
+    "/healthz": {
+      "get": {
+        "operationId": "healthz",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "살아 있음",
+        "tags": [
+          "상태"
+        ]
+      }
+    },
+    "/readyz": {
+      "get": {
+        "operationId": "readyz",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadinessStatus"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadinessStatus"
+                }
+              }
+            },
+            "description": "저장소에 연결할 수 없음"
+          }
+        },
+        "summary": "준비됨(저장소 연결)",
+        "tags": [
+          "상태"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "워크스페이스 생성·조회와 입력(런북·명부·당직표·카탈로그·정책·리허설 시나리오) 업로드",
+      "name": "워크스페이스"
+    },
+    {
+      "description": "진단 실행 — 고정 규칙 판정·준비도 점수·리허설·수정안 초안(판정·점수·리허설에 LLM 0회)",
+      "name": "진단"
+    },
+    {
+      "description": "최신 진단 결과와 증적 리포트(Markdown·HTML·SARIF) 내려받기",
+      "name": "리포트"
+    },
+    {
+      "description": "운영 그래프와 버전 이력·비교·되돌리기(되돌리기도 새 버전, 팀 리드·관리자)",
+      "name": "그래프"
+    },
+    {
+      "description": "모의 장애 시나리오와 결정적 리플레이(같은 그래프·시나리오면 언제나 같은 결과)",
+      "name": "리허설"
+    },
+    {
+      "description": "수정안 초안·검증 결과·승인·거절(승인·거절은 팀 리드·관리자)",
+      "name": "수정안"
+    },
+    {
+      "description": "공개 고정 규칙 카탈로그 — 판정이 하는 일 그대로(인증 없이 열람)",
+      "name": "규칙"
+    },
+    {
+      "description": "별빛상점(상암 DMC) 예제 워크스페이스 — 만들고(또는 다시 쓰고) 바로 진단",
+      "name": "데모"
+    },
+    {
+      "description": "익명 무료 런북 검진 — 파일을 올리면 비공개 워크스페이스를 만들어 진단하고 접근 키를 돌려줌(일일 한도)",
+      "name": "무료 검진"
+    },
+    {
+      "description": "사전 신청(개인정보 수집·이용 동의 필수)과 수요 측정 이벤트(허용 목록), 명단 내려받기·삭제(관리자)",
+      "name": "사전 신청·수요"
+    },
+    {
+      "description": "현재 사용자·역할·인증 방식(웹 화면이 실제 권한대로 버튼을 보여 주도록)",
+      "name": "세션"
+    },
+    {
+      "description": "운영 점검(관리자) — 프록시 뒤에서 방문자 주소가 어느 헤더로 오는지 확인",
+      "name": "관리"
+    },
+    {
+      "description": "서버 상태 확인 — 살아 있음(/healthz)·준비됨(/readyz, 저장소 연결)",
+      "name": "상태"
+    }
+  ]
+}

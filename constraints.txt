@@ -1,0 +1,82 @@
+# 공개 이미지(Dockerfile: pip install -c constraints.txt ".[postgres]")의 파이썬 패키지 고정 목록.
+# 직접·간접 의존성을 모두 테스트를 통과한 가상환경과 같은 버전(==)으로 묶어, 자동 배포(autoDeploy) 때마다
+# 새로 나온 버전이 시험 없이 섞여 들어가지 않게 합니다. 대상: Linux x86_64 · CPython 3.12(python:3.12-slim).
+# 생성형 AI SDK(anthropic·openai)는 공개 이미지에 넣지 않습니다(공개 사이트는 JETTAE_LLM_MODE=off).
+#
+# 가상환경(Windows)에는 없는 Linux 전용 패키지는 PyPI에서 확인한 릴리스로 고정했습니다:
+#   psycopg·psycopg-binary 3.3.6(postgres 추가 기능), uvloop 0.22.1(uvicorn[standard]가 Linux에서만 설치).
+#
+# 의존성을 올릴 때(저장소 루트, 테스트를 통과한 가상환경에서):
+#   python -m pip freeze --exclude-editable > freeze.txt
+#   (freeze.txt 끝에 위 세 Linux 전용 패키지의 == 줄을 덧붙인 뒤)
+#   uv pip compile pyproject.toml --extra postgres --python-platform x86_64-manylinux_2_28 --python-version 3.12 -c freeze.txt --no-header --annotation-style line -o constraints.txt
+#   (그다음 이 머리말을 다시 붙이고 freeze.txt는 지웁니다. tests/test_deploy.py가 모든 줄이 ==인지 확인합니다.)
+
+alembic==1.20.0           # via jettae-ops (pyproject.toml)
+annotated-doc==0.0.5      # via fastapi, typer
+annotated-types==0.8.0    # via pydantic
+anyio==4.15.1             # via httpx, httpx2, langsmith, starlette, watchfiles
+certifi==2026.7.22        # via httpcore, httpx, requests
+charset-normalizer==3.5.2  # via requests
+click==8.5.0              # via uvicorn
+distro==1.9.0             # via langsmith
+fastapi==0.143.0          # via jettae-ops (pyproject.toml)
+h11==0.16.0               # via httpcore, httpcore2, uvicorn
+httpcore==1.0.9           # via httpx
+httpcore2==2.13.1         # via httpx2
+httptools==0.9.0          # via uvicorn
+httpx==0.28.1             # via langchain-core, langgraph-sdk
+httpx2==2.13.1            # via langsmith
+idna==3.20                # via anyio, httpx, httpx2, requests
+jsonpatch==1.35           # via langchain-core
+jsonpointer==3.2.1        # via jsonpatch
+langchain-core==1.6.10    # via langgraph, langgraph-checkpoint, langgraph-prebuilt, langgraph-sdk
+langchain-protocol==0.0.19  # via langchain-core, langgraph-sdk
+langgraph==1.2.14         # via jettae-ops (pyproject.toml)
+langgraph-checkpoint==4.2.0  # via langgraph, langgraph-prebuilt
+langgraph-prebuilt==1.1.0  # via langgraph
+langgraph-sdk==0.4.6      # via langgraph
+langsmith==0.14.7         # via langchain-core
+lxml==6.1.3               # via python-docx
+mako==1.4.3               # via alembic
+markdown-it-py==4.2.0     # via rich, jettae-ops (pyproject.toml)
+markupsafe==3.0.4         # via mako
+mdurl==0.1.2              # via markdown-it-py
+networkx==3.7             # via jettae-ops (pyproject.toml)
+opentelemetry-api==1.45.1  # via fastapi
+orjson==3.13.0            # via langgraph-sdk, langsmith
+ormsgpack==1.12.2         # via langgraph-checkpoint
+packaging==26.3           # via langchain-core, langsmith
+psycopg==3.3.6            # via jettae-ops (pyproject.toml)
+psycopg-binary==3.3.6     # via psycopg
+pydantic==2.14.1          # via fastapi, langchain-core, langgraph, langsmith, pydantic-settings, jettae-ops (pyproject.toml)
+pydantic-core==2.50.1     # via pydantic
+pydantic-settings==2.15.0  # via jettae-ops (pyproject.toml)
+pygments==2.21.0          # via rich
+pypdf==6.20.0             # via jettae-ops (pyproject.toml)
+python-docx==1.2.0        # via jettae-ops (pyproject.toml)
+python-dotenv==1.2.4      # via pydantic-settings, uvicorn
+python-multipart==0.0.32  # via jettae-ops (pyproject.toml)
+pyyaml==6.0.3             # via langchain-core, uvicorn, jettae-ops (pyproject.toml)
+rapidfuzz==3.14.6         # via jettae-ops (pyproject.toml)
+requests==2.34.2          # via langsmith, requests-toolbelt
+requests-toolbelt==1.0.0  # via langsmith
+rich==15.0.0              # via typer, jettae-ops (pyproject.toml)
+shellingham==1.5.4        # via typer
+sniffio==1.3.1            # via langsmith
+sqlalchemy==2.1.4         # via alembic, jettae-ops (pyproject.toml)
+starlette==1.7.0          # via fastapi
+structlog==26.1.0         # via jettae-ops (pyproject.toml)
+tenacity==9.2.1           # via langchain-core
+truststore==0.10.4        # via httpcore2, httpx2
+typer==0.27.3             # via jettae-ops (pyproject.toml)
+typing-extensions==4.16.0  # via alembic, anyio, fastapi, httpx2, langchain-core, langchain-protocol, langsmith, opentelemetry-api, psycopg, pydantic, pydantic-core, python-docx, sqlalchemy, starlette, typing-inspection
+typing-inspection==0.4.4  # via fastapi, pydantic, pydantic-settings
+urllib3==2.8.0            # via requests
+uuid-utils==0.17.1        # via langchain-core, langsmith
+uvicorn==0.54.0           # via jettae-ops (pyproject.toml)
+uvloop==0.22.1            # via uvicorn
+watchfiles==1.3.0         # via uvicorn
+websockets==16.1.1        # via langgraph-sdk, langsmith, uvicorn
+xxhash==4.0.1             # via langgraph, langsmith
+zstandard==0.25.0         # via langsmith

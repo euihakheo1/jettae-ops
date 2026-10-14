@@ -1,0 +1,1392 @@
+{
+  "note": "목업 데이터(MOCK): examples/dmc-shop/patches/expected-fixes.md 와 scenarios.yaml 을 바탕으로 손으로 만든 승인 이후 상태입니다. 실제 판정은 백엔드 규칙·리플레이가 만듭니다.",
+  "patch_effects": {
+    "patch-dmc-01": {
+      "service_id": "service:결제",
+      "elements": [
+        {
+          "element": "detection",
+          "score": 1,
+          "status": "pass",
+          "reasons": [
+            "감지 신호 '결제 서비스 실패율 알람(5% 초과 3분 지속)', '결제 서비스 장애 지속'이 활동 중인 대응자 '김서연'에게 호출을 보냄"
+          ],
+          "finding_ids": []
+        },
+        {
+          "element": "owner",
+          "score": 1,
+          "status": "pass",
+          "reasons": [
+            "활동 중인 담당자 '김서연'에게 연락할 수 있음",
+            "상향 경로가 '박재현'에게 닿고 모든 단계에 대기 시간이 적혀 있음"
+          ],
+          "finding_ids": []
+        },
+        {
+          "element": "fallback_channel",
+          "score": 1,
+          "status": "pass",
+          "reasons": [
+            "연락 수단 2개('phone', 'slack') 중 서비스와 함께 죽지 않는 'phone', 'slack'이(가) 있음"
+          ],
+          "finding_ids": []
+        }
+      ]
+    },
+    "patch-dmc-02": {
+      "service_id": "service:결제",
+      "elements": [
+        {
+          "element": "approver",
+          "score": 0.8,
+          "status": "partial",
+          "reasons": [
+            "조치 '결제 서비스 롤백': 승인 가능한 사람이 '박재현' 1명뿐(부재 시 대행 없음)"
+          ],
+          "finding_ids": []
+        },
+        {
+          "element": "rollback",
+          "score": 1,
+          "status": "pass",
+          "reasons": [
+            "되돌리기 조치 '결제 서비스 롤백'의 실행자 '김서연'이 활동 중임"
+          ],
+          "finding_ids": []
+        }
+      ]
+    },
+    "patch-dmc-04": {
+      "service_id": "service:주문",
+      "elements": [
+        {
+          "element": "owner",
+          "score": 1,
+          "status": "pass",
+          "reasons": [
+            "활동 중인 담당자 '정민혁', '최영훈'에게 연락할 수 있음",
+            "상향 경로가 '최영훈', '한서윤'에게 닿고 모든 단계에 대기 시간이 적혀 있음"
+          ],
+          "finding_ids": []
+        }
+      ]
+    },
+    "patch-dmc-05": {
+      "service_id": "service:상품-카탈로그",
+      "elements": [
+        {
+          "element": "approver",
+          "score": 0.8,
+          "status": "partial",
+          "reasons": [
+            "조치 '상품 카탈로그 기능 플래그 OFF', '상품 카탈로그 롤백': 승인 가능한 사람이 '한서윤' 1명뿐(부재 시 대행 없음)"
+          ],
+          "finding_ids": []
+        },
+        {
+          "element": "rollback",
+          "score": 1,
+          "status": "pass",
+          "reasons": [
+            "되돌리기 조치 '상품 카탈로그 기능 플래그 OFF', '상품 카탈로그 롤백'의 실행자 '박재현'이 활동 중임"
+          ],
+          "finding_ids": []
+        }
+      ]
+    }
+  },
+  "human_scenarios": [
+    {
+      "id": "dmc-s1-chuseok-payment",
+      "title": "추석 연휴 새벽 결제 장애 (flagd paymentFailure=1.0)",
+      "description": "추석 연휴 첫날 새벽 3시, 결제 요청이 전부 실패한다(flagd의 paymentFailure를 1.0으로 설정). 연휴라 슬랙 알림은 대부분 방해 금지 상태이고, 한서윤 CTO는 해외 가족 여행 중이라 연락이 닿지 않는다.",
+      "service_id": "service:결제",
+      "incident_type": "outage",
+      "perturbations": [
+        {
+          "kind": "channel_down",
+          "target_id": "channel:slack",
+          "start_minute": 0,
+          "end_minute": null
+        },
+        {
+          "kind": "person_unavailable",
+          "target_id": "person:한서윤",
+          "start_minute": 0,
+          "end_minute": null
+        }
+      ],
+      "deadline_minutes": null,
+      "origin": "human"
+    },
+    {
+      "id": "dmc-s2-sangam-idc-fire",
+      "title": "상암 IDC 화재 — DB·Kafka·사내 메신저 동시 중단",
+      "description": "평일 오후 상암 IDC 배터리실 화재로 전산실 전원이 차단된다. IDC에 있는 astronomy-db·Kafka·사내 메신저가 한꺼번에 멈춰 상품 카탈로그가 상품 목록을 읽지 못하고, Kafka 중단으로 주문 완료 이벤트 발행도 동시에 실패한다.",
+      "service_id": "service:상품-카탈로그",
+      "incident_type": "outage",
+      "perturbations": [
+        {
+          "kind": "location_down",
+          "target_id": "location:상암-idc",
+          "start_minute": 0,
+          "end_minute": null
+        },
+        {
+          "kind": "system_down",
+          "target_id": "system:astronomy-db",
+          "start_minute": 0,
+          "end_minute": null
+        },
+        {
+          "kind": "system_down",
+          "target_id": "system:kafka",
+          "start_minute": 0,
+          "end_minute": null
+        },
+        {
+          "kind": "channel_down",
+          "target_id": "channel:internal_messenger",
+          "start_minute": 0,
+          "end_minute": null
+        },
+        {
+          "kind": "concurrent_incident",
+          "target_id": "service:주문",
+          "start_minute": 0,
+          "end_minute": null
+        }
+      ],
+      "deadline_minutes": null,
+      "origin": "human"
+    },
+    {
+      "id": "dmc-s4-breach-report",
+      "title": "해킹 의심 접속 탐지 — 침해사고 24시간 신고 리허설",
+      "description": "금요일 밤, 결제 관리자 화면에 해외 IP의 비정상 로그인이 연달아 성공한 것이 탐지된다. 침해사고는 알게 된 때부터 24시간 안에 신고해야 하지만(정보통신망법 제48조의3), 오준석 CISO는 해외 보안 컨퍼런스 출장으로 비행 중이다.",
+      "service_id": "service:결제",
+      "incident_type": "breach",
+      "perturbations": [
+        {
+          "kind": "person_unavailable",
+          "target_id": "person:오준석",
+          "start_minute": 0,
+          "end_minute": null
+        }
+      ],
+      "deadline_minutes": 1440,
+      "origin": "human"
+    }
+  ],
+  "human_rehearsals": [
+    {
+      "scenario_id": "dmc-s1-chuseok-payment",
+      "scenario_fingerprint": "3c09b68f69701340",
+      "graph_hash": "mock",
+      "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+      "failed_element": "owner",
+      "failed_at_id": "person:김민준",
+      "outcome": "fail",
+      "time_to_mitigate": null,
+      "deadline_minutes": 60,
+      "reason": "담당 호출이 김민준에서 끊김 — 상향 경로 없음",
+      "events": [
+        {
+          "t": 0,
+          "kind": "incident_start",
+          "actor_id": null,
+          "target_id": "service:결제",
+          "edge_id": null,
+          "note": "결제 장애 발생 · slack 다운 · 한서윤 부재"
+        },
+        {
+          "t": 3,
+          "kind": "detected",
+          "actor_id": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "target_id": "service:결제",
+          "edge_id": "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "note": "결제 서비스 실패율 알람(5% 초과 3분 지속)(으)로 감지(장애 후 3분)"
+        },
+        {
+          "t": 3,
+          "kind": "no_answer",
+          "actor_id": null,
+          "target_id": "person:김민준",
+          "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준",
+          "note": "담당 호출: 김민준 응답 불가 — 퇴사"
+        },
+        {
+          "t": 5,
+          "kind": "no_answer",
+          "actor_id": null,
+          "target_id": "person:김민준",
+          "edge_id": "notifies:trigger:결제-서비스-장애-지속->person:김민준",
+          "note": "담당 호출: 김민준 응답 불가 — 퇴사"
+        },
+        {
+          "t": 5,
+          "kind": "dead_end",
+          "actor_id": null,
+          "target_id": "person:김민준",
+          "edge_id": null,
+          "note": "담당 호출 중단: 김민준 이후 진행 불가 — 상향 경로 없음"
+        }
+      ],
+      "path_ids": [
+        "service:결제",
+        "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+        "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+        "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준",
+        "person:김민준",
+        "detected_by:service:결제->trigger:결제-서비스-장애-지속",
+        "trigger:결제-서비스-장애-지속",
+        "notifies:trigger:결제-서비스-장애-지속->person:김민준"
+      ]
+    },
+    {
+      "scenario_id": "dmc-s2-sangam-idc-fire",
+      "scenario_fingerprint": "6e719cd59fd23209",
+      "graph_hash": "mock",
+      "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+      "failed_element": "detection",
+      "failed_at_id": "service:상품-카탈로그",
+      "outcome": "fail",
+      "time_to_mitigate": null,
+      "deadline_minutes": 240,
+      "reason": "감지 경로 없음 — 상품 카탈로그 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함",
+      "events": [
+        {
+          "t": 0,
+          "kind": "incident_start",
+          "actor_id": null,
+          "target_id": "service:상품-카탈로그",
+          "edge_id": null,
+          "note": "상품 카탈로그 장애 발생 · 상암 IDC 중단 · astronomy-db 중단 · kafka 중단 · internal_messenger 다운 · 주문 동시 장애"
+        },
+        {
+          "t": 0,
+          "kind": "undetected",
+          "actor_id": null,
+          "target_id": "service:상품-카탈로그",
+          "edge_id": null,
+          "note": "감지 경로 없음 — 상품 카탈로그 장애를 알릴 감지 신호(알람·모니터)가 없어 아무도 인지하지 못함"
+        }
+      ],
+      "path_ids": [
+        "service:상품-카탈로그"
+      ]
+    },
+    {
+      "scenario_id": "dmc-s4-breach-report",
+      "scenario_fingerprint": "7d4632477dc0ed63",
+      "graph_hash": "mock",
+      "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+      "failed_element": "owner",
+      "failed_at_id": "person:김민준",
+      "outcome": "fail",
+      "time_to_mitigate": null,
+      "deadline_minutes": 1440,
+      "reason": "담당 호출이 김민준에서 끊김 — 상향 경로 없음 / 과학기술정보통신부·한국인터넷진흥원(KISA) 신고 절차가 런북에 없음 (근거: 정보통신망법 제48조의3 제1항: 침해사고를 알게 된 때부터 24시간 이내 신고)",
+      "events": [
+        {
+          "t": 0,
+          "kind": "incident_start",
+          "actor_id": null,
+          "target_id": "service:결제",
+          "edge_id": null,
+          "note": "결제 침해사고 발생 · 오준석 부재"
+        },
+        {
+          "t": 3,
+          "kind": "detected",
+          "actor_id": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "target_id": "service:결제",
+          "edge_id": "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "note": "결제 서비스 실패율 알람(5% 초과 3분 지속)(으)로 감지(장애 후 3분)"
+        },
+        {
+          "t": 3,
+          "kind": "no_answer",
+          "actor_id": null,
+          "target_id": "person:김민준",
+          "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준",
+          "note": "담당 호출: 김민준 응답 불가 — 퇴사"
+        },
+        {
+          "t": 3,
+          "kind": "report_missed",
+          "actor_id": null,
+          "target_id": "service:결제",
+          "edge_id": null,
+          "note": "과학기술정보통신부·한국인터넷진흥원(KISA) 신고 절차가 런북에 없음 (근거: 정보통신망법 제48조의3 제1항: 침해사고를 알게 된 때부터 24시간 이내 신고)"
+        },
+        {
+          "t": 5,
+          "kind": "no_answer",
+          "actor_id": null,
+          "target_id": "person:김민준",
+          "edge_id": "notifies:trigger:결제-서비스-장애-지속->person:김민준",
+          "note": "담당 호출: 김민준 응답 불가 — 퇴사"
+        },
+        {
+          "t": 5,
+          "kind": "dead_end",
+          "actor_id": null,
+          "target_id": "person:김민준",
+          "edge_id": null,
+          "note": "담당 호출 중단: 김민준 이후 진행 불가 — 상향 경로 없음"
+        }
+      ],
+      "path_ids": [
+        "service:결제",
+        "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+        "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+        "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김민준",
+        "person:김민준",
+        "detected_by:service:결제->trigger:결제-서비스-장애-지속",
+        "trigger:결제-서비스-장애-지속",
+        "notifies:trigger:결제-서비스-장애-지속->person:김민준"
+      ]
+    }
+  ],
+  "after_rehearsals": [
+    {
+      "scenario_id": "tpl:service:결제:baseline",
+      "requires_patches": [
+        "patch-dmc-01"
+      ],
+      "result": {
+        "scenario_id": "tpl:service:결제:baseline",
+        "scenario_fingerprint": "45e40f226788d7f3",
+        "graph_hash": "mock",
+        "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+        "failed_element": "approver",
+        "failed_at_id": "action:결제-서비스-롤백",
+        "outcome": "fail",
+        "time_to_mitigate": null,
+        "deadline_minutes": 60,
+        "reason": "결제 서비스 롤백 승인이 막힘 — 승인자가 적혀 있지 않음",
+        "events": [
+          {
+            "t": 0,
+            "kind": "incident_start",
+            "actor_id": null,
+            "target_id": "service:결제",
+            "edge_id": null,
+            "note": "결제 장애 발생"
+          },
+          {
+            "t": 3,
+            "kind": "detected",
+            "actor_id": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "target_id": "service:결제",
+            "edge_id": "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "note": "결제 서비스 실패율 알람(5% 초과 3분 지속)(으)로 감지(장애 후 3분)"
+          },
+          {
+            "t": 3,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:김서연",
+            "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "note": "담당 호출: 김서연에게 phone(으)로 호출"
+          },
+          {
+            "t": 8,
+            "kind": "ack",
+            "actor_id": "person:김서연",
+            "target_id": "person:김서연",
+            "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "note": "담당 호출: 김서연이 응답"
+          },
+          {
+            "t": 8,
+            "kind": "approval_blocked",
+            "actor_id": "person:김서연",
+            "target_id": "action:결제-서비스-롤백",
+            "edge_id": "mitigated_by:service:결제->action:결제-서비스-롤백",
+            "note": "결제 서비스 롤백 승인 요청 불가 — 승인자가 적혀 있지 않음"
+          },
+          {
+            "t": 8,
+            "kind": "no_mitigation",
+            "actor_id": null,
+            "target_id": "service:결제",
+            "edge_id": null,
+            "note": "승인 없이 롤백을 진행할 수 없어 완화 조치 중단"
+          }
+        ],
+        "path_ids": [
+          "service:결제",
+          "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+          "person:김서연",
+          "reachable_via:person:김서연->channel:phone",
+          "channel:phone",
+          "mitigated_by:service:결제->action:결제-서비스-롤백",
+          "action:결제-서비스-롤백"
+        ]
+      }
+    },
+    {
+      "scenario_id": "tpl:service:결제:baseline",
+      "requires_patches": [
+        "patch-dmc-01",
+        "patch-dmc-02"
+      ],
+      "result": {
+        "scenario_id": "tpl:service:결제:baseline",
+        "scenario_fingerprint": "45e40f226788d7f3",
+        "graph_hash": "mock",
+        "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+        "failed_element": null,
+        "failed_at_id": null,
+        "outcome": "pass",
+        "time_to_mitigate": 28,
+        "deadline_minutes": 60,
+        "reason": "목표 복구 시간 60분 안에 완화(28분)",
+        "events": [
+          {
+            "t": 0,
+            "kind": "incident_start",
+            "actor_id": null,
+            "target_id": "service:결제",
+            "edge_id": null,
+            "note": "결제 장애 발생"
+          },
+          {
+            "t": 3,
+            "kind": "detected",
+            "actor_id": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "target_id": "service:결제",
+            "edge_id": "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "note": "결제 서비스 실패율 알람(5% 초과 3분 지속)(으)로 감지(장애 후 3분)"
+          },
+          {
+            "t": 3,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:김서연",
+            "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "note": "담당 호출: 김서연에게 phone(으)로 호출"
+          },
+          {
+            "t": 8,
+            "kind": "ack",
+            "actor_id": "person:김서연",
+            "target_id": "person:김서연",
+            "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "note": "담당 호출: 김서연이 응답"
+          },
+          {
+            "t": 8,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:박재현",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "승인 요청: 박재현에게 phone(으)로 호출"
+          },
+          {
+            "t": 13,
+            "kind": "ack",
+            "actor_id": "person:박재현",
+            "target_id": "person:박재현",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "승인 요청: 박재현이 응답"
+          },
+          {
+            "t": 13,
+            "kind": "approval_requested",
+            "actor_id": "person:김서연",
+            "target_id": "person:박재현",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "김서연이 박재현에게 결제 서비스 롤백 승인 요청"
+          },
+          {
+            "t": 18,
+            "kind": "approved",
+            "actor_id": "person:박재현",
+            "target_id": "action:결제-서비스-롤백",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "박재현이 결제 서비스 롤백 승인"
+          },
+          {
+            "t": 18,
+            "kind": "action_started",
+            "actor_id": "person:김서연",
+            "target_id": "action:결제-서비스-롤백",
+            "edge_id": "executed_by:action:결제-서비스-롤백->person:김서연",
+            "note": "김서연이 결제 서비스 롤백 실행 시작"
+          },
+          {
+            "t": 28,
+            "kind": "mitigated",
+            "actor_id": "person:김서연",
+            "target_id": "service:결제",
+            "edge_id": "mitigated_by:service:결제->action:결제-서비스-롤백",
+            "note": "결제 서비스 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+          }
+        ],
+        "path_ids": [
+          "service:결제",
+          "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+          "person:김서연",
+          "reachable_via:person:김서연->channel:phone",
+          "channel:phone",
+          "mitigated_by:service:결제->action:결제-서비스-롤백",
+          "action:결제-서비스-롤백",
+          "approved_by:action:결제-서비스-롤백->person:박재현",
+          "person:박재현",
+          "reachable_via:person:박재현->channel:phone",
+          "executed_by:action:결제-서비스-롤백->person:김서연"
+        ]
+      }
+    },
+    {
+      "scenario_id": "tpl:service:결제:location_down",
+      "requires_patches": [
+        "patch-dmc-01"
+      ],
+      "result": {
+        "scenario_id": "tpl:service:결제:location_down",
+        "scenario_fingerprint": "b675019204a093c5",
+        "graph_hash": "mock",
+        "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+        "failed_element": "approver",
+        "failed_at_id": "action:결제-서비스-롤백",
+        "outcome": "fail",
+        "time_to_mitigate": null,
+        "deadline_minutes": 60,
+        "reason": "결제 서비스 롤백 승인이 막힘 — 승인자가 적혀 있지 않음",
+        "events": [
+          {
+            "t": 0,
+            "kind": "incident_start",
+            "actor_id": null,
+            "target_id": "service:결제",
+            "edge_id": null,
+            "note": "결제 장애 발생 · 클라우드 서울 리전 중단"
+          },
+          {
+            "t": 3,
+            "kind": "detected",
+            "actor_id": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "target_id": "service:결제",
+            "edge_id": "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "note": "결제 서비스 실패율 알람(5% 초과 3분 지속)(으)로 감지(장애 후 3분)"
+          },
+          {
+            "t": 3,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:김서연",
+            "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "note": "담당 호출: 김서연에게 phone(으)로 호출"
+          },
+          {
+            "t": 8,
+            "kind": "ack",
+            "actor_id": "person:김서연",
+            "target_id": "person:김서연",
+            "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "note": "담당 호출: 김서연이 응답"
+          },
+          {
+            "t": 8,
+            "kind": "approval_blocked",
+            "actor_id": "person:김서연",
+            "target_id": "action:결제-서비스-롤백",
+            "edge_id": "mitigated_by:service:결제->action:결제-서비스-롤백",
+            "note": "결제 서비스 롤백 승인 요청 불가 — 승인자가 적혀 있지 않음"
+          },
+          {
+            "t": 8,
+            "kind": "no_mitigation",
+            "actor_id": null,
+            "target_id": "service:결제",
+            "edge_id": null,
+            "note": "승인 없이 롤백을 진행할 수 없어 완화 조치 중단"
+          }
+        ],
+        "path_ids": [
+          "service:결제",
+          "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+          "person:김서연",
+          "reachable_via:person:김서연->channel:phone",
+          "channel:phone",
+          "mitigated_by:service:결제->action:결제-서비스-롤백",
+          "action:결제-서비스-롤백"
+        ]
+      }
+    },
+    {
+      "scenario_id": "tpl:service:결제:location_down",
+      "requires_patches": [
+        "patch-dmc-01",
+        "patch-dmc-02"
+      ],
+      "result": {
+        "scenario_id": "tpl:service:결제:location_down",
+        "scenario_fingerprint": "b675019204a093c5",
+        "graph_hash": "mock",
+        "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+        "failed_element": null,
+        "failed_at_id": null,
+        "outcome": "pass",
+        "time_to_mitigate": 28,
+        "deadline_minutes": 60,
+        "reason": "목표 복구 시간 60분 안에 완화(28분)",
+        "events": [
+          {
+            "t": 0,
+            "kind": "incident_start",
+            "actor_id": null,
+            "target_id": "service:결제",
+            "edge_id": null,
+            "note": "결제 장애 발생 · 클라우드 서울 리전 중단"
+          },
+          {
+            "t": 3,
+            "kind": "detected",
+            "actor_id": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "target_id": "service:결제",
+            "edge_id": "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "note": "결제 서비스 실패율 알람(5% 초과 3분 지속)(으)로 감지(장애 후 3분)"
+          },
+          {
+            "t": 3,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:김서연",
+            "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "note": "담당 호출: 김서연에게 phone(으)로 호출"
+          },
+          {
+            "t": 8,
+            "kind": "ack",
+            "actor_id": "person:김서연",
+            "target_id": "person:김서연",
+            "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "note": "담당 호출: 김서연이 응답"
+          },
+          {
+            "t": 8,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:박재현",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "승인 요청: 박재현에게 phone(으)로 호출"
+          },
+          {
+            "t": 13,
+            "kind": "ack",
+            "actor_id": "person:박재현",
+            "target_id": "person:박재현",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "승인 요청: 박재현이 응답"
+          },
+          {
+            "t": 13,
+            "kind": "approval_requested",
+            "actor_id": "person:김서연",
+            "target_id": "person:박재현",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "김서연이 박재현에게 결제 서비스 롤백 승인 요청"
+          },
+          {
+            "t": 18,
+            "kind": "approved",
+            "actor_id": "person:박재현",
+            "target_id": "action:결제-서비스-롤백",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "박재현이 결제 서비스 롤백 승인"
+          },
+          {
+            "t": 18,
+            "kind": "action_started",
+            "actor_id": "person:김서연",
+            "target_id": "action:결제-서비스-롤백",
+            "edge_id": "executed_by:action:결제-서비스-롤백->person:김서연",
+            "note": "김서연이 결제 서비스 롤백 실행 시작"
+          },
+          {
+            "t": 28,
+            "kind": "mitigated",
+            "actor_id": "person:김서연",
+            "target_id": "service:결제",
+            "edge_id": "mitigated_by:service:결제->action:결제-서비스-롤백",
+            "note": "결제 서비스 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+          }
+        ],
+        "path_ids": [
+          "service:결제",
+          "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+          "person:김서연",
+          "reachable_via:person:김서연->channel:phone",
+          "channel:phone",
+          "mitigated_by:service:결제->action:결제-서비스-롤백",
+          "action:결제-서비스-롤백",
+          "approved_by:action:결제-서비스-롤백->person:박재현",
+          "person:박재현",
+          "reachable_via:person:박재현->channel:phone",
+          "executed_by:action:결제-서비스-롤백->person:김서연"
+        ]
+      }
+    },
+    {
+      "scenario_id": "dmc-s1-chuseok-payment",
+      "requires_patches": [
+        "patch-dmc-01"
+      ],
+      "result": {
+        "scenario_id": "dmc-s1-chuseok-payment",
+        "scenario_fingerprint": "3c09b68f69701340",
+        "graph_hash": "mock",
+        "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+        "failed_element": "approver",
+        "failed_at_id": "action:결제-서비스-롤백",
+        "outcome": "fail",
+        "time_to_mitigate": null,
+        "deadline_minutes": 60,
+        "reason": "결제 서비스 롤백 승인이 막힘 — 승인자가 적혀 있지 않음",
+        "events": [
+          {
+            "t": 0,
+            "kind": "incident_start",
+            "actor_id": null,
+            "target_id": "service:결제",
+            "edge_id": null,
+            "note": "결제 장애 발생 · slack 다운 · 한서윤 부재"
+          },
+          {
+            "t": 3,
+            "kind": "detected",
+            "actor_id": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "target_id": "service:결제",
+            "edge_id": "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "note": "결제 서비스 실패율 알람(5% 초과 3분 지속)(으)로 감지(장애 후 3분)"
+          },
+          {
+            "t": 3,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:김서연",
+            "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "note": "담당 호출: 김서연에게 phone(으)로 호출"
+          },
+          {
+            "t": 8,
+            "kind": "ack",
+            "actor_id": "person:김서연",
+            "target_id": "person:김서연",
+            "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "note": "담당 호출: 김서연이 응답"
+          },
+          {
+            "t": 8,
+            "kind": "approval_blocked",
+            "actor_id": "person:김서연",
+            "target_id": "action:결제-서비스-롤백",
+            "edge_id": "mitigated_by:service:결제->action:결제-서비스-롤백",
+            "note": "결제 서비스 롤백 승인 요청 불가 — 승인자가 적혀 있지 않음"
+          },
+          {
+            "t": 8,
+            "kind": "no_mitigation",
+            "actor_id": null,
+            "target_id": "service:결제",
+            "edge_id": null,
+            "note": "승인 없이 롤백을 진행할 수 없어 완화 조치 중단"
+          }
+        ],
+        "path_ids": [
+          "service:결제",
+          "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+          "person:김서연",
+          "reachable_via:person:김서연->channel:phone",
+          "channel:phone",
+          "mitigated_by:service:결제->action:결제-서비스-롤백",
+          "action:결제-서비스-롤백"
+        ]
+      }
+    },
+    {
+      "scenario_id": "dmc-s1-chuseok-payment",
+      "requires_patches": [
+        "patch-dmc-01",
+        "patch-dmc-02"
+      ],
+      "result": {
+        "scenario_id": "dmc-s1-chuseok-payment",
+        "scenario_fingerprint": "3c09b68f69701340",
+        "graph_hash": "mock",
+        "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+        "failed_element": null,
+        "failed_at_id": null,
+        "outcome": "pass",
+        "time_to_mitigate": 28,
+        "deadline_minutes": 60,
+        "reason": "목표 복구 시간 60분 안에 완화(28분) — 슬랙이 막혀도 김서연·박재현 모두 전화로 연결",
+        "events": [
+          {
+            "t": 0,
+            "kind": "incident_start",
+            "actor_id": null,
+            "target_id": "service:결제",
+            "edge_id": null,
+            "note": "결제 장애 발생 · slack 다운 · 한서윤 부재"
+          },
+          {
+            "t": 3,
+            "kind": "detected",
+            "actor_id": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "target_id": "service:결제",
+            "edge_id": "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "note": "결제 서비스 실패율 알람(5% 초과 3분 지속)(으)로 감지(장애 후 3분)"
+          },
+          {
+            "t": 3,
+            "kind": "channel_unavailable",
+            "actor_id": "channel:slack",
+            "target_id": "person:김서연",
+            "edge_id": "reachable_via:person:김서연->channel:slack",
+            "note": "담당 호출: 김서연의 slack 사용 불가 — 시나리오상 다운"
+          },
+          {
+            "t": 3,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:김서연",
+            "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "note": "담당 호출: 김서연에게 phone(으)로 호출"
+          },
+          {
+            "t": 8,
+            "kind": "ack",
+            "actor_id": "person:김서연",
+            "target_id": "person:김서연",
+            "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "note": "담당 호출: 김서연이 응답"
+          },
+          {
+            "t": 8,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:박재현",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "승인 요청: 박재현에게 phone(으)로 호출"
+          },
+          {
+            "t": 13,
+            "kind": "ack",
+            "actor_id": "person:박재현",
+            "target_id": "person:박재현",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "승인 요청: 박재현이 응답"
+          },
+          {
+            "t": 13,
+            "kind": "approval_requested",
+            "actor_id": "person:김서연",
+            "target_id": "person:박재현",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "김서연이 박재현에게 결제 서비스 롤백 승인 요청"
+          },
+          {
+            "t": 18,
+            "kind": "approved",
+            "actor_id": "person:박재현",
+            "target_id": "action:결제-서비스-롤백",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "박재현이 결제 서비스 롤백 승인"
+          },
+          {
+            "t": 18,
+            "kind": "action_started",
+            "actor_id": "person:김서연",
+            "target_id": "action:결제-서비스-롤백",
+            "edge_id": "executed_by:action:결제-서비스-롤백->person:김서연",
+            "note": "김서연이 결제 서비스 롤백 실행 시작"
+          },
+          {
+            "t": 28,
+            "kind": "mitigated",
+            "actor_id": "person:김서연",
+            "target_id": "service:결제",
+            "edge_id": "mitigated_by:service:결제->action:결제-서비스-롤백",
+            "note": "결제 서비스 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+          }
+        ],
+        "path_ids": [
+          "service:결제",
+          "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+          "person:김서연",
+          "reachable_via:person:김서연->channel:phone",
+          "channel:phone",
+          "mitigated_by:service:결제->action:결제-서비스-롤백",
+          "action:결제-서비스-롤백",
+          "approved_by:action:결제-서비스-롤백->person:박재현",
+          "person:박재현",
+          "reachable_via:person:박재현->channel:phone",
+          "executed_by:action:결제-서비스-롤백->person:김서연"
+        ]
+      }
+    },
+    {
+      "scenario_id": "tpl:service:주문:breach_report",
+      "requires_patches": [
+        "patch-dmc-06"
+      ],
+      "result": {
+        "scenario_id": "tpl:service:주문:breach_report",
+        "scenario_fingerprint": "2212737058bc684e",
+        "graph_hash": "mock",
+        "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+        "failed_element": null,
+        "failed_at_id": null,
+        "outcome": "pass",
+        "time_to_mitigate": 30,
+        "deadline_minutes": 60,
+        "reason": "목표 복구 시간 60분 안에 완화(30분) · KISA 신고 절차 10분에 시작",
+        "events": [
+          {
+            "t": 0,
+            "kind": "incident_start",
+            "actor_id": null,
+            "target_id": "service:주문",
+            "edge_id": null,
+            "note": "주문 침해사고 발생"
+          },
+          {
+            "t": 5,
+            "kind": "detected",
+            "actor_id": "trigger:주문체크아웃-주문-실패율-알람",
+            "target_id": "service:주문",
+            "edge_id": "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+            "note": "주문/체크아웃 주문 실패율 알람으로 감지(장애 후 5분 — 감지 지연 미기재로 기본값 가정)"
+          },
+          {
+            "t": 5,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:정민혁",
+            "edge_id": "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+            "note": "담당 호출: 정민혁에게 phone(으)로 호출"
+          },
+          {
+            "t": 5,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:오준석",
+            "edge_id": "reported_by:obligation:kisa-침해사고-신고->person:오준석",
+            "note": "신고 담당: 오준석에게 phone(으)로 호출"
+          },
+          {
+            "t": 10,
+            "kind": "ack",
+            "actor_id": "person:오준석",
+            "target_id": "person:오준석",
+            "edge_id": "reported_by:obligation:kisa-침해사고-신고->person:오준석",
+            "note": "신고 담당: 오준석이 응답"
+          },
+          {
+            "t": 10,
+            "kind": "report_filed",
+            "actor_id": "person:오준석",
+            "target_id": "obligation:kisa-침해사고-신고",
+            "edge_id": "reported_by:obligation:kisa-침해사고-신고->person:오준석",
+            "note": "KISA 침해사고 신고 절차 시작 — 신고 담당 오준석 (법정 시한 24시간 이내)"
+          },
+          {
+            "t": 10,
+            "kind": "ack",
+            "actor_id": "person:정민혁",
+            "target_id": "person:정민혁",
+            "edge_id": "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+            "note": "담당 호출: 정민혁이 응답"
+          },
+          {
+            "t": 10,
+            "kind": "page",
+            "actor_id": "channel:email",
+            "target_id": "person:한서윤",
+            "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+            "note": "승인 요청: 한서윤에게 email(으)로 호출"
+          },
+          {
+            "t": 15,
+            "kind": "ack",
+            "actor_id": "person:한서윤",
+            "target_id": "person:한서윤",
+            "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+            "note": "승인 요청: 한서윤이 응답"
+          },
+          {
+            "t": 15,
+            "kind": "approval_requested",
+            "actor_id": "person:정민혁",
+            "target_id": "person:한서윤",
+            "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+            "note": "정민혁이 한서윤에게 주문/체크아웃 롤백 승인 요청"
+          },
+          {
+            "t": 20,
+            "kind": "approved",
+            "actor_id": "person:한서윤",
+            "target_id": "action:주문체크아웃-롤백",
+            "edge_id": "approved_by:action:주문체크아웃-롤백->person:한서윤",
+            "note": "한서윤이 주문/체크아웃 롤백 승인"
+          },
+          {
+            "t": 20,
+            "kind": "action_started",
+            "actor_id": "person:정민혁",
+            "target_id": "action:주문체크아웃-롤백",
+            "edge_id": "executed_by:action:주문체크아웃-롤백->person:정민혁",
+            "note": "정민혁이 주문/체크아웃 롤백 실행 시작"
+          },
+          {
+            "t": 30,
+            "kind": "mitigated",
+            "actor_id": "person:정민혁",
+            "target_id": "service:주문",
+            "edge_id": "mitigated_by:service:주문->action:주문체크아웃-롤백",
+            "note": "주문/체크아웃 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+          }
+        ],
+        "path_ids": [
+          "service:주문",
+          "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+          "trigger:주문체크아웃-주문-실패율-알람",
+          "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+          "person:정민혁",
+          "reachable_via:person:정민혁->channel:phone",
+          "channel:phone",
+          "mitigated_by:service:주문->action:주문체크아웃-롤백",
+          "action:주문체크아웃-롤백",
+          "approved_by:action:주문체크아웃-롤백->person:한서윤",
+          "person:한서윤",
+          "reachable_via:person:한서윤->channel:email",
+          "channel:email",
+          "executed_by:action:주문체크아웃-롤백->person:정민혁",
+          "must_report:service:주문->obligation:kisa-침해사고-신고",
+          "obligation:kisa-침해사고-신고",
+          "reported_by:obligation:kisa-침해사고-신고->person:오준석",
+          "person:오준석"
+        ]
+      }
+    },
+    {
+      "scenario_id": "tpl:service:결제:breach_report",
+      "requires_patches": [
+        "patch-dmc-01",
+        "patch-dmc-02",
+        "patch-dmc-06"
+      ],
+      "result": {
+        "scenario_id": "tpl:service:결제:breach_report",
+        "scenario_fingerprint": "ced3eac328876117",
+        "graph_hash": "mock",
+        "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+        "failed_element": null,
+        "failed_at_id": null,
+        "outcome": "pass",
+        "time_to_mitigate": 28,
+        "deadline_minutes": 60,
+        "reason": "목표 복구 시간 60분 안에 완화(28분) · KISA 신고 절차 8분에 시작",
+        "events": [
+          {
+            "t": 0,
+            "kind": "incident_start",
+            "actor_id": null,
+            "target_id": "service:결제",
+            "edge_id": null,
+            "note": "결제 침해사고 발생"
+          },
+          {
+            "t": 3,
+            "kind": "detected",
+            "actor_id": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "target_id": "service:결제",
+            "edge_id": "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "note": "결제 서비스 실패율 알람(5% 초과 3분 지속)(으)로 감지(장애 후 3분)"
+          },
+          {
+            "t": 3,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:김서연",
+            "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "note": "담당 호출: 김서연에게 phone(으)로 호출"
+          },
+          {
+            "t": 3,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:오준석",
+            "edge_id": "reported_by:obligation:kisa-침해사고-신고->person:오준석",
+            "note": "신고 담당: 오준석에게 phone(으)로 호출"
+          },
+          {
+            "t": 8,
+            "kind": "ack",
+            "actor_id": "person:김서연",
+            "target_id": "person:김서연",
+            "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "note": "담당 호출: 김서연이 응답"
+          },
+          {
+            "t": 8,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:박재현",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "승인 요청: 박재현에게 phone(으)로 호출"
+          },
+          {
+            "t": 8,
+            "kind": "ack",
+            "actor_id": "person:오준석",
+            "target_id": "person:오준석",
+            "edge_id": "reported_by:obligation:kisa-침해사고-신고->person:오준석",
+            "note": "신고 담당: 오준석이 응답"
+          },
+          {
+            "t": 8,
+            "kind": "report_filed",
+            "actor_id": "person:오준석",
+            "target_id": "obligation:kisa-침해사고-신고",
+            "edge_id": "reported_by:obligation:kisa-침해사고-신고->person:오준석",
+            "note": "KISA 침해사고 신고 절차 시작 — 신고 담당 오준석 (법정 시한 24시간 이내)"
+          },
+          {
+            "t": 13,
+            "kind": "ack",
+            "actor_id": "person:박재현",
+            "target_id": "person:박재현",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "승인 요청: 박재현이 응답"
+          },
+          {
+            "t": 13,
+            "kind": "approval_requested",
+            "actor_id": "person:김서연",
+            "target_id": "person:박재현",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "김서연이 박재현에게 결제 서비스 롤백 승인 요청"
+          },
+          {
+            "t": 18,
+            "kind": "approved",
+            "actor_id": "person:박재현",
+            "target_id": "action:결제-서비스-롤백",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "박재현이 결제 서비스 롤백 승인"
+          },
+          {
+            "t": 18,
+            "kind": "action_started",
+            "actor_id": "person:김서연",
+            "target_id": "action:결제-서비스-롤백",
+            "edge_id": "executed_by:action:결제-서비스-롤백->person:김서연",
+            "note": "김서연이 결제 서비스 롤백 실행 시작"
+          },
+          {
+            "t": 28,
+            "kind": "mitigated",
+            "actor_id": "person:김서연",
+            "target_id": "service:결제",
+            "edge_id": "mitigated_by:service:결제->action:결제-서비스-롤백",
+            "note": "결제 서비스 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+          }
+        ],
+        "path_ids": [
+          "service:결제",
+          "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+          "person:김서연",
+          "reachable_via:person:김서연->channel:phone",
+          "channel:phone",
+          "mitigated_by:service:결제->action:결제-서비스-롤백",
+          "action:결제-서비스-롤백",
+          "approved_by:action:결제-서비스-롤백->person:박재현",
+          "person:박재현",
+          "reachable_via:person:박재현->channel:phone",
+          "executed_by:action:결제-서비스-롤백->person:김서연",
+          "must_report:service:결제->obligation:kisa-침해사고-신고",
+          "obligation:kisa-침해사고-신고",
+          "reported_by:obligation:kisa-침해사고-신고->person:오준석",
+          "person:오준석"
+        ]
+      }
+    },
+    {
+      "scenario_id": "dmc-s4-breach-report",
+      "requires_patches": [
+        "patch-dmc-01",
+        "patch-dmc-02",
+        "patch-dmc-06"
+      ],
+      "result": {
+        "scenario_id": "dmc-s4-breach-report",
+        "scenario_fingerprint": "7d4632477dc0ed63",
+        "graph_hash": "mock",
+        "config_hash": "12584b29d0fd57016b50a16a195eab768b3ce72989dd7920b3cf8fb67a2bd2b9",
+        "failed_element": null,
+        "failed_at_id": null,
+        "outcome": "pass",
+        "time_to_mitigate": 28,
+        "deadline_minutes": 1440,
+        "reason": "시한 1440분 안에 완화(28분) · 오준석 CISO 부재 → 한서윤 CTO가 8분에 신고 절차 시작",
+        "events": [
+          {
+            "t": 0,
+            "kind": "incident_start",
+            "actor_id": null,
+            "target_id": "service:결제",
+            "edge_id": null,
+            "note": "결제 침해사고 발생 · 오준석 부재"
+          },
+          {
+            "t": 3,
+            "kind": "detected",
+            "actor_id": "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "target_id": "service:결제",
+            "edge_id": "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "note": "결제 서비스 실패율 알람(5% 초과 3분 지속)(으)로 감지(장애 후 3분)"
+          },
+          {
+            "t": 3,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:김서연",
+            "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "note": "담당 호출: 김서연에게 phone(으)로 호출"
+          },
+          {
+            "t": 3,
+            "kind": "no_answer",
+            "actor_id": null,
+            "target_id": "person:오준석",
+            "edge_id": "reported_by:obligation:kisa-침해사고-신고->person:오준석",
+            "note": "신고 담당: 오준석 응답 불가 — 시나리오상 부재"
+          },
+          {
+            "t": 3,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:한서윤",
+            "edge_id": "reported_by:obligation:kisa-침해사고-신고->person:한서윤",
+            "note": "신고 담당: 한서윤에게 phone(으)로 호출"
+          },
+          {
+            "t": 8,
+            "kind": "ack",
+            "actor_id": "person:김서연",
+            "target_id": "person:김서연",
+            "edge_id": "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "note": "담당 호출: 김서연이 응답"
+          },
+          {
+            "t": 8,
+            "kind": "page",
+            "actor_id": "channel:phone",
+            "target_id": "person:박재현",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "승인 요청: 박재현에게 phone(으)로 호출"
+          },
+          {
+            "t": 8,
+            "kind": "ack",
+            "actor_id": "person:한서윤",
+            "target_id": "person:한서윤",
+            "edge_id": "reported_by:obligation:kisa-침해사고-신고->person:한서윤",
+            "note": "신고 담당: 한서윤이 응답"
+          },
+          {
+            "t": 8,
+            "kind": "report_filed",
+            "actor_id": "person:한서윤",
+            "target_id": "obligation:kisa-침해사고-신고",
+            "edge_id": "reported_by:obligation:kisa-침해사고-신고->person:한서윤",
+            "note": "KISA 침해사고 신고 절차 시작 — 신고 담당 대리 한서윤 (법정 시한 24시간 이내)"
+          },
+          {
+            "t": 13,
+            "kind": "ack",
+            "actor_id": "person:박재현",
+            "target_id": "person:박재현",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "승인 요청: 박재현이 응답"
+          },
+          {
+            "t": 13,
+            "kind": "approval_requested",
+            "actor_id": "person:김서연",
+            "target_id": "person:박재현",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "김서연이 박재현에게 결제 서비스 롤백 승인 요청"
+          },
+          {
+            "t": 18,
+            "kind": "approved",
+            "actor_id": "person:박재현",
+            "target_id": "action:결제-서비스-롤백",
+            "edge_id": "approved_by:action:결제-서비스-롤백->person:박재현",
+            "note": "박재현이 결제 서비스 롤백 승인"
+          },
+          {
+            "t": 18,
+            "kind": "action_started",
+            "actor_id": "person:김서연",
+            "target_id": "action:결제-서비스-롤백",
+            "edge_id": "executed_by:action:결제-서비스-롤백->person:김서연",
+            "note": "김서연이 결제 서비스 롤백 실행 시작"
+          },
+          {
+            "t": 28,
+            "kind": "mitigated",
+            "actor_id": "person:김서연",
+            "target_id": "service:결제",
+            "edge_id": "mitigated_by:service:결제->action:결제-서비스-롤백",
+            "note": "결제 서비스 롤백 완료 — 서비스 완화(조치 10분 — 소요 시간 미기재로 기본값 가정)"
+          }
+        ],
+        "path_ids": [
+          "service:결제",
+          "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+          "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+          "person:김서연",
+          "reachable_via:person:김서연->channel:phone",
+          "channel:phone",
+          "mitigated_by:service:결제->action:결제-서비스-롤백",
+          "action:결제-서비스-롤백",
+          "approved_by:action:결제-서비스-롤백->person:박재현",
+          "person:박재현",
+          "reachable_via:person:박재현->channel:phone",
+          "executed_by:action:결제-서비스-롤백->person:김서연",
+          "must_report:service:결제->obligation:kisa-침해사고-신고",
+          "obligation:kisa-침해사고-신고",
+          "reported_by:obligation:kisa-침해사고-신고->person:오준석",
+          "person:오준석",
+          "reported_by:obligation:kisa-침해사고-신고->person:한서윤",
+          "person:한서윤"
+        ]
+      }
+    }
+  ]
+}
