@@ -2025,9 +2025,11 @@ def cmd_evaluate(args: argparse.Namespace, corpus: Corpus) -> int:
             )
         llm_summary = {"run": run, **evaluate_llm(args.out, originals_kept, rewrites)}
     b = evaluate_b(corpus, ids, kept, _workers(args.workers))
+    # the model(s) that actually wrote the stored rewrites (the CLI default may differ from what was run)
+    used_models = sorted({r["model"] for r in read_jsonl(args.out / "paraphrases.jsonl") if r.get("model")})
     summary = {
         "generated_at": _now(),
-        "paraphrase_model": PARAPHRASE_MODEL,
+        "paraphrase_model": ", ".join(used_models) or PARAPHRASE_MODEL,
         "prompt_version": PROMPT_VERSION,
         "gate_version": GATE_VERSION,
         "sample_size": len(ids),

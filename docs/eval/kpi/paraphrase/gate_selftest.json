@@ -1,0 +1,139 @@
+{
+  "gate_version": "gate-v1",
+  "v1_identity": {
+    "what": "원문 그대로를 관문에 넣으면 모두 통과해야 한다(관문이 원문을 잘못 거르지 않는지)",
+    "cases": 1320,
+    "passed": 1320,
+    "failures": []
+  },
+  "v2_defect_undone": {
+    "what": "같은 순서로 결함 없는 조직을 렌더한 글(=재서술이 결함을 되돌린 경우)은 걸러야 한다. 담당자 퇴사는 본문이 같아 제외",
+    "per_operator": {
+      "deadline_contradiction": {
+        "cases": 120,
+        "rejected": 120,
+        "rejected_by_defect_or_fact_check": 120,
+        "reason_codes": {
+          "numbers_changed": 120,
+          "deadline_mismatch": 120
+        }
+      },
+      "delete_approver": {
+        "cases": 120,
+        "rejected": 120,
+        "rejected_by_defect_or_fact_check": 120,
+        "reason_codes": {
+          "defect_undone_approver": 120
+        }
+      },
+      "delete_detection": {
+        "cases": 120,
+        "rejected": 120,
+        "rejected_by_defect_or_fact_check": 120,
+        "reason_codes": {
+          "defect_undone_detection": 120,
+          "numbers_changed": 120
+        }
+      },
+      "delete_escalation": {
+        "cases": 120,
+        "rejected": 120,
+        "rejected_by_defect_or_fact_check": 120,
+        "reason_codes": {
+          "defect_undone_escalation": 120,
+          "numbers_changed": 120
+        }
+      },
+      "delete_fallback_channel": {
+        "cases": 120,
+        "rejected": 120,
+        "rejected_by_defect_or_fact_check": 120,
+        "reason_codes": {
+          "defect_undone_fallback": 120,
+          "media_changed": 120
+        }
+      },
+      "delete_owner": {
+        "cases": 120,
+        "rejected": 120,
+        "rejected_by_defect_or_fact_check": 120,
+        "reason_codes": {
+          "defect_undone_owner": 120
+        }
+      },
+      "delete_reporting_step": {
+        "cases": 120,
+        "rejected": 120,
+        "rejected_by_defect_or_fact_check": 120,
+        "reason_codes": {
+          "defect_undone_breach_step": 120,
+          "numbers_changed": 120,
+          "deadline_mismatch": 120,
+          "people_changed": 60
+        }
+      },
+      "delete_rollback": {
+        "cases": 120,
+        "rejected": 120,
+        "rejected_by_defect_or_fact_check": 120,
+        "reason_codes": {
+          "defect_undone_action": 120,
+          "numbers_changed": 90,
+          "people_changed": 36,
+          "roster_people_added": 36
+        }
+      },
+      "escalation_cycle": {
+        "cases": 120,
+        "rejected": 120,
+        "rejected_by_defect_or_fact_check": 120,
+        "reason_codes": {
+          "defect_undone_cycle": 120
+        }
+      }
+    },
+    "cases": 1080,
+    "rejected": 1080
+  },
+  "v3_perturbations": {
+    "what": "표본 원문에 사실 하나를 바꾼 글(명부 밖 인물, 숫자 변경, 채널 추가, 감지 문장 삭제)은 걸러야 한다",
+    "off_roster_person": {
+      "tried": 180,
+      "rejected": 180,
+      "reason_codes": {
+        "new_person": 180,
+        "owner_missing": 139,
+        "notify_target_missing": 22,
+        "people_changed": 4
+      }
+    },
+    "number_changed": {
+      "tried": 180,
+      "rejected": 180,
+      "reason_codes": {
+        "numbers_changed": 180
+      }
+    },
+    "channel_added": {
+      "tried": 180,
+      "rejected": 180,
+      "reason_codes": {
+        "media_changed": 180,
+        "defect_undone_fallback": 12,
+        "defect_undone_action": 3
+      }
+    },
+    "statement_dropped": {
+      "tried": 180,
+      "rejected": 180,
+      "reason_codes": {
+        "numbers_changed": 160,
+        "detection_missing": 137,
+        "location_missing": 20,
+        "system_missing": 20,
+        "people_changed": 2
+      }
+    }
+  },
+  "seconds": 83.0
+}
