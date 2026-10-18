@@ -10,8 +10,9 @@ import bisect
 import hashlib
 from datetime import datetime
 from enum import StrEnum
+from typing import Final
 
-from pydantic import BaseModel, ConfigDict, Field, PrivateAttr, computed_field
+from pydantic import BaseModel, ConfigDict, Field, PrivateAttr, computed_field, field_validator
 
 from jettae.domain.graph import ChannelMedium, IncidentType, PersonStatus
 
@@ -91,6 +92,15 @@ class FatiguePolicy(BaseModel):
     max_shifts_per_week: int = 3
 
 
+#: Jurisdiction of the statutory defaults (:data:`DEFAULT_OBLIGATIONS`) and of a default policy.
+KOREA: Final = "KR"
+
+
+def _jurisdiction_code(raw: str) -> str:
+    """``" kr "`` -> ``"KR"``: jurisdictions compare as trimmed upper-case codes (ISO 3166-1 style)."""
+    return raw.strip().upper()
+
+
 class ObligationRule(BaseModel):
     """A reporting/notification obligation the organisation must be able to meet."""
 
@@ -102,6 +112,16 @@ class ObligationRule(BaseModel):
     deadline_minutes: int
     legal_basis: str
     applies: bool = True  # org declares whether it is in scope (e.g. 정보통신서비스 제공자)
+    #: Legal system a statutory duty comes from ("KR" = 대한민국 법령). ``None`` = the
+    #: organisation's own duty (e.g. a customer SLA notice), in force wherever it operates.
+    jurisdiction: str | None = None
+
+    @field_validator("jurisdiction", mode="before")
+    @classmethod
+    def _code(cls, value: object) -> object:
+        if isinstance(value, str):
+            return _jurisdiction_code(value) or None
+        return value
 
 
 DEFAULT_OBLIGATIONS: tuple[ObligationRule, ...] = (
@@ -115,6 +135,7 @@ DEFAULT_OBLIGATIONS: tuple[ObligationRule, ...] = (
             "침해사고를 알게 된 때부터 24시간 이내 과학기술정보통신부장관 또는 KISA에 신고, "
             "추가 확인 사항은 확인한 때부터 24시간 이내 보완 신고(시행령 제58조의8)"
         ),
+        jurisdiction=KOREA,
     ),
     ObligationRule(
         key="kr-privacy-72h",
@@ -126,6 +147,7 @@ DEFAULT_OBLIGATIONS: tuple[ObligationRule, ...] = (
             "유출등을 알게 된 때부터 72시간 이내 정보주체 통지, 1천명 이상·민감/고유식별정보·"
             "외부 불법접근 시 개인정보보호위원회 또는 KISA 신고"
         ),
+        jurisdiction=KOREA,
     ),
 )
 
@@ -144,6 +166,33 @@ class Policy(BaseModel):
     terminal_roles: tuple[str, ...] = ("CTO", "대표", "CEO", "CISO")
     #: services in scope of breach / privacy obligations (empty = all critical services)
     regulated_services: tuple[str, ...] = ()
+    #: Jurisdictions whose statutory duties bind the organisation ("KR", "US" …). A duty of
+    #: another jurisdiction (e.g. the Korean 24h/72h reports for a company operating only in the
+    #: US) is not checked; the organisation's own duties (``jurisdiction=None``) always are.
+    #: Accepts a single code in a policy file (``jurisdictions: US``).
+    jurisdictions: tuple[str, ...] = (KOREA,)
+
+    @field_validator("jurisdictions", mode="before")
+    @classmethod
+    def _codes(cls, value: object) -> object:
+        items = [value] if isinstance(value, str) else value
+        if isinstance(items, list | tuple):
+            codes = (_jurisdiction_code(v) if isinstance(v, str) else v for v in items)
+            return tuple(dict.fromkeys(c for c in codes if c != ""))
+        return value
+
+    def in_force(self, rule: ObligationRule) -> bool:
+        """Whether ``rule`` binds this organisation: declared in scope and of one of its
+        jurisdictions (or an own duty without one). The single rule every check and replay uses."""
+        return rule.applies and (rule.jurisdiction is None or rule.jurisdiction in self.jurisdictions)
+
+    def obligations_in_force(self, incident_type: IncidentType | None = None) -> tuple[ObligationRule, ...]:
+        """:attr:`obligations` that :meth:`in_force` keeps, optionally of one incident type."""
+        return tuple(
+            r
+            for r in self.obligations
+            if self.in_force(r) and (incident_type is None or r.incident_type is incident_type)
+        )
 
 
 class CatalogService(BaseModel):

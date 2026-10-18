@@ -1,0 +1,49 @@
+{
+  "study": "real-runbooks",
+  "source": "https://gitlab.com/gitlab-com/runbooks@844a2b882687492cf117cc2fc553f7fbf9a02197",
+  "seed": 20261017,
+  "dev_size": 10,
+  "forced": {
+    "docs/alerts/ApdexSLOViolation.md": "파일럿 실행(3건)과 디버깅 조사(5건)에서 결과를 봄",
+    "docs/alerts/ErrorSLOViolation.md": "파일럿 실행(3건)과 디버깅 조사(5건)에서 결과를 봄",
+    "docs/alerts/TrafficAbsent.md": "파일럿 실행(3건)에서 결과를 봄",
+    "docs/cloudflare/oncall.md": "디버깅 조사(5건)에서 결과를 봄",
+    "docs/incidents/README.md": "디버깅 조사(5건)에서 결과를 봄",
+    "docs/uncategorized/rails-is-down.md": "디버깅 조사(5건)에서 결과를 봄"
+  },
+  "rule": "이미 결과를 본 문서 6건(파일럿·디버깅 조사)은 dev에 강제 배정하고, 나머지 문서를 경로 순으로 정렬해 random.Random(20261017).sample로 dev가 10건이 될 때까지 채운다. 남은 문서는 모두 test다. 제품 수정은 dev만 보고 하고, 최종 보고 수치는 test에서만 낸다.",
+  "dev": [
+    "docs/alerts/ApdexSLOViolation.md",
+    "docs/alerts/ErrorSLOViolation.md",
+    "docs/alerts/TrafficAbsent.md",
+    "docs/cloudflare/cloudflare-is-down.md",
+    "docs/cloudflare/oncall.md",
+    "docs/disaster-recovery/recovery.md",
+    "docs/frontend/haproxy-backend-no-active-servers.md",
+    "docs/incident-io/workflow-quick-reference.md",
+    "docs/incidents/README.md",
+    "docs/uncategorized/rails-is-down.md"
+  ],
+  "test": [
+    "docs/cloudflare/troubleshooting.md",
+    "docs/cloudflare/vendor.md",
+    "docs/disaster-recovery/README.md",
+    "docs/disaster-recovery/gameday.md",
+    "docs/frontend/asset-proxy-down.md",
+    "docs/frontend/gitlab-com-is-down.md",
+    "docs/frontend/high-error-rate.md",
+    "docs/frontend/ssh-maxstartups-breach.md",
+    "docs/gamedays/scenarios/zonal-outage-recovery.md",
+    "docs/incident-io/incident-management.md",
+    "docs/incident-io/oncall.md",
+    "docs/incidents/when-gitlab-com-is-down.md",
+    "docs/patroni/primary-unresponsive-assess-before-failover.md",
+    "docs/release-management/deploy_pressure.md",
+    "docs/security-patching/linux-os/notifications.md",
+    "docs/uncategorized/block-high-load-project.md",
+    "docs/uncategorized/externalvendors/GCP-rackspace-support.md",
+    "docs/uncategorized/namespace-restore.md",
+    "docs/uncategorized/upgrade-and-rollback.md",
+    "docs/uncategorized/workers-high-load.md"
+  ]
+}

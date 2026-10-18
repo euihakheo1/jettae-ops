@@ -22,6 +22,7 @@ from collections.abc import Iterable, Iterator
 from dataclasses import dataclass
 
 from jettae.check.context import CheckContext
+from jettae.check.elements import policy_tier_basis
 from jettae.check.registry import finding, register
 from jettae.check.rules.regulatory import (
     applicable_rules,
@@ -196,6 +197,10 @@ class EscalationExceedsRecoveryTarget:
             if timing.unstated_edges
             else ""
         )
+        basis = None if isinstance(svc.attr(AttrKey.SLO_MINUTES), int) else policy_tier_basis(ctx, svc.id)
+        if basis is not None:
+            # the recovery target is the policy's value for the default tier: a premise, not text
+            note += f" 목표 복구 시간은 문서에 없어 {basis}의 등급 기본값을 썼습니다."
         edge_ids = [e.id for e in timing.edges]
         return finding(
             self.info,

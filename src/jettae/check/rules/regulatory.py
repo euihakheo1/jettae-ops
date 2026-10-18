@@ -5,7 +5,10 @@ in breach of the law, because the *report* (침해사고 24시간, 개인정보 
 step. The obligations themselves come from ``Policy.obligations`` (defaults: ``DEFAULT_OBLIGATIONS``)
 so the legal text cited is always the one the organisation configured, and only rules with
 ``applies=True`` are checked — whether a company is e.g. an 정보통신서비스 제공자 is a fact it
-declares, not something we guess.
+declares, not something we guess. The statutory defaults are Korean law (``jurisdiction="KR"``):
+they bind only an organisation whose ``Policy.jurisdictions`` include KR (the default), so a
+company operating under another legal system is not told it misses a Korean report
+(:meth:`~jettae.domain.Policy.in_force`).
 
 "확인 불가 ≠ 정상" (P3) shapes the statuses: a reporting step that exists but does not say which
 incident it covers, or that is on HOLD (판단 보류), is reported as UNKNOWN rather than as
@@ -136,11 +139,9 @@ def might_satisfy_rule(node: Node, rule: ObligationRule) -> bool:
 
 
 def applicable_rules(ctx: CheckContext, incident_type: IncidentType | None = None) -> list[ObligationRule]:
-    return [
-        r
-        for r in ctx.policy.obligations
-        if r.applies and (incident_type is None or r.incident_type is incident_type)
-    ]
+    """Duties that bind the organisation (:meth:`Policy.in_force`: declared in scope *and* of one of
+    its jurisdictions — the Korean 24h/72h reports bind only a policy with ``jurisdictions`` KR)."""
+    return list(ctx.policy.obligations_in_force(incident_type))
 
 
 def reporting_services(ctx: CheckContext, obligation_id: str) -> list[str]:

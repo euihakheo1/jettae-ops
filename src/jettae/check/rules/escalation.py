@@ -36,18 +36,24 @@ from jettae.check.elements import (
     active_responders,
     analyze_owner,
     confirmed_view,
+    delegated_message,
+    delegated_title,
+    delegation_of,
     is_terminal,
     josa,
     label,
     labels,
+    merge_spans,
     service_label,
     spans_of,
     suggest_candidates,
     usable,
 )
 from jettae.check.registry import finding, register
+from jettae.check.rules.path import generic_alert_findings
 from jettae.domain import (
     AttrKey,
+    DelegatedElement,
     EdgeKind,
     Element,
     Finding,
@@ -96,17 +102,25 @@ class EscalationMissing:
                 continue
             subjects = (svc.id, *own.owner_ids, *esc.held_ids)
             status, note = _status(alt is not ctx and bool(analyze_owner(alt, svc.id).escalation.edge_ids))
+            message = (
+                f"{service_label(ctx, svc.id)}의 담당 {labels(ctx, own.owner_ids)}에게서 이어지는 상향 "
+                f"경로가 없습니다. 담당자가 응답하지 않으면 다음으로 부를 사람이 없습니다.{note}"
+            )
+            evidence = spans_of(ctx, subjects)
+            title = self.info.title
+            delegated = delegation_of(ctx, svc.id, DelegatedElement.ESCALATION)
+            if delegated is not None:
+                status, title = FindingStatus.UNKNOWN, delegated_title(self.info.title)
+                message = delegated_message(ctx, svc.id, delegated)
+                evidence = merge_spans(evidence, delegated.evidence)
             yield finding(
                 self.info,
                 keys=subjects,
-                title=self.info.title,
-                message=(
-                    f"{service_label(ctx, svc.id)}의 담당 {labels(ctx, own.owner_ids)}에게서 이어지는 상향 "
-                    f"경로가 없습니다. 담당자가 응답하지 않으면 다음으로 부를 사람이 없습니다.{note}"
-                ),
+                title=title,
+                message=message,
                 service_id=svc.id,
                 subject_ids=subjects,
-                evidence=spans_of(ctx, subjects),
+                evidence=evidence,
                 status=status,
                 fix=FixHint(
                     kind=FixKind.ADD_ESCALATION,
@@ -118,6 +132,7 @@ class EscalationMissing:
                     },
                 ),
             )
+        yield from generic_alert_findings(ctx, self.info, DelegatedElement.ESCALATION)
 
 
 def _cycle_edges(ctx: CheckContext, cycle: tuple[str, ...], esc: EscalationAnalysis) -> list[str]:

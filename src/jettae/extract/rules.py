@@ -451,7 +451,9 @@ _FENCE_RE = re.compile(r"[ \t]{0,3}(?:```|~~~)")
 _TABLE_ROW_RE = re.compile(r"\s*\|.*\|\s*")
 _TABLE_SEP_RE = re.compile(r"\s*\|?\s*:?-{2,}:?\s*(?:\|\s*:?-{2,}:?\s*)*\|?\s*")
 _MARKER_RE = re.compile(r"(?:\s*>)*\s*(?:(?:[-*+•▪◦·]|\d{1,3}[.)]|[①-⑳]|[가-하][.)])\s+)?(?:\[[ xX]\]\s+)?")
-_BRACKET_RE = re.compile(r"\[(?P<inner>[^\]\n]{1,40})\]")
+#: "[결제 서비스]" section header. Markdown link text ("[past incident](url)", "[title][ref]") is not
+#: one: a list of links to other pages must not open one service scope per link title.
+_BRACKET_RE = re.compile(r"\[(?P<inner>[^\]\n]{1,40})\](?![(\[])")
 #: A line that starts with a label and a colon ("담당: …", "결제: …", "**감지**: …").
 _LABEL_RE = re.compile(r"(?P<label>[^:：\n|\[\]]{1,40}?)\s*[:：](?:\s+|$)")
 #: What may follow a service name inside a label: "결제 서비스", "회원 인증 (Tier 1)".
