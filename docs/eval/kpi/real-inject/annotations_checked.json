@@ -1,0 +1,693 @@
+{
+  "schema": "jettae-real-inject-annotations/v1",
+  "created": "2026-10-18",
+  "step": "STEP 1 주석(어노테이션)만 함. 모델 호출 없음(작업 에이전트 자신 제외), 제품 실행 없음, 유료 API 없음.",
+  "annotator": "Claude(AI 작업 에이전트). 사람 검토 전.",
+  "source": {
+    "korean_root": "C:/jettae/data/real/gitlab-runbooks-ko",
+    "english_root": "C:/jettae/data/real/gitlab-runbooks",
+    "upstream": "https://gitlab.com/gitlab-com/runbooks@844a2b882687492cf117cc2fc553f7fbf9a02197",
+    "license": "MIT, GitLab Inc. 원문과 번역판 모두 같은 조건(번역판 폴더의 LICENSE).",
+    "split": "실증 ① test 분할 20건(docs/eval/gitlab-runbooks-split.json, digest 441efb8bb3f3)",
+    "translation": "Claude가 줄 단위로 맞춰 충실 번역한 것(AI 번역). 원문과 줄 번호가 같아 english_lines로 대조할 수 있다."
+  },
+  "deletion_rule": "지점마다 따로 적용한다(변형 문서 1개 = 지점 1개). lines의 줄을 통째로 빈 줄로 바꾼다. 줄바꿈 문자는 그대로 두어 줄 수와 줄 번호를 원본과 같게 한다. 줄 일부만 지우지 않는다.",
+  "rules_reference": {
+    "delete_owner": "JT-PATH-010 담당자 없음",
+    "delete_escalation": "JT-ESC-001 상향 경로 없음(담당이 인식된 서비스만 검사)",
+    "delete_approver": "JT-PATH-020 승인자 없음(롤백·페일오버는 정책 기본값으로 승인 필요)",
+    "delete_rollback": "JT-PATH-040 롤백/완화 조치 없음(재시작·우회만 남으면 한 단계 낮은 심각도)",
+    "delete_fallback_channel": "JT-PATH-030 대체 채널 없음(공급사 지원 창구는 세지 않음)",
+    "basis": "jettae-ops docs/rules.md, src/jettae/check/rules/path.py·escalation.py (커밋 ccf3b4d, 읽기만 함)"
+  },
+  "summary": {
+    "documents_considered": 20,
+    "documents_with_sites": 4,
+    "sites": 6,
+    "by_operator": {
+      "delete_owner": 1,
+      "delete_escalation": 1,
+      "delete_approver": 2,
+      "delete_rollback": 2,
+      "delete_fallback_channel": 0
+    },
+    "sites_not_preexisting_by_reading": 4,
+    "sites_preexisting_by_reading": 2,
+    "target_note": "목표(문서 8~12건, 지점 25~60개)에 크게 못 미친다. 억지로 채우지 않았다. test 20건 대부분은 대응 요소를 서비스 이름과 함께 적지 않았다(진단·명령 안내, 조직 공통 절차, 공급사 창구)."
+  },
+  "limits_ko": [
+    "주석은 AI(Claude)가 했고 사람이 아직 확인하지 않았다. 지점 선정·'남은 진술 없음' 판단은 사람 검토로 확정해야 한다.",
+    "원문은 영어이고 이 문서들은 AI가 번역한 한국어판이다. 번역이 원문과 어긋난 곳이 남아 있을 수 있다(english_lines로 대조).",
+    "출처가 GitLab 런북 하나뿐이고 지점은 6개(문서 4건)다. 이 지점들로 낸 탐지율은 참고 수준이며 일반화할 수 없다.",
+    "지원서에서 말한 '공개 런북을 고친 봉인 결함 주입 세트'를 줄인 실문서판이다. 실제 봉인 세트는 생성기로 만든 가상 조직을 썼다."
+  ],
+  "measurement_caveats_ko": [
+    "명부 없이 돌리면 사람·팀·역할이 '활동 중'으로 확인되지 않는다. 그래서 담당(JT-PATH-010)·승인자(JT-PATH-020)·대체 채널(JT-PATH-030) 규칙이 원본에서도 이미 뜬다. 이 세 연산자는 규칙 ID가 아니라 메시지·지적 키 변화로 판정하거나, 문서에 적힌 이름만 활동 중으로 둔 최소 명부를 원본·변형에 똑같이 넣어야 한다.",
+    "ideal_base_preexisting=true인 지점(RI-05, RI-06)은 원본에서도 같은 규칙이 맞게 뜨는 '원래 있던 결함'이다. 탐지율 분모에서 빼고 심각도 변화만 따로 본다.",
+    "prior_ko_run_hint는 이전 한국어 실행(LLM 추출 포함)의 결과일 뿐이다. 원본 기준선은 다음 단계에서 같은 설정으로 다시 재고, 원본에서 이미 기대 규칙이 그 서비스에 뜨는 지점은 분모에서 뺀다.",
+    "RI-04(Patroni)는 이전 실행에서 서비스가 하나도 잡히지 않은 문서다. 원본에서도 그렇다면 '측정 불가'로 따로 세고, 놓침(미탐)으로 세지 않는다."
+  ],
+  "sites": [
+    {
+      "site_id": "RI-01",
+      "doc_path": "docs/uncategorized/upgrade-and-rollback.md",
+      "doc_sha256": "10a78745918e66959b9c59c824d5234a8900bbc1441f2cefc40e99ec56794ac9",
+      "operator": "delete_owner",
+      "lines": [
+        5,
+        6,
+        7
+      ],
+      "service": "GitLab.com 애플리케이션 코드(업그레이드·롤백)",
+      "expected_rule": "JT-PATH-010",
+      "rationale": "담당 진술 「업그레이드와 롤백은 보통 delivery 팀이 … GitLab에서 담당합니다」와 「Delivery 팀이 지원할 수 있을 때 진행됩니다」를 지운다. 이 문서에서 누가 맡는지 적은 곳은 이 세 줄뿐이다.",
+      "residual_check": "44행 「delivery 팀과 협력하여 GitLab Chatops로 롤백을 시작합니다」는 롤백을 함께 실행할 팀(실행자)일 뿐 서비스 담당 진술이 아니라고 보았다. 9행 MOC·28행 IMOC는 상향, 43행 IMOC는 승인이다.",
+      "deleted_text": [
+        "업그레이드와 롤백은 보통 [delivery 팀](https://handbook.gitlab.com/handbook/engineering/infrastructure-platforms/gitlab-delivery/delivery/)이",
+        "GitLab에서 담당합니다. 일반적인 상황에서 애플리케이션 코드 업그레이드는 월요일부터",
+        "금요일까지, Delivery 팀이 지원할 수 있을 때 진행됩니다. 예외적인"
+      ],
+      "deleted_text_sha256": "8afb4bb2754812cd3cdaeb3684bd40d8ad188f8f573942382730665a3432a8dc",
+      "english_lines": [
+        "Upgrades and rollbacks are normally handled by the [delivery team](https://handbook.gitlab.com/handbook/engineering/infrastructure-platforms/gitlab-delivery/delivery/)",
+        "at GitLab. In normal circumstances upgrading the application code happens Monday",
+        "through Friday when the Delivery team is available for support. In extraordinary"
+      ],
+      "ideal_base_preexisting": false,
+      "expected_change": "담당 있음(delivery 팀) → 담당 없음. 기대 메시지: '담당자가 지정되어 있지 않습니다'.",
+      "caveats": [
+        "명부 없이 돌리면 팀 담당자도 '맡은 사람이 없습니다'로 원본에서 이미 JT-PATH-010이 뜬다. 규칙 ID만으로는 삭제를 구분할 수 없으니 메시지·지적 키 변화로 봐야 한다.",
+        "44행의 delivery 팀을 추출기가 담당으로 읽으면 삭제 후에도 담당이 남은 것으로 나올 수 있다.",
+        "7행 끝 '예외적인'이 함께 지워져 8행 문장 앞부분이 잘린다(줄 단위 삭제의 부작용)."
+      ],
+      "prior_ko_run_hint": {
+        "source": "C:/jettae/data/real/results/gitlab-test-ko/results.jsonl (2026-10-18, LLM 추출 포함 실행)",
+        "services_in_prior_findings": [
+          "GitLab",
+          "GitLab.com"
+        ],
+        "expected_rule_already_reported": true,
+        "messages": [
+          "'GitLab' 서비스: 담당자가 지정되어 있지 않습니다. 장애가 나면 책임지고 움직일 사람이 없습니다.",
+          "'GitLab.com' 서비스: 담당자가 지정되어 있지 않습니다. 장애가 나면 책임지고 움직일 사람이 없습니다."
+        ],
+        "note": "참고용. 원본 기준선은 다음 단계에서 같은 설정으로 다시 재야 한다."
+      },
+      "verdict": "keep",
+      "denominator": "included",
+      "verdict_reason_ko": "남긴다. 지운 5~7행이 이 문서에서 업그레이드·롤백을 누가 맡는지 적은 유일한 문장이고, 남는 줄 가운데 담당을 말하는 줄은 없다. 기대 규칙 JT-PATH-010과 맞다.",
+      "checks": {
+        "deleted_lines_state_element": {
+          "result": true,
+          "note_ko": "5~7행(영어 5~7행 'normally handled by the delivery team', 'when the Delivery team is available for support')은 업그레이드·롤백을 delivery 팀이 맡는다는 담당 진술이다."
+        },
+        "no_residual_statement": {
+          "result": true,
+          "note_ko": "44행 'delivery 팀과 협력하여 GitLab Chatops로 롤백을 시작합니다'는 롤백을 함께 실행할 팀(실행자)일 뿐 '맡는다'고 말하지 않는다. 9·28행 MOC/IMOC는 상향, 34~43행 DBRE/IMOC는 승인이다. 다만 사람이 읽으면 44행만으로도 delivery 팀이 롤백을 맡는다고 짐작할 수 있어, 추출기가 이 줄을 담당으로 읽을 위험은 남는다(기존 caveats와 같음)."
+        },
+        "expected_rule_matches_rules_md": {
+          "result": true,
+          "note_ko": "JT-PATH-010 '담당자 없음'(서비스를 맡은 활동 중인 사람이 없음)과 맞다."
+        },
+        "translation_matches_english": {
+          "result": true,
+          "note_ko": "지운 세 줄과 44행 모두 영어 원문과 같은 뜻이다."
+        }
+      },
+      "mechanical_checks": {
+        "doc_sha256_matches": true,
+        "deleted_text_matches_korean_lines": true,
+        "english_lines_match_original_lines": true,
+        "deleted_text_sha256_matches": true,
+        "line_count_ko_en_equal": true
+      }
+    },
+    {
+      "site_id": "RI-02",
+      "doc_path": "docs/uncategorized/upgrade-and-rollback.md",
+      "doc_sha256": "10a78745918e66959b9c59c824d5234a8900bbc1441f2cefc40e99ec56794ac9",
+      "operator": "delete_escalation",
+      "lines": [
+        9,
+        28,
+        31
+      ],
+      "service": "GitLab.com 애플리케이션 코드(업그레이드·롤백)",
+      "expected_rule": "JT-ESC-001",
+      "rationale": "상향 대상 진술 「(주말 배포·롤백 때는) MOC를 호출해야 합니다」, 「IMOC를 호출하여 곧 롤백이 진행될 것임을 알립니다」와 그 호출 명령 `/pd-moc …`를 지운다. 두 곳 중 하나만 지우면 나머지가 상향을 계속 말하므로 한 지점으로 묶었다.",
+      "residual_check": "34행 「DBRE 온콜을 호출하여 … 검토하도록 합니다」는 검토(승인 쪽) 요청, 43행 「IMOC가 롤백을 승인했는지 확인」은 승인자 진술이라 상향으로 보지 않았다. 담당(5~7행)은 남는다.",
+      "deleted_text": [
+        "경우에는 GitLab.com에 상당한 영향을 줄 수 있으므로 MOC를 호출해야 합니다.",
+        "- [ ] IMOC를 호출하여 곧 롤백이 진행될 것임을 알립니다",
+        "/pd-moc We are initiating a rollback of GitLab.com, for more information see <Issue or doc link>"
+      ],
+      "deleted_text_sha256": "4b02aff9c6aaffcd9f724773a304379a9f7192c190d2cd3407b23a912780cf16",
+      "english_lines": [
+        "cases the MOC should be paged as it may significantly impact GitLab.com.",
+        "- [ ] Page the IMOC to let them know that a rollback is about to happen",
+        "/pd-moc We are initiating a rollback of GitLab.com, for more information see <Issue or doc link>"
+      ],
+      "ideal_base_preexisting": false,
+      "expected_change": "상향 있음(MOC/IMOC) → 담당은 있는데 상향 없음.",
+      "caveats": [
+        "JT-ESC-001은 담당이 인식된 서비스에서만 검사한다. 원본에서 담당 연결이 판단 보류(HOLD)로 빠지면(이전 한국어 실행이 그랬다) 삭제 후에도 뜨지 않는다.",
+        "명부가 없으면 원본에서 MOC/IMOC가 빈 역할이라 JT-ESC-003(상향 막다른 길)이 뜰 수 있다. 그 경우 기대 변화는 ESC-003 → ESC-001이다.",
+        "34행의 DBRE 호출을 추출기가 상향으로 읽으면 삭제 후에도 ESC-001이 뜨지 않을 수 있다.",
+        "31행은 코드 블록 안 명령줄이라 지우면 빈 코드 블록(30·32행 울타리)이 남는다."
+      ],
+      "prior_ko_run_hint": {
+        "source": "C:/jettae/data/real/results/gitlab-test-ko/results.jsonl (2026-10-18, LLM 추출 포함 실행)",
+        "services_in_prior_findings": [
+          "GitLab",
+          "GitLab.com"
+        ],
+        "expected_rule_already_reported": false,
+        "messages": [],
+        "note": "참고용. 원본 기준선은 다음 단계에서 같은 설정으로 다시 재야 한다."
+      },
+      "verdict": "keep",
+      "denominator": "included",
+      "verdict_reason_ko": "남긴다(사람 확인 필요). 지운 줄은 MOC/IMOC를 부르라는 진술이고, 남는 줄에는 담당(delivery 팀)에서 이어지는 상향이 없다. 다만 원본의 상향이 '응답이 없으면 다음 사람'이라는 rules.md 정의와 딱 맞는 문장은 아니어서, 엄격하게 읽으면 원본에도 상향이 없던 것으로 볼 여지가 있다.",
+      "checks": {
+        "deleted_lines_state_element": {
+          "result": true,
+          "note_ko": "9행 'MOC를 호출해야 합니다'(영어 'the MOC should be paged'), 28행 'IMOC를 호출하여 … 알립니다', 31행 `/pd-moc` 호출 명령. 7~9행 문맥상 Delivery 팀이 지원하지 않는 주말에 부를 사람이 MOC라서 담당 다음으로 부르는 사람(상향)으로 읽을 수 있다. 하지만 9행은 '영향이 크기 때문에', 28행은 '곧 롤백한다는 알림'으로 부르는 것이고, rules.md의 '담당자가 응답하지 않을 때 다음으로 부를 사람'과 문장 그대로 맞지는 않는다."
+        },
+        "no_residual_statement": {
+          "result": true,
+          "note_ko": "34·37행 DBRE 온콜 호출은 롤백의 DB 영향 검토(승인 쪽)다. 42~43행 'DBRE가 부재 중이면 IMOC 승인 확인'은 '부재 시 다음 사람' 구조지만 승인자의 대체이고 담당에서 이어지는 상향이 아니다. JT-ESC-001은 담당에서 이어지는 상향만 본다(src/jettae/check/rules/escalation.py). 추출기가 42~43행이나 34행을 담당의 상향으로 읽으면 삭제 후에도 규칙이 뜨지 않을 수 있다."
+        },
+        "expected_rule_matches_rules_md": {
+          "result": true,
+          "note_ko": "JT-ESC-001 '상향 경로 없음'(담당은 있는데 다음으로 부를 사람이 없음)과 맞다. 담당 진술(5~7행)은 이 변형에서 남는다."
+        },
+        "translation_matches_english": {
+          "result": true,
+          "note_ko": "9·28·31행과 34·42~43행 모두 영어 원문과 같은 뜻이다."
+        }
+      },
+      "mechanical_checks": {
+        "doc_sha256_matches": true,
+        "deleted_text_matches_korean_lines": true,
+        "english_lines_match_original_lines": true,
+        "deleted_text_sha256_matches": true,
+        "line_count_ko_en_equal": true
+      }
+    },
+    {
+      "site_id": "RI-03",
+      "doc_path": "docs/uncategorized/upgrade-and-rollback.md",
+      "doc_sha256": "10a78745918e66959b9c59c824d5234a8900bbc1441f2cefc40e99ec56794ac9",
+      "operator": "delete_approver",
+      "lines": [
+        34,
+        37,
+        40,
+        41,
+        42,
+        43
+      ],
+      "service": "GitLab.com 애플리케이션 코드(업그레이드·롤백)",
+      "expected_rule": "JT-PATH-020",
+      "rationale": "롤백 승인 진술 「DBRE 온콜을 호출하여 롤백이 데이터베이스에 미치는 영향을 검토」, 「DBRE는 … 검토해야 합니다」, 「온콜 DBRE가 부재 중이거나 … IMOC가 롤백을 승인했는지 확인합니다」와 `/pd-db` 명령을 지운다. DBRE 검토가 1차 승인, IMOC 승인이 그 대체이므로 IMOC 줄만 지우면 DBRE가 승인자로 남아 함께 지웠다.",
+      "residual_check": "롤백 조치 자체(17·19·23·44행)는 남는다. 28행 IMOC 호출은 '곧 롤백한다'는 알림이고 승인 요구가 아니다.",
+      "deleted_text": [
+        "- [ ] DBRE 온콜을 호출하여 롤백이 데이터베이스에 미치는 영향을 검토하도록 합니다",
+        "/pd-db We are initiating a rollback of GitLab.com, for more information see <Issue or doc link>",
+        "- [ ] DBRE는 다음을 검토해야 합니다",
+        "  [롤백 시 db 고려 사항](https://gitlab.com/gitlab-org/release/docs/-/blob/master/general/deploy/gitlab-com-deployer.md#rollback-considerations-for-database-migrations)",
+        "  온콜 DBRE가 부재 중이거나 롤백의 데이터베이스 영향을 검토할 수 없는 경우,",
+        "  IMOC가 롤백을 승인했는지 확인합니다."
+      ],
+      "deleted_text_sha256": "58ca237be6304bb436b3e7354418505bad8283a0a27ca08cf8a37edae82a7dfe",
+      "english_lines": [
+        "- [ ] Page the DBRE oncall to review database impacts of rollback",
+        "/pd-db We are initiating a rollback of GitLab.com, for more information see <Issue or doc link>",
+        "- [ ] The DBRE should review",
+        "  [the db considerations for rollback](https://gitlab.com/gitlab-org/release/docs/-/blob/master/general/deploy/gitlab-com-deployer.md#rollback-considerations-for-database-migrations)",
+        "  If the oncall DBRE is unavailable or unable to review the database impact of rollback, ensure that",
+        "  the IMOC has signed off on the rollback."
+      ],
+      "ideal_base_preexisting": false,
+      "expected_change": "승인자 있음(DBRE, 대체 IMOC) → '애플리케이션 롤백'에 승인자 없음(정책 기본: 롤백은 승인 필요).",
+      "caveats": [
+        "명부가 없으면 원본에서도 승인자 DBRE/IMOC의 활동 여부를 확인할 수 없어 JT-PATH-020이 이미 뜬다. 메시지가 '활동 중이고 연락 가능한 사람이 없습니다' → '승인자가 적혀 있지 않습니다'로 바뀌는지로 봐야 한다.",
+        "이전 한국어 실행은 원본에서 이미 '승인자가 적혀 있지 않습니다'를 냈다(제품이 원본의 승인자를 못 읽음). 다시 재어도 같으면 이 지점은 원래 있던 결함으로 분모에서 뺀다."
+      ],
+      "prior_ko_run_hint": {
+        "source": "C:/jettae/data/real/results/gitlab-test-ko/results.jsonl (2026-10-18, LLM 추출 포함 실행)",
+        "services_in_prior_findings": [
+          "GitLab",
+          "GitLab.com"
+        ],
+        "expected_rule_already_reported": true,
+        "messages": [
+          "'GitLab.com' 서비스의 조치 '애플리케이션 롤백'은 정책(기본: 미분류 서비스는 핵심 등급) 기준으로 승인이 필요하지만 승인자가 적혀 있지 않습니다. 장애 중에 누구에게 승인을 받아야 하는지 몰라 조치가 늦어집니다. 승인이 필요하다는 전제는 문서가 아니라 정책에서 왔습니다(등급이 적히지 않은 서비스는 핵심 등급으로 보고, 핵심 서비스의 롤백·페일오버는 승인을 받는 것을 기본으로 봅니다)."
+        ],
+        "note": "참고용. 원본 기준선은 다음 단계에서 같은 설정으로 다시 재야 한다."
+      },
+      "verdict": "keep",
+      "denominator": "included",
+      "verdict_reason_ko": "남긴다. 지운 줄이 롤백 승인자(DBRE 검토, 그 대체인 IMOC 승인)를 모두 담고 있고, 남는 줄에는 승인자 진술이 없다. 롤백은 남아 있고 정책 기본값으로 승인이 필요하므로 JT-PATH-020과 맞다.",
+      "checks": {
+        "deleted_lines_state_element": {
+          "result": true,
+          "note_ko": "34행 DBRE 온콜에게 롤백의 DB 영향 검토 요청, 37행 `/pd-db`, 40~41행 'DBRE는 … 검토해야', 42~43행 'DBRE가 부재 중이면 IMOC가 롤백을 승인했는지 확인'(영어 'the IMOC has signed off on the rollback'). 42~43행이 IMOC 승인을 DBRE 검토의 대체로 적어서 DBRE 검토도 승인 관문으로 읽힌다."
+        },
+        "no_residual_statement": {
+          "result": true,
+          "note_ko": "23~24행 '롤백 전에 반드시 수행할 단계'는 절차 목록, 26~27행 S1/S2 이슈 확인은 전제 조건, 28행 IMOC 호출은 알림, 44행 delivery 팀은 실행자다. 롤백을 누가 승인하는지 적은 줄은 남지 않는다."
+        },
+        "expected_rule_matches_rules_md": {
+          "result": true,
+          "note_ko": "JT-PATH-020 '승인자 없음'과 맞다. 롤백 조치(17~21·44행)는 남고, 롤백은 정책 기본값으로 승인이 필요하다(src/jettae/check/context.py의 APPROVAL_BY_DEFAULT = 롤백·페일오버)."
+        },
+        "translation_matches_english": {
+          "result": true,
+          "note_ko": "지운 여섯 줄 모두 영어 원문과 같은 뜻이다('signed off' → '승인했는지')."
+        }
+      },
+      "mechanical_checks": {
+        "doc_sha256_matches": true,
+        "deleted_text_matches_korean_lines": true,
+        "english_lines_match_original_lines": true,
+        "deleted_text_sha256_matches": true,
+        "line_count_ko_en_equal": true
+      }
+    },
+    {
+      "site_id": "RI-04",
+      "doc_path": "docs/patroni/primary-unresponsive-assess-before-failover.md",
+      "doc_sha256": "c8bc67af1f9644d3ebd58a3be7a553a74545f1c2871a710f47df6f22a5145b82",
+      "operator": "delete_approver",
+      "lines": [
+        188,
+        192,
+        193
+      ],
+      "service": "Patroni/Postgres 클러스터(gprd main 등)",
+      "expected_rule": "JT-PATH-020",
+      "rationale": "페일오버·다음 조치의 결정권 진술 「다음 조치는 두 번째 DBRE와 Incident Manager가 결정합니다」, 「혼자 결정하지 마세요. 두 번째 DBRE가 검토하고 동의해야 하며, Incident Manager에게도 알려야 합니다」를 지운다.",
+      "residual_check": "184행 「두 번째 DBRE를 합류시키세요」는 사람을 부르라는 말이지 승인 요구가 아니라고 보았다. 203행 「먼저 DBRE와 확인하세요」는 다른 단계(지연 레플리카 재시작)에 대한 확인이다. 페일오버 언급(4·191행)은 남는다.",
+      "deleted_text": [
+        "- 다음 조치는 두 번째 DBRE와 Incident Manager가 결정합니다.",
+        "> 잃게 하므로 데이터 손실을 수반하는 결정입니다: 혼자 결정하지 마세요. 두 번째 DBRE가 검토하고",
+        "> 동의해야 하며, Incident Manager에게도 알려야 합니다."
+      ],
+      "deleted_text_sha256": "db356a06b40ac38da4506bc390652b02b64e72aa25d1e165dd8018bb7e1f4514",
+      "english_lines": [
+        "- The second DBRE and the Incident Manager decide the next course of action.",
+        "> has, so it's a data-loss decision: don't make it alone. It needs a second DBRE to review and",
+        "> agree, with the Incident Manager informed."
+      ],
+      "ideal_base_preexisting": false,
+      "expected_change": "페일오버 승인자 있음(두 번째 DBRE) → 승인자 없음(정책 기본: 페일오버는 승인 필요).",
+      "caveats": [
+        "이전 한국어 실행은 이 문서를 '시스템·도구만 적힌 문서'로 보고 서비스를 하나도 검사하지 않았다. 그대로라면 삭제해도 아무 지적이 나오지 않는다. 원본에서도 서비스가 잡히지 않으면 측정할 수 없는 지점으로 따로 분류해야 한다.",
+        "문서는 페일오버를 '이 런북의 범위 밖'이라 적었다. 제품이 페일오버를 이 클러스터의 조치로 뽑지 않으면 승인 검사 대상 자체가 없다.",
+        "이 지점을 지우면 Incident Manager 관련 진술(188·193행)도 함께 사라진다. 상향은 184행으로 남지만 상향 규칙 변화도 같이 생길 수 있다."
+      ],
+      "prior_ko_run_hint": {
+        "source": "C:/jettae/data/real/results/gitlab-test-ko/results.jsonl (2026-10-18, LLM 추출 포함 실행)",
+        "services_in_prior_findings": [],
+        "expected_rule_already_reported": false,
+        "messages": [],
+        "note": "참고용. 원본 기준선은 다음 단계에서 같은 설정으로 다시 재야 한다."
+      },
+      "verdict": "drop",
+      "denominator": "not_applicable",
+      "verdict_reason_ko": "뺀다. 지운 줄은 페일오버 승인자 진술이 맞지만, 이 문서는 페일오버를 '먼저 하지 말라'(4행), '이 런북의 범위 밖'(191행)이라고 조치에서 뺐다. JT-PATH-020은 서비스의 조치에만 걸리므로, 승인자를 지웠을 때 이 규칙이 떠야 하는지가 규칙으로 정해지지 않는다. 정답을 정할 수 없는 지점이다.",
+      "checks": {
+        "deleted_lines_state_element": {
+          "result": true,
+          "note_ko": "188행 '다음 조치는 두 번째 DBRE와 Incident Manager가 결정', 192~193행 '페일오버는 … 혼자 결정하지 마세요. 두 번째 DBRE가 검토하고 동의해야'(영어 'It needs a second DBRE to review and agree')는 페일오버 결정·승인 진술이다."
+        },
+        "no_residual_statement": {
+          "result": true,
+          "note_ko": "페일오버 승인자는 남지 않는다. 184행 '두 번째 DBRE를 합류시키세요'는 사람을 부르라는 말이다. 다만 203행 '먼저 DBRE와 확인하세요'는 다른 단계(지연 레플리카 재시작)에 대한 확인 관문으로 남는다."
+        },
+        "expected_rule_matches_rules_md": {
+          "result": false,
+          "note_ko": "rules.md의 JT-PATH-020은 '롤백·페일오버처럼 승인이 필요한 조치'에 승인자가 없을 때 뜬다. 코드에서도 서비스의 조치(mitigated_by)만 검사한다(src/jettae/check/elements.py analyze_approval). 이 문서가 실제로 시키는 조치는 Patroni 일시 중지·VM 리셋·Postgres 재시작·재개이고, 모두 정책 기본으로 승인이 필요 없다. 페일오버는 범위 밖이라고 적혀 있어 원문에 충실하게 읽으면 이 클러스터의 조치가 아니다. 188행 '다음 조치'도 특정 조치를 가리키지 않는다. 그래서 변형에서 JT-PATH-020이 떠야 한다는 기대가 규칙에서 나오지 않는다."
+        },
+        "translation_matches_english": {
+          "result": true,
+          "note_ko": "188·191~193·203행 모두 영어 원문과 같은 뜻이다."
+        },
+        "other_ko": "이전 한국어 실행은 이 문서에서 서비스를 하나도 잡지 않았다. 남겨 두었어도 측정할 수 없는 지점이 될 가능성이 컸다."
+      },
+      "mechanical_checks": {
+        "doc_sha256_matches": true,
+        "deleted_text_matches_korean_lines": true,
+        "english_lines_match_original_lines": true,
+        "deleted_text_sha256_matches": true,
+        "line_count_ko_en_equal": true
+      }
+    },
+    {
+      "site_id": "RI-05",
+      "doc_path": "docs/frontend/asset-proxy-down.md",
+      "doc_sha256": "271fa5b2f26c49178fe215408ebb49668eae4ca8108094ea28a063ed2dd1046b",
+      "operator": "delete_rollback",
+      "lines": [
+        19,
+        20,
+        21
+      ],
+      "service": "asset_proxy (HAProxy 백엔드)",
+      "expected_rule": "JT-PATH-040",
+      "rationale": "'런북' 절의 유일한 완화 단계인 `sudo systemctl stop haproxy`, `sudo rm -f /etc/haproxy/state/global`, `sudo systemctl start haproxy` 세 줄을 지운다.",
+      "residual_check": "22~24행은 상태 확인 명령과 출력, 14행은 '이슈에서 수정될 예정'이라는 안내로 완화 단계가 아니다.",
+      "deleted_text": [
+        "steve@haproxy-main-06-lb-gprd.c.gitlab-production.internal:~$ sudo systemctl stop haproxy # will take a while.",
+        "steve@haproxy-main-06-lb-gprd.c.gitlab-production.internal:~$ sudo rm -f /etc/haproxy/state/global",
+        "steve@haproxy-main-06-lb-gprd.c.gitlab-production.internal:~$ sudo systemctl start haproxy"
+      ],
+      "deleted_text_sha256": "a3228f353ac55619e2e863eeeed8b0b7acd3709eb40e58f8f222d838f69aac90",
+      "english_lines": [
+        "steve@haproxy-main-06-lb-gprd.c.gitlab-production.internal:~$ sudo systemctl stop haproxy # will take a while.",
+        "steve@haproxy-main-06-lb-gprd.c.gitlab-production.internal:~$ sudo rm -f /etc/haproxy/state/global",
+        "steve@haproxy-main-06-lb-gprd.c.gitlab-production.internal:~$ sudo systemctl start haproxy"
+      ],
+      "ideal_base_preexisting": true,
+      "expected_change": "원래 조치가 재시작 계열이라 원본도 '되돌리는 조치 없음'(JT-PATH-040, 한 단계 낮은 '보통')이 맞는 판정이다. 삭제 후에는 조치가 하나도 없어 심각도만 '보통' → '높음'으로 바뀐다.",
+      "caveats": [
+        "규칙 ID 기준으로는 원래 있던 결함이라 탐지율 분모에서 빼야 한다. 심각도 변화만 따로 볼 수 있다.",
+        "조치가 코드 블록 안에만 있어 제품이 원본에서도 읽지 못했다(이전 실행: '완화 조치가 적혀 있지 않습니다', 높음)."
+      ],
+      "prior_ko_run_hint": {
+        "source": "C:/jettae/data/real/results/gitlab-test-ko/results.jsonl (2026-10-18, LLM 추출 포함 실행)",
+        "services_in_prior_findings": [
+          "asset_proxy"
+        ],
+        "expected_rule_already_reported": true,
+        "messages": [
+          "'asset_proxy' 서비스에 롤백·페일오버 같은 완화 조치가 적혀 있지 않습니다. 장애 중에 무엇을 해야 할지 즉석에서 정해야 합니다."
+        ],
+        "note": "참고용. 원본 기준선은 다음 단계에서 같은 설정으로 다시 재야 한다."
+      },
+      "verdict": "keep",
+      "denominator": "excluded_preexisting",
+      "verdict_reason_ko": "남기되 탐지율 분모에서는 뺀다(원래 있던 결함). 지운 세 줄이 유일한 조치이고 남는 조치는 없다. 원래 조치가 재시작 계열이라 원본도 JT-PATH-040 '보통'이 맞고, 삭제 후 '높음'으로 바뀌는 심각도 변화만 따로 본다.",
+      "checks": {
+        "deleted_lines_state_element": {
+          "result": true,
+          "note_ko": "19~21행(HAProxy 중지, 상태 파일 삭제, 시작)은 '런북' 절의 유일한 조치다. 코드 줄이라 한국어판과 영어 원문이 글자까지 같다."
+        },
+        "no_residual_statement": {
+          "result": true,
+          "note_ko": "22~24행은 상태 확인 명령과 출력, 14행은 '이슈에서 고칠 예정'이라는 안내로 조치가 아니다. 서비스 이름 asset_proxy는 1·6~8·12·22~24행에 남아 서비스 자체는 사라지지 않는다."
+        },
+        "expected_rule_matches_rules_md": {
+          "result": true,
+          "note_ko": "JT-PATH-040과 맞다. rules.md '재시작·확장·임시 우회 방법만 있는 경우는 한 단계 낮은 심각도'에 따라 원본은 '보통', 조치가 하나도 없는 변형은 '높음'이다(path.py도 조치가 있으면 MEDIUM, 없으면 HIGH). 규칙 ID는 원본·변형 모두 같으므로 탐지 지점으로 세지 않는다."
+        },
+        "translation_matches_english": {
+          "result": true,
+          "note_ko": "번역 대상이 아닌 코드 줄이고 원문과 같다. 11~14행 설명도 같은 뜻이다."
+        }
+      },
+      "mechanical_checks": {
+        "doc_sha256_matches": true,
+        "deleted_text_matches_korean_lines": true,
+        "english_lines_match_original_lines": true,
+        "deleted_text_sha256_matches": true,
+        "line_count_ko_en_equal": true
+      }
+    },
+    {
+      "site_id": "RI-06",
+      "doc_path": "docs/incidents/when-gitlab-com-is-down.md",
+      "doc_sha256": "b4d2d78b9d45421e53ecd753faed29c20e701d8694df0b0d340d5498a2611dd7",
+      "operator": "delete_rollback",
+      "lines": [
+        50,
+        52,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61
+      ],
+      "service": "Incident.io (인시던트 관리 도구)",
+      "expected_rule": "JT-PATH-040",
+      "rationale": "Incident.io가 다운됐을 때의 유일한 대응 「현재 상태, 조치 항목, 메모를 위한 임시 장소로 Google Doc 사용을 고려하세요」와 그 만드는 단계(새 Google Doc 생성·공유 설정·Slack에 링크 게시)를 지운다.",
+      "residual_check": "62행 「행운을 빕니다!」만 남는다. 문서의 다른 절은 GitLab.com의 코드·구성 변경이라 Incident.io와 관계없다.",
+      "deleted_text": [
+        "## 인시던트 중 공유 문서",
+        "GitLab.com에 더해 Incident.io도 다운된 경우, 현재 상태, 조치 항목, 메모를 위한 임시 장소로 Google Doc 사용을 고려하세요.",
+        "- <https://drive.google.com/>로 이동합니다",
+        "- 새 Google Doc을 만듭니다",
+        "- 오른쪽 상단의 \"Share\"를 클릭합니다",
+        "- 모달의 \"Get link\" 섹션에서 \"Change link to GitLab\"을 클릭하여",
+        "  회사 전체와 문서를 공유할 수 있게 합니다.",
+        "- \"Anyone with the link in GitLab\" 권한을 \"Editor\"로 변경합니다",
+        "- 완료를 클릭합니다.",
+        "- Slack에 문서 링크를 게시합니다"
+      ],
+      "deleted_text_sha256": "dcd598d0ae50b8d6c6ae8cf672317c34fd1e32e47a28ba4f257076f2e278fc26",
+      "english_lines": [
+        "## Shared Documentation during Incidents",
+        "In the event that Incident.io is down in additional GitLab.com, consider using a Google Doc as a temporary location for current status, action items, and notes.",
+        "- Navigate to <https://drive.google.com/>",
+        "- Create a new Google Doc",
+        "- Click \"Share\" in the top-right corner",
+        "- In the \"Get link\" section of the modal, click \"Change link to GitLab\" to make",
+        "  the doc shareable with the whole company.",
+        "- Change the \"Anyone with the link in GitLab\" permissions to \"Editor\"",
+        "- Click done.",
+        "- Post a link to the doc in Slack"
+      ],
+      "ideal_base_preexisting": true,
+      "expected_change": "Google Doc은 임시 우회라 원본도 '되돌리는 조치 없음'(JT-PATH-040, '보통')이 맞는 판정이다. 삭제 후 심각도만 '보통' → '높음'.",
+      "caveats": [
+        "규칙 ID 기준으로는 원래 있던 결함이라 분모에서 빼야 한다.",
+        "한 절을 통째로 지우는 큰 삭제(10줄)다."
+      ],
+      "prior_ko_run_hint": {
+        "source": "C:/jettae/data/real/results/gitlab-test-ko/results.jsonl (2026-10-18, LLM 추출 포함 실행)",
+        "services_in_prior_findings": [
+          "GitLab.com",
+          "Incident.io"
+        ],
+        "expected_rule_already_reported": true,
+        "messages": [
+          "'Incident.io' 서비스에는 'Google Doc 사용' 같은 조치만 있고 롤백·페일오버·기능 플래그처럼 서비스를 되돌리는 조치가 없습니다."
+        ],
+        "note": "참고용. 원본 기준선은 다음 단계에서 같은 설정으로 다시 재야 한다."
+      },
+      "verdict": "drop",
+      "denominator": "not_applicable",
+      "verdict_reason_ko": "뺀다. 'Incident.io'라는 이름이 문서 전체에서 52행에만 나온다(한국어판·영어 원문 모두). 52행을 지우면 서비스 자체가 문서에서 사라지므로, '조치 없는 서비스'가 아니라 '서비스 없음'이 된다. 기대 규칙 JT-PATH-040이 그 서비스에 뜰 수 없다.",
+      "checks": {
+        "deleted_lines_state_element": {
+          "result": true,
+          "note_ko": "52행 'Incident.io도 다운된 경우 … 임시 장소로 Google Doc 사용을 고려'와 54~61행 그 만드는 단계는 Incident.io가 멈췄을 때의 유일한 대응(임시 우회)이다."
+        },
+        "no_residual_statement": {
+          "result": true,
+          "note_ko": "62행 '행운을 빕니다!'만 남고 다른 대응은 없다."
+        },
+        "expected_rule_matches_rules_md": {
+          "result": false,
+          "note_ko": "JT-PATH-040은 서비스가 있어야 검사한다. 변형 문서에는 Incident.io가 한 번도 나오지 않으므로 기대 변화('보통'→'높음')가 일어날 수 없다. 또 Incident.io는 외부 SaaS 도구이고 Google Doc은 인시던트 기록을 위한 우회라서, 이 도구의 완화 조치로 보는 것부터 애매하다. 원래 있던 결함(분모 제외)이기도 했다."
+        },
+        "translation_matches_english": {
+          "result": true,
+          "note_ko": "50·52·54~61행 모두 영어 원문과 같은 뜻이다."
+        }
+      },
+      "mechanical_checks": {
+        "doc_sha256_matches": true,
+        "deleted_text_matches_korean_lines": true,
+        "english_lines_match_original_lines": true,
+        "deleted_text_sha256_matches": true,
+        "line_count_ko_en_equal": true
+      }
+    }
+  ],
+  "skipped": [
+    {
+      "doc_path": "docs/uncategorized/upgrade-and-rollback.md",
+      "operator": "delete_rollback",
+      "service": "GitLab.com 애플리케이션 코드",
+      "status": "redundant",
+      "reason": "롤백 단계(19~21·44~46행)를 지워도 제목(1행)·절 제목(17행)·23행 「롤백하기 전에 다음 단계를 반드시 수행」·43행 「IMOC가 롤백을 승인」이 롤백 조치가 있다고 계속 말한다. 문서 전체가 롤백 문서라 줄 삭제로 없앨 수 없다."
+    },
+    {
+      "doc_path": "docs/uncategorized/upgrade-and-rollback.md",
+      "operator": "delete_fallback_channel",
+      "service": "GitLab.com 애플리케이션 코드",
+      "status": "absent",
+      "reason": "두 번째 연락 수단이 없다. `/pd-moc`·`/pd-db`(PagerDuty) 호출만 있고, 27행 google doc은 기록용 문서이지 사람에게 닿는 연락 수단이 아니다."
+    },
+    {
+      "doc_path": "docs/patroni/primary-unresponsive-assess-before-failover.md",
+      "operator": "delete_escalation",
+      "service": "Patroni/Postgres 클러스터",
+      "status": "redundant",
+      "reason": "상향 진술이 184행(두 번째 DBRE 합류)·188행(두 번째 DBRE와 Incident Manager가 결정)·193행(Incident Manager에게 알림)에 흩어져 있고 188·193행은 승인 진술과 같은 줄이다. 승인을 건드리지 않고 상향만 없앨 수 없다."
+    },
+    {
+      "doc_path": "docs/patroni/primary-unresponsive-assess-before-failover.md",
+      "operator": "delete_rollback",
+      "service": "Patroni/Postgres 클러스터",
+      "status": "redundant",
+      "reason": "완화가 문서 전체다(Patroni 일시 중지·VM 리셋·Postgres 재시작·재개, 35~177행). 일부를 지워도 다른 단계가 남는다."
+    },
+    {
+      "doc_path": "docs/incidents/when-gitlab-com-is-down.md",
+      "operator": "delete_rollback",
+      "service": "GitLab.com",
+      "status": "redundant",
+      "reason": "코드 수정 경로(10·12행, post-deployment patcher)를 지워도 구성 변경 경로(14~48행, ops 미러 CI)가 완화 단계로 남는다. 둘 다 지우면 문서 대부분(20줄 넘게)이 사라진다. 둘 다 되돌리기(롤백·페일오버·기능 플래그)가 아니어서 원본도 JT-PATH-040 '보통'이 맞는 판정이다."
+    },
+    {
+      "doc_path": "docs/uncategorized/block-high-load-project.md",
+      "operator": "delete_rollback",
+      "service": "GitLab(어뷰징 프로젝트)",
+      "status": "redundant",
+      "reason": "완화 단계가 여럿이다(비공개 설정 10행, 관리자 화면 비공개 18~23행, Repository 끄기 25행, 소유자 차단 27~32행, 임포트 취소 34~35행, 4행 Cloudflare 우선). 하나를 지우면 나머지가 남는다. 27행 '프로젝트 소유자'는 어뷰징 프로젝트의 주인이지 서비스 담당이 아니므로 delete_owner 대상이 아니다."
+    },
+    {
+      "doc_path": "docs/frontend/ssh-maxstartups-breach.md",
+      "operator": "delete_rollback",
+      "service": "git+ssh (gitlab-shell SSH)",
+      "status": "redundant",
+      "reason": "MaxStartups 상향(26~30·47행), HAProxy rate-limit 조정(65~66행), git 서버 증설(58행)과 값 조정 설명(32~45행)이 모두 완화를 말한다. 이전 실행도 서비스가 적히지 않은 경보 런북으로 보고 검사하지 않았다."
+    }
+  ],
+  "documents": [
+    {
+      "doc_path": "docs/cloudflare/troubleshooting.md",
+      "reason": "링크·진단 순서·지원 티켓 안내뿐이다. 담당·상향·승인·롤백·대체 채널 진술이 없다."
+    },
+    {
+      "doc_path": "docs/cloudflare/vendor.md",
+      "reason": "Cloudflare라는 이름은 있다. 하지만 16~24행 승인자는 접근 권한 요청(Lumos) 승인이지 롤백·페일오버 같은 완화 조치 승인이 아니다(JT-PATH-020 대상 아님). 61~63행 전화번호는 공급사 지원 창구(JT-PATH-030이 세지 않음)이고 내부 핸드북으로 넘겼다."
+    },
+    {
+      "doc_path": "docs/disaster-recovery/README.md",
+      "reason": "백업 전략·복원 검증·테스트 스크립트 안내다. 되돌리기는 코드 블록 예시(53~54행)뿐이고 변경 관리는 링크로만 넘겼다. 대응 요소가 없다."
+    },
+    {
+      "doc_path": "docs/disaster-recovery/gameday.md",
+      "reason": "대응 요소는 많지만 이름 붙은 서비스가 없다(게임데이 절차 문서). 이전 실행도 서비스를 찾지 못했다.",
+      "process_level_candidates": "담당 Ops 팀(5행), 실행자가 롤백 처리(21행), 검토자가 계획 승인(22행), 대체자 온콜 엔지니어(24행), 실패 시 네트워킹 및 인시던트 관리 팀에 알림(26행). 서비스를 정하지 않은 절차 수준이라 지점으로 세지 않았다."
+    },
+    {
+      "doc_path": "docs/frontend/asset-proxy-down.md",
+      "reason": "(지점 RI-05만) 담당·상향·승인·대체 채널은 없다."
+    },
+    {
+      "doc_path": "docs/frontend/gitlab-com-is-down.md",
+      "reason": "확인할 대시보드 목록뿐이다. 대응 요소가 없다."
+    },
+    {
+      "doc_path": "docs/frontend/high-error-rate.md",
+      "reason": "서비스를 이름으로 적지 않았고(경보 이름만) 담당도 없다. 17행 「#development에 채널 전체 알림」은 상향 비슷하지만 JT-ESC-001은 담당이 있어야 검사하므로 지워도 이 규칙이 뜰 수 없다."
+    },
+    {
+      "doc_path": "docs/frontend/ssh-maxstartups-breach.md",
+      "reason": "완화 단계가 여럿이라 redundant(위 skipped 참고). 담당·상향·승인·대체 채널이 없다."
+    },
+    {
+      "doc_path": "docs/gamedays/scenarios/zonal-outage-recovery.md",
+      "reason": "#production 채널에서 변경 이슈를 선언하는 절차뿐이다. 대응 요소가 없다."
+    },
+    {
+      "doc_path": "docs/incident-io/incident-management.md",
+      "reason": "incident.io 사용 안내다. 서비스가 없고 대응 요소도 서비스에 묶여 있지 않다."
+    },
+    {
+      "doc_path": "docs/incident-io/oncall.md",
+      "reason": "조직 공통 온콜 절차다. 이름 붙은 서비스가 없고 이전 실행도 '절차·안내'로 보았다.",
+      "process_level_candidates": "Infrastructure 팀으로의 수동 상향(7행), 팀·개인·CMOC·IMOC 상향(66~72행), SEOC(74행), Dev 온콜(76행), 앱이 없을 때 SMS·전화(9·17행), 15분/10분 응답 시간(35행). 서비스를 정하지 않은 절차 수준이라 지점으로 세지 않았다."
+    },
+    {
+      "doc_path": "docs/incidents/when-gitlab-com-is-down.md",
+      "reason": "(지점 RI-06만) GitLab.com 완화는 redundant(위 skipped). 담당·상향·승인·대체 채널은 없다."
+    },
+    {
+      "doc_path": "docs/patroni/primary-unresponsive-assess-before-failover.md",
+      "reason": "(지점 RI-04만) 상향·롤백은 redundant(위 skipped). 담당·대체 채널은 없다."
+    },
+    {
+      "doc_path": "docs/release-management/deploy_pressure.md",
+      "reason": "gstg-cny라는 이름은 있다. 하지만 담당·상향·승인·완화가 없다(경보 사일런스는 서비스 완화 조치가 아니다)."
+    },
+    {
+      "doc_path": "docs/security-patching/linux-os/notifications.md",
+      "reason": "patching-notifier의 동작·설정 안내다. 대응 요소가 없다."
+    },
+    {
+      "doc_path": "docs/uncategorized/block-high-load-project.md",
+      "reason": "완화 단계가 여럿이라 redundant(위 skipped). 다른 요소는 없다."
+    },
+    {
+      "doc_path": "docs/uncategorized/externalvendors/GCP-rackspace-support.md",
+      "reason": "공급사 지원 창구·티켓 안내다(JT-PATH-030이 세지 않음). 추가 상향 경로는 벤더 트래커 readme로 넘겼다."
+    },
+    {
+      "doc_path": "docs/uncategorized/namespace-restore.md",
+      "reason": "복원 명령 모음이다. 152행 '도구를 관리하는 Professional Services 팀'은 도구 관리자이지 대응 담당이 아니다."
+    },
+    {
+      "doc_path": "docs/uncategorized/upgrade-and-rollback.md",
+      "reason": "(지점 RI-01~03) 롤백은 redundant, 대체 채널은 없다(위 skipped)."
+    },
+    {
+      "doc_path": "docs/uncategorized/workers-high-load.md",
+      "reason": "시스템을 '워커'라는 일반 명칭으로만 적었다. 이전 실행도 서비스를 찾지 못했다.",
+      "process_level_candidates": "완화: 프로젝트를 논리 삭제 상태로 설정(26행, 코드 29~32행), 프로세스 종료(35행, 코드 38행). 이름 붙은 서비스가 아니라 지점으로 세지 않았다."
+    }
+  ],
+  "checked_schema": "jettae-real-inject-annotations-checked/v1",
+  "check": {
+    "step": "STEP 1b 독립 주석 점검. 새 지점은 넣지 않았다. 모델·유료 API 호출 없음, 제품 실행 없음.",
+    "checked": "2026-10-18",
+    "checker": "Claude(AI 작업 에이전트), STEP 1 주석과 별도로 실행한 점검. 같은 종류의 AI라서 사람의 독립 검토를 대신하지 못한다. 사람 검토 전.",
+    "input_annotations_sha256": "0ac233ce2e40226506a6fe170173e956c3b3021f29201fbf99f51690e5f02397",
+    "method_ko": [
+      "지점마다 한국어판 문서를 열고 영어 원문의 같은 줄과 나란히 대조했다.",
+      "세 가지를 봤다: (1) 지운 줄이 그 서비스의 그 요소를 정말 말하는가, (2) 남는 줄 가운데 같은 요소를 아직 말하는 줄이 없는가, (3) 기대 규칙이 docs/rules.md의 정의와 맞는가.",
+      "규칙이 실제로 무엇을 검사하는지는 src/(커밋 ccf3b4d)를 읽기만 해서 확인했다: JT-ESC-001은 담당에서 이어지는 상향만, JT-PATH-020은 서비스의 조치(mitigated_by) 중 승인이 필요한 것만, JT-PATH-040은 서비스가 있을 때만 검사한다.",
+      "기계 점검: 문서 sha256, deleted_text와 실제 줄, english_lines와 원문 줄, deleted_text_sha256이 6개 지점 모두 일치했다."
+    ],
+    "summary": {
+      "sites_checked": 6,
+      "keep": 4,
+      "drop": 2,
+      "keep_ids": [
+        "RI-01",
+        "RI-02",
+        "RI-03",
+        "RI-05"
+      ],
+      "drop_ids": [
+        "RI-04",
+        "RI-06"
+      ],
+      "detection_denominator_ids": [
+        "RI-01",
+        "RI-02",
+        "RI-03"
+      ],
+      "detection_denominator": 3,
+      "preexisting_kept_ids": [
+        "RI-05"
+      ],
+      "documents_with_counted_sites": 1
+    },
+    "limits_ko": [
+      "점검도 AI가 했다. 주석을 만든 쪽과 같은 종류의 모델이라 같은 방향으로 틀렸을 수 있다. 사람이 확인해야 확정된다.",
+      "한국어판은 AI 번역이다. 이번 점검에서 지점 줄의 뜻이 원문과 어긋난 곳은 찾지 못했지만, 번역 전체를 검수한 것은 아니다.",
+      "남은 지점은 4개이고, 탐지율 분모에 들어가는 지점은 3개뿐이며 모두 한 문서(upgrade-and-rollback.md)에서 나왔다. 출처도 GitLab 런북 하나뿐이다. 이 지점들로 낸 탐지율은 사례 보고 수준이며 일반화할 수 없다.",
+      "RI-02는 남겼지만 원본의 상향이 '응답이 없으면 다음 사람'이라는 정의와 문장 그대로 맞지는 않는다. 사람 검토에서 원래 있던 결함으로 바뀔 수 있다.",
+      "지원서에서 말한 '공개 런북을 고친 봉인 결함 주입 세트'를 줄인 실문서판이다. 실제 봉인 세트는 생성기로 만든 가상 조직을 썼다."
+    ]
+  }
+}
