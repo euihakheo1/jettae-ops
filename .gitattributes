@@ -1,0 +1,2 @@
+# 동결 해시 목록: 이 파일 자체의 sha256이 기준값이라 어느 OS에서 받아도 LF로 둔다 (docs/eval/realdata-freeze.md)
+docs/eval/realdata-freeze-lf.sha256 text eol=lf

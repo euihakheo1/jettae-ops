@@ -1,0 +1,89 @@
+{
+  "study": "retro",
+  "generated_at": "2026-10-18",
+  "model": "claude-sonnet-5-5",
+  "effort": "medium",
+  "coder_a": "anthropic:claude-sonnet-5-5",
+  "coder_b": "openai:gpt-6.1-sol",
+  "bundle_language": "source",
+  "incidents_total": 27,
+  "incidents_done": 27,
+  "incidents_failed": 0,
+  "partial": false,
+  "stop_reason": null,
+  "n": 378,
+  "k": 41,
+  "m": 33,
+  "m_broken": 33,
+  "flagged_share": {
+    "hits": 33,
+    "n": 41,
+    "rate": 0.8049,
+    "ci95": [
+      0.6599,
+      0.8977
+    ]
+  },
+  "flagged_share_broken": {
+    "hits": 33,
+    "n": 41,
+    "rate": 0.8049,
+    "ci95": [
+      0.6599,
+      0.8977
+    ]
+  },
+  "agreement": {
+    "n": 438,
+    "observed": 0.5753,
+    "cohen_kappa": 0.1853,
+    "krippendorff_alpha": 0.1419
+  },
+  "units": 438,
+  "gaps_a": 169,
+  "gaps_b": 370,
+  "ungrounded_a": 5,
+  "ungrounded_b": 0,
+  "by_family": {
+    "(코더 간 계열 불일치)": {
+      "k": 6,
+      "m": 3
+    },
+    "CAT": {
+      "k": 1,
+      "m": 1
+    },
+    "CHN": {
+      "k": 3,
+      "m": 0
+    },
+    "PATH": {
+      "k": 31,
+      "m": 29
+    }
+  },
+  "leakage_units": 793,
+  "leakage_flagged": 77,
+  "leakage_by_category": {
+    "hindsight": 18,
+    "incident_event": 39,
+    "outcome": 13,
+    "post_incident_change": 7
+  },
+  "findings": 509,
+  "spent_usd_total": 11.754741,
+  "spend_this_run": {
+    "max_usd": 12.25,
+    "spent_usd": 0.0,
+    "by_model": [],
+    "max_usd_run": null,
+    "prior_usd": 11.754741
+  },
+  "incidents_partial_extraction": 0,
+  "spent_usd_results": 11.754741,
+  "stop_kind": null,
+  "jurisdictions": {
+    "KR": 5,
+    "ZZ": 22
+  }
+}
