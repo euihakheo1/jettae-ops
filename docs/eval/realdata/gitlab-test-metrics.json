@@ -1,0 +1,441 @@
+{
+  "study": "real-runbooks",
+  "generated_at": "2026-10-18",
+  "source": "https://gitlab.com/gitlab-com/runbooks@844a2b882687492cf117cc2fc553f7fbf9a02197",
+  "model": "claude-sonnet-5-5",
+  "effort": "medium",
+  "coder_a": "anthropic:claude-sonnet-5-5",
+  "coder_b": "openai:gpt-6.1-sol",
+  "runbooks_total": 20,
+  "runbooks_done": 20,
+  "runbooks_failed": 0,
+  "partial": false,
+  "stop_reason": null,
+  "findings": 59,
+  "by_status": {
+    "broken": 55,
+    "unknown": 4
+  },
+  "by_severity": {
+    "critical": 25,
+    "high": 27,
+    "medium": 7
+  },
+  "labels_a": {
+    "correct": 38,
+    "incorrect": 21,
+    "unclear": 0,
+    "missing": 0
+  },
+  "labels_b": {
+    "correct": 40,
+    "incorrect": 19,
+    "unclear": 0,
+    "missing": 0
+  },
+  "agreement": {
+    "n": 59,
+    "observed": 0.8644,
+    "cohen_kappa": 0.6978,
+    "krippendorff_alpha": 0.7
+  },
+  "precision": {
+    "coder_a": {
+      "hits": 38,
+      "n": 59,
+      "rate": 0.6441,
+      "ci95": [
+        0.5166,
+        0.754
+      ]
+    },
+    "coder_b": {
+      "hits": 40,
+      "n": 59,
+      "rate": 0.678,
+      "ci95": [
+        0.5511,
+        0.7831
+      ]
+    },
+    "agreed": {
+      "hits": 35,
+      "n": 51,
+      "rate": 0.6863,
+      "ci95": [
+        0.5497,
+        0.7967
+      ]
+    }
+  },
+  "precision_ex_kr": {
+    "coder_a": {
+      "hits": 38,
+      "n": 59,
+      "rate": 0.6441,
+      "ci95": [
+        0.5166,
+        0.754
+      ]
+    },
+    "coder_b": {
+      "hits": 40,
+      "n": 59,
+      "rate": 0.678,
+      "ci95": [
+        0.5511,
+        0.7831
+      ]
+    },
+    "agreed": {
+      "hits": 35,
+      "n": 51,
+      "rate": 0.6863,
+      "ci95": [
+        0.5497,
+        0.7967
+      ]
+    }
+  },
+  "by_status_precision": {
+    "broken": {
+      "coder_a": {
+        "hits": 36,
+        "n": 55,
+        "rate": 0.6545,
+        "ci95": [
+          0.5225,
+          0.7664
+        ]
+      },
+      "coder_b": {
+        "hits": 38,
+        "n": 55,
+        "rate": 0.6909,
+        "ci95": [
+          0.5597,
+          0.7972
+        ]
+      },
+      "agreed": {
+        "hits": 33,
+        "n": 47,
+        "rate": 0.7021,
+        "ci95": [
+          0.5602,
+          0.8135
+        ]
+      }
+    },
+    "unknown": {
+      "coder_a": {
+        "hits": 2,
+        "n": 4,
+        "rate": 0.5,
+        "ci95": [
+          0.15,
+          0.85
+        ]
+      },
+      "coder_b": {
+        "hits": 2,
+        "n": 4,
+        "rate": 0.5,
+        "ci95": [
+          0.15,
+          0.85
+        ]
+      },
+      "agreed": {
+        "hits": 2,
+        "n": 4,
+        "rate": 0.5,
+        "ci95": [
+          0.15,
+          0.85
+        ]
+      }
+    }
+  },
+  "families": [
+    {
+      "family": "INT",
+      "label_ko": "판단 보류·근거 무결성",
+      "findings": 2,
+      "labels_a": {
+        "correct": 0,
+        "incorrect": 2,
+        "unclear": 0,
+        "missing": 0
+      },
+      "labels_b": {
+        "correct": 0,
+        "incorrect": 2,
+        "unclear": 0,
+        "missing": 0
+      },
+      "precision": {
+        "coder_a": {
+          "hits": 0,
+          "n": 2,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.6576
+          ]
+        },
+        "coder_b": {
+          "hits": 0,
+          "n": 2,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.6576
+          ]
+        },
+        "agreed": {
+          "hits": 0,
+          "n": 2,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.6576
+          ]
+        }
+      },
+      "agreement": {
+        "n": 2,
+        "observed": 1.0,
+        "cohen_kappa": 1.0,
+        "krippendorff_alpha": 1.0
+      },
+      "agreement_premise": {
+        "n": 2,
+        "observed": 0.5,
+        "cohen_kappa": 0.0,
+        "krippendorff_alpha": 0.0
+      },
+      "agreement_claim": {
+        "n": 2,
+        "observed": 0.5,
+        "cohen_kappa": 0.0,
+        "krippendorff_alpha": 0.0
+      }
+    },
+    {
+      "family": "PATH",
+      "label_ko": "필수 대응 경로 5요소",
+      "findings": 57,
+      "labels_a": {
+        "correct": 38,
+        "incorrect": 19,
+        "unclear": 0,
+        "missing": 0
+      },
+      "labels_b": {
+        "correct": 40,
+        "incorrect": 17,
+        "unclear": 0,
+        "missing": 0
+      },
+      "precision": {
+        "coder_a": {
+          "hits": 38,
+          "n": 57,
+          "rate": 0.6667,
+          "ci95": [
+            0.5372,
+            0.7751
+          ]
+        },
+        "coder_b": {
+          "hits": 40,
+          "n": 57,
+          "rate": 0.7018,
+          "ci95": [
+            0.5734,
+            0.8047
+          ]
+        },
+        "agreed": {
+          "hits": 35,
+          "n": 49,
+          "rate": 0.7143,
+          "ci95": [
+            0.5759,
+            0.8215
+          ]
+        }
+      },
+      "agreement": {
+        "n": 57,
+        "observed": 0.8596,
+        "cohen_kappa": 0.6757,
+        "krippendorff_alpha": 0.6781
+      },
+      "agreement_premise": {
+        "n": 57,
+        "observed": 0.9474,
+        "cohen_kappa": 0.7005,
+        "krippendorff_alpha": 0.7008
+      },
+      "agreement_claim": {
+        "n": 57,
+        "observed": 0.8772,
+        "cohen_kappa": 0.6415,
+        "krippendorff_alpha": 0.6445
+      }
+    }
+  ],
+  "holds": 2,
+  "holds_backtranslation": 2,
+  "backtranslation_skipped_documents": 20,
+  "backtranslation_note": "backtranslation: skipped (non-Korean source)",
+  "llm_calls_by_task": {
+    "extract": 26
+  },
+  "spent_usd_total": 0.732224,
+  "spend_this_run": {
+    "max_usd": 2.5,
+    "spent_usd": 0.18417,
+    "by_model": [
+      {
+        "model": "claude-sonnet-5-5",
+        "calls": 9,
+        "input_tokens": 31485,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 85832,
+        "output_tokens": 4577,
+        "usd": 0.125906
+      },
+      {
+        "model": "gpt-6.1-sol",
+        "calls": 4,
+        "input_tokens": 17537,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 2319,
+        "usd": 0.058264
+      }
+    ],
+    "max_usd_run": null,
+    "prior_usd": 0.548054
+  },
+  "review": {
+    "size": 59,
+    "seed": 20261017,
+    "by_family": {
+      "INT": 2,
+      "PATH": 57
+    }
+  },
+  "runbooks_partial_extraction": 0,
+  "extract_failed_chunks": 0,
+  "extraction_items": 132,
+  "grounding_dropped": 1,
+  "spent_usd_results": 0.732225,
+  "stop_kind": null,
+  "rubric": "premise-claim-v4",
+  "questions": {
+    "premise_a": {
+      "yes": 51,
+      "no": 8,
+      "unclear": 0,
+      "missing": 0
+    },
+    "premise_b": {
+      "yes": 55,
+      "no": 4,
+      "unclear": 0,
+      "missing": 0
+    },
+    "claim_a": {
+      "yes": 46,
+      "no": 13,
+      "unclear": 0,
+      "missing": 0
+    },
+    "claim_b": {
+      "yes": 44,
+      "no": 15,
+      "unclear": 0,
+      "missing": 0
+    },
+    "agreement_premise": {
+      "n": 59,
+      "observed": 0.9322,
+      "cohen_kappa": 0.6335,
+      "krippendorff_alpha": 0.6321
+    },
+    "agreement_claim": {
+      "n": 59,
+      "observed": 0.8644,
+      "cohen_kappa": 0.626,
+      "krippendorff_alpha": 0.6286
+    },
+    "premise_error": {
+      "coder_a": {
+        "hits": 8,
+        "n": 59,
+        "rate": 0.1356,
+        "ci95": [
+          0.0703,
+          0.2454
+        ]
+      },
+      "coder_b": {
+        "hits": 4,
+        "n": 59,
+        "rate": 0.0678,
+        "ci95": [
+          0.0267,
+          0.1618
+        ]
+      },
+      "agreed": {
+        "hits": 4,
+        "n": 55,
+        "rate": 0.0727,
+        "ci95": [
+          0.0286,
+          0.1726
+        ]
+      }
+    },
+    "precision_valid_premise": {
+      "coder_a": {
+        "hits": 38,
+        "n": 51,
+        "rate": 0.7451,
+        "ci95": [
+          0.6113,
+          0.8445
+        ]
+      },
+      "coder_b": {
+        "hits": 40,
+        "n": 55,
+        "rate": 0.7273,
+        "ci95": [
+          0.5977,
+          0.8272
+        ]
+      },
+      "agreed": {
+        "hits": 35,
+        "n": 45,
+        "rate": 0.7778,
+        "ci95": [
+          0.6373,
+          0.8746
+        ]
+      }
+    }
+  },
+  "jurisdictions": [
+    "US"
+  ],
+  "split": "test",
+  "split_digest": "441efb8bb3f3d1927f5eea6ba4a68710a7e412501d862e232a06e9528db040c1",
+  "split_rule": "이미 결과를 본 문서 6건(파일럿·디버깅 조사)은 dev에 강제 배정하고, 나머지 문서를 경로 순으로 정렬해 random.Random(20261017).sample로 dev가 10건이 될 때까지 채운다. 남은 문서는 모두 test다. 제품 수정은 dev만 보고 하고, 최종 보고 수치는 test에서만 낸다."
+}

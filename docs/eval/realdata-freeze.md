@@ -77,3 +77,46 @@ r3에서 남은 dev 실패 유형(동결 후 고치지 않음 — 보고서의 �
 | 실증 ② 사후 보고서 회고 | 보고서 27건 (관할 KR 5건, ZZ 22건 — 모두 front matter `language` 기준) | `retro` | $42.90 |
 
 유료 test/retro 실행은 이 기록을 쓴 시점에 하지 않았다.
+
+## 공개 저장소에서 확인하기 (줄바꿈 무관)
+
+동결한 코드는 main의 커밋 `ccf3b4d`(`ccf3b4da8844b5f735827dfd0278f154b09a5d12`, 2026-10-18 10:11)로 공개했다. 이 커밋은
+유료 test(09:22–09:27)·회고(09:28–10:04) 실행이 끝난 뒤에 올렸으므로, 실행 전 동결을 외부 타임스탬프로 증명하지는 못한다
+(근거는 아래 끝 문단의 작업 트리 해시 재확인과 결과 폴더 `run.json`의 설정값). 위 표의 파일
+해시는 Windows 작업 트리(`core.autocrlf=true`)에서 잰 바이트 그대로의 값이다. 이 작업 트리에서는 `src/jettae/**/*.py`
+139개 중 48개가 CRLF 줄바꿈으로 풀려 있고 `coding.py`도 그중 하나라서, 다른 컴퓨터에서 받은 사본으로는 같은 값이 나오지
+않을 수 있다. 그래서 다시 확인할 수 있는 기준은 **LF로 정규화한 내용 = git blob 내용**의 해시다.
+
+| 파일 | sha256 (LF 정규화 = `ccf3b4d`의 git blob) |
+|---|---|
+| `src/jettae/extract/llm_extractor.py` | `4060e59ff14030f88df7b298c499dde9c16d18d8429ba76bec77346a6c8de8d9` |
+| `src/jettae/extract/assemble.py` | `8c6d9b61d8f4888ef8bbabe35d8c371fbcbd6dcbb6db0608ea6342784c02fa57` |
+| `src/jettae/check/rules/path.py` | `0ba27ef1fba40d235feba1014fff4df516bbbba17fc4437ce5fffcc0beb031ab` |
+| `src/jettae/evalkit/realdata/coding.py` | `0d1a78004d48feb8aeefe7c737ddcd0a61b36f90a5b067acd9249198ffe0d4d2` |
+
+앞의 세 파일은 작업 트리에서도 LF라 위 표와 값이 같고, `coding.py`만 다르다(작업 트리 CRLF `1bcfcf9d…`, LF `0d1a7800…`).
+
+전체 소스 트리(LF): `ccf3b4d`의 `src/jettae/**/*.py` 139개(git이 추적하는 파일, 위 작업 트리 값과 같은 집합)를 경로순으로
+놓고 `<sha256>  <경로>` 줄(줄마다 `\n`)을 만들어 그 전체의 sha256 =
+`e0d6a3feadd594a91060dd8f0c0fb3d12460fb6b2bd833488def892920e79c83`.
+파일별 목록은 [`realdata-freeze-lf.sha256`](realdata-freeze-lf.sha256)이다(LF 줄바꿈 그대로일 때 이 목록 파일의 sha256이
+곧 위 값이다). 저장소의 `.gitattributes`가 이 파일을 `eol=lf`로 지정해 Windows(`core.autocrlf=true`)에서 받아도 CRLF로
+바뀌지 않는다. 그래도 작업 트리 사본이 의심되면 `git cat-file blob HEAD:docs/eval/realdata-freeze-lf.sha256`으로 커밋된
+내용을 직접 읽어 비교한다.
+
+다시 확인하기 (저장소를 받은 뒤 Git Bash·Linux, 저장소 루트 — 작업 트리의 줄바꿈과 상관없이 git blob을 읽는다):
+
+```bash
+git ls-tree -r --name-only ccf3b4d -- src/jettae | grep '\.py$' | LC_ALL=C sort | while read -r f; do printf '%s  %s\n' "$(git cat-file blob "ccf3b4d:$f" | sha256sum | cut -d' ' -f1)" "$f"; done | sha256sum
+```
+
+출력의 해시가 `e0d6a3feadd594a91060dd8f0c0fb3d12460fb6b2bd833488def892920e79c83`이면 같은 코드다(뒤에 Linux는 `-`,
+Git Bash는 `*-`를 붙인다). 파일별로 보려면 마지막
+`| sha256sum`을 `| diff - <(git cat-file blob HEAD:docs/eval/realdata-freeze-lf.sha256)`으로 바꾼다(작업 트리의 줄바꿈과
+상관없이 커밋된 목록과 비교한다. macOS는 `sha256sum` 대신 `shasum -a 256`).
+파일 목록을 `git ls-files 'src/jettae/**/*.py'`로 만들면 git 기본 pathspec이 `src/jettae/__init__.py` 같은 최상위 파일 2개를
+빠뜨려 137개가 되므로 `git ls-tree`(또는 `':(glob)src/jettae/**/*.py'`)를 쓴다.
+
+유료 test·retro 실행을 마친 뒤 같은 Windows 작업 트리에서 위 '파일 해시'의 전체 소스 트리 값을 다시 계산했고, 여전히
+`bebb1484e57a88956ac8866922c2e6ba47a011f448be8ebc3e03372b0e058127`로 같았다. 결과 수치는
+[realdata-results.md](realdata-results.md)에 있다.
