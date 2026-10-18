@@ -1,0 +1,2819 @@
+{
+  "B": {
+    "by_fix_kind": {
+      "add_deputy": {
+        "drafts": 3,
+        "fail_reasons": {},
+        "independent_person_violations": 0,
+        "independent_verdicts": {
+          "active": 6
+        },
+        "linked_people_checked": 6,
+        "memos": 0,
+        "new_low_findings_in_passed": 0,
+        "pass_over_all_drafts": {
+          "ci95": [
+            0.4385,
+            1.0
+          ],
+          "hits": 3,
+          "n": 3,
+          "rate": 1.0
+        },
+        "pass_rate": {
+          "ci95": [
+            0.4385,
+            1.0
+          ],
+          "hits": 3,
+          "n": 3,
+          "rate": 1.0
+        },
+        "patches_with_validator_unknown_people": 0,
+        "person_nodes_added": 0,
+        "recheck_mismatch": 0,
+        "rehearsal_regressions": 0,
+        "rehearsals_fixed": 3,
+        "strict_rate": {
+          "ci95": [
+            0.4385,
+            1.0
+          ],
+          "hits": 3,
+          "n": 3,
+          "rate": 1.0
+        },
+        "text_invented_names": 0,
+        "text_non_active_unlinked": 0,
+        "validator_unknown_people": 0,
+        "with_ops": 3
+      },
+      "add_detection": {
+        "drafts": 22,
+        "fail_reasons": {},
+        "independent_person_violations": 0,
+        "independent_verdicts": {},
+        "linked_people_checked": 0,
+        "memos": 22,
+        "new_low_findings_in_passed": 0,
+        "pass_over_all_drafts": {
+          "ci95": [
+            0.0,
+            0.1487
+          ],
+          "hits": 0,
+          "n": 22,
+          "rate": 0.0
+        },
+        "pass_rate": {
+          "ci95": null,
+          "hits": 0,
+          "n": 0,
+          "rate": null
+        },
+        "patches_with_validator_unknown_people": 0,
+        "person_nodes_added": 0,
+        "recheck_mismatch": 0,
+        "rehearsal_regressions": 0,
+        "rehearsals_fixed": 0,
+        "strict_rate": {
+          "ci95": null,
+          "hits": 0,
+          "n": 0,
+          "rate": null
+        },
+        "text_invented_names": 0,
+        "text_non_active_unlinked": 0,
+        "validator_unknown_people": 0,
+        "with_ops": 0
+      },
+      "add_escalation": {
+        "drafts": 22,
+        "fail_reasons": {},
+        "independent_person_violations": 0,
+        "independent_verdicts": {
+          "active": 44
+        },
+        "linked_people_checked": 44,
+        "memos": 0,
+        "new_low_findings_in_passed": 0,
+        "pass_over_all_drafts": {
+          "ci95": [
+            0.8513,
+            1.0
+          ],
+          "hits": 22,
+          "n": 22,
+          "rate": 1.0
+        },
+        "pass_rate": {
+          "ci95": [
+            0.8513,
+            1.0
+          ],
+          "hits": 22,
+          "n": 22,
+          "rate": 1.0
+        },
+        "patches_with_validator_unknown_people": 0,
+        "person_nodes_added": 0,
+        "recheck_mismatch": 0,
+        "rehearsal_regressions": 0,
+        "rehearsals_fixed": 22,
+        "strict_rate": {
+          "ci95": [
+            0.8513,
+            1.0
+          ],
+          "hits": 22,
+          "n": 22,
+          "rate": 1.0
+        },
+        "text_invented_names": 0,
+        "text_non_active_unlinked": 0,
+        "validator_unknown_people": 0,
+        "with_ops": 22
+      },
+      "add_fallback_channel": {
+        "drafts": 47,
+        "fail_reasons": {},
+        "independent_person_violations": 0,
+        "independent_verdicts": {},
+        "linked_people_checked": 0,
+        "memos": 47,
+        "new_low_findings_in_passed": 0,
+        "pass_over_all_drafts": {
+          "ci95": [
+            0.0,
+            0.0756
+          ],
+          "hits": 0,
+          "n": 47,
+          "rate": 0.0
+        },
+        "pass_rate": {
+          "ci95": null,
+          "hits": 0,
+          "n": 0,
+          "rate": null
+        },
+        "patches_with_validator_unknown_people": 0,
+        "person_nodes_added": 0,
+        "recheck_mismatch": 0,
+        "rehearsal_regressions": 0,
+        "rehearsals_fixed": 0,
+        "strict_rate": {
+          "ci95": null,
+          "hits": 0,
+          "n": 0,
+          "rate": null
+        },
+        "text_invented_names": 0,
+        "text_non_active_unlinked": 0,
+        "validator_unknown_people": 0,
+        "with_ops": 0
+      },
+      "add_reporting_step": {
+        "drafts": 19,
+        "fail_reasons": {},
+        "independent_person_violations": 0,
+        "independent_verdicts": {
+          "active": 19
+        },
+        "linked_people_checked": 19,
+        "memos": 0,
+        "new_low_findings_in_passed": 0,
+        "pass_over_all_drafts": {
+          "ci95": [
+            0.8318,
+            1.0
+          ],
+          "hits": 19,
+          "n": 19,
+          "rate": 1.0
+        },
+        "pass_rate": {
+          "ci95": [
+            0.8318,
+            1.0
+          ],
+          "hits": 19,
+          "n": 19,
+          "rate": 1.0
+        },
+        "patches_with_validator_unknown_people": 0,
+        "person_nodes_added": 0,
+        "recheck_mismatch": 0,
+        "rehearsal_regressions": 0,
+        "rehearsals_fixed": 19,
+        "strict_rate": {
+          "ci95": [
+            0.8318,
+            1.0
+          ],
+          "hits": 19,
+          "n": 19,
+          "rate": 1.0
+        },
+        "text_invented_names": 0,
+        "text_non_active_unlinked": 0,
+        "validator_unknown_people": 0,
+        "with_ops": 19
+      },
+      "add_rollback": {
+        "drafts": 24,
+        "fail_reasons": {},
+        "independent_person_violations": 0,
+        "independent_verdicts": {},
+        "linked_people_checked": 0,
+        "memos": 24,
+        "new_low_findings_in_passed": 0,
+        "pass_over_all_drafts": {
+          "ci95": [
+            0.0,
+            0.138
+          ],
+          "hits": 0,
+          "n": 24,
+          "rate": 0.0
+        },
+        "pass_rate": {
+          "ci95": null,
+          "hits": 0,
+          "n": 0,
+          "rate": null
+        },
+        "patches_with_validator_unknown_people": 0,
+        "person_nodes_added": 0,
+        "recheck_mismatch": 0,
+        "rehearsal_regressions": 0,
+        "rehearsals_fixed": 0,
+        "strict_rate": {
+          "ci95": null,
+          "hits": 0,
+          "n": 0,
+          "rate": null
+        },
+        "text_invented_names": 0,
+        "text_non_active_unlinked": 0,
+        "validator_unknown_people": 0,
+        "with_ops": 0
+      },
+      "assign_approver": {
+        "drafts": 19,
+        "fail_reasons": {},
+        "independent_person_violations": 0,
+        "independent_verdicts": {
+          "active": 19
+        },
+        "linked_people_checked": 19,
+        "memos": 0,
+        "new_low_findings_in_passed": 19,
+        "pass_over_all_drafts": {
+          "ci95": [
+            0.8318,
+            1.0
+          ],
+          "hits": 19,
+          "n": 19,
+          "rate": 1.0
+        },
+        "pass_rate": {
+          "ci95": [
+            0.8318,
+            1.0
+          ],
+          "hits": 19,
+          "n": 19,
+          "rate": 1.0
+        },
+        "patches_with_validator_unknown_people": 0,
+        "person_nodes_added": 0,
+        "recheck_mismatch": 0,
+        "rehearsal_regressions": 0,
+        "rehearsals_fixed": 95,
+        "strict_rate": {
+          "ci95": [
+            0.0,
+            0.1682
+          ],
+          "hits": 0,
+          "n": 19,
+          "rate": 0.0
+        },
+        "text_invented_names": 0,
+        "text_non_active_unlinked": 0,
+        "validator_unknown_people": 0,
+        "with_ops": 19
+      },
+      "assign_executor": {
+        "drafts": 20,
+        "fail_reasons": {},
+        "independent_person_violations": 0,
+        "independent_verdicts": {
+          "active": 20
+        },
+        "linked_people_checked": 20,
+        "memos": 0,
+        "new_low_findings_in_passed": 0,
+        "pass_over_all_drafts": {
+          "ci95": [
+            0.8389,
+            1.0
+          ],
+          "hits": 20,
+          "n": 20,
+          "rate": 1.0
+        },
+        "pass_rate": {
+          "ci95": [
+            0.8389,
+            1.0
+          ],
+          "hits": 20,
+          "n": 20,
+          "rate": 1.0
+        },
+        "patches_with_validator_unknown_people": 0,
+        "person_nodes_added": 0,
+        "recheck_mismatch": 0,
+        "rehearsal_regressions": 0,
+        "rehearsals_fixed": 0,
+        "strict_rate": {
+          "ci95": [
+            0.8389,
+            1.0
+          ],
+          "hits": 20,
+          "n": 20,
+          "rate": 1.0
+        },
+        "text_invented_names": 0,
+        "text_non_active_unlinked": 0,
+        "validator_unknown_people": 0,
+        "with_ops": 20
+      },
+      "assign_owner": {
+        "drafts": 46,
+        "fail_reasons": {
+          "blocking_new_finding": 17
+        },
+        "independent_person_violations": 0,
+        "independent_verdicts": {
+          "active": 26
+        },
+        "linked_people_checked": 26,
+        "memos": 20,
+        "new_low_findings_in_passed": 0,
+        "pass_over_all_drafts": {
+          "ci95": [
+            0.1065,
+            0.3317
+          ],
+          "hits": 9,
+          "n": 46,
+          "rate": 0.1957
+        },
+        "pass_rate": {
+          "ci95": [
+            0.1941,
+            0.5378
+          ],
+          "hits": 9,
+          "n": 26,
+          "rate": 0.3462
+        },
+        "patches_with_validator_unknown_people": 0,
+        "person_nodes_added": 0,
+        "recheck_mismatch": 0,
+        "rehearsal_regressions": 0,
+        "rehearsals_fixed": 6,
+        "strict_rate": {
+          "ci95": [
+            0.1941,
+            0.5378
+          ],
+          "hits": 9,
+          "n": 26,
+          "rate": 0.3462
+        },
+        "text_invented_names": 0,
+        "text_non_active_unlinked": 0,
+        "validator_unknown_people": 0,
+        "with_ops": 26
+      },
+      "break_escalation_cycle": {
+        "drafts": 23,
+        "fail_reasons": {},
+        "independent_person_violations": 0,
+        "independent_verdicts": {
+          "active": 46
+        },
+        "linked_people_checked": 46,
+        "memos": 0,
+        "new_low_findings_in_passed": 0,
+        "pass_over_all_drafts": {
+          "ci95": [
+            0.8569,
+            1.0
+          ],
+          "hits": 23,
+          "n": 23,
+          "rate": 1.0
+        },
+        "pass_rate": {
+          "ci95": [
+            0.8569,
+            1.0
+          ],
+          "hits": 23,
+          "n": 23,
+          "rate": 1.0
+        },
+        "patches_with_validator_unknown_people": 0,
+        "person_nodes_added": 0,
+        "recheck_mismatch": 0,
+        "rehearsal_regressions": 0,
+        "rehearsals_fixed": 0,
+        "strict_rate": {
+          "ci95": [
+            0.8569,
+            1.0
+          ],
+          "hits": 23,
+          "n": 23,
+          "rate": 1.0
+        },
+        "text_invented_names": 0,
+        "text_non_active_unlinked": 0,
+        "validator_unknown_people": 0,
+        "with_ops": 23
+      },
+      "fix_deadline": {
+        "drafts": 33,
+        "fail_reasons": {},
+        "independent_person_violations": 0,
+        "independent_verdicts": {},
+        "linked_people_checked": 0,
+        "memos": 0,
+        "new_low_findings_in_passed": 0,
+        "pass_over_all_drafts": {
+          "ci95": [
+            0.8957,
+            1.0
+          ],
+          "hits": 33,
+          "n": 33,
+          "rate": 1.0
+        },
+        "pass_rate": {
+          "ci95": [
+            0.8957,
+            1.0
+          ],
+          "hits": 33,
+          "n": 33,
+          "rate": 1.0
+        },
+        "patches_with_validator_unknown_people": 0,
+        "person_nodes_added": 0,
+        "recheck_mismatch": 0,
+        "rehearsal_regressions": 0,
+        "rehearsals_fixed": 0,
+        "strict_rate": {
+          "ci95": [
+            0.8957,
+            1.0
+          ],
+          "hits": 33,
+          "n": 33,
+          "rate": 1.0
+        },
+        "text_invented_names": 0,
+        "text_non_active_unlinked": 0,
+        "validator_unknown_people": 0,
+        "with_ops": 33
+      }
+    },
+    "by_operator": {
+      "clean": {
+        "cases": 28,
+        "findings": {
+          "cover_memo": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "cover_none": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "cover_patch": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "findings": 0,
+          "in_approvable_patch": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "resolved_by_approvable": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          }
+        },
+        "patches": {
+          "drafts": 0,
+          "fail_reasons": {},
+          "independent_person_violations": 0,
+          "independent_verdicts": {},
+          "linked_people_checked": 0,
+          "memos": 0,
+          "new_low_findings_in_passed": 0,
+          "pass_over_all_drafts": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "pass_rate": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "patches_with_validator_unknown_people": 0,
+          "person_nodes_added": 0,
+          "recheck_mismatch": 0,
+          "rehearsal_regressions": 0,
+          "rehearsals_fixed": 0,
+          "strict_rate": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "text_invented_names": 0,
+          "text_non_active_unlinked": 0,
+          "validator_unknown_people": 0,
+          "with_ops": 0
+        },
+        "targets": {
+          "cover_memo": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "cover_none": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "cover_patch": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "findings": 0,
+          "in_approvable_patch": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "resolved_by_approvable": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          }
+        }
+      },
+      "deadline_contradiction": {
+        "cases": 33,
+        "findings": {
+          "cover_memo": {
+            "ci95": [
+              0.0,
+              0.055
+            ],
+            "hits": 0,
+            "n": 66,
+            "rate": 0.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.055
+            ],
+            "hits": 0,
+            "n": 66,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.945,
+              1.0
+            ],
+            "hits": 66,
+            "n": 66,
+            "rate": 1.0
+          },
+          "findings": 66,
+          "in_approvable_patch": {
+            "ci95": [
+              0.945,
+              1.0
+            ],
+            "hits": 66,
+            "n": 66,
+            "rate": 1.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.945,
+              1.0
+            ],
+            "hits": 66,
+            "n": 66,
+            "rate": 1.0
+          }
+        },
+        "patches": {
+          "drafts": 33,
+          "fail_reasons": {},
+          "independent_person_violations": 0,
+          "independent_verdicts": {},
+          "linked_people_checked": 0,
+          "memos": 0,
+          "new_low_findings_in_passed": 0,
+          "pass_over_all_drafts": {
+            "ci95": [
+              0.8957,
+              1.0
+            ],
+            "hits": 33,
+            "n": 33,
+            "rate": 1.0
+          },
+          "pass_rate": {
+            "ci95": [
+              0.8957,
+              1.0
+            ],
+            "hits": 33,
+            "n": 33,
+            "rate": 1.0
+          },
+          "patches_with_validator_unknown_people": 0,
+          "person_nodes_added": 0,
+          "recheck_mismatch": 0,
+          "rehearsal_regressions": 0,
+          "rehearsals_fixed": 0,
+          "strict_rate": {
+            "ci95": [
+              0.8957,
+              1.0
+            ],
+            "hits": 33,
+            "n": 33,
+            "rate": 1.0
+          },
+          "text_invented_names": 0,
+          "text_non_active_unlinked": 0,
+          "validator_unknown_people": 0,
+          "with_ops": 33
+        },
+        "targets": {
+          "cover_memo": {
+            "ci95": [
+              0.0,
+              0.1043
+            ],
+            "hits": 0,
+            "n": 33,
+            "rate": 0.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.1043
+            ],
+            "hits": 0,
+            "n": 33,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.8957,
+              1.0
+            ],
+            "hits": 33,
+            "n": 33,
+            "rate": 1.0
+          },
+          "findings": 33,
+          "in_approvable_patch": {
+            "ci95": [
+              0.8957,
+              1.0
+            ],
+            "hits": 33,
+            "n": 33,
+            "rate": 1.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.8957,
+              1.0
+            ],
+            "hits": 33,
+            "n": 33,
+            "rate": 1.0
+          }
+        }
+      },
+      "delete_approver": {
+        "cases": 19,
+        "findings": {
+          "cover_memo": {
+            "ci95": [
+              0.0,
+              0.1682
+            ],
+            "hits": 0,
+            "n": 19,
+            "rate": 0.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.1682
+            ],
+            "hits": 0,
+            "n": 19,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          },
+          "findings": 19,
+          "in_approvable_patch": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          }
+        },
+        "patches": {
+          "drafts": 19,
+          "fail_reasons": {},
+          "independent_person_violations": 0,
+          "independent_verdicts": {
+            "active": 19
+          },
+          "linked_people_checked": 19,
+          "memos": 0,
+          "new_low_findings_in_passed": 19,
+          "pass_over_all_drafts": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          },
+          "pass_rate": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          },
+          "patches_with_validator_unknown_people": 0,
+          "person_nodes_added": 0,
+          "recheck_mismatch": 0,
+          "rehearsal_regressions": 0,
+          "rehearsals_fixed": 95,
+          "strict_rate": {
+            "ci95": [
+              0.0,
+              0.1682
+            ],
+            "hits": 0,
+            "n": 19,
+            "rate": 0.0
+          },
+          "text_invented_names": 0,
+          "text_non_active_unlinked": 0,
+          "validator_unknown_people": 0,
+          "with_ops": 19
+        },
+        "targets": {
+          "cover_memo": {
+            "ci95": [
+              0.0,
+              0.1682
+            ],
+            "hits": 0,
+            "n": 19,
+            "rate": 0.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.1682
+            ],
+            "hits": 0,
+            "n": 19,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          },
+          "findings": 19,
+          "in_approvable_patch": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          }
+        }
+      },
+      "delete_detection": {
+        "cases": 22,
+        "findings": {
+          "cover_memo": {
+            "ci95": [
+              0.8513,
+              1.0
+            ],
+            "hits": 22,
+            "n": 22,
+            "rate": 1.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.1487
+            ],
+            "hits": 0,
+            "n": 22,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.0,
+              0.1487
+            ],
+            "hits": 0,
+            "n": 22,
+            "rate": 0.0
+          },
+          "findings": 22,
+          "in_approvable_patch": {
+            "ci95": [
+              0.0,
+              0.1487
+            ],
+            "hits": 0,
+            "n": 22,
+            "rate": 0.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.0,
+              0.1487
+            ],
+            "hits": 0,
+            "n": 22,
+            "rate": 0.0
+          }
+        },
+        "patches": {
+          "drafts": 22,
+          "fail_reasons": {},
+          "independent_person_violations": 0,
+          "independent_verdicts": {},
+          "linked_people_checked": 0,
+          "memos": 22,
+          "new_low_findings_in_passed": 0,
+          "pass_over_all_drafts": {
+            "ci95": [
+              0.0,
+              0.1487
+            ],
+            "hits": 0,
+            "n": 22,
+            "rate": 0.0
+          },
+          "pass_rate": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "patches_with_validator_unknown_people": 0,
+          "person_nodes_added": 0,
+          "recheck_mismatch": 0,
+          "rehearsal_regressions": 0,
+          "rehearsals_fixed": 0,
+          "strict_rate": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "text_invented_names": 0,
+          "text_non_active_unlinked": 0,
+          "validator_unknown_people": 0,
+          "with_ops": 0
+        },
+        "targets": {
+          "cover_memo": {
+            "ci95": [
+              0.8513,
+              1.0
+            ],
+            "hits": 22,
+            "n": 22,
+            "rate": 1.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.1487
+            ],
+            "hits": 0,
+            "n": 22,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.0,
+              0.1487
+            ],
+            "hits": 0,
+            "n": 22,
+            "rate": 0.0
+          },
+          "findings": 22,
+          "in_approvable_patch": {
+            "ci95": [
+              0.0,
+              0.1487
+            ],
+            "hits": 0,
+            "n": 22,
+            "rate": 0.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.0,
+              0.1487
+            ],
+            "hits": 0,
+            "n": 22,
+            "rate": 0.0
+          }
+        }
+      },
+      "delete_escalation": {
+        "cases": 22,
+        "findings": {
+          "cover_memo": {
+            "ci95": [
+              0.0,
+              0.0803
+            ],
+            "hits": 0,
+            "n": 44,
+            "rate": 0.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.0803
+            ],
+            "hits": 0,
+            "n": 44,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.9197,
+              1.0
+            ],
+            "hits": 44,
+            "n": 44,
+            "rate": 1.0
+          },
+          "findings": 44,
+          "in_approvable_patch": {
+            "ci95": [
+              0.9197,
+              1.0
+            ],
+            "hits": 44,
+            "n": 44,
+            "rate": 1.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.9197,
+              1.0
+            ],
+            "hits": 44,
+            "n": 44,
+            "rate": 1.0
+          }
+        },
+        "patches": {
+          "drafts": 22,
+          "fail_reasons": {},
+          "independent_person_violations": 0,
+          "independent_verdicts": {
+            "active": 44
+          },
+          "linked_people_checked": 44,
+          "memos": 0,
+          "new_low_findings_in_passed": 0,
+          "pass_over_all_drafts": {
+            "ci95": [
+              0.8513,
+              1.0
+            ],
+            "hits": 22,
+            "n": 22,
+            "rate": 1.0
+          },
+          "pass_rate": {
+            "ci95": [
+              0.8513,
+              1.0
+            ],
+            "hits": 22,
+            "n": 22,
+            "rate": 1.0
+          },
+          "patches_with_validator_unknown_people": 0,
+          "person_nodes_added": 0,
+          "recheck_mismatch": 0,
+          "rehearsal_regressions": 0,
+          "rehearsals_fixed": 22,
+          "strict_rate": {
+            "ci95": [
+              0.8513,
+              1.0
+            ],
+            "hits": 22,
+            "n": 22,
+            "rate": 1.0
+          },
+          "text_invented_names": 0,
+          "text_non_active_unlinked": 0,
+          "validator_unknown_people": 0,
+          "with_ops": 22
+        },
+        "targets": {
+          "cover_memo": {
+            "ci95": [
+              0.0,
+              0.1487
+            ],
+            "hits": 0,
+            "n": 22,
+            "rate": 0.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.1487
+            ],
+            "hits": 0,
+            "n": 22,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.8513,
+              1.0
+            ],
+            "hits": 22,
+            "n": 22,
+            "rate": 1.0
+          },
+          "findings": 22,
+          "in_approvable_patch": {
+            "ci95": [
+              0.8513,
+              1.0
+            ],
+            "hits": 22,
+            "n": 22,
+            "rate": 1.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.8513,
+              1.0
+            ],
+            "hits": 22,
+            "n": 22,
+            "rate": 1.0
+          }
+        }
+      },
+      "delete_fallback_channel": {
+        "cases": 27,
+        "findings": {
+          "cover_memo": {
+            "ci95": [
+              0.8754,
+              1.0
+            ],
+            "hits": 27,
+            "n": 27,
+            "rate": 1.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.1246
+            ],
+            "hits": 0,
+            "n": 27,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.0,
+              0.1246
+            ],
+            "hits": 0,
+            "n": 27,
+            "rate": 0.0
+          },
+          "findings": 27,
+          "in_approvable_patch": {
+            "ci95": [
+              0.0,
+              0.1246
+            ],
+            "hits": 0,
+            "n": 27,
+            "rate": 0.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.0,
+              0.1246
+            ],
+            "hits": 0,
+            "n": 27,
+            "rate": 0.0
+          }
+        },
+        "patches": {
+          "drafts": 27,
+          "fail_reasons": {},
+          "independent_person_violations": 0,
+          "independent_verdicts": {},
+          "linked_people_checked": 0,
+          "memos": 27,
+          "new_low_findings_in_passed": 0,
+          "pass_over_all_drafts": {
+            "ci95": [
+              0.0,
+              0.1246
+            ],
+            "hits": 0,
+            "n": 27,
+            "rate": 0.0
+          },
+          "pass_rate": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "patches_with_validator_unknown_people": 0,
+          "person_nodes_added": 0,
+          "recheck_mismatch": 0,
+          "rehearsal_regressions": 0,
+          "rehearsals_fixed": 0,
+          "strict_rate": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "text_invented_names": 0,
+          "text_non_active_unlinked": 0,
+          "validator_unknown_people": 0,
+          "with_ops": 0
+        },
+        "targets": {
+          "cover_memo": {
+            "ci95": [
+              0.8754,
+              1.0
+            ],
+            "hits": 27,
+            "n": 27,
+            "rate": 1.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.1246
+            ],
+            "hits": 0,
+            "n": 27,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.0,
+              0.1246
+            ],
+            "hits": 0,
+            "n": 27,
+            "rate": 0.0
+          },
+          "findings": 27,
+          "in_approvable_patch": {
+            "ci95": [
+              0.0,
+              0.1246
+            ],
+            "hits": 0,
+            "n": 27,
+            "rate": 0.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.0,
+              0.1246
+            ],
+            "hits": 0,
+            "n": 27,
+            "rate": 0.0
+          }
+        }
+      },
+      "delete_owner": {
+        "cases": 21,
+        "findings": {
+          "cover_memo": {
+            "ci95": [
+              0.8139,
+              0.976
+            ],
+            "hits": 40,
+            "n": 43,
+            "rate": 0.9302
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.082
+            ],
+            "hits": 0,
+            "n": 43,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.024,
+              0.1861
+            ],
+            "hits": 3,
+            "n": 43,
+            "rate": 0.0698
+          },
+          "findings": 43,
+          "in_approvable_patch": {
+            "ci95": [
+              0.024,
+              0.1861
+            ],
+            "hits": 3,
+            "n": 43,
+            "rate": 0.0698
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.024,
+              0.1861
+            ],
+            "hits": 3,
+            "n": 43,
+            "rate": 0.0698
+          }
+        },
+        "patches": {
+          "drafts": 43,
+          "fail_reasons": {},
+          "independent_person_violations": 0,
+          "independent_verdicts": {
+            "active": 6
+          },
+          "linked_people_checked": 6,
+          "memos": 40,
+          "new_low_findings_in_passed": 0,
+          "pass_over_all_drafts": {
+            "ci95": [
+              0.024,
+              0.1861
+            ],
+            "hits": 3,
+            "n": 43,
+            "rate": 0.0698
+          },
+          "pass_rate": {
+            "ci95": [
+              0.4385,
+              1.0
+            ],
+            "hits": 3,
+            "n": 3,
+            "rate": 1.0
+          },
+          "patches_with_validator_unknown_people": 0,
+          "person_nodes_added": 0,
+          "recheck_mismatch": 0,
+          "rehearsal_regressions": 0,
+          "rehearsals_fixed": 3,
+          "strict_rate": {
+            "ci95": [
+              0.4385,
+              1.0
+            ],
+            "hits": 3,
+            "n": 3,
+            "rate": 1.0
+          },
+          "text_invented_names": 0,
+          "text_non_active_unlinked": 0,
+          "validator_unknown_people": 0,
+          "with_ops": 3
+        },
+        "targets": {
+          "cover_memo": {
+            "ci95": [
+              0.8389,
+              1.0
+            ],
+            "hits": 20,
+            "n": 20,
+            "rate": 1.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.1611
+            ],
+            "hits": 0,
+            "n": 20,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.0,
+              0.1611
+            ],
+            "hits": 0,
+            "n": 20,
+            "rate": 0.0
+          },
+          "findings": 20,
+          "in_approvable_patch": {
+            "ci95": [
+              0.0,
+              0.1611
+            ],
+            "hits": 0,
+            "n": 20,
+            "rate": 0.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.0,
+              0.1611
+            ],
+            "hits": 0,
+            "n": 20,
+            "rate": 0.0
+          }
+        }
+      },
+      "delete_reporting_step": {
+        "cases": 19,
+        "findings": {
+          "cover_memo": {
+            "ci95": [
+              0.0,
+              0.1682
+            ],
+            "hits": 0,
+            "n": 19,
+            "rate": 0.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.1682
+            ],
+            "hits": 0,
+            "n": 19,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          },
+          "findings": 19,
+          "in_approvable_patch": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          }
+        },
+        "patches": {
+          "drafts": 19,
+          "fail_reasons": {},
+          "independent_person_violations": 0,
+          "independent_verdicts": {
+            "active": 19
+          },
+          "linked_people_checked": 19,
+          "memos": 0,
+          "new_low_findings_in_passed": 0,
+          "pass_over_all_drafts": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          },
+          "pass_rate": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          },
+          "patches_with_validator_unknown_people": 0,
+          "person_nodes_added": 0,
+          "recheck_mismatch": 0,
+          "rehearsal_regressions": 0,
+          "rehearsals_fixed": 19,
+          "strict_rate": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          },
+          "text_invented_names": 0,
+          "text_non_active_unlinked": 0,
+          "validator_unknown_people": 0,
+          "with_ops": 19
+        },
+        "targets": {
+          "cover_memo": {
+            "ci95": [
+              0.0,
+              0.1682
+            ],
+            "hits": 0,
+            "n": 19,
+            "rate": 0.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.1682
+            ],
+            "hits": 0,
+            "n": 19,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          },
+          "findings": 19,
+          "in_approvable_patch": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.8318,
+              1.0
+            ],
+            "hits": 19,
+            "n": 19,
+            "rate": 1.0
+          }
+        }
+      },
+      "delete_rollback": {
+        "cases": 24,
+        "findings": {
+          "cover_memo": {
+            "ci95": [
+              0.862,
+              1.0
+            ],
+            "hits": 24,
+            "n": 24,
+            "rate": 1.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.138
+            ],
+            "hits": 0,
+            "n": 24,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.0,
+              0.138
+            ],
+            "hits": 0,
+            "n": 24,
+            "rate": 0.0
+          },
+          "findings": 24,
+          "in_approvable_patch": {
+            "ci95": [
+              0.0,
+              0.138
+            ],
+            "hits": 0,
+            "n": 24,
+            "rate": 0.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.0,
+              0.138
+            ],
+            "hits": 0,
+            "n": 24,
+            "rate": 0.0
+          }
+        },
+        "patches": {
+          "drafts": 24,
+          "fail_reasons": {},
+          "independent_person_violations": 0,
+          "independent_verdicts": {},
+          "linked_people_checked": 0,
+          "memos": 24,
+          "new_low_findings_in_passed": 0,
+          "pass_over_all_drafts": {
+            "ci95": [
+              0.0,
+              0.138
+            ],
+            "hits": 0,
+            "n": 24,
+            "rate": 0.0
+          },
+          "pass_rate": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "patches_with_validator_unknown_people": 0,
+          "person_nodes_added": 0,
+          "recheck_mismatch": 0,
+          "rehearsal_regressions": 0,
+          "rehearsals_fixed": 0,
+          "strict_rate": {
+            "ci95": null,
+            "hits": 0,
+            "n": 0,
+            "rate": null
+          },
+          "text_invented_names": 0,
+          "text_non_active_unlinked": 0,
+          "validator_unknown_people": 0,
+          "with_ops": 0
+        },
+        "targets": {
+          "cover_memo": {
+            "ci95": [
+              0.862,
+              1.0
+            ],
+            "hits": 24,
+            "n": 24,
+            "rate": 1.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.138
+            ],
+            "hits": 0,
+            "n": 24,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.0,
+              0.138
+            ],
+            "hits": 0,
+            "n": 24,
+            "rate": 0.0
+          },
+          "findings": 24,
+          "in_approvable_patch": {
+            "ci95": [
+              0.0,
+              0.138
+            ],
+            "hits": 0,
+            "n": 24,
+            "rate": 0.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.0,
+              0.138
+            ],
+            "hits": 0,
+            "n": 24,
+            "rate": 0.0
+          }
+        }
+      },
+      "departed_contact": {
+        "cases": 26,
+        "findings": {
+          "cover_memo": {
+            "ci95": [
+              0.0,
+              0.026
+            ],
+            "hits": 0,
+            "n": 144,
+            "rate": 0.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.026
+            ],
+            "hits": 0,
+            "n": 144,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.974,
+              1.0
+            ],
+            "hits": 144,
+            "n": 144,
+            "rate": 1.0
+          },
+          "findings": 144,
+          "in_approvable_patch": {
+            "ci95": [
+              0.3724,
+              0.5329
+            ],
+            "hits": 65,
+            "n": 144,
+            "rate": 0.4514
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.3724,
+              0.5329
+            ],
+            "hits": 65,
+            "n": 144,
+            "rate": 0.4514
+          }
+        },
+        "patches": {
+          "drafts": 46,
+          "fail_reasons": {
+            "blocking_new_finding": 17
+          },
+          "independent_person_violations": 0,
+          "independent_verdicts": {
+            "active": 46
+          },
+          "linked_people_checked": 46,
+          "memos": 0,
+          "new_low_findings_in_passed": 0,
+          "pass_over_all_drafts": {
+            "ci95": [
+              0.486,
+              0.7548
+            ],
+            "hits": 29,
+            "n": 46,
+            "rate": 0.6304
+          },
+          "pass_rate": {
+            "ci95": [
+              0.486,
+              0.7548
+            ],
+            "hits": 29,
+            "n": 46,
+            "rate": 0.6304
+          },
+          "patches_with_validator_unknown_people": 0,
+          "person_nodes_added": 0,
+          "recheck_mismatch": 0,
+          "rehearsal_regressions": 0,
+          "rehearsals_fixed": 6,
+          "strict_rate": {
+            "ci95": [
+              0.486,
+              0.7548
+            ],
+            "hits": 29,
+            "n": 46,
+            "rate": 0.6304
+          },
+          "text_invented_names": 0,
+          "text_non_active_unlinked": 0,
+          "validator_unknown_people": 0,
+          "with_ops": 46
+        },
+        "targets": {
+          "cover_memo": {
+            "ci95": [
+              0.0,
+              0.0507
+            ],
+            "hits": 0,
+            "n": 72,
+            "rate": 0.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.0507
+            ],
+            "hits": 0,
+            "n": 72,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.9493,
+              1.0
+            ],
+            "hits": 72,
+            "n": 72,
+            "rate": 1.0
+          },
+          "findings": 72,
+          "in_approvable_patch": {
+            "ci95": [
+              0.2722,
+              0.4905
+            ],
+            "hits": 27,
+            "n": 72,
+            "rate": 0.375
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.2722,
+              0.4905
+            ],
+            "hits": 27,
+            "n": 72,
+            "rate": 0.375
+          }
+        }
+      },
+      "escalation_cycle": {
+        "cases": 23,
+        "findings": {
+          "cover_memo": {
+            "ci95": [
+              0.0,
+              0.1431
+            ],
+            "hits": 0,
+            "n": 23,
+            "rate": 0.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.1431
+            ],
+            "hits": 0,
+            "n": 23,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.8569,
+              1.0
+            ],
+            "hits": 23,
+            "n": 23,
+            "rate": 1.0
+          },
+          "findings": 23,
+          "in_approvable_patch": {
+            "ci95": [
+              0.8569,
+              1.0
+            ],
+            "hits": 23,
+            "n": 23,
+            "rate": 1.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.8569,
+              1.0
+            ],
+            "hits": 23,
+            "n": 23,
+            "rate": 1.0
+          }
+        },
+        "patches": {
+          "drafts": 23,
+          "fail_reasons": {},
+          "independent_person_violations": 0,
+          "independent_verdicts": {
+            "active": 46
+          },
+          "linked_people_checked": 46,
+          "memos": 0,
+          "new_low_findings_in_passed": 0,
+          "pass_over_all_drafts": {
+            "ci95": [
+              0.8569,
+              1.0
+            ],
+            "hits": 23,
+            "n": 23,
+            "rate": 1.0
+          },
+          "pass_rate": {
+            "ci95": [
+              0.8569,
+              1.0
+            ],
+            "hits": 23,
+            "n": 23,
+            "rate": 1.0
+          },
+          "patches_with_validator_unknown_people": 0,
+          "person_nodes_added": 0,
+          "recheck_mismatch": 0,
+          "rehearsal_regressions": 0,
+          "rehearsals_fixed": 0,
+          "strict_rate": {
+            "ci95": [
+              0.8569,
+              1.0
+            ],
+            "hits": 23,
+            "n": 23,
+            "rate": 1.0
+          },
+          "text_invented_names": 0,
+          "text_non_active_unlinked": 0,
+          "validator_unknown_people": 0,
+          "with_ops": 23
+        },
+        "targets": {
+          "cover_memo": {
+            "ci95": [
+              0.0,
+              0.1431
+            ],
+            "hits": 0,
+            "n": 23,
+            "rate": 0.0
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.1431
+            ],
+            "hits": 0,
+            "n": 23,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.8569,
+              1.0
+            ],
+            "hits": 23,
+            "n": 23,
+            "rate": 1.0
+          },
+          "findings": 23,
+          "in_approvable_patch": {
+            "ci95": [
+              0.8569,
+              1.0
+            ],
+            "hits": 23,
+            "n": 23,
+            "rate": 1.0
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.8569,
+              1.0
+            ],
+            "hits": 23,
+            "n": 23,
+            "rate": 1.0
+          }
+        }
+      }
+    },
+    "by_style": {
+      "colloquial": {
+        "cases": 82,
+        "findings": {
+          "cover_memo": {
+            "ci95": [
+              0.1667,
+              0.3133
+            ],
+            "hits": 29,
+            "n": 125,
+            "rate": 0.232
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.0298
+            ],
+            "hits": 0,
+            "n": 125,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.6867,
+              0.8333
+            ],
+            "hits": 96,
+            "n": 125,
+            "rate": 0.768
+          },
+          "findings": 125,
+          "in_approvable_patch": {
+            "ci95": [
+              0.4964,
+              0.6666
+            ],
+            "hits": 73,
+            "n": 125,
+            "rate": 0.584
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.4964,
+              0.6666
+            ],
+            "hits": 73,
+            "n": 125,
+            "rate": 0.584
+          }
+        },
+        "patches": {
+          "drafts": 82,
+          "fail_reasons": {
+            "blocking_new_finding": 5
+          },
+          "independent_person_violations": 0,
+          "independent_verdicts": {
+            "active": 59
+          },
+          "linked_people_checked": 59,
+          "memos": 29,
+          "new_low_findings_in_passed": 9,
+          "pass_over_all_drafts": {
+            "ci95": [
+              0.4773,
+              0.6858
+            ],
+            "hits": 48,
+            "n": 82,
+            "rate": 0.5854
+          },
+          "pass_rate": {
+            "ci95": [
+              0.7975,
+              0.959
+            ],
+            "hits": 48,
+            "n": 53,
+            "rate": 0.9057
+          },
+          "patches_with_validator_unknown_people": 0,
+          "person_nodes_added": 0,
+          "recheck_mismatch": 0,
+          "rehearsal_regressions": 0,
+          "rehearsals_fixed": 59,
+          "strict_rate": {
+            "ci95": [
+              0.6042,
+              0.8356
+            ],
+            "hits": 39,
+            "n": 53,
+            "rate": 0.7358
+          },
+          "text_invented_names": 0,
+          "text_non_active_unlinked": 0,
+          "validator_unknown_people": 0,
+          "with_ops": 53
+        },
+        "targets": {
+          "cover_memo": {
+            "ci95": [
+              0.2154,
+              0.4061
+            ],
+            "hits": 26,
+            "n": 86,
+            "rate": 0.3023
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.0428
+            ],
+            "hits": 0,
+            "n": 86,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.5939,
+              0.7846
+            ],
+            "hits": 60,
+            "n": 86,
+            "rate": 0.6977
+          },
+          "findings": 86,
+          "in_approvable_patch": {
+            "ci95": [
+              0.4416,
+              0.6475
+            ],
+            "hits": 47,
+            "n": 86,
+            "rate": 0.5465
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.4416,
+              0.6475
+            ],
+            "hits": 47,
+            "n": 86,
+            "rate": 0.5465
+          }
+        }
+      },
+      "explicit": {
+        "cases": 89,
+        "findings": {
+          "cover_memo": {
+            "ci95": [
+              0.1937,
+              0.3314
+            ],
+            "hits": 39,
+            "n": 152,
+            "rate": 0.2566
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.0246
+            ],
+            "hits": 0,
+            "n": 152,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.6686,
+              0.8063
+            ],
+            "hits": 113,
+            "n": 152,
+            "rate": 0.7434
+          },
+          "findings": 152,
+          "in_approvable_patch": {
+            "ci95": [
+              0.5126,
+              0.667
+            ],
+            "hits": 90,
+            "n": 152,
+            "rate": 0.5921
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.5126,
+              0.667
+            ],
+            "hits": 90,
+            "n": 152,
+            "rate": 0.5921
+          }
+        },
+        "patches": {
+          "drafts": 95,
+          "fail_reasons": {
+            "blocking_new_finding": 5
+          },
+          "independent_person_violations": 0,
+          "independent_verdicts": {
+            "active": 60
+          },
+          "linked_people_checked": 60,
+          "memos": 39,
+          "new_low_findings_in_passed": 3,
+          "pass_over_all_drafts": {
+            "ci95": [
+              0.4371,
+              0.6337
+            ],
+            "hits": 51,
+            "n": 95,
+            "rate": 0.5368
+          },
+          "pass_rate": {
+            "ci95": [
+              0.8074,
+              0.9613
+            ],
+            "hits": 51,
+            "n": 56,
+            "rate": 0.9107
+          },
+          "patches_with_validator_unknown_people": 0,
+          "person_nodes_added": 0,
+          "recheck_mismatch": 0,
+          "rehearsal_regressions": 0,
+          "rehearsals_fixed": 32,
+          "strict_rate": {
+            "ci95": [
+              0.7426,
+              0.9258
+            ],
+            "hits": 48,
+            "n": 56,
+            "rate": 0.8571
+          },
+          "text_invented_names": 0,
+          "text_non_active_unlinked": 0,
+          "validator_unknown_people": 0,
+          "with_ops": 56
+        },
+        "targets": {
+          "cover_memo": {
+            "ci95": [
+              0.2444,
+              0.4284
+            ],
+            "hits": 32,
+            "n": 97,
+            "rate": 0.3299
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.0381
+            ],
+            "hits": 0,
+            "n": 97,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.5716,
+              0.7556
+            ],
+            "hits": 65,
+            "n": 97,
+            "rate": 0.6701
+          },
+          "findings": 97,
+          "in_approvable_patch": {
+            "ci95": [
+              0.4374,
+              0.6321
+            ],
+            "hits": 52,
+            "n": 97,
+            "rate": 0.5361
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.4374,
+              0.6321
+            ],
+            "hits": 52,
+            "n": 97,
+            "rate": 0.5361
+          }
+        }
+      },
+      "table": {
+        "cases": 93,
+        "findings": {
+          "cover_memo": {
+            "ci95": [
+              0.2261,
+              0.3684
+            ],
+            "hits": 45,
+            "n": 154,
+            "rate": 0.2922
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.0243
+            ],
+            "hits": 0,
+            "n": 154,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.6316,
+              0.7739
+            ],
+            "hits": 109,
+            "n": 154,
+            "rate": 0.7078
+          },
+          "findings": 154,
+          "in_approvable_patch": {
+            "ci95": [
+              0.4157,
+              0.5717
+            ],
+            "hits": 76,
+            "n": 154,
+            "rate": 0.4935
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.4157,
+              0.5717
+            ],
+            "hits": 76,
+            "n": 154,
+            "rate": 0.4935
+          }
+        },
+        "patches": {
+          "drafts": 101,
+          "fail_reasons": {
+            "blocking_new_finding": 7
+          },
+          "independent_person_violations": 0,
+          "independent_verdicts": {
+            "active": 61
+          },
+          "linked_people_checked": 61,
+          "memos": 45,
+          "new_low_findings_in_passed": 7,
+          "pass_over_all_drafts": {
+            "ci95": [
+              0.39,
+              0.5814
+            ],
+            "hits": 49,
+            "n": 101,
+            "rate": 0.4851
+          },
+          "pass_rate": {
+            "ci95": [
+              0.7637,
+              0.9381
+            ],
+            "hits": 49,
+            "n": 56,
+            "rate": 0.875
+          },
+          "patches_with_validator_unknown_people": 0,
+          "person_nodes_added": 0,
+          "recheck_mismatch": 0,
+          "rehearsal_regressions": 0,
+          "rehearsals_fixed": 54,
+          "strict_rate": {
+            "ci95": [
+              0.6231,
+              0.8448
+            ],
+            "hits": 42,
+            "n": 56,
+            "rate": 0.75
+          },
+          "text_invented_names": 0,
+          "text_non_active_unlinked": 0,
+          "validator_unknown_people": 0,
+          "with_ops": 56
+        },
+        "targets": {
+          "cover_memo": {
+            "ci95": [
+              0.2693,
+              0.4557
+            ],
+            "hits": 35,
+            "n": 98,
+            "rate": 0.3571
+          },
+          "cover_none": {
+            "ci95": [
+              0.0,
+              0.0377
+            ],
+            "hits": 0,
+            "n": 98,
+            "rate": 0.0
+          },
+          "cover_patch": {
+            "ci95": [
+              0.5443,
+              0.7307
+            ],
+            "hits": 63,
+            "n": 98,
+            "rate": 0.6429
+          },
+          "findings": 98,
+          "in_approvable_patch": {
+            "ci95": [
+              0.3543,
+              0.5475
+            ],
+            "hits": 44,
+            "n": 98,
+            "rate": 0.449
+          },
+          "resolved_by_approvable": {
+            "ci95": [
+              0.3543,
+              0.5475
+            ],
+            "hits": 44,
+            "n": 98,
+            "rate": 0.449
+          }
+        }
+      }
+    },
+    "cases": 264,
+    "cases_with_findings": 235,
+    "clean_cases_with_drafts": 0,
+    "condition": "B",
+    "decision_units": {
+      "all_pass": {
+        "ci95": [
+          0.8223,
+          0.9436
+        ],
+        "hits": 88,
+        "n": 98,
+        "rate": 0.898
+      },
+      "failing_units": [
+        "org02-ott/departed_contact/assign_owner",
+        "org04-fintech/departed_contact/assign_owner",
+        "org06-edtech/departed_contact/assign_owner",
+        "org08-webtoon/departed_contact/assign_owner",
+        "org09-adtech/departed_contact/assign_owner",
+        "org11-music/departed_contact/assign_owner",
+        "org13-recruit/departed_contact/assign_owner",
+        "org14-realestate/departed_contact/assign_owner",
+        "org15-travel/departed_contact/assign_owner",
+        "org19-crowdfunding/departed_contact/assign_owner"
+      ],
+      "mixed": 0,
+      "units": 98
+    },
+    "error_examples": [],
+    "errors": 0,
+    "fail_breakdown": {
+      "departed_contact · assign_owner · 새 높음 이상 끊김 JT-ESC-001": 17
+    },
+    "fail_examples": [
+      {
+        "case": "org02-ott-departed_contact-explicit-back",
+        "kind": "assign_owner",
+        "reasons": [
+          "blocking_new_finding"
+        ],
+        "text": "구독 결제 장애 알람이 오면 1차 담당 백서연 대리에게 슬랙으로 연락한다."
+      },
+      {
+        "case": "org04-fintech-departed_contact-table-back",
+        "kind": "assign_owner",
+        "reasons": [
+          "blocking_new_finding"
+        ],
+        "text": "본인인증 장애 알람이 오면 1차 담당 김유진 사원에게 사내 메신저로 연락한다. 본인인증 롤백은 김유진 사원이 실행한다."
+      },
+      {
+        "case": "org06-edtech-departed_contact-table-back",
+        "kind": "assign_owner",
+        "reasons": [
+          "blocking_new_finding"
+        ],
+        "text": "강의 재생 장애 알람이 오면 1차 담당 김형준 주임에게 카카오톡으로 연락한다."
+      },
+      {
+        "case": "org06-edtech-departed_contact-explicit-back",
+        "kind": "assign_owner",
+        "reasons": [
+          "blocking_new_finding"
+        ],
+        "text": "강의 재생 장애 알람이 오면 1차 담당 김형준 주임에게 카카오톡으로 연락한다."
+      },
+      {
+        "case": "org08-webtoon-departed_contact-table-front",
+        "kind": "assign_owner",
+        "reasons": [
+          "blocking_new_finding"
+        ],
+        "text": "코인 결제 장애 알람이 오면 1차 담당 박현우 과장에게 팀즈로 연락한다. 코인 결제 롤백은 박현우 과장이 실행한다."
+      },
+      {
+        "case": "org09-adtech-departed_contact-explicit-front",
+        "kind": "assign_owner",
+        "reasons": [
+          "blocking_new_finding"
+        ],
+        "text": "광고 과금 장애 알람이 오면 1차 담당 박예준 대리에게 카카오톡으로 연락한다. 광고 과금 롤백은 박예준 대리가 실행한다."
+      },
+      {
+        "case": "org09-adtech-departed_contact-explicit-back",
+        "kind": "assign_owner",
+        "reasons": [
+          "blocking_new_finding"
+        ],
+        "text": "광고 과금 장애 알람이 오면 1차 담당 박예준 대리에게 카카오톡으로 연락한다. 광고 과금 롤백은 박예준 대리가 실행한다."
+      },
+      {
+        "case": "org11-music-departed_contact-table-back",
+        "kind": "assign_owner",
+        "reasons": [
+          "blocking_new_finding"
+        ],
+        "text": "로그인 장애 알람이 오면 1차 담당 김서연 사원에게 슬랙으로 연락한다."
+      }
+    ],
+    "findings": {
+      "cover_memo": {
+        "ci95": [
+          0.2229,
+          0.3057
+        ],
+        "hits": 113,
+        "n": 431,
+        "rate": 0.2622
+      },
+      "cover_none": {
+        "ci95": [
+          0.0,
+          0.0088
+        ],
+        "hits": 0,
+        "n": 431,
+        "rate": 0.0
+      },
+      "cover_patch": {
+        "ci95": [
+          0.6943,
+          0.7771
+        ],
+        "hits": 318,
+        "n": 431,
+        "rate": 0.7378
+      },
+      "findings": 431,
+      "in_approvable_patch": {
+        "ci95": [
+          0.5073,
+          0.6008
+        ],
+        "hits": 239,
+        "n": 431,
+        "rate": 0.5545
+      },
+      "resolved_by_approvable": {
+        "ci95": [
+          0.5073,
+          0.6008
+        ],
+        "hits": 239,
+        "n": 431,
+        "rate": 0.5545
+      }
+    },
+    "injected": {
+      "cases_target_detected": 235,
+      "mutated_cases": 236,
+      "target_cover_memo": {
+        "ci95": [
+          0.2785,
+          0.3879
+        ],
+        "hits": 93,
+        "n": 281,
+        "rate": 0.331
+      },
+      "target_cover_none": {
+        "ci95": [
+          0.0,
+          0.0135
+        ],
+        "hits": 0,
+        "n": 281,
+        "rate": 0.0
+      },
+      "target_cover_patch": {
+        "ci95": [
+          0.6121,
+          0.7215
+        ],
+        "hits": 188,
+        "n": 281,
+        "rate": 0.669
+      },
+      "target_findings": 281,
+      "target_in_approvable_patch": {
+        "ci95": [
+          0.4507,
+          0.5668
+        ],
+        "hits": 143,
+        "n": 281,
+        "rate": 0.5089
+      },
+      "target_resolved_by_approvable": {
+        "ci95": [
+          0.4507,
+          0.5668
+        ],
+        "hits": 143,
+        "n": 281,
+        "rate": 0.5089
+      }
+    },
+    "invented_name_examples": [],
+    "llm": {
+      "ai_authored": 129,
+      "ai_independent_person_violations": 0,
+      "ai_pass_rate": {
+        "ci95": [
+          0.7991,
+          0.9161
+        ],
+        "hits": 112,
+        "n": 129,
+        "rate": 0.8682
+      },
+      "ai_text_invented_names": 0,
+      "ai_unknown_people": 0,
+      "call_outcomes": {
+        "ok": 132
+      },
+      "calls": 132,
+      "fell_back_call_failed": 0,
+      "fell_back_not_sent": 0,
+      "fell_back_rejected_by_drafter": 3,
+      "paired": 165,
+      "paired_ai_fail_template_pass": 0,
+      "paired_ai_pass_template_fail": 0,
+      "paired_same_verdict": 165,
+      "patches_sent_to_llm": 132
+    },
+    "non_active_text_examples": [],
+    "pass_rate_org_bootstrap_ci95": [
+      0.8482,
+      0.9461
+    ],
+    "patches": {
+      "drafts": 278,
+      "fail_reasons": {
+        "blocking_new_finding": 17
+      },
+      "independent_person_violations": 0,
+      "independent_verdicts": {
+        "active": 180
+      },
+      "linked_people_checked": 180,
+      "memos": 113,
+      "new_low_findings_in_passed": 19,
+      "pass_over_all_drafts": {
+        "ci95": [
+          0.4737,
+          0.5902
+        ],
+        "hits": 148,
+        "n": 278,
+        "rate": 0.5324
+      },
+      "pass_rate": {
+        "ci95": [
+          0.8412,
+          0.9347
+        ],
+        "hits": 148,
+        "n": 165,
+        "rate": 0.897
+      },
+      "patches_with_validator_unknown_people": 0,
+      "person_nodes_added": 0,
+      "recheck_mismatch": 0,
+      "rehearsal_regressions": 0,
+      "rehearsals_fixed": 145,
+      "strict_rate": {
+        "ci95": [
+          0.7128,
+          0.838
+        ],
+        "hits": 129,
+        "n": 165,
+        "rate": 0.7818
+      },
+      "text_invented_names": 0,
+      "text_non_active_unlinked": 0,
+      "validator_unknown_people": 0,
+      "with_ops": 165
+    },
+    "seconds_total": 823.5,
+    "strict_gap_breakdown": {
+      "delete_approver · assign_approver · 새 높음 미만 끊김 JT-SPF-001[중간]": 19
+    }
+  },
+  "meta": {
+    "cases": 264,
+    "checker_selftest": {
+      "active_name_in_text_not_flagged": true,
+      "active_person_accepted": true,
+      "case": "org01-shop-departed_contact-table-front",
+      "departed_person_flagged": true,
+      "invented_name_in_text_flagged": true,
+      "invented_person_flagged": true,
+      "passed": true
+    },
+    "conditions": [
+      "B"
+    ],
+    "drafter": "LlmDrafter",
+    "effort": "medium",
+    "frozen_commit": "ccf3b4d",
+    "generator": "jettae-evalkit-gen/1.1.0",
+    "head": "c5e8d41",
+    "loop": true,
+    "model": "claude-sonnet-5-5",
+    "orgs": 20,
+    "run_date": "2026-10-18",
+    "sample": 0.2,
+    "script": "scripts/eval_patch_recheck.py",
+    "seed": 20261012,
+    "src_clean": true,
+    "stopped": null,
+    "workers": 1
+  },
+  "spend": {
+    "by_model": [
+      {
+        "cache_read_tokens": 27285,
+        "cache_write_tokens": 211629,
+        "calls": 132,
+        "input_tokens": 145167,
+        "model": "claude-sonnet-5-5",
+        "output_tokens": 27432,
+        "usd": 1.099183
+      }
+    ],
+    "max_usd": 4.5,
+    "max_usd_run": null,
+    "prior_usd": 0.0,
+    "spent_usd": 1.099183
+  }
+}

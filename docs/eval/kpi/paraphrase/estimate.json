@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-10-18T16:55:04+09:00",
+  "prices_as_of": "2026-10-14",
+  "prices_per_mtok": {
+    "claude-opus-5-5": [
+      4.0,
+      20.0
+    ],
+    "claude-sonnet-5-5": [
+      2.0,
+      10.0
+    ],
+    "claude-haiku-5-5": [
+      0.1,
+      0.5
+    ],
+    "gpt-6-luna": [
+      0.1,
+      0.5
+    ],
+    "gpt-6.1-sol": [
+      2.0,
+      10.0
+    ]
+  },
+  "assumptions": [
+    "입력·출력 토큰 = 글자 수 / 1 (한국어 1글자 ≈ 1토큰, 보수적). 참고값은 하네스 경험값 글자 2.5개 = 1토큰",
+    "재서술 출력 = 원문 글자 × 1.15 + OpenAI 추론 토큰 3,000(가정, 출력으로 과금)",
+    "D 추출 출력 = 청크 글자 × 2 + Claude 사고 토큰 3,000(effort medium); 재서술본 길이는 원문 × 1.15로 가정",
+    "프롬프트 캐시 할인, 스키마 재요청(repair) 1회분은 반영하지 않음 — 캐시는 비용을 줄이고 repair는 드묾",
+    "D와 DR은 사례마다 LLM 추출 1회를 공유하므로 D 비용 = D+DR 비용"
+  ],
+  "paraphrase": {
+    "model": "gpt-6.1-sol",
+    "cases": 180,
+    "calls_one_attempt": 180,
+    "usd_one_attempt": 10.48,
+    "usd_worst_case_all_retried": 20.95,
+    "usd_if_30pct_retried": 13.62,
+    "usd_one_attempt_at_2_5_chars_per_token": 7.43,
+    "usd_one_attempt_gpt_6_luna_alternative": 0.34,
+    "per_case_usd_mean": 0.0582
+  },
+  "llm_d_dr": {
+    "model": "claude-sonnet-5-5",
+    "effort": "medium",
+    "calls_per_version": 180,
+    "usd_paraphrased_all_cases": 23.73,
+    "usd_originals_all_cases": 22.75,
+    "usd_both_versions_paired": 46.47,
+    "per_case_usd_mean_original": 0.1264,
+    "usd_both_versions_input_at_2_5_chars_per_token": 32.71,
+    "usd_paraphrased_input_at_2_5_chars_per_token": 16.82,
+    "run1_calibration": {
+      "source": "C:/jettae/data/eval/llm-sample20/results.jsonl",
+      "d_rows_without_error": 155,
+      "measured_input_tokens_per_case": 4578,
+      "measured_output_tokens_per_case": 9529,
+      "measured_usd": 16.19,
+      "measured_usd_per_case": 0.1044,
+      "estimated_usd_same_cases": 19.43,
+      "ratio_measured_to_estimate": 0.8333
+    },
+    "usd_paraphrased_all_cases_run1_calibrated": 19.77,
+    "usd_originals_all_cases_run1_calibrated": 18.96,
+    "usd_both_versions_paired_run1_calibrated": 38.73,
+    "note": "재서술 관문을 통과한 사례만 실행하므로 실제는 통과 비율만큼 줄어든다. run1_calibrated = 20% 2×2 실행에서 잰 D 토큰(캐시·거절된 답 토큰 미포함)으로 이 추정식을 보정한 값"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "runs": [
+    {
+      "run_id": "20261018T175340",
+      "step": "paraphrase",
+      "model": "gpt-6-luna",
+      "updated": "2026-10-18T18:06:52+09:00",
+      "spent_usd": 0.217521,
+      "by_model": [
+        {
+          "model": "gpt-6-luna",
+          "calls": 227,
+          "input_tokens": 515688,
+          "cache_write_tokens": 0,
+          "cache_read_tokens": 0,
+          "output_tokens": 331904,
+          "usd": 0.217521
+        }
+      ]
+    }
+  ],
+  "total_usd_by_step": {
+    "paraphrase": 0.217521
+  }
+}

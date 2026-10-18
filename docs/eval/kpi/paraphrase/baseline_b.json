@@ -1,0 +1,241 @@
+{
+  "generated_at": "2026-10-18T15:56:55+09:00",
+  "workers": 2,
+  "B_original_sample": {
+    "n_cases": 180,
+    "errors": 0,
+    "detection_active": {
+      "hits": 93,
+      "n": 96,
+      "rate": 0.9688,
+      "ci95": [
+        0.9121,
+        0.9893
+      ]
+    },
+    "detection_held_out": {
+      "hits": 24,
+      "n": 24,
+      "rate": 1.0,
+      "ci95": [
+        0.862,
+        1.0
+      ]
+    },
+    "detection_paired_active": {
+      "hits": 93,
+      "n": 96,
+      "rate": 0.9688,
+      "ci95": [
+        0.9121,
+        0.9893
+      ]
+    },
+    "detection_paired_held_out": {
+      "hits": 24,
+      "n": 24,
+      "rate": 1.0,
+      "ci95": [
+        0.862,
+        1.0
+      ]
+    },
+    "clean_fp": {
+      "hits": 0,
+      "n": 60,
+      "rate": 0.0,
+      "ci95": [
+        0.0,
+        0.0602
+      ]
+    },
+    "clean_fp_by_style": {
+      "table": {
+        "hits": 0,
+        "n": 20,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.1611
+        ]
+      },
+      "explicit": {
+        "hits": 0,
+        "n": 20,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.1611
+        ]
+      },
+      "colloquial": {
+        "hits": 0,
+        "n": 20,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.1611
+        ]
+      }
+    },
+    "clean_fp_rules": {},
+    "by_style": {
+      "table": {
+        "active": {
+          "hits": 32,
+          "n": 32,
+          "rate": 1.0,
+          "ci95": [
+            0.8928,
+            1.0
+          ]
+        },
+        "held_out": {
+          "hits": 8,
+          "n": 8,
+          "rate": 1.0,
+          "ci95": [
+            0.6756,
+            1.0
+          ]
+        }
+      },
+      "explicit": {
+        "active": {
+          "hits": 32,
+          "n": 32,
+          "rate": 1.0,
+          "ci95": [
+            0.8928,
+            1.0
+          ]
+        },
+        "held_out": {
+          "hits": 8,
+          "n": 8,
+          "rate": 1.0,
+          "ci95": [
+            0.6756,
+            1.0
+          ]
+        }
+      },
+      "colloquial": {
+        "active": {
+          "hits": 29,
+          "n": 32,
+          "rate": 0.9062,
+          "ci95": [
+            0.7578,
+            0.9676
+          ]
+        },
+        "held_out": {
+          "hits": 8,
+          "n": 8,
+          "rate": 1.0,
+          "ci95": [
+            0.6756,
+            1.0
+          ]
+        }
+      }
+    },
+    "by_operator": {
+      "delete_owner": {
+        "hits": 9,
+        "n": 12,
+        "rate": 0.75
+      },
+      "departed_contact": {
+        "hits": 12,
+        "n": 12,
+        "rate": 1.0
+      },
+      "deadline_contradiction": {
+        "hits": 12,
+        "n": 12,
+        "rate": 1.0
+      },
+      "escalation_cycle": {
+        "hits": 12,
+        "n": 12,
+        "rate": 1.0
+      },
+      "delete_approver": {
+        "hits": 12,
+        "n": 12,
+        "rate": 1.0
+      },
+      "delete_fallback_channel": {
+        "hits": 12,
+        "n": 12,
+        "rate": 1.0
+      },
+      "delete_rollback": {
+        "hits": 12,
+        "n": 12,
+        "rate": 1.0
+      },
+      "delete_escalation": {
+        "hits": 12,
+        "n": 12,
+        "rate": 1.0
+      },
+      "delete_detection": {
+        "hits": 12,
+        "n": 12,
+        "rate": 1.0
+      },
+      "delete_reporting_step": {
+        "hits": 12,
+        "n": 12,
+        "rate": 1.0
+      }
+    },
+    "field": {
+      "tp": 8864,
+      "fp": 3,
+      "fn": 0,
+      "precision": 0.9997,
+      "recall": 1.0,
+      "f1": 0.9998
+    },
+    "field_by_style": {
+      "table": {
+        "tp": 2954,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "explicit": {
+        "tp": 2955,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "colloquial": {
+        "tp": 2955,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.999,
+        "recall": 1.0,
+        "f1": 0.9995
+      }
+    },
+    "hallucination": {
+      "hits": 3,
+      "n": 179,
+      "rate": 0.0168,
+      "ci95": [
+        0.0057,
+        0.0481
+      ]
+    },
+    "ungrounded": 0
+  }
+}

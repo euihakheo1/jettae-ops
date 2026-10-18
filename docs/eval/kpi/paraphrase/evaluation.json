@@ -1,0 +1,2902 @@
+{
+  "generated_at": "2026-10-18T18:09:40+09:00",
+  "paraphrase_model": "gpt-6-luna",
+  "prompt_version": "paraphrase-v1",
+  "gate_version": "gate-v1",
+  "sample_size": 180,
+  "gate": {
+    "tried": 180,
+    "first_try_passed": 133,
+    "excluded_reason_codes_last_try": {
+      "escalation_order_changed": 41,
+      "detection_missing": 1,
+      "numbers_changed": 1
+    },
+    "reason_codes_any_try": {
+      "escalation_order_changed": 86,
+      "detection_missing": 3,
+      "numbers_changed": 3
+    },
+    "by_operator": {
+      "clean": {
+        "tried": 60,
+        "kept": 46,
+        "excluded": 14,
+        "reason:detection_missing": 1,
+        "reason:numbers_changed": 1,
+        "reason:escalation_order_changed": 13
+      },
+      "deadline_contradiction": {
+        "tried": 12,
+        "kept": 8,
+        "excluded": 4,
+        "reason:escalation_order_changed": 4
+      },
+      "delete_approver": {
+        "tried": 12,
+        "kept": 12
+      },
+      "delete_detection": {
+        "tried": 12,
+        "kept": 8,
+        "excluded": 4,
+        "reason:escalation_order_changed": 4
+      },
+      "delete_escalation": {
+        "tried": 12,
+        "kept": 10,
+        "excluded": 2,
+        "reason:escalation_order_changed": 2
+      },
+      "delete_fallback_channel": {
+        "tried": 12,
+        "kept": 9,
+        "excluded": 3,
+        "reason:escalation_order_changed": 3
+      },
+      "delete_owner": {
+        "tried": 12,
+        "kept": 9,
+        "excluded": 3,
+        "reason:escalation_order_changed": 3
+      },
+      "delete_reporting_step": {
+        "tried": 12,
+        "kept": 8,
+        "excluded": 4,
+        "reason:escalation_order_changed": 4
+      },
+      "delete_rollback": {
+        "tried": 12,
+        "kept": 9,
+        "excluded": 3,
+        "reason:escalation_order_changed": 3
+      },
+      "departed_contact": {
+        "tried": 12,
+        "kept": 10,
+        "excluded": 2,
+        "reason:escalation_order_changed": 2
+      },
+      "escalation_cycle": {
+        "tried": 12,
+        "kept": 9,
+        "excluded": 3,
+        "reason:escalation_order_changed": 3
+      }
+    },
+    "gate_recheck_mismatch": [],
+    "per_case": {
+      "org01-shop-clean-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.1429,
+        "similarity": 0.7905
+      },
+      "org01-shop-delete_owner-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2683,
+        "similarity": 0.7378
+      },
+      "org01-shop-departed_contact-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2857,
+        "similarity": 0.7467
+      },
+      "org02-ott-clean-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.8048
+      },
+      "org02-ott-deadline_contradiction-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0435,
+        "similarity": 0.7506
+      },
+      "org02-ott-escalation_cycle-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.8355
+      },
+      "org03-broadcast-clean-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2927,
+        "similarity": 0.7472
+      },
+      "org03-broadcast-delete_approver-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2927,
+        "similarity": 0.7404
+      },
+      "org03-broadcast-delete_fallback_channel-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.425,
+        "similarity": 0.7482
+      },
+      "org04-fintech-clean-table-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "numbers_changed:가맹점 관리:-['3%', '3분', '5xx']+[]",
+            "detection_missing:가맹점 관리",
+            "numbers_changed:이상거래 탐지:-['1초', '3분', 'p95']+[]",
+            "detection_missing:이상거래 탐지"
+          ],
+          [
+            "numbers_changed:가맹점 관리:-['3%', '3분', '5xx']+[]",
+            "detection_missing:가맹점 관리",
+            "numbers_changed:이상거래 탐지:-['1초', '3분', 'p95']+[]",
+            "detection_missing:이상거래 탐지"
+          ]
+        ]
+      },
+      "org04-fintech-delete_rollback-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7971
+      },
+      "org04-fintech-delete_escalation-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0385,
+        "similarity": 0.8113
+      },
+      "org05-game-clean-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2353,
+        "similarity": 0.7257
+      },
+      "org05-game-delete_detection-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2424,
+        "similarity": 0.6981
+      },
+      "org05-game-delete_reporting_step-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2424,
+        "similarity": 0.6868
+      },
+      "org06-edtech-clean-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2727,
+        "similarity": 0.7036
+      },
+      "org06-edtech-delete_owner-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.4186,
+        "similarity": 0.7186
+      },
+      "org06-edtech-departed_contact-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.1364,
+        "similarity": 0.6819
+      },
+      "org07-logistics-clean-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.25,
+        "similarity": 0.6955
+      },
+      "org07-logistics-deadline_contradiction-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.1667,
+        "similarity": 0.7816
+      },
+      "org07-logistics-escalation_cycle-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2917,
+        "similarity": 0.7303
+      },
+      "org08-webtoon-clean-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7674
+      },
+      "org08-webtoon-delete_approver-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.8276
+      },
+      "org08-webtoon-delete_fallback_channel-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.8205
+      },
+      "org09-adtech-clean-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6806
+      },
+      "org09-adtech-delete_rollback-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.3913,
+        "similarity": 0.7958
+      },
+      "org09-adtech-delete_escalation-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.3913,
+        "similarity": 0.7722
+      },
+      "org10-health-saas-clean-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2381,
+        "similarity": 0.6521
+      },
+      "org10-health-saas-delete_detection-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2439,
+        "similarity": 0.8244
+      },
+      "org10-health-saas-delete_reporting_step-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.122,
+        "similarity": 0.6924
+      },
+      "org11-music-clean-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2778,
+        "similarity": 0.7672
+      },
+      "org11-music-delete_owner-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2571,
+        "similarity": 0.7914
+      },
+      "org11-music-departed_contact-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2778,
+        "similarity": 0.6886
+      },
+      "org12-live-commerce-clean-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.3462,
+        "similarity": 0.7924
+      },
+      "org12-live-commerce-deadline_contradiction-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2308,
+        "similarity": 0.7936
+      },
+      "org12-live-commerce-escalation_cycle-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2308,
+        "similarity": 0.7879
+      },
+      "org13-recruit-clean-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.375,
+        "similarity": 0.7857
+      },
+      "org13-recruit-delete_approver-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.125,
+        "similarity": 0.7017
+      },
+      "org13-recruit-delete_fallback_channel-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2174,
+        "similarity": 0.7734
+      },
+      "org14-realestate-clean-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.8875
+      },
+      "org14-realestate-delete_rollback-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.8101
+      },
+      "org14-realestate-delete_escalation-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.04,
+        "similarity": 0.6808
+      },
+      "org15-travel-clean-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2667,
+        "similarity": 0.5422
+      },
+      "org15-travel-delete_detection-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.1379,
+        "similarity": 0.7217
+      },
+      "org15-travel-delete_reporting_step-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2759,
+        "similarity": 0.6789
+      },
+      "org16-delivery-clean-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.25,
+        "similarity": 0.8155
+      },
+      "org16-delivery-delete_owner-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2308,
+        "similarity": 0.7097
+      },
+      "org16-delivery-departed_contact-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.25,
+        "similarity": 0.7619
+      },
+      "org17-secondhand-clean-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.25,
+        "similarity": 0.7703
+      },
+      "org17-secondhand-deadline_contradiction-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.25,
+        "similarity": 0.7784
+      },
+      "org17-secondhand-escalation_cycle-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.25,
+        "similarity": 0.7693
+      },
+      "org18-civil-service-clean-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.8809
+      },
+      "org18-civil-service-delete_approver-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.8003
+      },
+      "org18-civil-service-delete_fallback_channel-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.8227
+      },
+      "org19-crowdfunding-clean-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.037,
+        "similarity": 0.7681
+      },
+      "org19-crowdfunding-delete_rollback-table-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.037,
+        "similarity": 0.8207
+      },
+      "org19-crowdfunding-delete_escalation-table-front": {
+        "attempts": 2,
+        "kept_attempt": 2,
+        "reasons": [
+          [
+            "numbers_changed:펀딩 결제:-['1분', '3%']+[]",
+            "detection_missing:펀딩 결제",
+            "numbers_changed:리워드 배송:-['10건', '3분']+[]",
+            "detection_missing:리워드 배송"
+          ],
+          []
+        ],
+        "copied_share": 0.037,
+        "similarity": 0.8166
+      },
+      "org20-cloud-msp-clean-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.1379,
+        "similarity": 0.7681
+      },
+      "org20-cloud-msp-delete_detection-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2857,
+        "similarity": 0.7725
+      },
+      "org20-cloud-msp-delete_reporting_step-table-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.2857,
+        "similarity": 0.739
+      },
+      "org01-shop-clean-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.1667,
+        "similarity": 0.7122
+      },
+      "org01-shop-delete_approver-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7533
+      },
+      "org01-shop-delete_fallback_channel-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6773
+      },
+      "org02-ott-clean-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7779
+      },
+      "org02-ott-delete_rollback-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6868
+      },
+      "org02-ott-delete_escalation-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0345,
+        "similarity": 0.6826
+      },
+      "org03-broadcast-clean-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6665
+      },
+      "org03-broadcast-delete_detection-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7531
+      },
+      "org03-broadcast-delete_reporting_step-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.781
+      },
+      "org04-fintech-clean-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7015
+      },
+      "org04-fintech-delete_owner-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6964
+      },
+      "org04-fintech-departed_contact-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6937
+      },
+      "org05-game-clean-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6278
+      },
+      "org05-game-deadline_contradiction-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6752
+      },
+      "org05-game-escalation_cycle-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7343
+      },
+      "org06-edtech-clean-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6823
+      },
+      "org06-edtech-delete_approver-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.643
+      },
+      "org06-edtech-delete_fallback_channel-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7437
+      },
+      "org07-logistics-clean-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7411
+      },
+      "org07-logistics-delete_rollback-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.801
+      },
+      "org07-logistics-delete_escalation-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.688
+      },
+      "org08-webtoon-clean-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6294
+      },
+      "org08-webtoon-delete_detection-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7663
+      },
+      "org08-webtoon-delete_reporting_step-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6716
+      },
+      "org09-adtech-clean-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7804
+      },
+      "org09-adtech-delete_owner-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7223
+      },
+      "org09-adtech-departed_contact-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6348
+      },
+      "org10-health-saas-clean-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6876
+      },
+      "org10-health-saas-deadline_contradiction-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.632
+      },
+      "org10-health-saas-escalation_cycle-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6863
+      },
+      "org11-music-clean-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7507
+      },
+      "org11-music-delete_approver-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0323,
+        "similarity": 0.7299
+      },
+      "org11-music-delete_fallback_channel-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.3942
+      },
+      "org12-live-commerce-clean-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6381
+      },
+      "org12-live-commerce-delete_rollback-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7282
+      },
+      "org12-live-commerce-delete_escalation-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7952
+      },
+      "org13-recruit-clean-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6984
+      },
+      "org13-recruit-delete_detection-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7911
+      },
+      "org13-recruit-delete_reporting_step-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6879
+      },
+      "org14-realestate-clean-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7663
+      },
+      "org14-realestate-delete_owner-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7048
+      },
+      "org14-realestate-departed_contact-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0278,
+        "similarity": 0.8019
+      },
+      "org15-travel-clean-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7158
+      },
+      "org15-travel-deadline_contradiction-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7266
+      },
+      "org15-travel-escalation_cycle-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7878
+      },
+      "org16-delivery-clean-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0286,
+        "similarity": 0.6919
+      },
+      "org16-delivery-delete_approver-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.1714,
+        "similarity": 0.6747
+      },
+      "org16-delivery-delete_fallback_channel-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7746
+      },
+      "org17-secondhand-clean-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7025
+      },
+      "org17-secondhand-delete_rollback-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6951
+      },
+      "org17-secondhand-delete_escalation-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6931
+      },
+      "org18-civil-service-clean-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7213
+      },
+      "org18-civil-service-delete_detection-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.1364,
+        "similarity": 0.788
+      },
+      "org18-civil-service-delete_reporting_step-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7822
+      },
+      "org19-crowdfunding-clean-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7413
+      },
+      "org19-crowdfunding-delete_owner-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.632
+      },
+      "org19-crowdfunding-departed_contact-explicit-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7696
+      },
+      "org20-cloud-msp-clean-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7806
+      },
+      "org20-cloud-msp-deadline_contradiction-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7562
+      },
+      "org20-cloud-msp-escalation_cycle-explicit-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6827
+      },
+      "org01-shop-clean-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:결제",
+            "escalation_order_changed:상품 검색",
+            "escalation_order_changed:주문"
+          ],
+          [
+            "escalation_order_changed:상품 검색",
+            "escalation_order_changed:주문"
+          ]
+        ]
+      },
+      "org01-shop-delete_detection-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:상품 검색",
+            "escalation_order_changed:주문"
+          ],
+          [
+            "escalation_order_changed:상품 검색",
+            "escalation_order_changed:주문"
+          ]
+        ]
+      },
+      "org01-shop-delete_reporting_step-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:상품 검색",
+            "escalation_order_changed:주문"
+          ],
+          [
+            "escalation_order_changed:상품 검색",
+            "escalation_order_changed:주문"
+          ]
+        ]
+      },
+      "org02-ott-clean-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:로그인"
+          ],
+          [
+            "escalation_order_changed:구독 결제",
+            "escalation_order_changed:콘텐츠 업로드",
+            "escalation_order_changed:로그인"
+          ]
+        ]
+      },
+      "org02-ott-delete_owner-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:로그인"
+          ],
+          [
+            "escalation_order_changed:구독 결제",
+            "escalation_order_changed:로그인"
+          ]
+        ]
+      },
+      "org02-ott-departed_contact-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:구독 결제",
+            "escalation_order_changed:로그인"
+          ],
+          [
+            "escalation_order_changed:로그인"
+          ]
+        ]
+      },
+      "org03-broadcast-clean-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:다시보기"
+          ],
+          [
+            "escalation_order_changed:다시보기"
+          ]
+        ]
+      },
+      "org03-broadcast-deadline_contradiction-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:다시보기"
+          ],
+          [
+            "escalation_order_changed:다시보기"
+          ]
+        ]
+      },
+      "org03-broadcast-escalation_cycle-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:다시보기"
+          ],
+          [
+            "escalation_order_changed:다시보기"
+          ]
+        ]
+      },
+      "org04-fintech-clean-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:송금",
+            "escalation_order_changed:본인인증",
+            "escalation_order_changed:정산",
+            "escalation_order_changed:이상거래 탐지"
+          ],
+          [
+            "escalation_order_changed:송금",
+            "escalation_order_changed:본인인증",
+            "escalation_order_changed:정산",
+            "escalation_order_changed:이상거래 탐지"
+          ]
+        ]
+      },
+      "org04-fintech-delete_approver-colloquial-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7557
+      },
+      "org04-fintech-delete_fallback_channel-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:송금",
+            "escalation_order_changed:본인인증",
+            "escalation_order_changed:이상거래 탐지"
+          ],
+          [
+            "escalation_order_changed:송금",
+            "escalation_order_changed:본인인증",
+            "escalation_order_changed:정산",
+            "escalation_order_changed:이상거래 탐지"
+          ]
+        ]
+      },
+      "org05-game-clean-colloquial-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7152
+      },
+      "org05-game-delete_rollback-colloquial-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6768
+      },
+      "org05-game-delete_escalation-colloquial-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7188
+      },
+      "org06-edtech-clean-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:과제 제출",
+            "escalation_order_changed:학습 리포트"
+          ],
+          [
+            "escalation_order_changed:과제 제출",
+            "escalation_order_changed:학습 리포트"
+          ]
+        ]
+      },
+      "org06-edtech-delete_detection-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:학습 리포트"
+          ],
+          [
+            "escalation_order_changed:과제 제출",
+            "escalation_order_changed:학습 리포트"
+          ]
+        ]
+      },
+      "org06-edtech-delete_reporting_step-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:과제 제출",
+            "escalation_order_changed:학습 리포트"
+          ],
+          [
+            "escalation_order_changed:과제 제출",
+            "escalation_order_changed:학습 리포트"
+          ]
+        ]
+      },
+      "org07-logistics-clean-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:운임 정산"
+          ],
+          [
+            "escalation_order_changed:운임 정산"
+          ]
+        ]
+      },
+      "org07-logistics-delete_owner-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:운임 정산"
+          ],
+          [
+            "escalation_order_changed:운임 정산"
+          ]
+        ]
+      },
+      "org07-logistics-departed_contact-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:운임 정산"
+          ],
+          [
+            "escalation_order_changed:운임 정산"
+          ]
+        ]
+      },
+      "org08-webtoon-clean-colloquial-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.037,
+        "similarity": 0.7457
+      },
+      "org08-webtoon-deadline_contradiction-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:코인 결제",
+            "escalation_order_changed:연재 업로드"
+          ],
+          [
+            "escalation_order_changed:코인 결제",
+            "escalation_order_changed:연재 업로드"
+          ]
+        ]
+      },
+      "org08-webtoon-escalation_cycle-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:연재 업로드"
+          ],
+          [
+            "escalation_order_changed:연재 업로드"
+          ]
+        ]
+      },
+      "org09-adtech-clean-colloquial-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0645,
+        "similarity": 0.7107
+      },
+      "org09-adtech-delete_approver-colloquial-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0323,
+        "similarity": 0.7514
+      },
+      "org09-adtech-delete_fallback_channel-colloquial-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0323,
+        "similarity": 0.8116
+      },
+      "org10-health-saas-clean-colloquial-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.646
+      },
+      "org10-health-saas-delete_rollback-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:병원 연동",
+            "escalation_order_changed:전자 처방"
+          ],
+          [
+            "escalation_order_changed:병원 연동",
+            "escalation_order_changed:전자 처방"
+          ]
+        ]
+      },
+      "org10-health-saas-delete_escalation-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:병원 연동",
+            "escalation_order_changed:전자 처방"
+          ],
+          [
+            "escalation_order_changed:병원 연동",
+            "escalation_order_changed:전자 처방"
+          ]
+        ]
+      },
+      "org11-music-clean-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:음원 재생",
+            "escalation_order_changed:가사",
+            "escalation_order_changed:차트"
+          ],
+          [
+            "escalation_order_changed:음원 재생",
+            "escalation_order_changed:가사",
+            "escalation_order_changed:차트"
+          ]
+        ]
+      },
+      "org11-music-delete_detection-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:음원 재생",
+            "escalation_order_changed:저작권 정산",
+            "escalation_order_changed:가사",
+            "escalation_order_changed:차트"
+          ],
+          [
+            "escalation_order_changed:음원 재생",
+            "escalation_order_changed:가사",
+            "escalation_order_changed:차트"
+          ]
+        ]
+      },
+      "org11-music-delete_reporting_step-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:음원 재생",
+            "escalation_order_changed:가사",
+            "escalation_order_changed:차트"
+          ],
+          [
+            "escalation_order_changed:음원 재생",
+            "escalation_order_changed:가사",
+            "escalation_order_changed:차트"
+          ]
+        ]
+      },
+      "org12-live-commerce-clean-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:상품 재고",
+            "escalation_order_changed:셀러 센터"
+          ],
+          [
+            "escalation_order_changed:상품 재고"
+          ]
+        ]
+      },
+      "org12-live-commerce-delete_owner-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:상품 재고"
+          ],
+          [
+            "escalation_order_changed:상품 재고"
+          ]
+        ]
+      },
+      "org12-live-commerce-departed_contact-colloquial-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.6864
+      },
+      "org13-recruit-clean-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:기업 결제",
+            "escalation_order_changed:면접 일정"
+          ],
+          [
+            "escalation_order_changed:기업 결제",
+            "escalation_order_changed:면접 일정"
+          ]
+        ]
+      },
+      "org13-recruit-deadline_contradiction-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:기업 결제",
+            "escalation_order_changed:면접 일정"
+          ],
+          [
+            "escalation_order_changed:기업 결제",
+            "escalation_order_changed:면접 일정"
+          ]
+        ]
+      },
+      "org13-recruit-escalation_cycle-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:기업 결제",
+            "escalation_order_changed:면접 일정"
+          ],
+          [
+            "escalation_order_changed:기업 결제",
+            "escalation_order_changed:면접 일정"
+          ]
+        ]
+      },
+      "org14-realestate-clean-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:전자 계약",
+            "escalation_order_changed:매물 검색",
+            "escalation_order_changed:매물 등록"
+          ],
+          [
+            "escalation_order_changed:전자 계약",
+            "escalation_order_changed:매물 검색",
+            "escalation_order_changed:매물 등록"
+          ]
+        ]
+      },
+      "org14-realestate-delete_approver-colloquial-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7712
+      },
+      "org14-realestate-delete_fallback_channel-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:상담 채팅",
+            "escalation_order_changed:매물 등록"
+          ],
+          [
+            "escalation_order_changed:전자 계약"
+          ]
+        ]
+      },
+      "org15-travel-clean-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": 2,
+        "reasons": [
+          [
+            "escalation_order_changed:일정 관리"
+          ],
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7052
+      },
+      "org15-travel-delete_rollback-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:일정 관리"
+          ],
+          [
+            "escalation_order_changed:일정 관리"
+          ]
+        ]
+      },
+      "org15-travel-delete_escalation-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": 2,
+        "reasons": [
+          [
+            "escalation_order_changed:일정 관리"
+          ],
+          []
+        ],
+        "copied_share": 0.0278,
+        "similarity": 0.7321
+      },
+      "org16-delivery-clean-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:푸시 알림"
+          ],
+          [
+            "escalation_order_changed:푸시 알림"
+          ]
+        ]
+      },
+      "org16-delivery-delete_detection-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:푸시 알림"
+          ],
+          [
+            "escalation_order_changed:푸시 알림"
+          ]
+        ]
+      },
+      "org16-delivery-delete_reporting_step-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:푸시 알림"
+          ],
+          [
+            "escalation_order_changed:푸시 알림"
+          ]
+        ]
+      },
+      "org17-secondhand-clean-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": 2,
+        "reasons": [
+          [
+            "escalation_order_changed:채팅 거래"
+          ],
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.8267
+      },
+      "org17-secondhand-delete_owner-colloquial-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0345,
+        "similarity": 0.7464
+      },
+      "org17-secondhand-departed_contact-colloquial-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7661
+      },
+      "org18-civil-service-clean-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:처리 현황 조회"
+          ],
+          [
+            "escalation_order_changed:처리 현황 조회"
+          ]
+        ]
+      },
+      "org18-civil-service-deadline_contradiction-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:처리 현황 조회"
+          ],
+          [
+            "escalation_order_changed:처리 현황 조회"
+          ]
+        ]
+      },
+      "org18-civil-service-escalation_cycle-colloquial-back": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7378
+      },
+      "org19-crowdfunding-clean-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": 2,
+        "reasons": [
+          [
+            "escalation_order_changed:펀딩 결제",
+            "escalation_order_changed:리워드 배송"
+          ],
+          []
+        ],
+        "copied_share": 0.0182,
+        "similarity": 0.749
+      },
+      "org19-crowdfunding-delete_approver-colloquial-front": {
+        "attempts": 1,
+        "kept_attempt": 1,
+        "reasons": [
+          []
+        ],
+        "copied_share": 0.0,
+        "similarity": 0.7788
+      },
+      "org19-crowdfunding-delete_fallback_channel-colloquial-front": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:펀딩 결제",
+            "escalation_order_changed:투자자 인증",
+            "escalation_order_changed:리워드 배송",
+            "escalation_order_changed:정산"
+          ],
+          [
+            "escalation_order_changed:투자자 인증",
+            "escalation_order_changed:정산"
+          ]
+        ]
+      },
+      "org20-cloud-msp-clean-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:장애 티켓"
+          ],
+          [
+            "escalation_order_changed:장애 티켓"
+          ]
+        ]
+      },
+      "org20-cloud-msp-delete_rollback-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:장애 티켓"
+          ],
+          [
+            "escalation_order_changed:장애 티켓"
+          ]
+        ]
+      },
+      "org20-cloud-msp-delete_escalation-colloquial-back": {
+        "attempts": 2,
+        "kept_attempt": null,
+        "reasons": [
+          [
+            "escalation_order_changed:장애 티켓"
+          ],
+          [
+            "escalation_order_changed:장애 티켓"
+          ]
+        ]
+      }
+    },
+    "kept": [
+      "org01-shop-clean-explicit-back",
+      "org01-shop-clean-table-front",
+      "org01-shop-delete_approver-explicit-back",
+      "org01-shop-delete_fallback_channel-explicit-back",
+      "org01-shop-delete_owner-table-front",
+      "org01-shop-departed_contact-table-front",
+      "org02-ott-clean-explicit-front",
+      "org02-ott-clean-table-back",
+      "org02-ott-deadline_contradiction-table-back",
+      "org02-ott-delete_escalation-explicit-front",
+      "org02-ott-delete_rollback-explicit-front",
+      "org02-ott-escalation_cycle-table-back",
+      "org03-broadcast-clean-explicit-back",
+      "org03-broadcast-clean-table-front",
+      "org03-broadcast-delete_approver-table-front",
+      "org03-broadcast-delete_detection-explicit-back",
+      "org03-broadcast-delete_fallback_channel-table-front",
+      "org03-broadcast-delete_reporting_step-explicit-back",
+      "org04-fintech-clean-explicit-front",
+      "org04-fintech-delete_approver-colloquial-back",
+      "org04-fintech-delete_escalation-table-back",
+      "org04-fintech-delete_owner-explicit-front",
+      "org04-fintech-delete_rollback-table-back",
+      "org04-fintech-departed_contact-explicit-front",
+      "org05-game-clean-colloquial-front",
+      "org05-game-clean-explicit-back",
+      "org05-game-clean-table-front",
+      "org05-game-deadline_contradiction-explicit-back",
+      "org05-game-delete_detection-table-front",
+      "org05-game-delete_escalation-colloquial-front",
+      "org05-game-delete_reporting_step-table-front",
+      "org05-game-delete_rollback-colloquial-front",
+      "org05-game-escalation_cycle-explicit-back",
+      "org06-edtech-clean-explicit-front",
+      "org06-edtech-clean-table-back",
+      "org06-edtech-delete_approver-explicit-front",
+      "org06-edtech-delete_fallback_channel-explicit-front",
+      "org06-edtech-delete_owner-table-back",
+      "org06-edtech-departed_contact-table-back",
+      "org07-logistics-clean-explicit-back",
+      "org07-logistics-clean-table-front",
+      "org07-logistics-deadline_contradiction-table-front",
+      "org07-logistics-delete_escalation-explicit-back",
+      "org07-logistics-delete_rollback-explicit-back",
+      "org07-logistics-escalation_cycle-table-front",
+      "org08-webtoon-clean-colloquial-back",
+      "org08-webtoon-clean-explicit-front",
+      "org08-webtoon-clean-table-back",
+      "org08-webtoon-delete_approver-table-back",
+      "org08-webtoon-delete_detection-explicit-front",
+      "org08-webtoon-delete_fallback_channel-table-back",
+      "org08-webtoon-delete_reporting_step-explicit-front",
+      "org09-adtech-clean-colloquial-front",
+      "org09-adtech-clean-explicit-back",
+      "org09-adtech-clean-table-front",
+      "org09-adtech-delete_approver-colloquial-front",
+      "org09-adtech-delete_escalation-table-front",
+      "org09-adtech-delete_fallback_channel-colloquial-front",
+      "org09-adtech-delete_owner-explicit-back",
+      "org09-adtech-delete_rollback-table-front",
+      "org09-adtech-departed_contact-explicit-back",
+      "org10-health-saas-clean-colloquial-back",
+      "org10-health-saas-clean-explicit-front",
+      "org10-health-saas-clean-table-back",
+      "org10-health-saas-deadline_contradiction-explicit-front",
+      "org10-health-saas-delete_detection-table-back",
+      "org10-health-saas-delete_reporting_step-table-back",
+      "org10-health-saas-escalation_cycle-explicit-front",
+      "org11-music-clean-explicit-back",
+      "org11-music-clean-table-front",
+      "org11-music-delete_approver-explicit-back",
+      "org11-music-delete_fallback_channel-explicit-back",
+      "org11-music-delete_owner-table-front",
+      "org11-music-departed_contact-table-front",
+      "org12-live-commerce-clean-explicit-front",
+      "org12-live-commerce-clean-table-back",
+      "org12-live-commerce-deadline_contradiction-table-back",
+      "org12-live-commerce-delete_escalation-explicit-front",
+      "org12-live-commerce-delete_rollback-explicit-front",
+      "org12-live-commerce-departed_contact-colloquial-back",
+      "org12-live-commerce-escalation_cycle-table-back",
+      "org13-recruit-clean-explicit-back",
+      "org13-recruit-clean-table-front",
+      "org13-recruit-delete_approver-table-front",
+      "org13-recruit-delete_detection-explicit-back",
+      "org13-recruit-delete_fallback_channel-table-front",
+      "org13-recruit-delete_reporting_step-explicit-back",
+      "org14-realestate-clean-explicit-front",
+      "org14-realestate-clean-table-back",
+      "org14-realestate-delete_approver-colloquial-back",
+      "org14-realestate-delete_escalation-table-back",
+      "org14-realestate-delete_owner-explicit-front",
+      "org14-realestate-delete_rollback-table-back",
+      "org14-realestate-departed_contact-explicit-front",
+      "org15-travel-clean-colloquial-front",
+      "org15-travel-clean-explicit-back",
+      "org15-travel-clean-table-front",
+      "org15-travel-deadline_contradiction-explicit-back",
+      "org15-travel-delete_detection-table-front",
+      "org15-travel-delete_escalation-colloquial-front",
+      "org15-travel-delete_reporting_step-table-front",
+      "org15-travel-escalation_cycle-explicit-back",
+      "org16-delivery-clean-explicit-front",
+      "org16-delivery-clean-table-back",
+      "org16-delivery-delete_approver-explicit-front",
+      "org16-delivery-delete_fallback_channel-explicit-front",
+      "org16-delivery-delete_owner-table-back",
+      "org16-delivery-departed_contact-table-back",
+      "org17-secondhand-clean-colloquial-front",
+      "org17-secondhand-clean-explicit-back",
+      "org17-secondhand-clean-table-front",
+      "org17-secondhand-deadline_contradiction-table-front",
+      "org17-secondhand-delete_escalation-explicit-back",
+      "org17-secondhand-delete_owner-colloquial-front",
+      "org17-secondhand-delete_rollback-explicit-back",
+      "org17-secondhand-departed_contact-colloquial-front",
+      "org17-secondhand-escalation_cycle-table-front",
+      "org18-civil-service-clean-explicit-front",
+      "org18-civil-service-clean-table-back",
+      "org18-civil-service-delete_approver-table-back",
+      "org18-civil-service-delete_detection-explicit-front",
+      "org18-civil-service-delete_fallback_channel-table-back",
+      "org18-civil-service-delete_reporting_step-explicit-front",
+      "org18-civil-service-escalation_cycle-colloquial-back",
+      "org19-crowdfunding-clean-colloquial-front",
+      "org19-crowdfunding-clean-explicit-back",
+      "org19-crowdfunding-clean-table-front",
+      "org19-crowdfunding-delete_approver-colloquial-front",
+      "org19-crowdfunding-delete_escalation-table-front",
+      "org19-crowdfunding-delete_owner-explicit-back",
+      "org19-crowdfunding-delete_rollback-table-front",
+      "org19-crowdfunding-departed_contact-explicit-back",
+      "org20-cloud-msp-clean-explicit-front",
+      "org20-cloud-msp-clean-table-back",
+      "org20-cloud-msp-deadline_contradiction-explicit-front",
+      "org20-cloud-msp-delete_detection-table-back",
+      "org20-cloud-msp-delete_reporting_step-table-back",
+      "org20-cloud-msp-escalation_cycle-explicit-front"
+    ]
+  },
+  "b": {
+    "B_original_full_sample": {
+      "n_cases": 180,
+      "errors": 0,
+      "detection_active": {
+        "hits": 93,
+        "n": 96,
+        "rate": 0.9688,
+        "ci95": [
+          0.9121,
+          0.9893
+        ]
+      },
+      "detection_held_out": {
+        "hits": 24,
+        "n": 24,
+        "rate": 1.0,
+        "ci95": [
+          0.862,
+          1.0
+        ]
+      },
+      "detection_paired_active": {
+        "hits": 93,
+        "n": 96,
+        "rate": 0.9688,
+        "ci95": [
+          0.9121,
+          0.9893
+        ]
+      },
+      "detection_paired_held_out": {
+        "hits": 24,
+        "n": 24,
+        "rate": 1.0,
+        "ci95": [
+          0.862,
+          1.0
+        ]
+      },
+      "clean_fp": {
+        "hits": 0,
+        "n": 60,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.0602
+        ]
+      },
+      "clean_fp_by_style": {
+        "table": {
+          "hits": 0,
+          "n": 20,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.1611
+          ]
+        },
+        "explicit": {
+          "hits": 0,
+          "n": 20,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.1611
+          ]
+        },
+        "colloquial": {
+          "hits": 0,
+          "n": 20,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.1611
+          ]
+        }
+      },
+      "clean_fp_rules": {},
+      "by_style": {
+        "table": {
+          "active": {
+            "hits": 32,
+            "n": 32,
+            "rate": 1.0,
+            "ci95": [
+              0.8928,
+              1.0
+            ]
+          },
+          "held_out": {
+            "hits": 8,
+            "n": 8,
+            "rate": 1.0,
+            "ci95": [
+              0.6756,
+              1.0
+            ]
+          }
+        },
+        "explicit": {
+          "active": {
+            "hits": 32,
+            "n": 32,
+            "rate": 1.0,
+            "ci95": [
+              0.8928,
+              1.0
+            ]
+          },
+          "held_out": {
+            "hits": 8,
+            "n": 8,
+            "rate": 1.0,
+            "ci95": [
+              0.6756,
+              1.0
+            ]
+          }
+        },
+        "colloquial": {
+          "active": {
+            "hits": 29,
+            "n": 32,
+            "rate": 0.9062,
+            "ci95": [
+              0.7578,
+              0.9676
+            ]
+          },
+          "held_out": {
+            "hits": 8,
+            "n": 8,
+            "rate": 1.0,
+            "ci95": [
+              0.6756,
+              1.0
+            ]
+          }
+        }
+      },
+      "by_operator": {
+        "delete_owner": {
+          "hits": 9,
+          "n": 12,
+          "rate": 0.75
+        },
+        "departed_contact": {
+          "hits": 12,
+          "n": 12,
+          "rate": 1.0
+        },
+        "deadline_contradiction": {
+          "hits": 12,
+          "n": 12,
+          "rate": 1.0
+        },
+        "escalation_cycle": {
+          "hits": 12,
+          "n": 12,
+          "rate": 1.0
+        },
+        "delete_approver": {
+          "hits": 12,
+          "n": 12,
+          "rate": 1.0
+        },
+        "delete_fallback_channel": {
+          "hits": 12,
+          "n": 12,
+          "rate": 1.0
+        },
+        "delete_rollback": {
+          "hits": 12,
+          "n": 12,
+          "rate": 1.0
+        },
+        "delete_escalation": {
+          "hits": 12,
+          "n": 12,
+          "rate": 1.0
+        },
+        "delete_detection": {
+          "hits": 12,
+          "n": 12,
+          "rate": 1.0
+        },
+        "delete_reporting_step": {
+          "hits": 12,
+          "n": 12,
+          "rate": 1.0
+        }
+      },
+      "field": {
+        "tp": 8864,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.9997,
+        "recall": 1.0,
+        "f1": 0.9998
+      },
+      "field_by_style": {
+        "table": {
+          "tp": 2954,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "explicit": {
+          "tp": 2955,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "colloquial": {
+          "tp": 2955,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.999,
+          "recall": 1.0,
+          "f1": 0.9995
+        }
+      },
+      "hallucination": {
+        "hits": 3,
+        "n": 179,
+        "rate": 0.0168,
+        "ci95": [
+          0.0057,
+          0.0481
+        ]
+      },
+      "ungrounded": 0
+    },
+    "B_original_kept": {
+      "n_cases": 138,
+      "errors": 0,
+      "detection_active": {
+        "hits": 75,
+        "n": 76,
+        "rate": 0.9868,
+        "ci95": [
+          0.9292,
+          0.9977
+        ]
+      },
+      "detection_held_out": {
+        "hits": 16,
+        "n": 16,
+        "rate": 1.0,
+        "ci95": [
+          0.8064,
+          1.0
+        ]
+      },
+      "detection_paired_active": {
+        "hits": 69,
+        "n": 70,
+        "rate": 0.9857,
+        "ci95": [
+          0.9234,
+          0.9975
+        ]
+      },
+      "detection_paired_held_out": {
+        "hits": 16,
+        "n": 16,
+        "rate": 1.0,
+        "ci95": [
+          0.8064,
+          1.0
+        ]
+      },
+      "clean_fp": {
+        "hits": 0,
+        "n": 46,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.0771
+        ]
+      },
+      "clean_fp_by_style": {
+        "table": {
+          "hits": 0,
+          "n": 19,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.1682
+          ]
+        },
+        "explicit": {
+          "hits": 0,
+          "n": 20,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.1611
+          ]
+        },
+        "colloquial": {
+          "hits": 0,
+          "n": 7,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.3543
+          ]
+        }
+      },
+      "clean_fp_rules": {},
+      "by_style": {
+        "table": {
+          "active": {
+            "hits": 32,
+            "n": 32,
+            "rate": 1.0,
+            "ci95": [
+              0.8928,
+              1.0
+            ]
+          },
+          "held_out": {
+            "hits": 8,
+            "n": 8,
+            "rate": 1.0,
+            "ci95": [
+              0.6756,
+              1.0
+            ]
+          }
+        },
+        "explicit": {
+          "active": {
+            "hits": 32,
+            "n": 32,
+            "rate": 1.0,
+            "ci95": [
+              0.8928,
+              1.0
+            ]
+          },
+          "held_out": {
+            "hits": 8,
+            "n": 8,
+            "rate": 1.0,
+            "ci95": [
+              0.6756,
+              1.0
+            ]
+          }
+        },
+        "colloquial": {
+          "active": {
+            "hits": 11,
+            "n": 12,
+            "rate": 0.9167,
+            "ci95": [
+              0.6461,
+              0.9851
+            ]
+          },
+          "held_out": {
+            "hits": 0,
+            "n": 0,
+            "rate": null,
+            "ci95": null
+          }
+        }
+      },
+      "by_operator": {
+        "delete_owner": {
+          "hits": 8,
+          "n": 9,
+          "rate": 0.8889
+        },
+        "departed_contact": {
+          "hits": 10,
+          "n": 10,
+          "rate": 1.0
+        },
+        "deadline_contradiction": {
+          "hits": 8,
+          "n": 8,
+          "rate": 1.0
+        },
+        "escalation_cycle": {
+          "hits": 9,
+          "n": 9,
+          "rate": 1.0
+        },
+        "delete_approver": {
+          "hits": 12,
+          "n": 12,
+          "rate": 1.0
+        },
+        "delete_fallback_channel": {
+          "hits": 9,
+          "n": 9,
+          "rate": 1.0
+        },
+        "delete_rollback": {
+          "hits": 9,
+          "n": 9,
+          "rate": 1.0
+        },
+        "delete_escalation": {
+          "hits": 10,
+          "n": 10,
+          "rate": 1.0
+        },
+        "delete_detection": {
+          "hits": 8,
+          "n": 8,
+          "rate": 1.0
+        },
+        "delete_reporting_step": {
+          "hits": 8,
+          "n": 8,
+          "rate": 1.0
+        }
+      },
+      "field": {
+        "tp": 6725,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.9999,
+        "recall": 1.0,
+        "f1": 0.9999
+      },
+      "field_by_style": {
+        "table": {
+          "tp": 2896,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "explicit": {
+          "tp": 2955,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "colloquial": {
+          "tp": 874,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.9989,
+          "recall": 1.0,
+          "f1": 0.9994
+        }
+      },
+      "hallucination": {
+        "hits": 1,
+        "n": 141,
+        "rate": 0.0071,
+        "ci95": [
+          0.0013,
+          0.0391
+        ]
+      },
+      "ungrounded": 0
+    },
+    "B_paraphrased_kept": {
+      "n_cases": 138,
+      "errors": 0,
+      "detection_active": {
+        "hits": 63,
+        "n": 76,
+        "rate": 0.8289,
+        "ci95": [
+          0.729,
+          0.8972
+        ]
+      },
+      "detection_held_out": {
+        "hits": 16,
+        "n": 16,
+        "rate": 1.0,
+        "ci95": [
+          0.8064,
+          1.0
+        ]
+      },
+      "detection_paired_active": {
+        "hits": 54,
+        "n": 70,
+        "rate": 0.7714,
+        "ci95": [
+          0.6605,
+          0.8541
+        ]
+      },
+      "detection_paired_held_out": {
+        "hits": 16,
+        "n": 16,
+        "rate": 1.0,
+        "ci95": [
+          0.8064,
+          1.0
+        ]
+      },
+      "clean_fp": {
+        "hits": 42,
+        "n": 46,
+        "rate": 0.913,
+        "ci95": [
+          0.7968,
+          0.9657
+        ]
+      },
+      "clean_fp_by_style": {
+        "table": {
+          "hits": 17,
+          "n": 19,
+          "rate": 0.8947,
+          "ci95": [
+            0.6861,
+            0.9706
+          ]
+        },
+        "explicit": {
+          "hits": 19,
+          "n": 20,
+          "rate": 0.95,
+          "ci95": [
+            0.7639,
+            0.9911
+          ]
+        },
+        "colloquial": {
+          "hits": 6,
+          "n": 7,
+          "rate": 0.8571,
+          "ci95": [
+            0.4869,
+            0.9743
+          ]
+        }
+      },
+      "clean_fp_rules": {
+        "JT-CAT-002": {
+          "cases": 6,
+          "severity": "info"
+        },
+        "JT-ESC-001": {
+          "cases": 5,
+          "severity": "high"
+        },
+        "JT-ESC-004": {
+          "cases": 35,
+          "severity": "low"
+        },
+        "JT-INT-001": {
+          "cases": 1,
+          "severity": "medium"
+        },
+        "JT-KR-001": {
+          "cases": 2,
+          "severity": "high"
+        },
+        "JT-KR-002": {
+          "cases": 23,
+          "severity": "high"
+        },
+        "JT-KR-004": {
+          "cases": 21,
+          "severity": "high"
+        },
+        "JT-PATH-001": {
+          "cases": 16,
+          "severity": "critical"
+        },
+        "JT-PATH-002": {
+          "cases": 3,
+          "severity": "high"
+        },
+        "JT-PATH-010": {
+          "cases": 6,
+          "severity": "critical"
+        },
+        "JT-PATH-020": {
+          "cases": 23,
+          "severity": "high"
+        },
+        "JT-PATH-030": {
+          "cases": 6,
+          "severity": "high"
+        },
+        "JT-PATH-040": {
+          "cases": 11,
+          "severity": "high"
+        },
+        "JT-SPF-001": {
+          "cases": 4,
+          "severity": "medium"
+        }
+      },
+      "by_style": {
+        "table": {
+          "active": {
+            "hits": 25,
+            "n": 32,
+            "rate": 0.7812,
+            "ci95": [
+              0.6125,
+              0.8898
+            ]
+          },
+          "held_out": {
+            "hits": 8,
+            "n": 8,
+            "rate": 1.0,
+            "ci95": [
+              0.6756,
+              1.0
+            ]
+          }
+        },
+        "explicit": {
+          "active": {
+            "hits": 27,
+            "n": 32,
+            "rate": 0.8438,
+            "ci95": [
+              0.6825,
+              0.9314
+            ]
+          },
+          "held_out": {
+            "hits": 8,
+            "n": 8,
+            "rate": 1.0,
+            "ci95": [
+              0.6756,
+              1.0
+            ]
+          }
+        },
+        "colloquial": {
+          "active": {
+            "hits": 11,
+            "n": 12,
+            "rate": 0.9167,
+            "ci95": [
+              0.6461,
+              0.9851
+            ]
+          },
+          "held_out": {
+            "hits": 0,
+            "n": 0,
+            "rate": null,
+            "ci95": null
+          }
+        }
+      },
+      "by_operator": {
+        "delete_owner": {
+          "hits": 4,
+          "n": 9,
+          "rate": 0.4444
+        },
+        "departed_contact": {
+          "hits": 10,
+          "n": 10,
+          "rate": 1.0
+        },
+        "deadline_contradiction": {
+          "hits": 8,
+          "n": 8,
+          "rate": 1.0
+        },
+        "escalation_cycle": {
+          "hits": 9,
+          "n": 9,
+          "rate": 1.0
+        },
+        "delete_approver": {
+          "hits": 10,
+          "n": 12,
+          "rate": 0.8333
+        },
+        "delete_fallback_channel": {
+          "hits": 3,
+          "n": 9,
+          "rate": 0.3333
+        },
+        "delete_rollback": {
+          "hits": 9,
+          "n": 9,
+          "rate": 1.0
+        },
+        "delete_escalation": {
+          "hits": 10,
+          "n": 10,
+          "rate": 1.0
+        },
+        "delete_detection": {
+          "hits": 8,
+          "n": 8,
+          "rate": 1.0
+        },
+        "delete_reporting_step": {
+          "hits": 8,
+          "n": 8,
+          "rate": 1.0
+        }
+      },
+      "field": {
+        "tp": 4904,
+        "fp": 1380,
+        "fn": 1821,
+        "precision": 0.7804,
+        "recall": 0.7292,
+        "f1": 0.7539
+      },
+      "field_by_style": {
+        "table": {
+          "tp": 1945,
+          "fp": 549,
+          "fn": 951,
+          "precision": 0.7799,
+          "recall": 0.6716,
+          "f1": 0.7217
+        },
+        "explicit": {
+          "tp": 2209,
+          "fp": 779,
+          "fn": 746,
+          "precision": 0.7393,
+          "recall": 0.7475,
+          "f1": 0.7434
+        },
+        "colloquial": {
+          "tp": 750,
+          "fp": 52,
+          "fn": 124,
+          "precision": 0.9352,
+          "recall": 0.8581,
+          "f1": 0.895
+        }
+      },
+      "hallucination": {
+        "hits": 3,
+        "n": 141,
+        "rate": 0.0213,
+        "ci95": [
+          0.0073,
+          0.0607
+        ]
+      },
+      "ungrounded": 0
+    },
+    "paired_detection_all_mutated": {
+      "cells": {
+        "hit->hit": 79,
+        "hit->miss": 12,
+        "miss->miss": 1
+      },
+      "lost": [
+        "org03-broadcast-delete_fallback_channel-table-front",
+        "org08-webtoon-delete_approver-table-back",
+        "org08-webtoon-delete_fallback_channel-table-back",
+        "org11-music-delete_owner-table-front",
+        "org13-recruit-delete_fallback_channel-table-front",
+        "org18-civil-service-delete_approver-table-back",
+        "org18-civil-service-delete_fallback_channel-table-back",
+        "org06-edtech-delete_fallback_channel-explicit-front",
+        "org09-adtech-delete_owner-explicit-back",
+        "org14-realestate-delete_owner-explicit-front",
+        "org16-delivery-delete_fallback_channel-explicit-front",
+        "org19-crowdfunding-delete_owner-explicit-back"
+      ],
+      "gained": [],
+      "mcnemar_exact_p": 0.000488
+    },
+    "paired_detection_table": {
+      "cells": {
+        "hit->hit": 33,
+        "hit->miss": 7
+      },
+      "lost": [
+        "org03-broadcast-delete_fallback_channel-table-front",
+        "org08-webtoon-delete_approver-table-back",
+        "org08-webtoon-delete_fallback_channel-table-back",
+        "org11-music-delete_owner-table-front",
+        "org13-recruit-delete_fallback_channel-table-front",
+        "org18-civil-service-delete_approver-table-back",
+        "org18-civil-service-delete_fallback_channel-table-back"
+      ],
+      "gained": [],
+      "mcnemar_exact_p": 0.015625
+    },
+    "paired_detection_explicit": {
+      "cells": {
+        "hit->hit": 35,
+        "hit->miss": 5
+      },
+      "lost": [
+        "org06-edtech-delete_fallback_channel-explicit-front",
+        "org09-adtech-delete_owner-explicit-back",
+        "org14-realestate-delete_owner-explicit-front",
+        "org16-delivery-delete_fallback_channel-explicit-front",
+        "org19-crowdfunding-delete_owner-explicit-back"
+      ],
+      "gained": [],
+      "mcnemar_exact_p": 0.0625
+    },
+    "paired_detection_colloquial": {
+      "cells": {
+        "hit->hit": 11,
+        "miss->miss": 1
+      },
+      "lost": [],
+      "gained": [],
+      "mcnemar_exact_p": 1.0
+    },
+    "B_original_on_excluded_mutated": {
+      "n": 28,
+      "hits": 26
+    },
+    "quarantined_documents": {
+      "original_kept": 0,
+      "paraphrased": 0
+    }
+  },
+  "llm": null
+}
