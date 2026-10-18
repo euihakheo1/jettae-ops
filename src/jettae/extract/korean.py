@@ -590,11 +590,17 @@ _NOUN = r"[A-Za-z0-9가-힣][A-Za-z0-9가-힣_\-]{0,19}"
 NOUN_PATTERN: str = _NOUN
 _LEAD_NOISE_RE = re.compile(r"[^\w\[]*(?:(?:\d+(?:\.\d+)*[.)]?|[IVXivx]+\.)\s+)?")
 #: Up to three words before 서비스/시스템 ("웹 프론트엔드 서비스"); each must be a service noun.
+#: A Latin "Service"/"System" suffix is a word of its own: it needs whitespace before it (or a
+#: Hangul noun glued to it, "결제Service") and a word boundary after it, so an identifier such as
+#: "KubeServiceApiserverApdex" is not read as a service called "Kube".
 _SERVICE_SUFFIX_RE = re.compile(
-    rf"(?P<noun>{_NOUN}?(?: {_NOUN}?){{0,2}})\s*(?:서비스|시스템|[Ss]ervice|[Ss]ystem)(?!팀)"
+    rf"(?P<noun>{_NOUN}?(?: {_NOUN}?){{0,2}})"
+    r"(?:\s*(?:서비스|시스템)|(?:(?<=[가-힣])|\s+)(?:[Ss]ervice|[Ss]ystem)(?![A-Za-z0-9]))(?!팀)"
 )
 _INCIDENT_SUFFIX_RE = re.compile(rf"(?P<noun>{_NOUN}?)\s+(?:장애|문제)")
-_BRACKET_INNER_RE = re.compile(r"\[(?P<inner>[^\]\n]{1,40})\]")
+#: "[결제 서비스]" header. A bracket followed by "(" or "[" is markdown link text ("[title](url)",
+#: "[title][ref]"): it names another page, not the service a section is about.
+_BRACKET_INNER_RE = re.compile(r"\[(?P<inner>[^\]\n]{1,40})\](?![(\[])")
 _JOSA_END_RE = re.compile(r"(?:은|는|을|를|에|의|에서|으로|가)$")
 
 

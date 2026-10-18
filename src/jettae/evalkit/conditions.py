@@ -544,7 +544,7 @@ def keyword_findings(
     services when the scope is empty) — the same scope the fixed rules use.
     """
     tiers = {s.name: s.tier for s in catalog}
-    breach_applies = any(o.applies and o.incident_type is IncidentType.BREACH for o in policy.obligations)
+    breach_applies = bool(policy.obligations_in_force(IncidentType.BREACH))
     fired: set[FiredKey] = set()
     for service, text in _region_texts(case).items():
         tier = tiers.get(service) or policy.default_tier
@@ -755,7 +755,7 @@ def direct_context(inputs: CaseInputs) -> str:
     # format_minutes, not ``// 60``: a 90-minute duty must not reach the model as "1시간"
     duty_lines = [
         f"- {o.incident_type.value}: {format_minutes(o.deadline_minutes)} 이내 {_one_line(o.recipient)}"
-        + ("" if o.applies else " (이 조직에는 적용되지 않음)")
+        + ("" if policy.in_force(o) else " (이 조직에는 적용되지 않음)")
         for o in policy.obligations
     ]
     regulated = ", ".join(policy.regulated_services) or "핵심 등급 서비스 전체"

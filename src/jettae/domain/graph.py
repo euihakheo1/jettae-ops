@@ -136,6 +136,43 @@ class AttrKey(StrEnum):
     CHANNEL = "channel"  # NOTIFIES: channel *name* in the Extraction IR; channel node id in the graph
 
 
+class DelegatedElement(StrEnum):
+    """A response-path element a runbook hands off to an external source instead of stating it.
+
+    "the owning team is listed in the team directory", "whoever is on the paging rota is paged",
+    "contacts are kept in a vault entry": the document says *where* the fact lives, not the fact.
+    Such an element is not missing (the runbook did not forget it) and not met (nothing here proves
+    it): it is 확인 불가 until that source is part of the input (P3).
+    """
+
+    DETECTION = "detection"  # who an alert pages (paging schedule, alert routing)
+    OWNER = "owner"  # 담당
+    ESCALATION = "escalation"  # 상향
+    APPROVER = "approver"  # 승인자
+    FALLBACK_CHANNEL = "fallback_channel"  # 연락 수단·대체 채널
+    ROLLBACK = "rollback"  # 롤백·완화 절차 (another runbook)
+
+
+#: Attribute on a TRIGGER node (value ``True``, spans = the stating sentence): the runbook of this
+#: alert says it applies to whichever service raised it and names none. No service of it can be
+#: checked; what that runbook hands off to an external source is recorded on the alert itself.
+ANY_SERVICE_ALERT = "any_service_alert"
+#: Attribute on a TRIGGER node (value ``True``, spans = the stating sentence): the document is the
+#: runbook of this alert, names no service it watches and mentions no service at all, without
+#: saying the alert applies to any service. Read like :data:`ANY_SERVICE_ALERT` for what the
+#: runbook hands off (those statements are about whatever the alert fires for), worded apart.
+UNNAMED_SERVICE_ALERT = "unnamed_service_alert"
+
+
+def delegation_key(element: DelegatedElement) -> str:
+    """Attribute key on a service/system node naming the external source ``element`` is delegated to.
+
+    The attribute value is the source as written (``"team directory"``) and its spans are the
+    sentence that delegates. Only extractors that read delegations (the LLM extractor) write it.
+    """
+    return f"delegated_{element.value}"
+
+
 class PersonStatus(StrEnum):
     ACTIVE = "active"
     DEPARTED = "departed"  # 퇴사

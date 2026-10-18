@@ -807,7 +807,7 @@ def _assemble(state: DiagnosisState, *, runtime: Runtime[PipelineContext]) -> Di
         oncall=bundle.oncall,
         policy=bundle.policy,
     )
-    return {"assembly": result}
+    return {"assembly": result, "notes": result.notes}
 
 
 async def _verify(state: DiagnosisState, *, runtime: Runtime[PipelineContext]) -> DiagnosisState:
@@ -1066,4 +1066,5 @@ async def run_diagnosis(
         reapplied_patch_ids=final["reapplied_patch_ids"],
         draft_base_version=final["draft_base_version"],
         notes=final["notes"],
+        extractions=(*final["rule_extractions"], *final.get("llm_extractions", ())),
     )

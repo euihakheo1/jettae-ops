@@ -1572,5 +1572,289 @@ def _injection_view(result: Any, *, plain: bool) -> list[RenderableType]:
     ]
 
 
+# --------------------------------------------------------------------------- eval: real data
+
+REALDATA_MODULE: Final = "jettae.evalkit.realdata"
+_EFFORTS: Final = ("low", "medium", "high", "xhigh", "max")
+_BUNDLE_LANGUAGES: Final = ("source", "ko")
+_SPLITS: Final = ("dev", "test", "all")
+_JURISDICTION: Final = re.compile(r"[A-Za-z]{2,3}")
+
+
+def _realdata() -> ModuleType:
+    """The real-data studies, bound by name like the rest of the evaluation kit."""
+    return importlib.import_module(REALDATA_MODULE)
+
+
+def _check_effort(effort: str) -> str:
+    value = effort.strip().lower()
+    if value not in _EFFORTS:
+        raise CliError(f"--effort 값은 {', '.join(_EFFORTS)} 중 하나여야 합니다: {effort}")
+    return value
+
+
+def _check_budget(max_usd: float | None, option: str = "--max-usd") -> None:
+    if max_usd is not None and (not math.isfinite(max_usd) or max_usd <= 0):
+        raise CliError(f"{option} 값은 0보다 큰 달러 금액이어야 합니다: {max_usd:g}")
+
+
+def _check_split(split: str) -> str:
+    value = split.strip().lower()
+    if value not in _SPLITS:
+        raise CliError(f"--split 값은 {', '.join(_SPLITS)} 중 하나여야 합니다: {split}")
+    return value
+
+
+def _jurisdictions(raw: str) -> tuple[str, ...]:
+    """``"US"`` / ``"KR,US"`` -> ``("US",)`` / ``("KR", "US")`` (2–3 letter codes)."""
+    codes = tuple(dict.fromkeys(c.strip().upper() for c in raw.split(",") if c.strip()))
+    if not codes or not all(_JURISDICTION.fullmatch(c) for c in codes):
+        raise CliError(f"--jurisdiction 값은 KR, US 같은 관할 코드(쉼표로 여럿)여야 합니다: {raw}")
+    return codes
+
+
+def _out_dir(out: Path) -> Path:
+    if out.is_file():
+        raise CliError(f"--out은 결과 폴더여야 합니다: {_shown(out)}")
+    return out
+
+
+def _finish_study(result: Any, out: Path) -> None:
+    """Print a dry run's table (stdout) or a real run's summary; a run that stopped early exits 1."""
+    if result.dry_run:
+        _echo(str(result.table.render()))
+        _stderr(f"드라이런: 유료 호출 0회. 추정치를 {_shown(out)}/dry_run.md, dry_run.json에 저장했습니다.")
+        return
+    outcome = result.outcome
+    metrics = outcome.metrics
+    total = metrics.spent_usd_total
+    spend = metrics.spend_this_run
+    this_run = spend.spent_usd if spend is not None else 0.0
+    cap = spend.max_usd if spend is not None else None
+    cap_text = f" / 누적 상한 --max-usd ${cap:.2f}" if cap is not None else ""
+    _stderr(
+        f"결과를 {_shown(out)}에 썼습니다 (results.jsonl, metrics.json, report.md, spend.json). "
+        f"이번 실행 지출 ${this_run:.4f} · 이 --out 폴더 누적 지출 ${total:.4f}{cap_text}",
+        style="bold",
+    )
+    if outcome.stop_reason:
+        _stderr(f"중간에 멈췄습니다: {outcome.stop_reason} — {_resume_hint(outcome, total)}", style="yellow")
+        raise typer.Exit(EXIT_GATE)
+
+
+def _resume_hint(outcome: Any, total: float) -> str:
+    """What re-running does after an early stop — true for the cap that stopped the run."""
+    redo = "멈춘 항목은 다음 실행에서 처음부터 다시 처리합니다(이미 쓴 비용은 누적 지출에 포함)."
+    kind = getattr(outcome, "stop_kind", None)
+    if kind == "budget_total":
+        return (
+            "누적 상한 --max-usd(이 --out 폴더의 모든 실행 합계)에 닿았습니다. "
+            "같은 --max-usd로 다시 실행해도 남은 예산이 다음 호출 예약액보다 작아 더 진행하지 못합니다"
+            f"(시작 거부 또는 첫 호출 전 중단) — 이어서 하려면 --max-usd를 누적 지출 ${total:.2f}보다 "
+            f"크게 올려 같은 --out으로 실행하세요(끝난 항목은 다시 하지 않음). {redo}"
+        )
+    if kind == "budget_run":
+        return (
+            "이번 실행 상한 --max-usd-run에 닿았습니다. 같은 명령으로 다시 실행하면 끝난 항목은 건너뛰고 "
+            f"새로 --max-usd-run만큼(누적 상한 --max-usd 안에서) 이어서 합니다. {redo}"
+        )
+    return f"같은 명령으로 다시 실행하면 끝난 항목은 건너뛰고 남은 항목만 이어서 합니다. {redo}"
+
+
+_COMMON_HELP: Final = (
+    "유료 실행은 --max-usd와 --yes가 있어야 합니다. --max-usd는 이 --out 폴더의 누적 상한입니다"
+    "(이전 실행의 지출 spend.json 포함). 남은 항목의 추정 비용이 남은 예산(--max-usd − 누적 지출)을 "
+    "넘으면 시작하지 않고, 실제 지출이 누적 상한이나 --max-usd-run(이번 실행만의 상한, 선택)에 "
+    "닿으면 멈춥니다. 같은 --out으로 다시 실행하면 끝난 항목은 건너뛰고 남은 항목만 처리하며, "
+    "입력 폴더를 끝난 항목을 모두 담은 "
+    "더 큰 폴더(상위 집합)로 바꾸면 새 항목만 처리하고 지표를 전체로 다시 계산합니다. "
+    "--dry-run은 무료 count_tokens만 쓰고 남은 항목만 추정합니다."
+)
+_MAX_USD_HELP: Final = "이 --out 폴더의 누적 달러 상한 — 이전 실행 지출(spend.json) 포함 (유료 실행에 필수)"
+_MAX_USD_RUN_HELP: Final = "이번 실행만의 달러 상한 (선택; 누적 상한 --max-usd와 함께 적용)"
+_ALLOW_INPUT_CHANGE_HELP: Final = (
+    "이미 끝낸 항목이 입력에서 빠지거나 내용이 바뀌어도 진행 (바뀐 항목은 다시 처리·과금, "
+    "이전 결과는 results.superseded.jsonl로 옮겨 지표에서 뺌)"
+)
+
+
+@eval_app.command(
+    "real-runbooks",
+    help="실증 ①: 공개 실무 런북에 제품을 LLM 모드로 돌리고, "
+    "모든 지적을 서로 다른 계열의 두 코더가 원문과 대조해 "
+    "판정합니다(κ·α·정밀도·사람 검토 표본). " + _COMMON_HELP,
+)
+def eval_real_runbooks(
+    *,
+    input_dir: Annotated[
+        Path, typer.Option("--input", help="런북 폴더 (예: C:/jettae/data/real/gitlab-runbooks)")
+    ],
+    out: Annotated[Path, typer.Option("--out", "-o", help="결과 폴더")],
+    model: Annotated[
+        str, typer.Option("--model", help="주 모델(제품 추출) — Claude 모델 id")
+    ] = "claude-opus-5-5",
+    effort: Annotated[
+        str, typer.Option("--effort", help="Claude effort (low|medium|high|xhigh|max)")
+    ] = "medium",
+    coder_a: Annotated[
+        str, typer.Option("--coder-a", help="코더 A (anthropic:<모델>)")
+    ] = "anthropic:claude-opus-5-5",
+    coder_b: Annotated[str, typer.Option("--coder-b", help="코더 B (openai:<모델>)")] = "openai:gpt-6.1-sol",
+    max_usd: Annotated[
+        float | None, typer.Option("--max-usd", help=_MAX_USD_HELP, show_default=False)
+    ] = None,
+    max_usd_run: Annotated[
+        float | None, typer.Option("--max-usd-run", help=_MAX_USD_RUN_HELP, show_default=False)
+    ] = None,
+    allow_input_change: Annotated[
+        bool, typer.Option("--allow-input-change", help=_ALLOW_INPUT_CHANGE_HELP)
+    ] = False,
+    dry_run: Annotated[
+        bool, typer.Option("--dry-run", help="요청을 만들어 남은 항목의 비용만 추정 (유료 호출 0회)")
+    ] = False,
+    limit: Annotated[
+        int | None, typer.Option("--limit", help="앞에서부터 N개 런북만", show_default=False)
+    ] = None,
+    yes: Annotated[bool, typer.Option("--yes", "-y", help="유료 호출 승인")] = False,
+    concurrency: Annotated[int, typer.Option("--concurrency", help="동시 LLM 요청 수")] = 4,
+    coder_batch: Annotated[int, typer.Option("--coder-batch", help="코더 요청 하나에 넣을 지적 수")] = 8,
+    review_size: Annotated[int, typer.Option("--review-size", help="사람 검토 표본 크기")] = 100,
+    seed: Annotated[int, typer.Option("--seed", help="검토 표본 시드")] = 20261017,
+    assume_findings: Annotated[
+        int, typer.Option("--assume-findings", help="드라이런에서 런북당 가정할 지적 수")
+    ] = 12,
+    generated_at: Annotated[
+        str | None, typer.Option("--generated-at", help="보고서 생성 일자 (기본: 오늘)", show_default=False)
+    ] = None,
+    split: Annotated[
+        str,
+        typer.Option(
+            "--split",
+            help="평가 분할: dev(제품 수정용) | test(최종 보고 수치) | all — 분할 파일의 고정 배정을 따름",
+        ),
+    ] = "all",
+    split_file: Annotated[
+        Path | None,
+        typer.Option(
+            "--split-file",
+            help="dev/test 배정 파일 (기본: docs/eval/gitlab-runbooks-split.json)",
+            show_default=False,
+        ),
+    ] = None,
+    jurisdiction: Annotated[
+        str,
+        typer.Option(
+            "--jurisdiction",
+            help="원 회사의 관할(정책) — KR이 없으면 한국 법정 신고 규칙(JT-KR-*)을 적용하지 않음 "
+            "(쉼표로 여럿)",
+        ),
+    ] = "US",
+) -> None:
+    with _errors():
+        _check_counts(
+            limit=limit, concurrency=concurrency, **{"coder-batch": coder_batch, "review-size": review_size}
+        )
+        _check_budget(max_usd)
+        _check_budget(max_usd_run, "--max-usd-run")
+        kit = _realdata()
+        config = kit.RunbookStudyConfig(
+            input_dir=input_dir,
+            out_dir=_out_dir(out),
+            model=model,
+            effort=_check_effort(effort),
+            coder_a=coder_a,
+            coder_b=coder_b,
+            max_usd=max_usd,
+            max_usd_run=max_usd_run,
+            allow_input_change=allow_input_change,
+            limit=limit,
+            concurrency=concurrency,
+            coder_batch=coder_batch,
+            review_size=review_size,
+            seed=seed,
+            assumed_findings=max(0, assume_findings),
+            generated_at=generated_at or _today(),
+            split=_check_split(split),
+            split_file=split_file,
+            jurisdictions=_jurisdictions(jurisdiction),
+        )
+        result = _run(kit.run_real_runbooks(config, dry_run=dry_run, confirmed=yes, echo=_stderr))
+        _finish_study(result, out)
+
+
+@eval_app.command(
+    "retro",
+    help="실증 ②: 장애 사후 보고서마다 사고 전 묶음을 재구성(결과 누설 검사 포함)해 제품으로 진단하고, "
+    "두 코더가 "
+    "보고서의 대응 공백을 규칙 계열로 코딩해 사고 전에 지적할 수 있었던 공백(N·k·m, κ)을 셉니다. "
+    + _COMMON_HELP,
+)
+def eval_retro(
+    *,
+    reports: Annotated[
+        Path, typer.Option("--reports", help="장애 보고서 폴더 (<id>.md|.txt, 선택적 front matter)")
+    ],
+    out: Annotated[Path, typer.Option("--out", "-o", help="결과 폴더")],
+    model: Annotated[
+        str, typer.Option("--model", help="주 모델(재구성·누설 검사·제품 추출)")
+    ] = "claude-opus-5-5",
+    effort: Annotated[
+        str, typer.Option("--effort", help="Claude effort (low|medium|high|xhigh|max)")
+    ] = "medium",
+    coder_a: Annotated[
+        str, typer.Option("--coder-a", help="코더 A (anthropic:<모델>)")
+    ] = "anthropic:claude-opus-5-5",
+    coder_b: Annotated[str, typer.Option("--coder-b", help="코더 B (openai:<모델>)")] = "openai:gpt-6.1-sol",
+    max_usd: Annotated[
+        float | None, typer.Option("--max-usd", help=_MAX_USD_HELP, show_default=False)
+    ] = None,
+    max_usd_run: Annotated[
+        float | None, typer.Option("--max-usd-run", help=_MAX_USD_RUN_HELP, show_default=False)
+    ] = None,
+    allow_input_change: Annotated[
+        bool, typer.Option("--allow-input-change", help=_ALLOW_INPUT_CHANGE_HELP)
+    ] = False,
+    dry_run: Annotated[
+        bool, typer.Option("--dry-run", help="요청을 만들어 남은 항목의 비용만 추정 (유료 호출 0회)")
+    ] = False,
+    limit: Annotated[
+        int | None, typer.Option("--limit", help="앞에서부터 N개 보고서만", show_default=False)
+    ] = None,
+    yes: Annotated[bool, typer.Option("--yes", "-y", help="유료 호출 승인")] = False,
+    concurrency: Annotated[int, typer.Option("--concurrency", help="동시 LLM 요청 수")] = 4,
+    bundle_language: Annotated[
+        str, typer.Option("--bundle-language", help="재구성 런북 언어 (source=보고서 언어, ko=한국어)")
+    ] = "source",
+    generated_at: Annotated[
+        str | None, typer.Option("--generated-at", help="보고서 생성 일자 (기본: 오늘)", show_default=False)
+    ] = None,
+) -> None:
+    with _errors():
+        _check_counts(limit=limit, concurrency=concurrency)
+        _check_budget(max_usd)
+        _check_budget(max_usd_run, "--max-usd-run")
+        language = bundle_language.strip().lower()
+        if language not in _BUNDLE_LANGUAGES:
+            raise CliError(f"--bundle-language 값은 source 또는 ko여야 합니다: {bundle_language}")
+        kit = _realdata()
+        config = kit.RetroConfig(
+            reports_dir=reports,
+            out_dir=_out_dir(out),
+            model=model,
+            effort=_check_effort(effort),
+            coder_a=coder_a,
+            coder_b=coder_b,
+            max_usd=max_usd,
+            max_usd_run=max_usd_run,
+            allow_input_change=allow_input_change,
+            limit=limit,
+            concurrency=concurrency,
+            bundle_language=language,
+            generated_at=generated_at or _today(),
+        )
+        result = _run(kit.run_retro(config, dry_run=dry_run, confirmed=yes, echo=_stderr))
+        _finish_study(result, out)
+
+
 if __name__ == "__main__":  # `python -m jettae.cli.main` must run the command, never exit 0 silently
     app(prog_name="jettae")

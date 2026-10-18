@@ -22,6 +22,9 @@ General conventions
   requirement is met (P3: 확인 불가 ≠ 정상). An element whose status is ``UNKNOWN`` scores 0.
 * Facts the sources do not state stay absent (P2): e.g. a rollback without a stated executor does
   not get the executor bonus.
+* An element the runbook hands off to an external source ("owners: see the team directory" —
+  :func:`delegation_of`) and does not state itself is UNKNOWN instead of FAIL: the runbook did not
+  forget it, but nothing in the input proves it either. It earns no points (score 0 either way).
 
 Per element (score in 0..1)
 ---------------------------
@@ -30,6 +33,10 @@ DETECTION
     0.5 if a trigger exists but no notify target resolves; 0 if there is no trigger.
     If any DETECTED_BY edge, trigger or NOTIFIES edge of the service is on HOLD → UNKNOWN, 0.
     A NOTIFIES edge whose ``channel`` attr names an unavailable channel does not deliver.
+    A trigger is any stated way a failure becomes visible (alert, failing health check, channel
+    notification, a dashboard named as where it shows, a provider notice, customer reports);
+    one that is only posted to a channel, or raised in a paging tool with nobody named, stays at
+    0.5 (the paging-tool case is reported 확인 불가: :func:`trigger_delegation`).
 OWNER = owner part + escalation part
     owner part 0.6 if ≥1 owner resolves to an active, reachable responder; 0.3 if active but
     unreachable; 0 otherwise (status FAIL — or UNKNOWN with score 0 when an owner person is
@@ -73,9 +80,12 @@ from enum import StrEnum
 
 from jettae.check.context import CheckContext, requires_approval
 from jettae.domain import (
+    ANY_SERVICE_ALERT,
+    UNNAMED_SERVICE_ALERT,
     ActionType,
     AttrKey,
     ChannelMedium,
+    DelegatedElement,
     Edge,
     EdgeKind,
     Element,
@@ -87,6 +97,7 @@ from jettae.domain import (
     RosterEntry,
     SourceSpan,
     Verification,
+    delegation_key,
     node_id,
 )
 
@@ -133,6 +144,8 @@ GENERAL_SEMANTICS_KO: tuple[str, ...] = (
     "연락 가능: 그 사람(또는 거쳐 온 역할·팀)에 연락 수단(REACHABLE_VIA, FALLBACK_TO 포함)이 1개 이상 있다.",
     "판단 보류(HOLD) 요소와 가상 장애로 꺼진 요소는 충족 근거로 쓰지 않는다. 확인 불가(UNKNOWN)는 0점이다.",
     "원문·명부에 없는 사실은 없는 그대로 둔다. 예: 실행자가 적혀 있지 않으면 실행자 가산점이 없다.",
+    "런북이 요소를 직접 적지 않고 외부 자료로 위임하면(예: '담당자는 서비스 카탈로그 참고') 그 자료가 "
+    "입력에 없는 한 실패가 아니라 확인 불가(UNKNOWN)로 둔다. 위임만으로는 점수를 얻지 않는다(0점).",
 )
 
 SEMANTICS_KO: dict[Element, tuple[str, ...]] = {
@@ -140,6 +153,10 @@ SEMANTICS_KO: dict[Element, tuple[str, ...]] = {
         f"감지 신호(DETECTED_BY)의 호출(NOTIFIES) 대상이 활동 중인 대응자로 이어지면 {DETECTION_NOTIFIED}",
         f"감지 신호는 있으나 호출 대상이 없거나 활동 중인 대응자로 이어지지 않으면 {DETECTION_TRIGGER_ONLY}",
         "감지 신호가 없으면 0",
+        "감지 신호는 호출 알람만이 아니다: 상태 점검 실패, 채널에 게시되는 알림, 장애를 보여 주는 곳으로 "
+        "지목된 대시보드, 공급자의 장애 공지, 고객 문의 경로도 감지 신호다. 채널에 게시만 되거나 호출 도구로 "
+        f"발송된다고만 적혀 받는 대응자가 적혀 있지 않으면 {DETECTION_TRIGGER_ONLY}에 머문다(호출 도구로 "
+        "발송되면 받는 사람은 그 도구의 설정이 정하므로 지적은 확인 불가로 낸다)",
         "감지 연결·감지 신호·호출 연결 중 하나라도 판단 보류(HOLD)면 확인 불가(UNKNOWN), 0",
     ),
     Element.OWNER: (
@@ -163,7 +180,8 @@ SEMANTICS_KO: dict[Element, tuple[str, ...]] = {
         "완화 조치가 하나도 없으면 0(실패): 조치가 없어 승인 경로를 평가할 수 없음",
     ),
     Element.FALLBACK_CHANNEL: (
-        "활동 중인 담당자와 1차 상향 대상의 연락 수단을 모은다",
+        "활동 중인 담당자와 1차 상향 대상의 연락 수단을 모은다. 공급사 지원 창구(공급사와의 공유 채널, 지원 "
+        "티켓)는 공급사에 닿을 뿐 우리 쪽 담당자·상향 대상에게 닿는 수단이 아니므로 세지 않는다",
         "서로 다른 매체가 2개 이상이고 서비스와 장애 영역을 공유하지 않는 채널이 1개 이상이면 "
         f"{FALLBACK_INDEPENDENT}",
         f"채널이 2개 이상이지만 모두 같은 매체이거나 모두 서비스와 함께 죽으면 {FALLBACK_COMMON_MODE}",
@@ -505,6 +523,168 @@ def spans_of(ctx: CheckContext, ids: Iterable[str]) -> tuple[SourceSpan, ...]:
         if item is not None:
             found.update(item.spans)
     return tuple(sorted(found, key=lambda s: (s.doc_id, s.start, s.end, s.quote)))
+
+
+def merge_spans(*groups: Iterable[SourceSpan]) -> tuple[SourceSpan, ...]:
+    """Spans of several groups, deduplicated and in document order (as :func:`spans_of`)."""
+    found = {span for group in groups for span in group}
+    return tuple(sorted(found, key=lambda s: (s.doc_id, s.start, s.end, s.quote)))
+
+
+# --------------------------------------------------------------------------- delegations
+
+#: How a reason or message names each delegated element.
+DELEGATED_LABEL_KO: dict[DelegatedElement, str] = {
+    DelegatedElement.DETECTION: "감지·호출 경로",
+    DelegatedElement.OWNER: "담당자",
+    DelegatedElement.ESCALATION: "상향 경로",
+    DelegatedElement.APPROVER: "승인자",
+    DelegatedElement.FALLBACK_CHANNEL: "연락 수단",
+    DelegatedElement.ROLLBACK: "롤백·완화 절차",
+}
+
+
+@dataclass(frozen=True)
+class Delegation:
+    """The runbook says ``element`` of a service lives in an external source (``target``)."""
+
+    element: DelegatedElement
+    target: str
+    #: the sentence that delegates
+    evidence: tuple[SourceSpan, ...]
+
+
+def delegation_of(ctx: CheckContext, sid: str, *elements: DelegatedElement) -> Delegation | None:
+    """The first of ``elements`` the service's runbook delegates to an external source, if any.
+
+    Read from the node attribute :func:`~jettae.domain.delegation_key`. A delegation never proves an
+    element (the source is not in the input); it only changes *what* the report says about a gap:
+    확인 불가 instead of 없음. When the source is imported (e.g. the catalog names the owner), the
+    element is simply met and the delegation no longer matters.
+    """
+    node = ctx.graph.nodes.get(sid)
+    if node is None or node.id in ctx.unavailable:
+        return None
+    for element in elements:
+        attr = node.attrs.get(delegation_key(element))
+        if attr is not None and isinstance(attr.value, str) and attr.value.strip():
+            return Delegation(element=element, target=" ".join(attr.value.split()), evidence=attr.spans)
+    return None
+
+
+def delegation_reason(d: Delegation) -> str:
+    """``"담당자를 외부 참조('team directory')로 위임 — 그 자료가 입력에 없어 확인 불가"``."""
+    what = josa(DELEGATED_LABEL_KO[d.element], "을", "를")
+    return f"{what} 외부 참조('{d.target}')로 위임 — 그 자료가 입력에 없어 확인 불가"
+
+
+def owner_delegation(ctx: CheckContext, sid: str) -> Delegation | None:
+    """The owner delegation of a service whose runbook names no owner of its own."""
+    if _Scope(ctx).out(sid, EdgeKind.OWNED_BY):
+        return None
+    return delegation_of(ctx, sid, DelegatedElement.OWNER)
+
+
+def delegated_message(ctx: CheckContext, sid: str, d: Delegation, *, lead: str = "") -> str:
+    """A finding message for a delegated gap: what is handed off, to what, and what to upload.
+
+    ``lead`` says why this element depends on the delegated one (e.g. channels need an owner).
+    """
+    what = josa(DELEGATED_LABEL_KO[d.element], "을", "를")
+    return (
+        f"{service_label(ctx, sid)}: {lead}런북이 {what} 직접 적지 않고 "
+        f"외부 참조('{d.target}')로 위임했습니다. "
+        "그 자료가 입력에 없어 실제로 갖춰져 있는지 확인할 수 없습니다(확인 불가는 정상으로 보지 않습니다). "
+        "위임한 자료(예: 서비스 카탈로그, 호출 도구의 당직·호출 설정)를 함께 올리면 확인합니다."
+    )
+
+
+def policy_tier_basis(ctx: CheckContext, sid: str) -> str | None:
+    """How a message names a premise that comes from the policy, not the document.
+
+    ``None`` when a source states the service's tier. Otherwise the tier is the policy default
+    (:meth:`CheckContext.tier_stated`), and so is everything a rule concludes from it — that the
+    service is in the critical scope, that its rollback waits for an approver, its recovery
+    target: ``"정책(기본: 미분류 서비스는 핵심 등급) 기준"`` (or the default tier's number when the
+    default is not a critical tier). Coders judge such a premise as given (rubric v4).
+    """
+    if ctx.tier_stated(sid):
+        return None
+    tier = ctx.policy.default_tier
+    grade = "핵심 등급" if tier in ctx.policy.critical_tiers else f"{tier}등급"
+    return f"정책(기본: 미분류 서비스는 {grade}) 기준"
+
+
+def delegated_title(base: str) -> str:
+    """``"담당자 없음"`` -> ``"담당자 확인 불가"``: the rule's subject with the UNKNOWN verdict."""
+    return base.removesuffix(" 없음").removesuffix(" 미지정") + " 확인 불가"
+
+
+def delivery_channel(ctx: CheckContext, trigger_id: str) -> Node | None:
+    """Where a signal arrives when the runbook says so (the trigger's ``channel`` attribute):
+    the chat channel it is posted to, or the paging tool it pages through."""
+    trigger = ctx.graph.nodes.get(trigger_id)
+    raw = trigger.attr(AttrKey.CHANNEL) if trigger is not None else None
+    channel = ctx.graph.nodes.get(raw) if isinstance(raw, str) else None
+    return channel if channel is not None and usable(ctx, channel) else None
+
+
+def trigger_delegation(ctx: CheckContext, trigger_ids: Iterable[str]) -> Delegation | None:
+    """The first of these signals whose recipients the runbook leaves to an external source.
+
+    "Raised as a page in <tool>" with nobody named: who is paged is decided by that tool's
+    schedule and routing, which the input does not contain — 확인 불가, not 호출 대상 없음. Only
+    usable triggers count; the assembler records the hand-off on the trigger itself.
+    """
+    for tid in trigger_ids:
+        node = ctx.graph.nodes.get(tid)
+        if node is not None and usable(ctx, node):
+            found = delegation_of(ctx, tid, DelegatedElement.DETECTION)
+            if found is not None:
+                return found
+    return None
+
+
+def generic_alerts(ctx: CheckContext) -> list[Node]:
+    """Alerts whose runbook names no service (they apply to whichever service raised them,
+    :data:`~jettae.domain.ANY_SERVICE_ALERT`, or the document names no service at all,
+    :data:`~jettae.domain.UNNAMED_SERVICE_ALERT`) and which detect no service of the graph.
+
+    No service of them can be checked — the assembler leaves a note saying so — but what such a
+    runbook hands off to an external source is a stated fact about every service the alert fires
+    for, and is reported as 확인 불가 instead of disappearing with the unchecked services. Only the
+    assembler's explicit markers count: a trigger that is merely unlinked is not service-agnostic.
+    """
+    graph = ctx.graph
+    return [
+        trigger
+        for trigger in graph.nodes_of(NodeKind.TRIGGER)
+        if usable(ctx, trigger)
+        and (trigger.attr(ANY_SERVICE_ALERT) is True or trigger.attr(UNNAMED_SERVICE_ALERT) is True)
+        and not any(usable(ctx, e) for e in graph.in_edges(trigger.id, EdgeKind.DETECTED_BY))
+    ]
+
+
+def generic_alert_message(ctx: CheckContext, trigger_id: str, d: Delegation, *, lead: str = "") -> str:
+    """Finding message for an element the runbook of a service-agnostic alert hands off.
+
+    The premise is what the runbook says about the alert's scope: that it applies to whichever
+    service raised it, or — for an alert in a document that names no service — only that the
+    services it watches are not written down.
+    """
+    what = josa(DELEGATED_LABEL_KO[d.element], "을", "를")
+    node = ctx.graph.nodes.get(trigger_id)
+    scope = (
+        "특정 서비스가 아니라 경보를 낸 서비스에 두루 적용됩니다"
+        if node is None or node.attr(ANY_SERVICE_ALERT) is True
+        else "이 알람이 감시하는 서비스를 적지 않았습니다"
+    )
+    return (
+        f"{label(ctx, trigger_id)} 알람 런북은 {scope}. "
+        f"{lead}런북이 {what} 직접 적지 않고 외부 참조('{d.target}')로 위임했습니다. "
+        "그 자료가 입력에 없어 이 알람을 받는 서비스마다 실제로 갖춰져 있는지 확인할 수 없습니다"
+        "(확인 불가는 정상으로 보지 않습니다). 위임한 자료나 알람이 감시하는 서비스를 함께 올리면 확인합니다."
+    )
 
 
 # --------------------------------------------------------------------------- Korean wording
@@ -875,17 +1055,26 @@ def _eval(
     *,
     reasons: Iterable[str],
     subjects: Iterable[str],
+    delegation: Delegation | None = None,
 ) -> ElementEval:
+    """One element's evaluation. With ``delegation`` a FAIL at 0 becomes UNKNOWN (still 0) and the
+    delegating sentence joins the reasons and the evidence."""
     subject_ids = tuple(dict.fromkeys(subjects))
+    evidence = spans_of(ctx, subject_ids)
+    reason_list = tuple(reasons)
+    if delegation is not None and status is ElementStatus.FAIL and score == 0.0:
+        status = ElementStatus.UNKNOWN
+        reason_list = (delegation_reason(delegation), *reason_list)
+        evidence = merge_spans(evidence, delegation.evidence)
     if status is ElementStatus.UNKNOWN:
         score = 0.0
     return ElementEval(
         element=element,
         score=round(min(max(score, 0.0), 1.0), 6),
         status=status,
-        reasons=tuple(reasons),
+        reasons=reason_list,
         subject_ids=subject_ids,
-        evidence=spans_of(ctx, subject_ids),
+        evidence=evidence,
     )
 
 
@@ -933,7 +1122,15 @@ def eval_detection(ctx: CheckContext, det: DetectionAnalysis) -> ElementEval:
             subjects=subjects,
         )
     reason = "이 서비스의 장애를 알아챌 감지 신호(알람·모니터·고객 문의 경로)가 없음"
-    return _eval(ctx, Element.DETECTION, 0.0, ElementStatus.FAIL, reasons=[reason], subjects=subjects)
+    return _eval(
+        ctx,
+        Element.DETECTION,
+        0.0,
+        ElementStatus.FAIL,
+        reasons=[reason],
+        subjects=subjects,
+        delegation=delegation_of(ctx, sid, DelegatedElement.DETECTION),
+    )
 
 
 def _owner_part_reason(ctx: CheckContext, own: OwnerAnalysis) -> str:
@@ -992,7 +1189,8 @@ def eval_owner(ctx: CheckContext, own: OwnerAnalysis) -> ElementEval:
         *esc.edge_ids,
         *esc.responder_ids,
     ]
-    return _eval(ctx, Element.OWNER, total, status, reasons=reasons, subjects=subjects)
+    delegated = owner_delegation(ctx, own.service_id) if not own.owner_ids else None
+    return _eval(ctx, Element.OWNER, total, status, reasons=reasons, subjects=subjects, delegation=delegated)
 
 
 def eval_approver(ctx: CheckContext, appr: ApprovalAnalysis) -> ElementEval:
@@ -1002,7 +1200,16 @@ def eval_approver(ctx: CheckContext, appr: ApprovalAnalysis) -> ElementEval:
     held = _held_note(appr.held_ids)
     if not appr.action_ids:
         reasons = ["조치가 없어 승인 경로를 평가할 수 없음", *held]
-        return _eval(ctx, Element.APPROVER, 0.0, ElementStatus.FAIL, reasons=reasons, subjects=subjects)
+        delegated = delegation_of(ctx, appr.service_id, DelegatedElement.ROLLBACK, DelegatedElement.APPROVER)
+        return _eval(
+            ctx,
+            Element.APPROVER,
+            0.0,
+            ElementStatus.FAIL,
+            reasons=reasons,
+            subjects=subjects,
+            delegation=delegated,
+        )
     if not appr.approvals:
         reasons = [
             "승인이 필요한 조치가 없음(롤백·페일오버도, 승인 필요로 적힌 조치도 없거나 승인 불필요로 명시)",
@@ -1017,7 +1224,15 @@ def eval_approver(ctx: CheckContext, appr: ApprovalAnalysis) -> ElementEval:
         status = ElementStatus.FAIL
     else:
         status = _status_for(worst.score)
-    return _eval(ctx, Element.APPROVER, worst.score, status, reasons=[*reasons, *held], subjects=subjects)
+    return _eval(
+        ctx,
+        Element.APPROVER,
+        worst.score,
+        status,
+        reasons=[*reasons, *held],
+        subjects=subjects,
+        delegation=delegation_of(ctx, appr.service_id, DelegatedElement.APPROVER),
+    )
 
 
 def _approval_reason(ctx: CheckContext, a: ActionApproval) -> str:
@@ -1073,7 +1288,17 @@ def eval_fallback(ctx: CheckContext, ch: ChannelAnalysis) -> ElementEval:
         status,
         reasons=[reason, *_held_note(ch.held_ids)],
         subjects=subjects,
+        delegation=channel_delegation(ctx, ch),
     )
+
+
+def channel_delegation(ctx: CheckContext, ch: ChannelAnalysis) -> Delegation | None:
+    """Why the channels of a service cannot be checked from the input: its contacts are delegated,
+    or nobody can be asked because its owner is (and no responder is known otherwise)."""
+    stated = delegation_of(ctx, ch.service_id, DelegatedElement.FALLBACK_CHANNEL)
+    if stated is not None or ch.person_ids:
+        return stated
+    return owner_delegation(ctx, ch.service_id)
 
 
 def eval_rollback(ctx: CheckContext, rb: RollbackAnalysis) -> ElementEval:
@@ -1083,7 +1308,16 @@ def eval_rollback(ctx: CheckContext, rb: RollbackAnalysis) -> ElementEval:
     held = _held_note(rb.held_ids)
     if not rb.actions:
         reasons = ["롤백·페일오버 등 완화 조치가 적혀 있지 않음", *held]
-        return _eval(ctx, Element.ROLLBACK, 0.0, ElementStatus.FAIL, reasons=reasons, subjects=subjects)
+        delegated = delegation_of(ctx, rb.service_id, DelegatedElement.ROLLBACK)
+        return _eval(
+            ctx,
+            Element.ROLLBACK,
+            0.0,
+            ElementStatus.FAIL,
+            reasons=reasons,
+            subjects=subjects,
+            delegation=delegated,
+        )
     best = max(rb.actions, key=lambda a: (a.score, a.reversible, a.action_id))
     action = label(ctx, best.action_id)
     if best.reversible and best.active_executor_ids:

@@ -136,10 +136,12 @@ import json
 import math
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
-from typing import NamedTuple
+from typing import Any, NamedTuple
 
 from jettae.check.context import CheckContext
 from jettae.domain import (
+    DEFAULT_OBLIGATIONS,
+    KOREA,
     ActionType,
     AttrKey,
     Edge,
@@ -513,8 +515,29 @@ def applicable_obligation_rules(
         in_scope = node is not None and ctx.service_tier(service_id) in policy.critical_tiers
     if not in_scope:
         return []
-    rules = [r for r in policy.obligations if r.applies and r.incident_type is incident_type]
+    rules = list(policy.obligations_in_force(incident_type))
     return sorted(rules, key=lambda r: r.key)
+
+
+#: Jurisdiction an obligation had before the field existed: Korean law for the statutory defaults,
+#: none (an own duty) for everything else.
+_IMPLIED_JURISDICTION = {o.key: o.jurisdiction for o in DEFAULT_OBLIGATIONS}
+
+
+def _policy_payload(policy: Policy) -> dict[str, Any]:
+    """The replay-relevant policy fields (``_POLICY_FIELDS``) as hashed by :func:`config_hash`.
+
+    Jurisdictions change which duties a replay checks, so they are hashed — but only where they
+    differ from what a policy implied before they existed (Korean statutory defaults, own duties
+    elsewhere, a Korean organisation). Replays of such policies keep the config hash they had.
+    """
+    payload = policy.model_dump(mode="json", include=_POLICY_FIELDS)
+    for item in payload["obligations"]:
+        if item.get("jurisdiction") == _IMPLIED_JURISDICTION.get(item["key"]):
+            item.pop("jurisdiction", None)
+    if policy.jurisdictions != (KOREA,):
+        payload["jurisdictions"] = list(policy.jurisdictions)
+    return payload
 
 
 def config_hash(
@@ -527,7 +550,7 @@ def config_hash(
     """
     payload = {
         "config": config.model_dump(mode="json"),
-        "policy": policy.model_dump(mode="json", include=_POLICY_FIELDS),
+        "policy": _policy_payload(policy),
         "roster": [entry.model_dump(mode="json", include=_ROSTER_FIELDS) for entry in roster],
     }
     canonical = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))

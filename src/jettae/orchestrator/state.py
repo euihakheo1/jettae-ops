@@ -195,3 +195,6 @@ class DiagnosisOutcome:
     reapplied_patch_ids: tuple[str, ...]
     draft_base_version: int
     notes: tuple[str, ...]
+    #: what the extractors proposed before grounding (rule parser first, then LLM chunks) — the
+    #: input of ``assemble``, kept so a wrong graph can be traced to the proposal or to grounding
+    extractions: tuple[Extraction, ...] = ()

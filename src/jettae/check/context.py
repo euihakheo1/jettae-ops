@@ -91,6 +91,18 @@ class CheckContext:
                 return svc.tier
         return self.policy.default_tier
 
+    def tier_stated(self, sid: str) -> bool:
+        """Whether a source states the service's tier (its own ``tier`` attribute or the catalog).
+
+        When none does, :meth:`service_tier` is the policy's ``default_tier``: whatever a finding
+        concludes from the tier (being in the critical scope, the recovery target) is a premise the
+        policy supplies, not the document, and its message says so.
+        """
+        node = self.graph.nodes[sid]
+        if isinstance(node.attr(AttrKey.TIER), int):
+            return True
+        return any(svc.tier is not None and node.name in (svc.name, *svc.aliases) for svc in self.catalog)
+
     def services(self) -> list[Node]:
         return self.graph.nodes_of(NodeKind.SERVICE)
 

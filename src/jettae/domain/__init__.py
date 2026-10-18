@@ -3,10 +3,14 @@
 from jettae.domain.extraction import (
     EntityRef,
     ExtractedAttr,
+    ExtractedDelegation,
     ExtractedEntity,
     ExtractedRelation,
+    ExtractedSharedRelation,
+    ExtractedSubject,
     Extraction,
     GroundingStatus,
+    SubjectKind,
 )
 from jettae.domain.findings import (
     ELEMENT_LABEL_KO,
@@ -23,12 +27,15 @@ from jettae.domain.findings import (
     Severity,
 )
 from jettae.domain.graph import (
+    ANY_SERVICE_ALERT,
     EDGE_SIGNATURES,
+    UNNAMED_SERVICE_ALERT,
     ActionType,
     Attr,
     AttrKey,
     AttrValue,
     ChannelMedium,
+    DelegatedElement,
     DocumentRef,
     Edge,
     EdgeKind,
@@ -45,12 +52,14 @@ from jettae.domain.graph import (
     SourceKind,
     SourceSpan,
     Verification,
+    delegation_key,
     edge_id,
     node_id,
     slug,
 )
 from jettae.domain.inputs import (
     DEFAULT_OBLIGATIONS,
+    KOREA,
     CatalogService,
     Document,
     FatiguePolicy,
@@ -88,9 +97,12 @@ from jettae.domain.rehearsal import (
 from jettae.domain.report import DiagnosisReport, LlmUsageSummary, SecurityNotice
 
 __all__ = [
+    "ANY_SERVICE_ALERT",
     "DEFAULT_OBLIGATIONS",
     "EDGE_SIGNATURES",
     "ELEMENT_LABEL_KO",
+    "KOREA",
+    "UNNAMED_SERVICE_ALERT",
     "ActionType",
     "AddEdge",
     "AddNode",
@@ -99,6 +111,7 @@ __all__ = [
     "AttrValue",
     "CatalogService",
     "ChannelMedium",
+    "DelegatedElement",
     "DiagnosisReport",
     "Document",
     "DocumentRef",
@@ -109,8 +122,11 @@ __all__ = [
     "ElementStatus",
     "EntityRef",
     "ExtractedAttr",
+    "ExtractedDelegation",
     "ExtractedEntity",
     "ExtractedRelation",
+    "ExtractedSharedRelation",
+    "ExtractedSubject",
     "Extraction",
     "Extractor",
     "FatiguePolicy",
@@ -160,7 +176,9 @@ __all__ = [
     "SimEventKind",
     "SourceKind",
     "SourceSpan",
+    "SubjectKind",
     "Verification",
+    "delegation_key",
     "edge_id",
     "node_id",
     "slug",
