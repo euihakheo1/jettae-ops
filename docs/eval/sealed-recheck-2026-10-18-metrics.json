@@ -1,0 +1,1821 @@
+{
+  "by_operator": {
+    "A_keyword": {
+      "deadline_contradiction": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_approver": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.7196,
+            0.8618
+          ],
+          "hits": 96,
+          "n": 120,
+          "rate": 0.8
+        },
+        "rate": 1.0
+      },
+      "delete_detection": {
+        "ci95": [
+          0.8952,
+          0.9769
+        ],
+        "held_out": true,
+        "hits": 114,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.8952,
+            0.9769
+          ],
+          "hits": 114,
+          "n": 120,
+          "rate": 0.95
+        },
+        "rate": 0.95
+      },
+      "delete_escalation": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_fallback_channel": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_owner": {
+        "ci95": [
+          0.0231,
+          0.1048
+        ],
+        "held_out": false,
+        "hits": 6,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.0231,
+            0.1048
+          ],
+          "hits": 6,
+          "n": 120,
+          "rate": 0.05
+        },
+        "rate": 0.05
+      },
+      "delete_reporting_step": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": true,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_rollback": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "departed_contact": {
+        "ci95": [
+          0.0,
+          0.031
+        ],
+        "held_out": false,
+        "hits": 0,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.0,
+            0.031
+          ],
+          "hits": 0,
+          "n": 120,
+          "rate": 0.0
+        },
+        "rate": 0.0
+      },
+      "escalation_cycle": {
+        "ci95": [
+          0.0,
+          0.031
+        ],
+        "held_out": false,
+        "hits": 0,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.0,
+            0.031
+          ],
+          "hits": 0,
+          "n": 120,
+          "rate": 0.0
+        },
+        "rate": 0.0
+      }
+    },
+    "B_rule_graph": {
+      "deadline_contradiction": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_approver": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_detection": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": true,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_escalation": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_fallback_channel": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_owner": {
+        "ci95": [
+          0.6303,
+          0.7896
+        ],
+        "held_out": false,
+        "hits": 86,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.6303,
+            0.7896
+          ],
+          "hits": 86,
+          "n": 120,
+          "rate": 0.7167
+        },
+        "rate": 0.7167
+      },
+      "delete_reporting_step": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": true,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_rollback": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "departed_contact": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "escalation_cycle": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      }
+    },
+    "O_oracle": {
+      "deadline_contradiction": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_approver": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_detection": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": true,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_escalation": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_fallback_channel": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_owner": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_reporting_step": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": true,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "delete_rollback": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "departed_contact": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      },
+      "escalation_cycle": {
+        "ci95": [
+          0.969,
+          1.0
+        ],
+        "held_out": false,
+        "hits": 120,
+        "n": 120,
+        "paired": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        },
+        "rate": 1.0
+      }
+    }
+  },
+  "by_position": {
+    "A_keyword": {
+      "back": {
+        "active": {
+          "ci95": [
+            0.5872,
+            0.6732
+          ],
+          "hits": 303,
+          "n": 480,
+          "rate": 0.6312
+        },
+        "held_out": {
+          "ci95": [
+            0.9291,
+            0.9915
+          ],
+          "hits": 117,
+          "n": 120,
+          "rate": 0.975
+        }
+      },
+      "front": {
+        "active": {
+          "ci95": [
+            0.5872,
+            0.6732
+          ],
+          "hits": 303,
+          "n": 480,
+          "rate": 0.6312
+        },
+        "held_out": {
+          "ci95": [
+            0.9291,
+            0.9915
+          ],
+          "hits": 117,
+          "n": 120,
+          "rate": 0.975
+        }
+      }
+    },
+    "B_rule_graph": {
+      "back": {
+        "active": {
+          "ci95": [
+            0.944,
+            0.9778
+          ],
+          "hits": 463,
+          "n": 480,
+          "rate": 0.9646
+        },
+        "held_out": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        }
+      },
+      "front": {
+        "active": {
+          "ci95": [
+            0.944,
+            0.9778
+          ],
+          "hits": 463,
+          "n": 480,
+          "rate": 0.9646
+        },
+        "held_out": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        }
+      }
+    },
+    "O_oracle": {
+      "back": {
+        "active": {
+          "ci95": [
+            0.9921,
+            1.0
+          ],
+          "hits": 480,
+          "n": 480,
+          "rate": 1.0
+        },
+        "held_out": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        }
+      },
+      "front": {
+        "active": {
+          "ci95": [
+            0.9921,
+            1.0
+          ],
+          "hits": 480,
+          "n": 480,
+          "rate": 1.0
+        },
+        "held_out": {
+          "ci95": [
+            0.969,
+            1.0
+          ],
+          "hits": 120,
+          "n": 120,
+          "rate": 1.0
+        }
+      }
+    }
+  },
+  "by_style": {
+    "A_keyword": {
+      "colloquial": {
+        "active": {
+          "ci95": [
+            0.5899,
+            0.6942
+          ],
+          "hits": 206,
+          "n": 320,
+          "rate": 0.6438
+        },
+        "held_out": {
+          "ci95": [
+            0.9134,
+            0.9931
+          ],
+          "hits": 78,
+          "n": 80,
+          "rate": 0.975
+        }
+      },
+      "explicit": {
+        "active": {
+          "ci95": [
+            0.5708,
+            0.6763
+          ],
+          "hits": 200,
+          "n": 320,
+          "rate": 0.625
+        },
+        "held_out": {
+          "ci95": [
+            0.9134,
+            0.9931
+          ],
+          "hits": 78,
+          "n": 80,
+          "rate": 0.975
+        }
+      },
+      "table": {
+        "active": {
+          "ci95": [
+            0.5708,
+            0.6763
+          ],
+          "hits": 200,
+          "n": 320,
+          "rate": 0.625
+        },
+        "held_out": {
+          "ci95": [
+            0.9134,
+            0.9931
+          ],
+          "hits": 78,
+          "n": 80,
+          "rate": 0.975
+        }
+      }
+    },
+    "B_rule_graph": {
+      "colloquial": {
+        "active": {
+          "ci95": [
+            0.8552,
+            0.923
+          ],
+          "hits": 286,
+          "n": 320,
+          "rate": 0.8938
+        },
+        "held_out": {
+          "ci95": [
+            0.9542,
+            1.0
+          ],
+          "hits": 80,
+          "n": 80,
+          "rate": 1.0
+        }
+      },
+      "explicit": {
+        "active": {
+          "ci95": [
+            0.9881,
+            1.0
+          ],
+          "hits": 320,
+          "n": 320,
+          "rate": 1.0
+        },
+        "held_out": {
+          "ci95": [
+            0.9542,
+            1.0
+          ],
+          "hits": 80,
+          "n": 80,
+          "rate": 1.0
+        }
+      },
+      "table": {
+        "active": {
+          "ci95": [
+            0.9881,
+            1.0
+          ],
+          "hits": 320,
+          "n": 320,
+          "rate": 1.0
+        },
+        "held_out": {
+          "ci95": [
+            0.9542,
+            1.0
+          ],
+          "hits": 80,
+          "n": 80,
+          "rate": 1.0
+        }
+      }
+    },
+    "O_oracle": {
+      "colloquial": {
+        "active": {
+          "ci95": [
+            0.9881,
+            1.0
+          ],
+          "hits": 320,
+          "n": 320,
+          "rate": 1.0
+        },
+        "held_out": {
+          "ci95": [
+            0.9542,
+            1.0
+          ],
+          "hits": 80,
+          "n": 80,
+          "rate": 1.0
+        }
+      },
+      "explicit": {
+        "active": {
+          "ci95": [
+            0.9881,
+            1.0
+          ],
+          "hits": 320,
+          "n": 320,
+          "rate": 1.0
+        },
+        "held_out": {
+          "ci95": [
+            0.9542,
+            1.0
+          ],
+          "hits": 80,
+          "n": 80,
+          "rate": 1.0
+        }
+      },
+      "table": {
+        "active": {
+          "ci95": [
+            0.9881,
+            1.0
+          ],
+          "hits": 320,
+          "n": 320,
+          "rate": 1.0
+        },
+        "held_out": {
+          "ci95": [
+            0.9542,
+            1.0
+          ],
+          "hits": 80,
+          "n": 80,
+          "rate": 1.0
+        }
+      }
+    }
+  },
+  "clean_fp": {
+    "A_keyword": {
+      "by_style": {
+        "colloquial": {
+          "ci95": [
+            0.835,
+            0.9862
+          ],
+          "hits": 38,
+          "n": 40,
+          "rate": 0.95
+        },
+        "explicit": {
+          "ci95": [
+            0.0,
+            0.0876
+          ],
+          "hits": 0,
+          "n": 40,
+          "rate": 0.0
+        },
+        "table": {
+          "ci95": [
+            0.1807,
+            0.4543
+          ],
+          "hits": 12,
+          "n": 40,
+          "rate": 0.3
+        }
+      },
+      "per_rule": {
+        "JT-PATH-010": {
+          "cases": 6,
+          "severity": "critical"
+        },
+        "JT-PATH-020": {
+          "cases": 50,
+          "severity": "high"
+        }
+      },
+      "rate": {
+        "ci95": [
+          0.3324,
+          0.5061
+        ],
+        "hits": 50,
+        "n": 120,
+        "rate": 0.4167
+      }
+    },
+    "B_rule_graph": {
+      "by_style": {
+        "colloquial": {
+          "ci95": [
+            0.0,
+            0.0876
+          ],
+          "hits": 0,
+          "n": 40,
+          "rate": 0.0
+        },
+        "explicit": {
+          "ci95": [
+            0.0,
+            0.0876
+          ],
+          "hits": 0,
+          "n": 40,
+          "rate": 0.0
+        },
+        "table": {
+          "ci95": [
+            0.0,
+            0.0876
+          ],
+          "hits": 0,
+          "n": 40,
+          "rate": 0.0
+        }
+      },
+      "per_rule": {},
+      "rate": {
+        "ci95": [
+          0.0,
+          0.031
+        ],
+        "hits": 0,
+        "n": 120,
+        "rate": 0.0
+      }
+    },
+    "O_oracle": {
+      "by_style": {
+        "colloquial": {
+          "ci95": [
+            0.0,
+            0.0876
+          ],
+          "hits": 0,
+          "n": 40,
+          "rate": 0.0
+        },
+        "explicit": {
+          "ci95": [
+            0.0,
+            0.0876
+          ],
+          "hits": 0,
+          "n": 40,
+          "rate": 0.0
+        },
+        "table": {
+          "ci95": [
+            0.0,
+            0.0876
+          ],
+          "hits": 0,
+          "n": 40,
+          "rate": 0.0
+        }
+      },
+      "per_rule": {},
+      "rate": {
+        "ci95": [
+          0.0,
+          0.031
+        ],
+        "hits": 0,
+        "n": 120,
+        "rate": 0.0
+      }
+    }
+  },
+  "conditions": {
+    "A_keyword": {
+      "clean_fp": {
+        "ci95": [
+          0.3324,
+          0.5061
+        ],
+        "hits": 50,
+        "n": 120,
+        "rate": 0.4167
+      },
+      "detection_active": {
+        "ci95": [
+          0.6003,
+          0.6612
+        ],
+        "hits": 606,
+        "n": 960,
+        "rate": 0.6312
+      },
+      "detection_held_out": {
+        "ci95": [
+          0.9465,
+          0.9885
+        ],
+        "hits": 234,
+        "n": 240,
+        "rate": 0.975
+      },
+      "detection_paired_active": {
+        "ci95": [
+          0.575,
+          0.6367
+        ],
+        "hits": 582,
+        "n": 960,
+        "rate": 0.6062
+      },
+      "detection_paired_held_out": {
+        "ci95": [
+          0.9465,
+          0.9885
+        ],
+        "hits": 234,
+        "n": 240,
+        "rate": 0.975
+      },
+      "detection_strict_active": {
+        "ci95": [
+          0.6003,
+          0.6612
+        ],
+        "hits": 606,
+        "n": 960,
+        "rate": 0.6312
+      },
+      "detection_strict_held_out": {
+        "ci95": [
+          0.9465,
+          0.9885
+        ],
+        "hits": 234,
+        "n": 240,
+        "rate": 0.975
+      },
+      "errors": 0,
+      "field": null,
+      "hallucination": null,
+      "latency": {
+        "max_s": 0.0788,
+        "mean_s": 0.0201,
+        "median_s": 0.0189,
+        "p95_s": 0.0319
+      },
+      "llm": {
+        "calls_per_case": 0.0,
+        "input_tokens_per_case": 0.0,
+        "output_tokens_per_case": 0.0,
+        "total_calls": 0,
+        "total_input_tokens": 0,
+        "total_output_tokens": 0
+      },
+      "n_cases": 1320,
+      "ungrounded": 0
+    },
+    "B_rule_graph": {
+      "clean_fp": {
+        "ci95": [
+          0.0,
+          0.031
+        ],
+        "hits": 0,
+        "n": 120,
+        "rate": 0.0
+      },
+      "detection_active": {
+        "ci95": [
+          0.9509,
+          0.9745
+        ],
+        "hits": 926,
+        "n": 960,
+        "rate": 0.9646
+      },
+      "detection_held_out": {
+        "ci95": [
+          0.9842,
+          1.0
+        ],
+        "hits": 240,
+        "n": 240,
+        "rate": 1.0
+      },
+      "detection_paired_active": {
+        "ci95": [
+          0.9509,
+          0.9745
+        ],
+        "hits": 926,
+        "n": 960,
+        "rate": 0.9646
+      },
+      "detection_paired_held_out": {
+        "ci95": [
+          0.9842,
+          1.0
+        ],
+        "hits": 240,
+        "n": 240,
+        "rate": 1.0
+      },
+      "detection_strict_active": {
+        "ci95": [
+          0.9509,
+          0.9745
+        ],
+        "hits": 926,
+        "n": 960,
+        "rate": 0.9646
+      },
+      "detection_strict_held_out": {
+        "ci95": [
+          0.9842,
+          1.0
+        ],
+        "hits": 240,
+        "n": 240,
+        "rate": 1.0
+      },
+      "errors": 0,
+      "field": {
+        "f1": 0.9996,
+        "fn": 12,
+        "fp": 34,
+        "precision": 0.9995,
+        "recall": 0.9998,
+        "tp": 64584
+      },
+      "hallucination": {
+        "ci95": [
+          0.0134,
+          0.026
+        ],
+        "hits": 34,
+        "n": 1818,
+        "rate": 0.0187
+      },
+      "latency": {
+        "max_s": 0.6064,
+        "mean_s": 0.1855,
+        "median_s": 0.1827,
+        "p95_s": 0.28
+      },
+      "llm": {
+        "calls_per_case": 0.0,
+        "input_tokens_per_case": 0.0,
+        "output_tokens_per_case": 0.0,
+        "total_calls": 0,
+        "total_input_tokens": 0,
+        "total_output_tokens": 0
+      },
+      "n_cases": 1320,
+      "ungrounded": 0
+    },
+    "O_oracle": {
+      "clean_fp": {
+        "ci95": [
+          0.0,
+          0.031
+        ],
+        "hits": 0,
+        "n": 120,
+        "rate": 0.0
+      },
+      "detection_active": {
+        "ci95": [
+          0.996,
+          1.0
+        ],
+        "hits": 960,
+        "n": 960,
+        "rate": 1.0
+      },
+      "detection_held_out": {
+        "ci95": [
+          0.9842,
+          1.0
+        ],
+        "hits": 240,
+        "n": 240,
+        "rate": 1.0
+      },
+      "detection_paired_active": {
+        "ci95": [
+          0.996,
+          1.0
+        ],
+        "hits": 960,
+        "n": 960,
+        "rate": 1.0
+      },
+      "detection_paired_held_out": {
+        "ci95": [
+          0.9842,
+          1.0
+        ],
+        "hits": 240,
+        "n": 240,
+        "rate": 1.0
+      },
+      "detection_strict_active": {
+        "ci95": [
+          0.996,
+          1.0
+        ],
+        "hits": 960,
+        "n": 960,
+        "rate": 1.0
+      },
+      "detection_strict_held_out": {
+        "ci95": [
+          0.9842,
+          1.0
+        ],
+        "hits": 240,
+        "n": 240,
+        "rate": 1.0
+      },
+      "errors": 0,
+      "field": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 64596
+      },
+      "hallucination": {
+        "ci95": [
+          0.0,
+          0.0021
+        ],
+        "hits": 0,
+        "n": 1818,
+        "rate": 0.0
+      },
+      "latency": {
+        "max_s": 0.2969,
+        "mean_s": 0.0802,
+        "median_s": 0.0785,
+        "p95_s": 0.1241
+      },
+      "llm": {
+        "calls_per_case": 0.0,
+        "input_tokens_per_case": 0.0,
+        "output_tokens_per_case": 0.0,
+        "total_calls": 0,
+        "total_input_tokens": 0,
+        "total_output_tokens": 0
+      },
+      "n_cases": 1320,
+      "ungrounded": 0
+    }
+  },
+  "conditions_pending": [
+    "C_llm_direct",
+    "D_llm_graph",
+    "DR_hybrid"
+  ],
+  "corpus": {
+    "generator_version": "jettae-evalkit-gen/1.1.0",
+    "held_out_manifest_root": "0f54df78bb3bd5c3a2087f72e4a9ab3c6009f35a186841ddf19b2c6b1b5da078",
+    "n_active": 960,
+    "n_clean": 120,
+    "n_held_out": 240,
+    "n_orgs": 20,
+    "seed": 20261012
+  },
+  "field_f1": {
+    "B_rule_graph": {
+      "all": {
+        "f1": 0.9996,
+        "fn": 12,
+        "fp": 34,
+        "precision": 0.9995,
+        "recall": 0.9998,
+        "tp": 64584
+      },
+      "by_kind": {
+        "approved_by": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 11400
+        },
+        "detected_by": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 5820
+        },
+        "escalates_to": {
+          "f1": 0.9995,
+          "fn": 12,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 0.999,
+          "tp": 11628
+        },
+        "executed_by": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 5820
+        },
+        "fallback_to": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 2940
+        },
+        "mitigated_by": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 5820
+        },
+        "must_report": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 7008
+        },
+        "notifies": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 5820
+        },
+        "owned_by": {
+          "f1": 0.9971,
+          "fn": 0,
+          "fp": 34,
+          "precision": 0.9942,
+          "recall": 1.0,
+          "tp": 5820
+        },
+        "reported_by": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 2508
+        }
+      },
+      "by_style": {
+        "colloquial": {
+          "f1": 0.9992,
+          "fn": 0,
+          "fp": 34,
+          "precision": 0.9984,
+          "recall": 1.0,
+          "tp": 21532
+        },
+        "explicit": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 21532
+        },
+        "table": {
+          "f1": 0.9997,
+          "fn": 12,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 0.9994,
+          "tp": 21520
+        }
+      }
+    },
+    "O_oracle": {
+      "all": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 64596
+      },
+      "by_kind": {
+        "approved_by": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 11400
+        },
+        "detected_by": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 5820
+        },
+        "escalates_to": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 11640
+        },
+        "executed_by": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 5820
+        },
+        "fallback_to": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 2940
+        },
+        "mitigated_by": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 5820
+        },
+        "must_report": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 7008
+        },
+        "notifies": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 5820
+        },
+        "owned_by": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 5820
+        },
+        "reported_by": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 2508
+        }
+      },
+      "by_style": {
+        "colloquial": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 21532
+        },
+        "explicit": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 21532
+        },
+        "table": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "tp": 21532
+        }
+      }
+    }
+  },
+  "generated_at": "2026-10-18",
+  "hallucination": {
+    "B_rule_graph": {
+      "by_operator": {
+        "delete_approver": {
+          "ci95": [
+            0.0,
+            0.0158
+          ],
+          "hits": 0,
+          "n": 240,
+          "rate": 0.0
+        },
+        "delete_detection": {
+          "ci95": [
+            0.0,
+            0.0158
+          ],
+          "hits": 0,
+          "n": 240,
+          "rate": 0.0
+        },
+        "delete_escalation": {
+          "ci95": [
+            0.0,
+            0.0158
+          ],
+          "hits": 0,
+          "n": 240,
+          "rate": 0.0
+        },
+        "delete_fallback_channel": {
+          "ci95": [
+            0.0,
+            0.0101
+          ],
+          "hits": 0,
+          "n": 378,
+          "rate": 0.0
+        },
+        "delete_owner": {
+          "ci95": [
+            0.2104,
+            0.3697
+          ],
+          "hits": 34,
+          "n": 120,
+          "rate": 0.2833
+        },
+        "delete_reporting_step": {
+          "ci95": [
+            0.0,
+            0.031
+          ],
+          "hits": 0,
+          "n": 120,
+          "rate": 0.0
+        },
+        "delete_rollback": {
+          "ci95": [
+            0.0,
+            0.0079
+          ],
+          "hits": 0,
+          "n": 480,
+          "rate": 0.0
+        }
+      },
+      "by_style": {
+        "colloquial": {
+          "ci95": [
+            0.0404,
+            0.0774
+          ],
+          "hits": 34,
+          "n": 606,
+          "rate": 0.0561
+        },
+        "explicit": {
+          "ci95": [
+            0.0,
+            0.0063
+          ],
+          "hits": 0,
+          "n": 606,
+          "rate": 0.0
+        },
+        "table": {
+          "ci95": [
+            0.0,
+            0.0063
+          ],
+          "hits": 0,
+          "n": 606,
+          "rate": 0.0
+        }
+      },
+      "rate": {
+        "ci95": [
+          0.0134,
+          0.026
+        ],
+        "hits": 34,
+        "n": 1818,
+        "rate": 0.0187
+      }
+    },
+    "O_oracle": {
+      "by_operator": {
+        "delete_approver": {
+          "ci95": [
+            0.0,
+            0.0158
+          ],
+          "hits": 0,
+          "n": 240,
+          "rate": 0.0
+        },
+        "delete_detection": {
+          "ci95": [
+            0.0,
+            0.0158
+          ],
+          "hits": 0,
+          "n": 240,
+          "rate": 0.0
+        },
+        "delete_escalation": {
+          "ci95": [
+            0.0,
+            0.0158
+          ],
+          "hits": 0,
+          "n": 240,
+          "rate": 0.0
+        },
+        "delete_fallback_channel": {
+          "ci95": [
+            0.0,
+            0.0101
+          ],
+          "hits": 0,
+          "n": 378,
+          "rate": 0.0
+        },
+        "delete_owner": {
+          "ci95": [
+            0.0,
+            0.031
+          ],
+          "hits": 0,
+          "n": 120,
+          "rate": 0.0
+        },
+        "delete_reporting_step": {
+          "ci95": [
+            0.0,
+            0.031
+          ],
+          "hits": 0,
+          "n": 120,
+          "rate": 0.0
+        },
+        "delete_rollback": {
+          "ci95": [
+            0.0,
+            0.0079
+          ],
+          "hits": 0,
+          "n": 480,
+          "rate": 0.0
+        }
+      },
+      "by_style": {
+        "colloquial": {
+          "ci95": [
+            0.0,
+            0.0063
+          ],
+          "hits": 0,
+          "n": 606,
+          "rate": 0.0
+        },
+        "explicit": {
+          "ci95": [
+            0.0,
+            0.0063
+          ],
+          "hits": 0,
+          "n": 606,
+          "rate": 0.0
+        },
+        "table": {
+          "ci95": [
+            0.0,
+            0.0063
+          ],
+          "hits": 0,
+          "n": 606,
+          "rate": 0.0
+        }
+      },
+      "rate": {
+        "ci95": [
+          0.0,
+          0.0021
+        ],
+        "hits": 0,
+        "n": 1818,
+        "rate": 0.0
+      }
+    }
+  },
+  "impact_benchmark": null,
+  "injection_selftest": null,
+  "llm_cost_estimate": {
+    "model": "claude-opus-5-5",
+    "n_cases": 1320,
+    "per_condition": [
+      {
+        "calls": 1320,
+        "condition": "C_llm_direct",
+        "input_tokens": 2547092,
+        "output_tokens": 396000
+      },
+      {
+        "calls": 1320,
+        "condition": "D_llm_graph",
+        "input_tokens": 15785085,
+        "output_tokens": 1732010
+      },
+      {
+        "calls": 1320,
+        "condition": "DR_hybrid",
+        "input_tokens": 15785085,
+        "output_tokens": 1732010
+      }
+    ],
+    "total_calls": 2640,
+    "total_input_tokens": 18332177,
+    "total_output_tokens": 2128010
+  },
+  "manifest_root": "8c15d9dbdc6b2578c1278f3344e0fcab3db1f17737c894c21d89334d8455d191",
+  "n_cases": 1320,
+  "reproducibility": {
+    "condition": "B_rule_graph",
+    "fraction": 0.05,
+    "fresh_process": true,
+    "identical": 66,
+    "mismatched": [],
+    "rate": 1.0,
+    "sample_size": 66
+  },
+  "ungrounded_total": 0,
+  "workers": 20
+}
