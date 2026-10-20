@@ -25,6 +25,7 @@ export function useLayout(model: GraphModel, opts: LayoutOptionsInput = {}): Lay
         if (!cancelled) setResult({ key, layout });
       })
       .catch((e: unknown) => {
+        console.error('그래프 배치 실패', e);
         if (!cancelled) setError(e);
       });
     return () => {

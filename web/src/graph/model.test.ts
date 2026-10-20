@@ -2,7 +2,7 @@ import ElkBundled from 'elkjs/lib/elk.bundled.js';
 import { describe, expect, it } from 'vitest';
 import type { Finding, GraphView } from '../api/types';
 import { findings, readiness, view } from '../test/fixtures';
-import { layoutWithElk, toElkGraph } from './layout';
+import { effectiveLayerConstraints, layoutWithElk, toElkGraph } from './layout';
 import { splinePath, splinePoint } from './OpsEdge';
 import {
   applyHighlight,
@@ -294,5 +294,34 @@ describe('applyHighlight / pathSubgraphModel', () => {
     const m = pathSubgraphModel({ view, findings, readiness }, path, 'person:김민준');
     expect(m.nodes.map((n) => n.id).sort()).toEqual([PAY, 'person:김민준', 'trigger:결제-서비스-장애-지속'].sort());
     expect(m.edges).toHaveLength(2);
+  });
+});
+
+describe('ELK 층 제약 정리', () => {
+  const FALLBACK = 'fallback_to:channel:internal_messenger->channel:phone';
+  const opts = (serviceId: string) => ({ focus: { mode: 'service', serviceId }, ghosts: true, hideStructural: true }) as const;
+
+  it('대체 채널(채널 → 채널) 엣지가 있으면 출발 채널의 LAST 제약만 푼다', () => {
+    const svc = readiness.services.map((s) => s.service_id).find((id) =>
+      buildGraphModel({ view, findings, readiness }, opts(id)).edges.some((e) => e.id === FALLBACK),
+    );
+    expect(svc, '대체 채널 엣지를 담는 서비스가 픽스처에 있어야 한다').toBeDefined();
+    const model = buildGraphModel({ view, findings, readiness }, opts(svc!));
+    expect(model.layer['channel:internal_messenger']).toBe('LAST');
+    const layer = effectiveLayerConstraints(model);
+    expect(layer['channel:internal_messenger']).toBeUndefined();
+    expect(layer['channel:phone']).toBe('LAST');
+  });
+
+  it('모든 서비스 집중 보기가 배치에 성공하고, 대체 채널은 왼쪽에서 오른쪽으로 놓인다', async () => {
+    const elk = new ElkBundled();
+    for (const s of readiness.services) {
+      const model = buildGraphModel({ view, findings, readiness }, opts(s.service_id));
+      const r = await layoutWithElk(elk, model);
+      expect(Object.keys(r.positions), s.service_id).toHaveLength(model.nodes.length);
+      if (model.edges.some((e) => e.id === FALLBACK)) {
+        expect(r.positions['channel:internal_messenger']!.x).toBeLessThan(r.positions['channel:phone']!.x);
+      }
+    }
   });
 });
