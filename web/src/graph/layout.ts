@@ -53,13 +53,32 @@ export function elkLayoutOptions(opts: LayoutOptionsInput = {}): Record<string, 
   };
 }
 
-/** GraphModel → ELK 입력 (순수·결정적) */
-export function toElkGraph(model: GraphModel, opts: LayoutOptionsInput = {}): ElkNode {
+/**
+ * ELK가 받아들이는 층 제약만 남긴다.
+ * ELK는 LAST 노드에서 다른 LAST 노드로 가는 엣지(예: 메신저 → 전화 대체 채널)와
+ * FIRST 노드로 들어오는 FIRST 노드 엣지를 거부하고 배치 전체를 실패시킨다.
+ * 그런 엣지는 LAST면 출발 쪽, FIRST면 도착 쪽 제약을 풀어 왼쪽 → 오른쪽 흐름을 지킨다.
+ */
+export function effectiveLayerConstraints(model: GraphModel): GraphModel['layer'] {
+  const layer = { ...model.layer };
+  for (const e of model.edges) {
+    if (e.source === e.target) continue;
+    const s = model.layer[e.source];
+    const t = model.layer[e.target];
+    if (s === 'LAST' && t === 'LAST') delete layer[e.source];
+    if (s === 'FIRST' && t === 'FIRST') delete layer[e.target];
+  }
+  return layer;
+}
+
+/** GraphModel → ELK 입력 (순수·결정적). constraints=false면 층 제약 없이 배치한다(폴백). */
+export function toElkGraph(model: GraphModel, opts: LayoutOptionsInput = {}, constraints = true): ElkNode {
   const nodeIds = new Set(model.nodes.map((n) => n.id));
+  const layer = constraints ? effectiveLayerConstraints(model) : {};
   const children: ElkNode[] = [...model.nodes]
     .sort((a, b) => (a.id < b.id ? -1 : 1))
     .map((n) => {
-      const constraint = model.layer[n.id];
+      const constraint = layer[n.id];
       return {
         id: n.id,
         width: n.width ?? 200,
@@ -75,7 +94,14 @@ export function toElkGraph(model: GraphModel, opts: LayoutOptionsInput = {}): El
 }
 
 export async function layoutWithElk(elk: ELK, model: GraphModel, opts: LayoutOptionsInput = {}): Promise<LayoutResult> {
-  const result = await elk.layout(toElkGraph(model, opts));
+  let result: ElkNode;
+  try {
+    result = await elk.layout(toElkGraph(model, opts));
+  } catch (e) {
+    // 층 제약 조합을 ELK가 거부하면 제약 없이 한 번 더 배치한다 (그래프가 아예 안 보이는 것보다 낫다)
+    console.warn('ELK 배치 실패, 층 제약 없이 다시 배치합니다', e);
+    result = await elk.layout(toElkGraph(model, opts, false));
+  }
   const positions: LayoutResult['positions'] = {};
   for (const c of result.children ?? []) positions[c.id] = { x: Math.round(c.x ?? 0), y: Math.round(c.y ?? 0) };
   const routes: LayoutResult['routes'] = {};
