@@ -12,6 +12,10 @@ What must hold:
   as a new risk;
 * verification uses the service's policy deadline and is the only source of a status; a held
   (판단 보류) target keeps a hypothesis ``needs_info``;
+* a confirmed AI hypothesis without premises is reduced to the conditions its break needs (최소 실패
+  조건 자동 검증): subsets are replayed with the same service and deadline, one that fails at another
+  node is a different break (shown, never used to drop a condition), the work is capped and said so,
+  and nothing else — status, sweep hypotheses, findings, score — changes;
 * findings, readiness, rehearsals, drafts and the judgement path's LLM calls are identical with and
   without exploration;
 * every report format shows the hypotheses apart from the score.
@@ -33,6 +37,7 @@ from jettae.cli.output import scan_payload
 from jettae.domain import (
     AiProposalStatus,
     DiagnosisReport,
+    Element,
     ExplorationSummary,
     HypothesisOrigin,
     HypothesisStatus,
@@ -47,6 +52,7 @@ from jettae.domain import (
     PatchStatus,
     Perturbation,
     PerturbationKind,
+    RehearsalResult,
     RiskHypothesis,
     Scenario,
     Verification,
@@ -56,7 +62,9 @@ from jettae.explore import (
     HypothesisDraft,
     LlmRiskPayload,
     SweepLimits,
+    draft_from_hypothesis,
     explore_graph,
+    minimize_hypotheses,
     perturbation_effect,
     propose_hypotheses,
     set_key,
@@ -67,7 +75,7 @@ from jettae.explore.sweep import HELD_SERVICE_REASON
 from jettae.ingest import load_bundle_dir
 from jettae.llm.base import LLMClient, LLMDisabledError, LLMError, NullLLM, UntrustedDocument
 from jettae.llm.fake import FakeLLM, FakeOutcome
-from jettae.orchestrator import DiagnosisOptions, DiagnosisOutcome, run_diagnosis
+from jettae.orchestrator import DiagnosisOptions, DiagnosisOutcome, JettaeService, run_diagnosis
 from jettae.orchestrator.pipeline import build_context
 from jettae.rehearse.simulator import replay
 from jettae.reporting import build_evidence, render_cli_summary, render_view_html, render_view_markdown
@@ -410,6 +418,300 @@ def test_verification_statuses_follow_the_replay(ctx: CheckContext) -> None:
     assert "교란 없이도" in payment.required_info[0]
     for h in hypotheses:  # the deadline is the service's policy SLO, never the proposer's
         assert h.verification.deadline_minutes == ctx.slo_minutes(h.service_id)
+
+
+# --------------------------------------------------------------------------- 최소 실패 조건 자동 검증
+
+RECOMMEND = "service:추천"  # 3등급: 자동 전수 탐색(핵심 1·2등급) 범위 밖
+KANG_AWAY = Perturbation(kind=PerturbationKind.PERSON_UNAVAILABLE, target_id="person:강현우")
+HAN_AWAY = Perturbation(kind=PerturbationKind.PERSON_UNAVAILABLE, target_id="person:한서윤")
+
+
+def minimized(ctx: CheckContext, *drafts: HypothesisDraft, **limits: Any) -> tuple[RiskHypothesis, ...]:
+    return minimize_hypotheses(ctx, verify_hypotheses(ctx, drafts), **limits).hypotheses
+
+
+def replay_of(ctx: CheckContext, service_id: str, *perturbations: Perturbation) -> RehearsalResult:
+    scenario = Scenario(id="subset", title="subset", service_id=service_id, perturbations=perturbations)
+    return replay(ctx.graph, scenario, policy=ctx.policy, roster=ctx.roster)
+
+
+def test_a_condition_the_break_does_not_need_is_reported_unnecessary(ctx: CheckContext) -> None:
+    """The finals case: '강현우 부재 + 상품 카탈로그 동시 장애' breaks 추천, but the catalog incident
+    alone breaks it at the same person (박재현), and 강현우's absence alone does not."""
+    [h] = minimized(ctx, draft(RECOMMEND, KANG_AWAY, CATALOG_BUSY))
+    assert h.status is HypothesisStatus.CONFIRMED
+    m = h.minimization
+    assert m is not None
+    assert m.replays == 2
+    assert not m.original_minimal
+    assert [s.perturbations for s in m.minimal_sets] == [(CATALOG_BUSY,)]
+    assert m.unnecessary == (KANG_AWAY,)
+    assert m.other_failures == ()
+    [catalog] = m.minimal_sets
+    # the same node as the whole hypothesis, another step (담당 호출 → 승인): disclosed, not hidden
+    assert h.verification.failed_at_id == catalog.failed_at_id == PARK
+    assert (h.verification.failed_element, catalog.failed_element) == (Element.OWNER, Element.APPROVER)
+    assert catalog.point_differs
+    assert catalog.reason == "추천 기능 플래그 OFF 승인이 박재현에서 막힘 — 상향 경로 없음"
+    # each subset is replayed as the hypothesis is: same service, incident type and policy deadline
+    alone, kang = replay_of(ctx, RECOMMEND, CATALOG_BUSY), replay_of(ctx, RECOMMEND, KANG_AWAY)
+    assert alone.deadline_minutes == kang.deadline_minutes == h.verification.deadline_minutes
+    assert h.verification.deadline_minutes == ctx.slo_minutes(RECOMMEND)
+    assert (alone.outcome, alone.failed_at_id, alone.reason) == (Outcome.FAIL, PARK, catalog.reason)
+    assert kang.outcome is Outcome.PASS
+
+
+def test_a_pair_that_breaks_only_together_is_kept_whole(ctx: CheckContext) -> None:
+    [h] = minimized(ctx, draft(ORDER, JEONG_AWAY, SLACK_DOWN))  # S3: 정민혁 부재 + 슬랙 다운
+    m = h.minimization
+    assert m is not None
+    assert m.original_minimal
+    assert [s.perturbations for s in m.minimal_sets] == [h.perturbations]
+    assert m.minimal_sets[0].result_hash == h.verification.result_hash
+    assert not m.minimal_sets[0].point_differs
+    assert (m.unnecessary, m.other_failures, m.replays) == ((), (), 2)
+
+
+def test_conditions_that_each_break_alone_are_listed_apart(ctx: CheckContext) -> None:
+    [h] = minimized(ctx, draft(FRONTEND, PARK_AWAY, CATALOG_BUSY))
+    m = h.minimization
+    assert m is not None
+    assert [s.perturbations for s in m.minimal_sets] == [(PARK_AWAY,), (CATALOG_BUSY,)]
+    assert not m.original_minimal
+    assert m.unnecessary == ()  # either one alone breaks the rollback approval at 박재현
+    assert all(s.failed_at_id == PARK and not s.point_differs for s in m.minimal_sets)
+
+
+def test_a_subset_breaking_elsewhere_is_a_different_break_not_a_reproduction(ctx: CheckContext) -> None:
+    """한서윤 alone breaks 주문 at her rollback approval (JT-SPF-001). With 정민혁 away and slack down
+    the response breaks earlier, at 최영훈. That other break is shown but does not stand in for the
+    hypothesis' own: the minimal set is the pair that breaks at 최영훈."""
+    [h] = minimized(ctx, draft(ORDER, JEONG_AWAY, HAN_AWAY, SLACK_DOWN))
+    assert h.verification.failed_at_id == "person:최영훈"
+    m = h.minimization
+    assert m is not None
+    assert m.replays == 6
+    assert [s.perturbations for s in m.minimal_sets] == [(JEONG_AWAY, SLACK_DOWN)]
+    assert m.unnecessary == (HAN_AWAY,)
+    [other] = m.other_failures
+    assert other.perturbations == (HAN_AWAY,)
+    assert (other.failed_element, other.failed_at_id) == (Element.APPROVER, "person:한서윤")
+    assert other.point_differs
+
+
+def test_a_break_elsewhere_stays_listed_when_it_contains_a_reproducing_set(
+    ctx: CheckContext, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """정민혁's absence alone reproduces the break; with 한서윤 away too the replay breaks at her
+    instead. That pair is a different break and is listed even though it contains the minimal set —
+    else the report would call 한서윤 unnecessary and keep quiet that adding her moves the break. The
+    simulator moves a break that way only when an added condition changes the responder to one who
+    may approve; no bundled graph does, so the subset replays are stubbed."""
+    [h] = verify_hypotheses(ctx, [draft(ORDER, JEONG_AWAY, HAN_AWAY, SLACK_DOWN)])
+    v = h.verification
+    han = "person:한서윤"
+
+    def stub(_graph: OpsGraph, scenarios: list[Scenario], **_: Any) -> list[RehearsalResult]:
+        def result(s: Scenario) -> RehearsalResult:
+            names = {p.target_id for p in s.perturbations}
+            if names == {"person:정민혁", han}:
+                fail: tuple[Element | None, str | None] = (Element.APPROVER, han)
+            elif "person:정민혁" in names:
+                fail = (v.failed_element, v.failed_at_id)
+            else:
+                fail = (None, None)
+            return RehearsalResult(
+                scenario_id=s.id,
+                scenario_fingerprint="stub",
+                graph_hash=v.graph_hash,
+                config_hash="stub",
+                outcome=Outcome.FAIL if fail[1] is not None else Outcome.PASS,
+                time_to_mitigate=None if fail[1] is not None else 35.0,
+                deadline_minutes=v.deadline_minutes,
+                failed_element=fail[0],
+                failed_at_id=fail[1],
+                reason=f"stub {fail[1]}",
+                events=(),
+            )
+
+        return [result(s) for s in scenarios]
+
+    monkeypatch.setattr("jettae.explore.minimize.replay_all", stub)
+    [reduced] = minimize_hypotheses(ctx, [h]).hypotheses
+    m = reduced.minimization
+    assert m is not None
+    assert [s.perturbations for s in m.minimal_sets] == [(JEONG_AWAY,)]
+    assert set(m.unnecessary) == {HAN_AWAY, SLACK_DOWN}
+    [other] = m.other_failures
+    assert set(other.perturbations) == {JEONG_AWAY, HAN_AWAY}
+    assert (other.failed_element, other.failed_at_id, other.point_differs) == (Element.APPROVER, han, True)
+
+
+def test_only_confirmed_ai_hypotheses_without_premises_are_reduced(ctx: CheckContext) -> None:
+    premise = ("강현우와 박재현이 같은 날 쉰다",)
+    hypotheses = minimized(
+        ctx,
+        draft(ORDER, SLACK_DOWN, KANG_AWAY),  # every replay passes → refuted
+        draft(RECOMMEND, KANG_AWAY, CATALOG_BUSY, assumptions=premise),  # a premise → needs_info
+        draft(PAYMENT, SLACK_DOWN, KANG_AWAY),  # 결제 fails without any perturbation → needs_info
+        draft(RECOMMEND, CATALOG_BUSY),  # one condition: nothing to remove
+    )
+    status = {(h.service_id, frozenset(targets(h)), h.assumptions): h.status for h in hypotheses}
+    assert status == {
+        (ORDER, frozenset({"channel:slack", "person:강현우"}), ()): HypothesisStatus.REFUTED,
+        (RECOMMEND, frozenset({"person:강현우", CATALOG}), premise): HypothesisStatus.NEEDS_INFO,
+        (PAYMENT, frozenset({"channel:slack", "person:강현우"}), ()): HypothesisStatus.NEEDS_INFO,
+        (RECOMMEND, frozenset({CATALOG}), ()): HypothesisStatus.CONFIRMED,
+    }
+    assert all(h.minimization is None for h in hypotheses)
+    # a held (판단 보류) target keeps it needs_info, and unreduced
+    [kept] = minimized(held(ctx, "person:강현우"), draft(RECOMMEND, KANG_AWAY, CATALOG_BUSY))
+    assert (kept.status, kept.minimization) == (HypothesisStatus.NEEDS_INFO, None)
+    # sweep hypotheses are minimal by construction and never reduced again
+    swept = HypothesisDraft(
+        origin=HypothesisOrigin.SWEEP,
+        service_id=ORDER,
+        title="탐색",
+        explanation="",
+        perturbations=(JEONG_AWAY, SLACK_DOWN),
+    )
+    [pair] = minimized(ctx, swept)
+    assert (pair.status, pair.minimization) == (HypothesisStatus.CONFIRMED, None)
+
+
+def test_minimization_adds_a_field_and_changes_nothing_else(ctx: CheckContext, off: DiagnosisOutcome) -> None:
+    earlier = verify_hypotheses(ctx, [draft(RECOMMEND, KANG_AWAY, CATALOG_BUSY)])
+    again = explore_graph(ctx, off.findings, previous=earlier)
+    swept = [h for h in again.hypotheses if h.origin is HypothesisOrigin.SWEEP]
+    assert swept == list(off.risk_hypotheses)
+    assert all(h.minimization is None for h in off.risk_hypotheses)
+    [ai] = [h for h in again.hypotheses if h.origin is HypothesisOrigin.AI]
+    assert ai.minimization is not None
+    # without the new field: exactly what verification alone decides (status, replay, evidence, order)
+    drafts = [*sweep(ctx, off.findings).drafts, *(draft_from_hypothesis(h) for h in earlier)]
+    assert [h.model_copy(update={"minimization": None}) for h in again.hypotheses] == list(
+        verify_hypotheses(ctx, drafts)
+    )
+    # the sweep's budget and bookkeeping do not count the subset replays; nothing was capped
+    assert again.summary.replays == sweep(ctx, off.findings).replays
+    assert not [n for n in again.summary.notes if "최소 실패 조건" in n]
+    # the stored form round-trips, and a report written before the field existed still loads
+    stored = ai.model_dump(mode="json")
+    assert RiskHypothesis.model_validate(stored) == ai
+    del stored["minimization"]
+    assert RiskHypothesis.model_validate(stored).minimization is None
+
+
+def test_the_minimization_budget_is_kept_and_never_silent(ctx: CheckContext) -> None:
+    verified = verify_hypotheses(
+        ctx, [draft(RECOMMEND, KANG_AWAY, CATALOG_BUSY), draft(ORDER, JEONG_AWAY, HAN_AWAY, SLACK_DOWN)]
+    )
+    assert [h.service_id for h in verified] == [ORDER, RECOMMEND]
+    full = minimize_hypotheses(ctx, verified)
+    assert (full.replays, full.notes) == (8, ())
+    assert full == minimize_hypotheses(ctx, verified)  # deterministic
+    # 주문 needs 6 replays and does not fit in 5; 추천 (2) after it still does
+    capped = minimize_hypotheses(ctx, verified, max_replays=5)
+    assert capped.replays == 2
+    assert [h.minimization is not None for h in capped.hypotheses] == [False, True]
+    [note] = capped.notes
+    assert note.startswith("AI 위험 가설 1건은 최소 실패 조건 자동 검증의 리허설 상한(5회)에 걸려")
+    assert "(상한)" in note
+    assert verified[0].title in note
+    # a hypothesis is reduced in full or not at all — never from a partial search
+    assert minimize_hypotheses(ctx, verified, max_replays=1).replays == 0
+
+
+def test_reports_show_the_minimal_conditions_without_calling_them_a_cause(
+    ctx: CheckContext, off: DiagnosisOutcome
+) -> None:
+    earlier = verify_hypotheses(ctx, [draft(RECOMMEND, KANG_AWAY, CATALOG_BUSY)])
+    again = explore_graph(ctx, off.findings, previous=earlier)
+    report = report_of(off).model_copy(
+        update={"risk_hypotheses": again.hypotheses, "exploration": again.summary}
+    )
+    section = section_9(report, off.graph)
+    assert (
+        "- 최소 실패 조건(자동 검증): 상품 카탈로그 동시 장애 — 불필요한 조건: 강현우 부재 "
+        "(부분 조합 2개 리허설)"
+    ) in section
+    assert (
+        "끊긴 단계가 제안한 조합과 다름: 상품 카탈로그 동시 장애만 있으면 승인자 · 박재현에서 끊김"
+        "(추천 기능 플래그 OFF 승인이 박재현에서 막힘 — 상향 경로 없음). "
+        "제안한 조합 전체는 담당 · 박재현에서 끊김."
+    ) in section
+    assert "제안에 없는 다른 원인까지 찾지는 않습니다." in section
+    assert "근본 원인" not in section
+    assert section.count("최소 실패 조건(자동 검증)") == 1  # sweep hypotheses carry none
+    html = render_view_html(build_evidence(report, off.graph))
+    assert (
+        "<dt>최소 실패 조건(자동 검증)</dt><dd>상품 카탈로그 동시 장애 — 불필요한 조건: 강현우 부재" in html
+    )
+    assert "근본 원인" not in html
+    # the proposal being minimal already, and a break elsewhere, are worded too
+    pair = minimized(
+        ctx, draft(ORDER, JEONG_AWAY, SLACK_DOWN), draft(ORDER, JEONG_AWAY, HAN_AWAY, SLACK_DOWN)
+    )
+    text = section_9(report.model_copy(update={"risk_hypotheses": pair}), off.graph)
+    assert "제안한 조합 그대로 — 어느 조건을 빼도 같은 지점에서 끊기지 않음 (부분 조합 2개 리허설)" in text
+    assert (
+        "다른 지점에서 끊기는 부분 조합(같은 위험의 재현으로 보지 않음): "
+        "한서윤 부재 — 승인자 · 한서윤에서 끊김"
+    ) in text
+
+
+def _best_payment_patch(service: JettaeService, report: DiagnosisReport) -> Patch | None:
+    """The validated 결제 patch that raises the score most (the finals demo's order), if any."""
+    payment = {f.id for f in report.findings if f.service_id == PAYMENT}
+    candidates = [
+        p
+        for p in service.patches(report.workspace_id)
+        if p.status is PatchStatus.VALIDATED
+        and p.ops
+        and p.validation is not None
+        and set(p.finding_ids) & payment
+    ]
+
+    def gain(p: Patch) -> float:
+        v = p.validation
+        return 0.0 if v is None else (v.score_after or 0.0) - (v.score_before or 0.0)
+
+    return min(candidates, key=lambda p: (-gain(p), p.id), default=None)
+
+
+def test_the_finals_ai_hypothesis_reduces_to_the_catalog_incident_on_v5(
+    runner: asyncio.Runner, bundle: InputBundle
+) -> None:
+    """별빛상점 v5 as the finals demo builds it (LLM off; the 결제 patch that raises the score most is
+    approved first while 결제 has findings). The AI hypothesis recorded there on 2026-10-23
+    (docs/eval/explore-ai) reduces to the catalog incident alone — what the manual ablation found
+    (2026-10-23-dmc-v5-ablation.json). Only provenance differs from the demo database's graph."""
+    service = new_service()
+    report = runner.run(service.bootstrap_demo())
+    while (patch := _best_payment_patch(service, report)) is not None:
+        report = service.approve_patch(patch.id, actor="박재현", role="lead").report
+    assert (report.graph_version, report.readiness.overall, len(report.findings)) == (5, 66.4, 30)
+    _, graph = service.graph(report.workspace_id)
+    v5 = build_context(
+        graph, roster=bundle.roster, oncall=bundle.oncall, catalog=bundle.catalog, policy=bundle.policy
+    )
+    earlier = verify_hypotheses(v5, [draft(RECOMMEND, KANG_AWAY, CATALOG_BUSY)])
+    again = explore_graph(v5, report.findings, previous=earlier)
+    [ai] = [h for h in again.hypotheses if h.origin is HypothesisOrigin.AI]
+    assert ai.status is HypothesisStatus.CONFIRMED
+    assert ai.verification.reason == "담당 호출이 박재현에서 끊김 — 상향 경로 없음"
+    m = ai.minimization
+    assert m is not None
+    assert [s.perturbations for s in m.minimal_sets] == [(CATALOG_BUSY,)]
+    assert m.unnecessary == (KANG_AWAY,)
+    assert m.minimal_sets[0].reason == "추천 기능 플래그 OFF 승인이 박재현에서 막힘 — 상향 경로 없음"
+    assert m.minimal_sets[0].point_differs
+    # the sweep's v5 result is untouched: 결제 2 + 주문 2, none reduced again
+    swept = [h for h in again.hypotheses if h.origin is HypothesisOrigin.SWEEP]
+    assert sorted(h.service_id for h in swept) == sorted([PAYMENT, PAYMENT, ORDER, ORDER])
+    assert all(h.minimization is None for h in swept)
+    assert swept == [h for h in report.risk_hypotheses if h.origin is HypothesisOrigin.SWEEP]
 
 
 # --------------------------------------------------------------------------- AI explorer

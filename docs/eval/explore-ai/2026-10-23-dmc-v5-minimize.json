@@ -1,0 +1,156 @@
+{
+  "method": "최소 실패 조건 자동 검증 (jettae.explore.minimize, LLM 0회)",
+  "graph_hash": "8115e40a13326d0bb7405f528ceb0a8bca39044834cc3b7f22c75cbeca4a4a1c",
+  "recorded_graph_hash": "8115e40a13326d0bb7405f528ceb0a8bca39044834cc3b7f22c75cbeca4a4a1c",
+  "record": "2026-10-23-dmc-v5.json",
+  "findings": 30,
+  "sweep_hypotheses": 4,
+  "sweep_unchanged": true,
+  "ai_hypotheses": [
+    {
+      "id": "hyp-09688ae4d4b61f94",
+      "service_id": "service:추천",
+      "conditions": [
+        "강현우 부재",
+        "상품 카탈로그 동시 장애"
+      ],
+      "assumptions": [],
+      "status_recorded": "confirmed",
+      "status": "confirmed",
+      "verification_same_as_record": true,
+      "outcome": "fail",
+      "failed_element": "owner",
+      "failed_at_id": "person:박재현",
+      "reason": "담당 호출이 박재현에서 끊김 — 상향 경로 없음",
+      "deadline_minutes": 1440.0,
+      "minimization": {
+        "replays": 2,
+        "original_minimal": false,
+        "minimal_sets": [
+          {
+            "conditions": [
+              "상품 카탈로그 동시 장애"
+            ],
+            "failed_element": "approver",
+            "failed_at_id": "person:박재현",
+            "reason": "추천 기능 플래그 OFF 승인이 박재현에서 막힘 — 상향 경로 없음",
+            "point_differs": true,
+            "result_hash": "fea47632803f84ce0e5f6b38506b67498935ee19622d3db74f898aeede6d3c05"
+          }
+        ],
+        "unnecessary": [
+          "강현우 부재"
+        ],
+        "other_failures": [],
+        "raw": {
+          "replays": 2,
+          "minimal_sets": [
+            {
+              "perturbations": [
+                {
+                  "kind": "concurrent_incident",
+                  "target_id": "service:상품-카탈로그",
+                  "start_minute": 0.0,
+                  "end_minute": null
+                }
+              ],
+              "failed_element": "approver",
+              "failed_at_id": "person:박재현",
+              "reason": "추천 기능 플래그 OFF 승인이 박재현에서 막힘 — 상향 경로 없음",
+              "result_hash": "fea47632803f84ce0e5f6b38506b67498935ee19622d3db74f898aeede6d3c05",
+              "point_differs": true
+            }
+          ],
+          "original_minimal": false,
+          "unnecessary": [
+            {
+              "kind": "person_unavailable",
+              "target_id": "person:강현우",
+              "start_minute": 0.0,
+              "end_minute": null
+            }
+          ],
+          "other_failures": []
+        }
+      }
+    },
+    {
+      "id": "hyp-2b1af0e362998ca7",
+      "service_id": "service:광고",
+      "conditions": [
+        "강현우 부재",
+        "박재현 부재"
+      ],
+      "assumptions": [
+        "강현우와 박재현이 같은 연휴 기간에 함께 휴가를 쓸 수 있다."
+      ],
+      "status_recorded": "needs_info",
+      "status": "needs_info",
+      "verification_same_as_record": true,
+      "outcome": "fail",
+      "failed_element": "owner",
+      "failed_at_id": "person:박재현",
+      "reason": "담당 호출이 박재현에서 끊김 — 상향 경로 없음",
+      "deadline_minutes": 1440.0,
+      "minimization": null
+    },
+    {
+      "id": "hyp-ab20a50292b9fb44",
+      "service_id": "service:웹-프론트엔드",
+      "conditions": [
+        "전화 다운",
+        "상암 IDC 센터 장애"
+      ],
+      "assumptions": [
+        "전화망이 상암 IDC 장애 때 별도 영향 없이 동작한다고 보장되지 않는다."
+      ],
+      "status_recorded": "needs_info",
+      "status": "needs_info",
+      "verification_same_as_record": true,
+      "outcome": "pass",
+      "failed_element": null,
+      "failed_at_id": null,
+      "reason": "목표 복구 시간 60분 안에 완화(35분)",
+      "deadline_minutes": 60.0,
+      "minimization": null
+    },
+    {
+      "id": "hyp-607162f44c87be9a",
+      "service_id": "service:이메일",
+      "conditions": [
+        "이수진 부재",
+        "클라우드 서울 리전 센터 장애"
+      ],
+      "assumptions": [],
+      "status_recorded": "refuted",
+      "status": "refuted",
+      "verification_same_as_record": true,
+      "outcome": "pass",
+      "failed_element": null,
+      "failed_at_id": null,
+      "reason": "목표 복구 시간 1440분 안에 완화(35분)",
+      "deadline_minutes": 1440.0,
+      "minimization": null
+    },
+    {
+      "id": "hyp-7ce265761ba7e237",
+      "service_id": "service:장바구니",
+      "conditions": [
+        "이수진 부재",
+        "flagd 장애"
+      ],
+      "assumptions": [],
+      "status_recorded": "refuted",
+      "status": "refuted",
+      "verification_same_as_record": true,
+      "outcome": "pass",
+      "failed_element": null,
+      "failed_at_id": null,
+      "reason": "목표 복구 시간 60분 안에 완화(35분)",
+      "deadline_minutes": 60.0,
+      "minimization": null
+    }
+  ],
+  "minimize_replays": 2,
+  "notes": []
+}

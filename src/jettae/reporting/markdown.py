@@ -34,6 +34,7 @@ from jettae.reporting.evidence import (
     ELEMENT_STATUS_SYMBOL,
     EXPLORE_INTRO,
     HISTORY_NOTE,
+    MINIMIZE_LABEL,
     NO_QUOTE_NOTE,
     OUTCOME_LABEL_KO,
     RULES_INTRO,
@@ -384,6 +385,9 @@ def _hypothesis(row: HypothesisRow) -> list[str]:
         meta.append(f"- 리허설 기록: {md_text(row.reason)}")
     meta += [f"- 그래프에 없는 전제: {md_text(a)}" for a in row.assumptions]
     meta += [f"- 확인할 것: {md_text(r)}" for r in row.required_info]
+    if row.minimal is not None:
+        meta.append(f"- {md_text(MINIMIZE_LABEL)}: {md_text(row.minimal)}")
+        meta += [f"  - {md_text(note)}" for note in row.minimal_notes]
     out = [heading, "", *meta, ""]
     if row.explanation:
         out += [md_text(row.explanation), ""]
