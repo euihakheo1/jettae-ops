@@ -1,0 +1,51 @@
+{
+  "service": "service:추천",
+  "graph_hash": "8115e40a13326d0bb7405f528ceb0a8bca39044834cc3b7f22c75cbeca4a4a1c",
+  "cases": {
+    "B 강현우만 부재": {
+      "status": "refuted",
+      "outcome": "pass",
+      "baseline": "pass",
+      "failed_at": null,
+      "reason": "목표 복구 시간 1440분 안에 완화(35분)",
+      "deadline": 1440.0,
+      "time_to_mitigate": 35.0
+    },
+    "C 상품 카탈로그 동시 장애만": {
+      "status": "confirmed",
+      "outcome": "fail",
+      "baseline": "pass",
+      "failed_at": "person:박재현",
+      "reason": "추천 기능 플래그 OFF 승인이 박재현에서 막힘 — 상향 경로 없음",
+      "deadline": 1440.0,
+      "time_to_mitigate": null
+    },
+    "D 둘 다 (AI 가설)": {
+      "status": "confirmed",
+      "outcome": "fail",
+      "baseline": "pass",
+      "failed_at": "person:박재현",
+      "reason": "담당 호출이 박재현에서 끊김 — 상향 경로 없음",
+      "deadline": 1440.0,
+      "time_to_mitigate": null
+    },
+    "E 박재현만 부재": {
+      "status": "confirmed",
+      "outcome": "fail",
+      "baseline": "pass",
+      "failed_at": "person:박재현",
+      "reason": "추천 기능 플래그 OFF 승인이 박재현에서 막힘 — 상향 경로 없음",
+      "deadline": 1440.0,
+      "time_to_mitigate": null
+    },
+    "F 강현우 + 박재현 부재": {
+      "status": "confirmed",
+      "outcome": "fail",
+      "baseline": "pass",
+      "failed_at": "person:박재현",
+      "reason": "담당 호출이 박재현에서 끊김 — 상향 경로 없음",
+      "deadline": 1440.0,
+      "time_to_mitigate": null
+    }
+  }
+}
