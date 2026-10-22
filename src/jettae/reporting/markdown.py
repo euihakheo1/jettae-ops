@@ -22,6 +22,7 @@ from jettae.domain import (
     DocumentRef,
     Element,
     GraphVersion,
+    HypothesisStatus,
     OpsGraph,
     Outcome,
     Patch,
@@ -31,6 +32,7 @@ from jettae.reporting.evidence import (
     DISCLAIMER,
     DROPPED_EXAMPLES_TITLE,
     ELEMENT_STATUS_SYMBOL,
+    EXPLORE_INTRO,
     HISTORY_NOTE,
     NO_QUOTE_NOTE,
     OUTCOME_LABEL_KO,
@@ -47,6 +49,7 @@ from jettae.reporting.evidence import (
     EvidenceQuote,
     EvidenceView,
     FindingView,
+    HypothesisRow,
     build_evidence,
     printable,
 )
@@ -360,6 +363,66 @@ def _controls(view: EvidenceView) -> list[str]:
     return [*out, *_table(("기준", "항목", "증적 위치", "이번 진단 내용", "판단"), rows, "lllll"), ""]
 
 
+def _hypothesis_status(row: HypothesisRow) -> str:
+    return (
+        f"**{md_inline(row.status_label)}**"
+        if row.status is HypothesisStatus.CONFIRMED
+        else md_inline(row.status_label)
+    )
+
+
+def _hypothesis(row: HypothesisRow) -> list[str]:
+    heading = f"### {md_inline(f'{row.number} {row.title} {_DASH} {row.status_label}')}"
+    meta = [
+        f"- 가설 ID: {code_span(row.hypothesis_id)}",
+        f"- 상태: {md_text(row.status_label)} · 출처: {md_text(row.origin_label)}",
+        f"- 서비스: {md_text(row.service)}",
+        f"- 함께 일어나는 일: {md_text(row.perturbations)}",
+        f"- 리허설: {md_text(row.replay)}",
+    ]
+    if row.reason:
+        meta.append(f"- 리허설 기록: {md_text(row.reason)}")
+    meta += [f"- 그래프에 없는 전제: {md_text(a)}" for a in row.assumptions]
+    meta += [f"- 확인할 것: {md_text(r)}" for r in row.required_info]
+    out = [heading, "", *meta, ""]
+    if row.explanation:
+        out += [md_text(row.explanation), ""]
+    if row.quotes:
+        out += ["근거 원문:", ""]
+        for quote in row.quotes:
+            out += [*_quote_block(quote), ""]
+    return out
+
+
+def _explore(view: EvidenceView) -> list[str]:
+    out = [*_heading(2, "explore"), md_text(EXPLORE_INTRO), ""]
+    if not view.explored:
+        return [*out, "이번 진단에는 규칙 밖 위험 탐색 기록이 없습니다.", ""]
+    out.append(f"- 결과: {md_text(view.hypothesis_summary)}")
+    if view.exploration:
+        out.append(f"- 탐색 범위: {md_text(view.exploration)}")
+    out += [f"- 참고: {md_text(note)}" for note in view.exploration_notes]
+    out.append("")
+    if not view.hypotheses:
+        return [*out, md_text(view.exploration_empty), ""]
+    rows = (
+        (
+            md_inline(h.number),
+            _hypothesis_status(h),
+            md_text(h.origin_label),
+            md_text(h.service),
+            md_text(h.perturbations),
+            md_text(h.replay),
+        )
+        for h in view.hypotheses
+    )
+    out += [*_table(("#", "상태", "출처", "서비스", "함께 일어나는 일", "리허설 결과"), rows, "llllll"), ""]
+    for row in view.hypotheses:
+        if row.status is not HypothesisStatus.REFUTED:
+            out += _hypothesis(row)
+    return out
+
+
 def _appendix_scoring(view: EvidenceView) -> list[str]:
     out = [
         *_heading(2, "scoring", f" ({view.scoring_name})"),
@@ -415,6 +478,7 @@ def render_view_markdown(view: EvidenceView) -> str:
         _undecided,
         _security,
         _controls,
+        _explore,
         _appendix_scoring,
         _appendix_rules,
     )

@@ -4,7 +4,7 @@
 
     guard → extract ─┬─────────────→ assemble → verify ─┬──────────→ check → score → scenarios
                      └→ fallback ──┘                    └→ rebase ─┘
-          → rehearse → draft → finalize
+          → rehearse → explore → draft → finalize
 
 Why a state graph rather than a plain function: every stage is a named node with its own timing,
 and the two places where the run can take another road are explicit conditional edges instead of
@@ -31,9 +31,12 @@ way (P2). That is the product default — the rules keep the recall of the patte
 model adds the free-form sentences they miss, and nothing reaches the graph without a span.
 
 Judgement never sees the model (P1): ``check``, ``score`` and ``rehearse`` run the fixed rules and
-the deterministic replay; the LLM only ever extracts, re-phrases, proposes scenarios and words
-drafts. Every LLM call goes through one :class:`~jettae.llm.base.MeteredLLM`, so the report can
-publish calls and tokens per task, and ``judgement_path_calls`` is 0 by construction (the
+the deterministic replay; the LLM only ever extracts, re-phrases, proposes scenarios and risk
+hypotheses, and words drafts. ``explore`` (규칙 밖 위험 탐색) runs after the rehearsal: an
+exhaustive sweep and optional AI proposals, every one judged by the same replay — its hypotheses
+go to their own report field and never touch the findings, the score or the gate. Every LLM
+call goes through one :class:`~jettae.llm.base.MeteredLLM`, so the report can publish calls and
+tokens per task, and ``judgement_path_calls`` is 0 by construction (the
 judgement modules cannot even import an LLM client — import-linter contract).
 
 Determinism (P6): the same documents, structured inputs, options and LLM answers give the same
@@ -66,6 +69,7 @@ from jettae.check.scoring import score
 from jettae.domain import (
     AddEdge,
     AddNode,
+    AiProposalStatus,
     CatalogService,
     Document,
     Edge,
@@ -86,12 +90,22 @@ from jettae.domain import (
     RehearsalResult,
     RemoveEdge,
     RemoveNode,
+    RiskHypothesis,
     RosterEntry,
     Scenario,
     SecurityNotice,
     SetAttr,
     SimConfig,
     Verification,
+)
+from jettae.explore import (
+    AiProposals,
+    Exploration,
+    carry_over,
+    explore_graph,
+    finish,
+    propose_hypotheses,
+    sweep,
 )
 from jettae.extract import LlmExtractor, RuleExtractor, assemble, verify_backtranslation
 from jettae.improve import LlmDrafter, PatchError, TemplateDrafter, apply_ops, validate_patch
@@ -144,6 +158,7 @@ NODE_NAMES: Final = (
     "score",
     "scenarios",
     "rehearse",
+    "explore",
     "draft",
     "finalize",
 )
@@ -623,6 +638,8 @@ class Evaluation:
     catalog_gaps: tuple[str, ...]
     notes: tuple[str, ...]
     timings: dict[str, float]
+    #: 규칙 밖 위험 후보 (``None`` when exploration did not run)
+    exploration: Exploration | None = None
 
 
 def evaluate_graph(
@@ -639,13 +656,16 @@ def evaluate_graph(
     now: datetime | None = None,
     rehearse: bool = True,
     draft: bool = True,
+    explore: bool = True,
+    previous_hypotheses: Iterable[RiskHypothesis] = (),
 ) -> Evaluation:
-    """Re-judge a committed graph: check → score → scenarios → rehearse → template drafts.
+    """Re-judge a committed graph: check → score → scenarios → rehearse → explore → template drafts.
 
     Used after an approval or a revert, when the graph changed through a patch rather than through
     new documents: nothing needs extracting and no LLM is involved (P4), yet the verdicts come from
     the very same stage functions as a full diagnosis. Drafts are template drafts against
-    ``version`` and arrive validated.
+    ``version`` and arrive validated. Exploration (only with ``rehearse``) sweeps the new graph
+    again and re-verifies the AI hypotheses of ``previous_hypotheses`` on it.
     """
     sim = config if config is not None else SimConfig()
     timings: dict[str, float] = {}
@@ -666,6 +686,11 @@ def evaluate_graph(
         start = time.perf_counter()
         results = rehearse_all(graph, scenarios, ctx=ctx, config=sim)
         timings["rehearse"] = _elapsed_ms(start)
+    exploration: Exploration | None = None
+    if rehearse and explore:
+        start = time.perf_counter()
+        exploration = explore_graph(ctx, findings, config=sim, previous=previous_hypotheses)
+        timings["explore"] = _elapsed_ms(start)
     patches: tuple[Patch, ...] = ()
     if draft:
         start = time.perf_counter()
@@ -685,6 +710,7 @@ def evaluate_graph(
         catalog_gaps=catalog_gaps(findings),
         notes=notes,
         timings=timings,
+        exploration=exploration,
     )
 
 
@@ -914,6 +940,59 @@ def _rehearse(state: DiagnosisState, *, runtime: Runtime[PipelineContext]) -> Di
     }
 
 
+async def _explore(state: DiagnosisState, *, runtime: Runtime[PipelineContext]) -> DiagnosisState:
+    """Risks outside the fixed rules: exhaustive sweep, optional AI proposals, replay verdicts.
+
+    The sweep and the verification are CPU work and go to worker threads. An LLM error other
+    than "disabled" costs only the AI proposals — the sweep's hypotheses are kept and a note says
+    why the AI part is missing. Findings, score and gate are already final when this runs.
+    """
+    deps = runtime.context
+    options = deps.options
+    if not (options.rehearse and options.explore):
+        return {"risk_hypotheses": (), "exploration": None}
+    ctx = state["ctx"]
+    findings = state["findings"]
+    sim = options.sim_config
+    swept = await asyncio.to_thread(sweep, ctx, findings, config=sim)
+    model = _model(state, deps)
+    proposals: AiProposals | None = None
+    notes: tuple[str, ...] = ()
+    status: AiProposalStatus | None = None
+    if model is None:
+        status = AiProposalStatus.FALLBACK if state.get("llm_failure") else AiProposalStatus.OFF
+    elif options.llm_hypothesis_count <= 0:
+        status = AiProposalStatus.NOT_REQUESTED
+    else:
+        try:
+            proposals = await propose_hypotheses(
+                model, ctx, findings, n=options.llm_hypothesis_count, known=swept, config=sim
+            )
+        except LLMError as exc:
+            status = AiProposalStatus.FAILED
+            notes = (
+                "AI 위험 가설을 만들지 못해 자동 전수 탐색 결과만 실었습니다 — " + describe_llm_error(exc),
+            )
+    carried, gone = carry_over(ctx, options.carried_hypotheses)
+    exploration = await asyncio.to_thread(
+        lambda: finish(
+            ctx,
+            swept,
+            proposals=proposals,
+            carried=carried,
+            carried_gone=gone,
+            config=sim,
+            notes=notes,
+            ai_status=status,
+        )
+    )
+    return {
+        "risk_hypotheses": exploration.hypotheses,
+        "exploration": exploration.summary,
+        "notes": notes,
+    }
+
+
 async def _draft(state: DiagnosisState, *, runtime: Runtime[PipelineContext]) -> DiagnosisState:
     """Template drafts (LLM OFF, or after a fallback) or LLM-worded drafts over the same
     templates, then validation.
@@ -994,6 +1073,7 @@ def build_diagnosis_graph() -> DiagnosisGraph:
     graph.add_node("score", _timed("score", _score))
     graph.add_node("scenarios", _timed_async("scenarios", _scenarios))
     graph.add_node("rehearse", _timed("rehearse", _rehearse))
+    graph.add_node("explore", _timed_async("explore", _explore))
     graph.add_node("draft", _timed_async("draft", _draft))
     graph.add_node("finalize", _timed("finalize", _finalize))
     graph.add_edge(START, "guard")
@@ -1006,7 +1086,8 @@ def build_diagnosis_graph() -> DiagnosisGraph:
     graph.add_edge("check", "score")
     graph.add_edge("score", "scenarios")
     graph.add_edge("scenarios", "rehearse")
-    graph.add_edge("rehearse", "draft")
+    graph.add_edge("rehearse", "explore")
+    graph.add_edge("explore", "draft")
     graph.add_edge("draft", "finalize")
     graph.add_edge("finalize", END)
     return graph.compile(name="jettae-diagnosis")
@@ -1067,4 +1148,6 @@ async def run_diagnosis(
         draft_base_version=final["draft_base_version"],
         notes=final["notes"],
         extractions=(*final["rule_extractions"], *final.get("llm_extractions", ())),
+        risk_hypotheses=final.get("risk_hypotheses", ()),
+        exploration=final.get("exploration"),
     )

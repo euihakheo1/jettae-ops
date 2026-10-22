@@ -50,6 +50,7 @@ from jettae.domain import (
     ElementStatus,
     Finding,
     FindingStatus,
+    HypothesisStatus,
     Outcome,
     RehearsalResult,
     RuleInfo,
@@ -66,6 +67,7 @@ from jettae.reporting.evidence import (
     distinct_spans,
     format_datetime,
     format_minutes,
+    hypothesis_counts,
     llm_usage_line,
     printable,
     service_rows,
@@ -574,6 +576,14 @@ def _closing(summary: ScanSummary) -> list[RenderableType]:
         lines.append(Text(f"[판단 보류] {held}건 — 사람이 원문과 대조해 확인해야 합니다.", style="magenta"))
     if report.catalog_gaps:
         lines.append(Text(f"[카탈로그] 담당·런북이 없는 서비스 {len(report.catalog_gaps)}개", style="yellow"))
+    if report.exploration is not None or report.risk_hypotheses:
+        tally = hypothesis_counts(h.status for h in report.risk_hypotheses)
+        lines.append(
+            Text(
+                f"[규칙 밖 위험 후보] {tally} — 점수에 반영하지 않음(내용은 증적 리포트 9장).",
+                style="cyan",
+            )
+        )
     if report.security:
         lines.append(
             Text(
@@ -644,6 +654,11 @@ def scan_payload(
             "rehearsals_passed": passed,
             "llm_calls": report.llm.calls,
             "judgement_path_llm_calls": report.llm.judgement_path_calls,
+            # 규칙 밖 위험 후보 by status — reported, never part of the score or the gate
+            "risk_hypotheses": {
+                status.value: sum(1 for h in report.risk_hypotheses if h.status is status)
+                for status in HypothesisStatus
+            },
         },
         "gate": {"passed": not gate_failures, "failures": list(gate_failures)},
         "documents": {

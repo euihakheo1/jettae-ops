@@ -24,6 +24,7 @@ from pydantic import ValidationError
 from jettae.check.context import CheckContext
 from jettae.domain import (
     AddEdge,
+    AiProposalStatus,
     Attr,
     AttrKey,
     Edge,
@@ -100,6 +101,7 @@ LINEAR = (
     "score",
     "scenarios",
     "rehearse",
+    "explore",
     "draft",
     "finalize",
 )
@@ -327,7 +329,8 @@ def test_live_is_hybrid_metered_and_never_judges_with_the_model(
     assert (usage.provider, usage.model) == ("fake", "fake-1")
     assert usage.calls == len(model.calls) > 0
     assert usage.by_task["extract"] == len(bundle.documents)
-    assert set(usage.by_task) == {"extract", "backtranslate", "scenarios", "draft_fix"}
+    assert set(usage.by_task) == {"extract", "backtranslate", "scenarios", "explore", "draft_fix"}
+    assert usage.by_task["explore"] == 1
     assert usage.judgement_path_calls == 0
     # The model's relation is grounded and merged onto the rule parser's edge: same facts, two sources.
     edge = outcome.graph.edges[edge_id(EdgeKind.OWNED_BY, PAYMENT, "person:김민준")]
@@ -734,9 +737,18 @@ def test_evaluate_graph_judges_like_the_pipeline(off: DiagnosisOutcome, bundle: 
     assert [r.result_hash() for r in evaluation.rehearsals] == [r.result_hash() for r in off.rehearsals]
     assert [p.model_dump() for p in evaluation.patches] == [p.model_dump() for p in off.patches]
     assert evaluation.catalog_gaps == off.catalog_gaps
-    assert set(evaluation.timings) == {"check", "score", "scenarios", "rehearse", "draft"}
+    assert set(evaluation.timings) == {"check", "score", "scenarios", "rehearse", "explore", "draft"}
+    assert evaluation.exploration is not None
+    assert evaluation.exploration.hypotheses == off.risk_hypotheses
+    # the same sweep and verdicts; only the reason for "no AI proposals" differs (re-judgement)
+    assert off.exploration is not None
+    assert evaluation.exploration.summary.ai_status is AiProposalStatus.REJUDGE
+    assert evaluation.exploration.summary.model_copy(update={"ai_status": off.exploration.ai_status}) == (
+        off.exploration
+    )
     quiet = evaluate_graph(off.graph, workspace_id="local", version=1, rehearse=False, draft=False)
     assert (quiet.scenarios, quiet.rehearsals, quiet.patches) == ((), (), ())
+    assert quiet.exploration is None
 
 
 def test_validate_drafts_keeps_memos_as_drafts(off: DiagnosisOutcome, bundle: InputBundle) -> None:

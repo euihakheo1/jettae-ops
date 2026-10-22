@@ -7,8 +7,9 @@
   suspends is not enough here).
 * :func:`fake_llm` — a deterministic stand-in model for every task the pipeline may ask:
   ``extract`` (one grounded relation from the 결제 runbook), ``backtranslate`` (always equivalent),
-  ``scenarios`` (one valid drill) and ``draft_fix`` (picks the template's own person and echoes the
-  template sentence, so the LLM drafter accepts it).
+  ``scenarios`` (one valid drill), ``explore`` (one risk hypothesis resting on a premise the graph
+  lacks, plus one naming an unknown node, which must be dropped) and ``draft_fix`` (picks the
+  template's own person and echoes the template sentence, so the LLM drafter accepts it).
 * :func:`fixed_clock`, :func:`settings` and :func:`new_service` — reproducible services on a
   :class:`~jettae.store.MemoryStore`, with the LLM mode pinned OFF unless a test asks otherwise.
 * :func:`demo_report_digest` — the demo report as one hash, for runs under other hash seeds.
@@ -29,6 +30,7 @@ from pydantic import BaseModel
 
 from jettae.config import Settings
 from jettae.domain import LlmMode
+from jettae.explore import LlmRiskPayload
 from jettae.extract.backtranslate import EquivalenceVerdict
 from jettae.extract.llm_extractor import LlmGraphPayload
 from jettae.llm.base import LLMClient, UntrustedDocument
@@ -45,6 +47,33 @@ CLOCK = datetime(2026, 10, 28, 14, 0, tzinfo=UTC)
 
 #: The 결제 runbook sentence the fake model "extracts" (verbatim in runbooks/01-…).
 PAYMENT_QUOTE = "결제 장애가 계속되면 김대리에게 연락"
+#: The premise of the fake model's risk hypothesis (not in any input, so it stays 확인 필요).
+SHARED_NETWORK = "사내 메신저와 사내 전화가 같은 상암 IDC 사내망을 쓴다"
+
+#: The fake model's ``explore`` answer: one hypothesis with a premise, one naming a made-up person.
+RISK_PROPOSALS: dict[str, Any] = {
+    "hypotheses": [
+        {
+            "service_id": "service:웹-프론트엔드",
+            "title": "사내망 장애로 메신저·전화 동시 불통",
+            "explanation": "사내 메신저와 사내 전화가 같은 사내망에 있으면 한 번에 끊길 수 있습니다.",
+            "incident_type": "outage",
+            "perturbations": [
+                {"kind": "channel_down", "target_id": "channel:internal_messenger"},
+                {"kind": "channel_down", "target_id": "channel:phone"},
+            ],
+            "assumptions": [SHARED_NETWORK],
+        },
+        {
+            "service_id": "service:주문",
+            "title": "없는 사람 부재",
+            "explanation": "목록에 없는 사람을 가리킨 제안은 버려야 합니다.",
+            "incident_type": "outage",
+            "perturbations": [{"kind": "person_unavailable", "target_id": "person:홍길동"}],
+            "assumptions": [],
+        },
+    ]
+}
 
 LOOP_ATTEMPTS = 8
 
@@ -159,6 +188,8 @@ def demo_handler(
                 ]
             }
         )
+    if task == "explore":
+        return LlmRiskPayload.model_validate(RISK_PROPOSALS)
     if task == "draft_fix":
         return _draft_choice(documents, context)
     raise AssertionError(f"unexpected task {task}")

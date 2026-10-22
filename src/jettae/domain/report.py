@@ -6,6 +6,7 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from jettae.domain.explore import ExplorationSummary, RiskHypothesis
 from jettae.domain.extraction import GroundingStatus
 from jettae.domain.findings import Finding, ReadinessReport
 from jettae.domain.inputs import LlmMode
@@ -60,3 +61,7 @@ class DiagnosisReport(BaseModel):
     held_element_ids: tuple[str, ...] = ()  # 판단 보류 요소
     catalog_gaps: tuple[str, ...] = ()  # 카탈로그엔 있으나 담당·런북 없는 서비스
     timings_ms: dict[str, float] = Field(default_factory=dict)
+    #: 규칙 밖 위험 후보 — proposed by the sweep / AI, judged by the replay. Never part of the
+    #: score or the findings (reports from before exploration existed load with the defaults).
+    risk_hypotheses: tuple[RiskHypothesis, ...] = ()
+    exploration: ExplorationSummary | None = None

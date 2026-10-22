@@ -27,6 +27,7 @@ from jettae.domain import (
     ElementStatus,
     FindingStatus,
     GraphVersion,
+    HypothesisStatus,
     OpsGraph,
     Outcome,
     Patch,
@@ -38,6 +39,7 @@ from jettae.reporting.evidence import (
     DROPPED_EXAMPLES_TITLE,
     ELEMENT_STATUS_LABEL_KO,
     ELEMENT_STATUS_SYMBOL,
+    EXPLORE_INTRO,
     HISTORY_NOTE,
     NO_QUOTE_NOTE,
     OUTCOME_LABEL_KO,
@@ -55,6 +57,7 @@ from jettae.reporting.evidence import (
     EvidenceQuote,
     EvidenceView,
     FindingView,
+    HypothesisRow,
     build_evidence,
     printable,
 )
@@ -73,6 +76,12 @@ _ELEMENT_STATUS_CLASS: Final[dict[ElementStatus, str]] = {
     ElementStatus.PARTIAL: "st-partial",
     ElementStatus.FAIL: "st-fail",
     ElementStatus.UNKNOWN: "st-unknown",
+}
+
+_HYPOTHESIS_CLASS: Final[dict[HypothesisStatus, str]] = {
+    HypothesisStatus.CONFIRMED: "out-fail",
+    HypothesisStatus.NEEDS_INFO: "chip-unknown",
+    HypothesisStatus.REFUTED: "out-pass",
 }
 
 _CONTROL_CLASS: Final[dict[ControlStatus, str]] = {
@@ -548,6 +557,71 @@ def _controls(view: EvidenceView) -> Html:
     return _section("controls", body)
 
 
+def _hypothesis(row: HypothesisRow) -> Html:
+    css = "f-high" if row.status is HypothesisStatus.CONFIRMED else "f-unknown"
+    anchor = "h-" + row.number.replace(".", "-")
+    heading = Html(
+        f"<h4>{_chip(row.status_label, _HYPOTHESIS_CLASS[row.status])}{esc(row.number)} {esc(row.title)}</h4>"
+    )
+    meta: list[tuple[str, Html]] = [
+        ("가설 ID", _code(row.hypothesis_id)),
+        ("상태·출처", esc(f"{row.status_label} · {row.origin_label}")),
+        ("서비스", esc(row.service)),
+        ("함께 일어나는 일", esc(row.perturbations)),
+        ("리허설", esc(row.replay)),
+    ]
+    if row.reason:
+        meta.append(("리허설 기록", esc(row.reason)))
+    meta += [("그래프에 없는 전제", esc(a)) for a in row.assumptions]
+    meta += [("확인할 것", esc(r)) for r in row.required_info]
+    meta_html = "".join(f"<dt>{esc(k)}</dt><dd>{v}</dd>" for k, v in meta)
+    parts: list[Html] = [
+        Html(f'<article class="finding {esc(css)}" id="{esc(anchor)}">'),
+        heading,
+        Html(f'<dl class="meta">{meta_html}</dl>'),
+    ]
+    if row.explanation:
+        parts.append(_p(esc(row.explanation)))
+    parts.extend(_quote(q) for q in row.quotes)
+    parts.append(Html("</article>"))
+    return _join(parts, "\n")
+
+
+def _explore(view: EvidenceView) -> Html:
+    body: list[Html] = [_p(esc(EXPLORE_INTRO))]
+    if not view.explored:
+        body.append(_p(esc("이번 진단에는 규칙 밖 위험 탐색 기록이 없습니다."), "empty"))
+        return _section("explore", body)
+    facts = [f"결과: {view.hypothesis_summary}"]
+    if view.exploration:
+        facts.append(f"탐색 범위: {view.exploration}")
+    facts += [f"참고: {note}" for note in view.exploration_notes]
+    body.append(_ul(facts))
+    if not view.hypotheses:
+        body.append(_p(esc(view.exploration_empty), "empty"))
+        return _section("explore", body)
+    rows = (
+        (
+            esc(h.number),
+            _chip(h.status_label, _HYPOTHESIS_CLASS[h.status]),
+            esc(h.origin_label),
+            esc(h.service),
+            esc(h.perturbations),
+            esc(h.replay),
+        )
+        for h in view.hypotheses
+    )
+    body.append(
+        _table(
+            ("#", "상태", "출처", "서비스", "함께 일어나는 일", "리허설 결과"),
+            rows,
+            classes=("key", "st"),
+        )
+    )
+    body.extend(_hypothesis(row) for row in view.hypotheses if row.status is not HypothesisStatus.REFUTED)
+    return _section("explore", body)
+
+
 def _appendix_scoring(view: EvidenceView) -> Html:
     body: list[Html] = [
         _p(esc(SCORING_INTRO)),
@@ -604,6 +678,7 @@ def render_view_html(view: EvidenceView) -> str:
         _undecided,
         _security,
         _controls,
+        _explore,
         _appendix_scoring,
         _appendix_rules,
     )

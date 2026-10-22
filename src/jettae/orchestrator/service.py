@@ -64,9 +64,11 @@ from jettae.domain import (
     DiagnosisReport,
     Document,
     DocumentRef,
+    ExplorationSummary,
     Finding,
     GraphVersion,
     GroundingStatus,
+    HypothesisOrigin,
     InputBundle,
     LlmMode,
     LlmUsageSummary,
@@ -77,6 +79,7 @@ from jettae.domain import (
     Policy,
     ReadinessReport,
     RehearsalResult,
+    RiskHypothesis,
     RosterEntry,
     RuleInfo,
     Scenario,
@@ -368,6 +371,18 @@ def drill_ids(carried: Iterable[Scenario], scenarios: Iterable[Scenario]) -> tup
     ids = [s.id for s in carried]
     ids += [s.id for s in scenarios if s.origin is not ScenarioOrigin.TEMPLATE]
     return tuple(dict.fromkeys(ids))
+
+
+def _ai_hypotheses(report: DiagnosisReport | None) -> tuple[RiskHypothesis, ...]:
+    """The AI risk hypotheses of a report, to verify again on the next graph.
+
+    Sweep hypotheses are not carried: every run sweeps its own graph. AI ones would otherwise be
+    lost by a re-judgement (no LLM) or an LLM-off re-diagnosis, although the replay can judge them
+    on any graph that still has the nodes they name.
+    """
+    if report is None:
+        return ()
+    return tuple(h for h in report.risk_hypotheses if h.origin is HypothesisOrigin.AI)
 
 
 def _bounded_concurrency(configured: int) -> int:
@@ -1350,6 +1365,7 @@ class JettaeService:
         head = self.store.graphs.head(workspace_id)
         base_graph = self.store.graphs.load_graph(head.graph_hash) if head is not None else None
         lineage = self._lineage(workspace_id, head)
+        previous = self.store.reports.latest_report(workspace_id)
         # A new drill file replaces the hand-written drills; it is resolved only when drills run.
         pending = self._pending_scenarios.get(workspace_id, ()) if rehearse else ()
         carried = tuple(
@@ -1364,6 +1380,7 @@ class JettaeService:
             scenario_sources=pending,
             rehearse=rehearse,
             draft=draft,
+            carried_hypotheses=_ai_hypotheses(previous),
             llm_concurrency=_bounded_concurrency(self.settings.llm_concurrency),
         )
         return _DiagnosisPlan(bundle=bundle, base_graph=base_graph, options=options, pending=pending)
@@ -1414,6 +1431,8 @@ class JettaeService:
                 extraction_hash=outcome.extraction_hash,
                 reapplied=outcome.reapplied_patch_ids,
                 drills=drill_ids(options.carried_scenarios, outcome.scenarios),
+                risk_hypotheses=outcome.risk_hypotheses,
+                exploration=outcome.exploration,
             )
             pending = plan.pending
             if pending and self._pending_scenarios.get(workspace_id) == pending:
@@ -1438,7 +1457,9 @@ class JettaeService:
             version=version.number,
             carried=carried,
             config=_DEFAULT_SIM,
+            previous_hypotheses=_ai_hypotheses(previous),
         )
+        exploration = evaluation.exploration
         return self._publish(
             workspace_id,
             version,
@@ -1459,6 +1480,8 @@ class JettaeService:
             extraction_hash=None,
             reapplied=(),
             drills=drill_ids(carried, evaluation.scenarios),
+            risk_hypotheses=exploration.hypotheses if exploration is not None else (),
+            exploration=exploration.summary if exploration is not None else None,
         )
 
     def _publish(
@@ -1483,6 +1506,8 @@ class JettaeService:
         extraction_hash: str | None,
         reapplied: tuple[str, ...],
         drills: tuple[str, ...],
+        risk_hypotheses: tuple[RiskHypothesis, ...] = (),
+        exploration: ExplorationSummary | None = None,
     ) -> DiagnosisReport:
         """Persist scenarios, results, patches and the report of one run; audit it (caller holds the lock).
 
@@ -1526,6 +1551,8 @@ class JettaeService:
             held_element_ids=held_ids,
             catalog_gaps=catalog_gaps,
             timings_ms=timings,
+            risk_hypotheses=risk_hypotheses,
+            exploration=exploration,
         )
         self.store.reports.save_report(report)
         self.store.audit.record(

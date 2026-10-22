@@ -454,6 +454,85 @@ export interface DiagnosisReport {
   held_element_ids: string[];
   catalog_gaps: string[];
   timings_ms: Record<string, number>;
+  /** 규칙 밖 위험 후보 — 점수·끊김 판정·통과 기준에 반영하지 않음 (탐색 전 보고서는 빈 목록) */
+  risk_hypotheses: RiskHypothesis[];
+  /** 탐색 범위·제외·상한·AI 사용 (탐색을 돌리지 않았으면 null) */
+  exploration: ExplorationSummary | null;
+}
+
+// --------------------------------------------------------------------------- explore.py (규칙 밖 위험 탐색)
+
+export type HypothesisOrigin = 'sweep' | 'ai';
+
+/** confirmed = 확인됨(리허설로 재현), needs_info = 확인 필요, refuted = 기각 */
+export type HypothesisStatus = 'confirmed' | 'refuted' | 'needs_info';
+
+export type AiProposalStatus = 'used' | 'off' | 'failed' | 'fallback' | 'not_requested' | 'rejudge';
+
+export interface HypothesisVerification {
+  scenario_id: string;
+  scenario_fingerprint: string;
+  graph_hash: string;
+  /** 서비스 정책 목표 복구 시간 (가설이 정할 수 없음) */
+  deadline_minutes: number;
+  outcome: Outcome;
+  baseline_outcome: Outcome;
+  time_to_mitigate: number | null;
+  failed_element: Element | null;
+  failed_at_id: string | null;
+  reason: string;
+  result_hash: string;
+  path_ids: string[];
+}
+
+export interface RiskHypothesis {
+  id: string;
+  origin: HypothesisOrigin;
+  service_id: string;
+  incident_type: IncidentType;
+  title: string;
+  explanation: string;
+  perturbations: Perturbation[];
+  /** 그래프에 없는 전제 — 하나라도 있으면 확인됨이 될 수 없음 */
+  assumptions: string[];
+  evidence: SourceSpan[];
+  status: HypothesisStatus;
+  verification: HypothesisVerification;
+  required_info: string[];
+}
+
+export interface CoveredCut {
+  service_id: string;
+  target_ids: string[];
+  finding_ids: string[];
+}
+
+export interface ServiceSweep {
+  service_id: string;
+  baseline: Outcome | null;
+  candidates: number;
+  candidates_total: number;
+  replays: number;
+  breaking: number;
+  exhausted: boolean;
+  skipped_reason: string | null;
+}
+
+export interface ExplorationSummary {
+  method: string;
+  max_set_size: number;
+  services: ServiceSweep[];
+  replays: number;
+  covered: CoveredCut[];
+  ai_status: AiProposalStatus;
+  ai_used: boolean;
+  ai_proposed: number;
+  ai_kept: number;
+  ai_dropped: number;
+  ai_duplicates: number;
+  ai_over_cap: number;
+  ai_carried: number;
+  notes: string[];
 }
 
 // --------------------------------------------------------------------------- inputs.py (문서)

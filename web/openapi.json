@@ -54,6 +54,19 @@
         "title": "AddNode",
         "type": "object"
       },
+      "AiProposalStatus": {
+        "description": "Why a run has (or has no) AI risk proposals — the report words each case differently.",
+        "enum": [
+          "used",
+          "off",
+          "failed",
+          "fallback",
+          "not_requested",
+          "rejudge"
+        ],
+        "title": "AiProposalStatus",
+        "type": "string"
+      },
       "ApiError": {
         "description": "Body of every error response.",
         "examples": [
@@ -356,6 +369,36 @@
         "title": "Body_uploadInputs",
         "type": "object"
       },
+      "CoveredCut": {
+        "description": "A breaking combination the sweep found that a fixed-rule finding already reports.",
+        "properties": {
+          "finding_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Finding Ids",
+            "type": "array"
+          },
+          "service_id": {
+            "title": "Service Id",
+            "type": "string"
+          },
+          "target_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Target Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "service_id",
+          "target_ids",
+          "finding_ids"
+        ],
+        "title": "CoveredCut",
+        "type": "object"
+      },
       "CreateWorkspaceRequest": {
         "examples": [
           {
@@ -480,6 +523,16 @@
             "title": "Created At",
             "type": "string"
           },
+          "exploration": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ExplorationSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "findings": {
             "items": {
               "$ref": "#/components/schemas/Finding"
@@ -536,6 +589,14 @@
               "$ref": "#/components/schemas/RehearsalResult"
             },
             "title": "Rehearsals",
+            "type": "array"
+          },
+          "risk_hypotheses": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/RiskHypothesis"
+            },
+            "title": "Risk Hypotheses",
             "type": "array"
           },
           "run_id": {
@@ -886,6 +947,91 @@
           "name"
         ],
         "title": "EventRequest",
+        "type": "object"
+      },
+      "ExplorationSummary": {
+        "description": "Bookkeeping of one exploration: search bounds, what was skipped or capped, AI usage.\n\nEvery cap that cut the search is a Korean line in ``notes`` (no silent caps).",
+        "properties": {
+          "ai_carried": {
+            "default": 0,
+            "title": "Ai Carried",
+            "type": "integer"
+          },
+          "ai_dropped": {
+            "default": 0,
+            "title": "Ai Dropped",
+            "type": "integer"
+          },
+          "ai_duplicates": {
+            "default": 0,
+            "title": "Ai Duplicates",
+            "type": "integer"
+          },
+          "ai_kept": {
+            "default": 0,
+            "title": "Ai Kept",
+            "type": "integer"
+          },
+          "ai_over_cap": {
+            "default": 0,
+            "title": "Ai Over Cap",
+            "type": "integer"
+          },
+          "ai_proposed": {
+            "default": 0,
+            "title": "Ai Proposed",
+            "type": "integer"
+          },
+          "ai_status": {
+            "$ref": "#/components/schemas/AiProposalStatus",
+            "default": "off"
+          },
+          "ai_used": {
+            "default": false,
+            "title": "Ai Used",
+            "type": "boolean"
+          },
+          "covered": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/CoveredCut"
+            },
+            "title": "Covered",
+            "type": "array"
+          },
+          "max_set_size": {
+            "default": 2,
+            "title": "Max Set Size",
+            "type": "integer"
+          },
+          "method": {
+            "default": "EXPLORE_V1",
+            "title": "Method",
+            "type": "string"
+          },
+          "notes": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Notes",
+            "type": "array"
+          },
+          "replays": {
+            "default": 0,
+            "title": "Replays",
+            "type": "integer"
+          },
+          "services": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/ServiceSweep"
+            },
+            "title": "Services",
+            "type": "array"
+          }
+        },
+        "title": "ExplorationSummary",
         "type": "object"
       },
       "Extractor": {
@@ -1577,6 +1723,110 @@
           "version"
         ],
         "title": "HealthStatus",
+        "type": "object"
+      },
+      "HypothesisOrigin": {
+        "enum": [
+          "sweep",
+          "ai"
+        ],
+        "title": "HypothesisOrigin",
+        "type": "string"
+      },
+      "HypothesisStatus": {
+        "enum": [
+          "confirmed",
+          "refuted",
+          "needs_info"
+        ],
+        "title": "HypothesisStatus",
+        "type": "string"
+      },
+      "HypothesisVerification": {
+        "description": "What the deterministic replay showed for a hypothesis (the representable part of it).",
+        "properties": {
+          "baseline_outcome": {
+            "$ref": "#/components/schemas/Outcome"
+          },
+          "deadline_minutes": {
+            "title": "Deadline Minutes",
+            "type": "number"
+          },
+          "failed_at_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Failed At Id"
+          },
+          "failed_element": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Element"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "graph_hash": {
+            "title": "Graph Hash",
+            "type": "string"
+          },
+          "outcome": {
+            "$ref": "#/components/schemas/Outcome"
+          },
+          "path_ids": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Path Ids",
+            "type": "array"
+          },
+          "reason": {
+            "default": "",
+            "title": "Reason",
+            "type": "string"
+          },
+          "result_hash": {
+            "title": "Result Hash",
+            "type": "string"
+          },
+          "scenario_fingerprint": {
+            "title": "Scenario Fingerprint",
+            "type": "string"
+          },
+          "scenario_id": {
+            "title": "Scenario Id",
+            "type": "string"
+          },
+          "time_to_mitigate": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Time To Mitigate"
+          }
+        },
+        "required": [
+          "scenario_id",
+          "scenario_fingerprint",
+          "graph_hash",
+          "deadline_minutes",
+          "outcome",
+          "baseline_outcome",
+          "result_hash"
+        ],
+        "title": "HypothesisVerification",
         "type": "object"
       },
       "IncidentType": {
@@ -2572,6 +2822,83 @@
         "title": "RequestInfo",
         "type": "object"
       },
+      "RiskHypothesis": {
+        "description": "One proposed risk outside the fixed rules, with the replay's verdict on it.\n\n``id`` is ``hyp-{fingerprint}``: a hash of origin, service, incident type, the canonically\nsorted perturbations and assumptions (titles and wording excluded), so the same idea keeps\nits id across runs (P6).",
+        "properties": {
+          "assumptions": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Assumptions",
+            "type": "array"
+          },
+          "evidence": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/SourceSpan"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "explanation": {
+            "title": "Explanation",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "incident_type": {
+            "$ref": "#/components/schemas/IncidentType",
+            "default": "outage"
+          },
+          "origin": {
+            "$ref": "#/components/schemas/HypothesisOrigin"
+          },
+          "perturbations": {
+            "items": {
+              "$ref": "#/components/schemas/Perturbation"
+            },
+            "title": "Perturbations",
+            "type": "array"
+          },
+          "required_info": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Required Info",
+            "type": "array"
+          },
+          "service_id": {
+            "title": "Service Id",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/HypothesisStatus"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "verification": {
+            "$ref": "#/components/schemas/HypothesisVerification"
+          }
+        },
+        "required": [
+          "id",
+          "origin",
+          "service_id",
+          "title",
+          "explanation",
+          "perturbations",
+          "status",
+          "verification"
+        ],
+        "title": "RiskHypothesis",
+        "type": "object"
+      },
       "RuleInfo": {
         "description": "Catalog entry for a fixed rule (published so customers can audit the judge).",
         "properties": {
@@ -2761,6 +3088,67 @@
           "elements"
         ],
         "title": "ServiceReadiness",
+        "type": "object"
+      },
+      "ServiceSweep": {
+        "description": "How the exhaustive sweep went for one critical service (published with the report).",
+        "properties": {
+          "baseline": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Outcome"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "breaking": {
+            "default": 0,
+            "title": "Breaking",
+            "type": "integer"
+          },
+          "candidates": {
+            "default": 0,
+            "title": "Candidates",
+            "type": "integer"
+          },
+          "candidates_total": {
+            "default": 0,
+            "title": "Candidates Total",
+            "type": "integer"
+          },
+          "exhausted": {
+            "default": false,
+            "title": "Exhausted",
+            "type": "boolean"
+          },
+          "replays": {
+            "default": 0,
+            "title": "Replays",
+            "type": "integer"
+          },
+          "service_id": {
+            "title": "Service Id",
+            "type": "string"
+          },
+          "skipped_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skipped Reason"
+          }
+        },
+        "required": [
+          "service_id",
+          "baseline"
+        ],
+        "title": "ServiceSweep",
         "type": "object"
       },
       "SessionInfo": {

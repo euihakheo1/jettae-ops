@@ -124,13 +124,26 @@ source_modules = ["jettae.domain"]
 forbidden_modules = [
   "jettae.llm", "jettae.store", "jettae.api", "jettae.cli", "jettae.extract",
   "jettae.check", "jettae.rehearse", "jettae.improve", "jettae.orchestrator", "jettae.evalkit",
+  "jettae.explore",
 ]
 
 [[tool.importlinter.contracts]]
 name = "Judgement path never calls an LLM"
 type = "forbidden"
-source_modules = ["jettae.check", "jettae.rehearse.simulator", "jettae.improve.validator", "jettae.improve.patching"]
+source_modules = [
+  "jettae.check", "jettae.rehearse.simulator", "jettae.improve.validator", "jettae.improve.patching",
+  # 규칙 밖 위험 탐색: the exhaustive sweep and the verification that decides every hypothesis
+  "jettae.explore.sweep", "jettae.explore.verify", "jettae.explore.drafts",
+]
 forbidden_modules = ["jettae.llm", "anthropic", "openai"]
+
+# Risk hypotheses are reported next to the findings, never folded into them: nothing that
+# produces findings, scores, rehearsal verdicts or patch validations may depend on exploration.
+[[tool.importlinter.contracts]]
+name = "Findings and score never depend on risk exploration"
+type = "forbidden"
+source_modules = ["jettae.check", "jettae.rehearse", "jettae.improve", "jettae.extract", "jettae.reporting"]
+forbidden_modules = ["jettae.explore"]
 
 [[tool.importlinter.contracts]]
 name = "Layers"
@@ -138,7 +151,7 @@ type = "layers"
 layers = [
   "jettae.api | jettae.cli | jettae.evalkit",
   "jettae.orchestrator",
-  "jettae.improve | jettae.reporting",
+  "jettae.improve | jettae.reporting | jettae.explore",
   "jettae.rehearse",
   "jettae.extract | jettae.check | jettae.store",
   "jettae.ingest | jettae.llm",
