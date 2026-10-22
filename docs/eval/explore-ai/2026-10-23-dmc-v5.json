@@ -1,0 +1,1071 @@
+{
+  "model": "claude-sonnet-5-5",
+  "effort": "medium",
+  "n_requested": 5,
+  "llm_calls": 1,
+  "input_tokens": 6819,
+  "output_tokens": 1219,
+  "cache_read_tokens": 0,
+  "seconds": 11.6,
+  "graph_hash": "8115e40a13326d0bb7405f528ceb0a8bca39044834cc3b7f22c75cbeca4a4a1c",
+  "findings": 30,
+  "A_engine_only": {
+    "summary": {
+      "method": "EXPLORE_V1",
+      "max_set_size": 2,
+      "services": [
+        {
+          "service_id": "service:결제",
+          "baseline": "pass",
+          "candidates": 7,
+          "candidates_total": 7,
+          "replays": 29,
+          "breaking": 2,
+          "exhausted": false,
+          "skipped_reason": null
+        },
+        {
+          "service_id": "service:배송",
+          "baseline": "fail",
+          "candidates": 0,
+          "candidates_total": 0,
+          "replays": 1,
+          "breaking": 0,
+          "exhausted": false,
+          "skipped_reason": "교란 없이도 리허설이 실패해 탐색하지 않았습니다(고정 규칙이 보고한 끊김을 먼저 고쳐야 합니다)."
+        },
+        {
+          "service_id": "service:상품-카탈로그",
+          "baseline": "fail",
+          "candidates": 0,
+          "candidates_total": 0,
+          "replays": 1,
+          "breaking": 0,
+          "exhausted": false,
+          "skipped_reason": "교란 없이도 리허설이 실패해 탐색하지 않았습니다(고정 규칙이 보고한 끊김을 먼저 고쳐야 합니다)."
+        },
+        {
+          "service_id": "service:웹-프론트엔드",
+          "baseline": "pass",
+          "candidates": 7,
+          "candidates_total": 7,
+          "replays": 23,
+          "breaking": 1,
+          "exhausted": false,
+          "skipped_reason": null
+        },
+        {
+          "service_id": "service:이상거래-탐지",
+          "baseline": "fail",
+          "candidates": 0,
+          "candidates_total": 0,
+          "replays": 1,
+          "breaking": 0,
+          "exhausted": false,
+          "skipped_reason": "교란 없이도 리허설이 실패해 탐색하지 않았습니다(고정 규칙이 보고한 끊김을 먼저 고쳐야 합니다)."
+        },
+        {
+          "service_id": "service:장바구니",
+          "baseline": "pass",
+          "candidates": 7,
+          "candidates_total": 7,
+          "replays": 23,
+          "breaking": 1,
+          "exhausted": false,
+          "skipped_reason": null
+        },
+        {
+          "service_id": "service:정산",
+          "baseline": "fail",
+          "candidates": 0,
+          "candidates_total": 0,
+          "replays": 1,
+          "breaking": 0,
+          "exhausted": false,
+          "skipped_reason": "교란 없이도 리허설이 실패해 탐색하지 않았습니다(고정 규칙이 보고한 끊김을 먼저 고쳐야 합니다)."
+        },
+        {
+          "service_id": "service:주문",
+          "baseline": "pass",
+          "candidates": 7,
+          "candidates_total": 7,
+          "replays": 23,
+          "breaking": 4,
+          "exhausted": false,
+          "skipped_reason": null
+        },
+        {
+          "service_id": "service:환율",
+          "baseline": "pass",
+          "candidates": 7,
+          "candidates_total": 7,
+          "replays": 23,
+          "breaking": 1,
+          "exhausted": false,
+          "skipped_reason": null
+        }
+      ],
+      "replays": 125,
+      "covered": [
+        {
+          "service_id": "service:웹-프론트엔드",
+          "target_ids": [
+            "person:박재현"
+          ],
+          "finding_ids": [
+            "JT-SPF-001:0b1a607452"
+          ]
+        },
+        {
+          "service_id": "service:장바구니",
+          "target_ids": [
+            "person:박재현"
+          ],
+          "finding_ids": [
+            "JT-SPF-001:ae2beb4e4e"
+          ]
+        },
+        {
+          "service_id": "service:주문",
+          "target_ids": [
+            "person:한서윤"
+          ],
+          "finding_ids": [
+            "JT-SPF-001:3bd033040d"
+          ]
+        },
+        {
+          "service_id": "service:주문",
+          "target_ids": [
+            "person:정민혁",
+            "person:최영훈"
+          ],
+          "finding_ids": [
+            "JT-ESC-002:6077cdadb4"
+          ]
+        },
+        {
+          "service_id": "service:환율",
+          "target_ids": [
+            "person:박재현"
+          ],
+          "finding_ids": [
+            "JT-SPF-001:64cd9ee8e6"
+          ]
+        }
+      ],
+      "ai_status": "off",
+      "ai_used": false,
+      "ai_proposed": 0,
+      "ai_kept": 0,
+      "ai_dropped": 0,
+      "ai_duplicates": 0,
+      "ai_over_cap": 0,
+      "ai_carried": 0,
+      "notes": []
+    },
+    "hypotheses": [
+      {
+        "id": "hyp-304c6742f56be3f3",
+        "origin": "sweep",
+        "service_id": "service:결제",
+        "incident_type": "outage",
+        "title": "결제 · 박재현 부재 + 한서윤 부재",
+        "explanation": "자동 전수 탐색: '결제' 대응 경로에 걸린 대상 7개를 하나씩, 둘씩 조합해 리허설로 찾은 최소 조합입니다. 박재현 부재, 한서윤 부재 중 하나만 생기면 대응이 이어지지만, 함께 생기면 '결제' 대응이 끊깁니다. 대신 응답하거나 승인할 사람·연락 수단이 남지 않습니다.",
+        "perturbations": [
+          {
+            "kind": "person_unavailable",
+            "target_id": "person:박재현",
+            "start_minute": 0.0,
+            "end_minute": null
+          },
+          {
+            "kind": "person_unavailable",
+            "target_id": "person:한서윤",
+            "start_minute": 0.0,
+            "end_minute": null
+          }
+        ],
+        "assumptions": [],
+        "evidence": [
+          {
+            "doc_id": "doc-c6998bc94c89",
+            "start": 564,
+            "end": 570,
+            "quote": "박재현 팀장",
+            "line": 31
+          },
+          {
+            "doc_id": "doc-c6998bc94c89",
+            "start": 365,
+            "end": 372,
+            "quote": "한서윤 CTO",
+            "line": 20
+          }
+        ],
+        "status": "confirmed",
+        "verification": {
+          "scenario_id": "explore:hyp-304c6742f56be3f3",
+          "scenario_fingerprint": "8200f85099afce1d",
+          "graph_hash": "8115e40a13326d0bb7405f528ceb0a8bca39044834cc3b7f22c75cbeca4a4a1c",
+          "deadline_minutes": 60.0,
+          "outcome": "fail",
+          "baseline_outcome": "pass",
+          "time_to_mitigate": null,
+          "failed_element": "approver",
+          "failed_at_id": "person:한서윤",
+          "reason": "결제 서비스 롤백 승인이 한서윤에서 막힘 — 상향 경로 없음",
+          "result_hash": "2ed9acf99397ae045c7b844093dabc138de92b3ce6ee78ba7428effccce8bdf2",
+          "path_ids": [
+            "service:결제",
+            "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "person:김서연",
+            "channel:slack",
+            "mitigated_by:service:결제->action:결제-서비스-롤백",
+            "action:결제-서비스-롤백",
+            "approved_by:action:결제-서비스-롤백->person:박재현",
+            "person:박재현",
+            "approved_by:action:결제-서비스-롤백->person:한서윤",
+            "person:한서윤"
+          ]
+        },
+        "required_info": []
+      },
+      {
+        "id": "hyp-69f71cda9b1e1fae",
+        "origin": "sweep",
+        "service_id": "service:결제",
+        "incident_type": "outage",
+        "title": "결제 · 김서연 부재 + 한서윤 부재",
+        "explanation": "자동 전수 탐색: '결제' 대응 경로에 걸린 대상 7개를 하나씩, 둘씩 조합해 리허설로 찾은 최소 조합입니다. 김서연 부재, 한서윤 부재 중 하나만 생기면 대응이 이어지지만, 함께 생기면 '결제' 대응이 끊깁니다. 대신 응답하거나 승인할 사람·연락 수단이 남지 않습니다.",
+        "perturbations": [
+          {
+            "kind": "person_unavailable",
+            "target_id": "person:김서연",
+            "start_minute": 0.0,
+            "end_minute": null
+          },
+          {
+            "kind": "person_unavailable",
+            "target_id": "person:한서윤",
+            "start_minute": 0.0,
+            "end_minute": null
+          }
+        ],
+        "assumptions": [],
+        "evidence": [
+          {
+            "doc_id": "doc-c6998bc94c89",
+            "start": 365,
+            "end": 372,
+            "quote": "한서윤 CTO",
+            "line": 20
+          }
+        ],
+        "status": "confirmed",
+        "verification": {
+          "scenario_id": "explore:hyp-69f71cda9b1e1fae",
+          "scenario_fingerprint": "83932fa2b202bf21",
+          "graph_hash": "8115e40a13326d0bb7405f528ceb0a8bca39044834cc3b7f22c75cbeca4a4a1c",
+          "deadline_minutes": 60.0,
+          "outcome": "fail",
+          "baseline_outcome": "pass",
+          "time_to_mitigate": null,
+          "failed_element": "owner",
+          "failed_at_id": "person:한서윤",
+          "reason": "담당 호출이 한서윤에서 끊김 — 상향 경로 없음",
+          "result_hash": "b2bcdcfe0d59a17dcfaa6e98160ce160ab708b676356e4fe6c4b5a60c711f284",
+          "path_ids": [
+            "service:결제",
+            "detected_by:service:결제->trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "trigger:결제-서비스-실패율-알람5-초과-3분-지속",
+            "notifies:trigger:결제-서비스-실패율-알람5-초과-3분-지속->person:김서연",
+            "person:김서연",
+            "detected_by:service:결제->trigger:결제-서비스-장애-지속",
+            "trigger:결제-서비스-장애-지속",
+            "notifies:trigger:결제-서비스-장애-지속->person:김서연",
+            "escalates_to:person:김서연->person:한서윤",
+            "person:한서윤"
+          ]
+        },
+        "required_info": []
+      },
+      {
+        "id": "hyp-12d2998a2145bb4f",
+        "origin": "sweep",
+        "service_id": "service:주문",
+        "incident_type": "outage",
+        "title": "주문 · 전화 다운 + 슬랙 다운",
+        "explanation": "자동 전수 탐색: '주문' 대응 경로에 걸린 대상 7개를 하나씩, 둘씩 조합해 리허설로 찾은 최소 조합입니다. 전화 다운, 슬랙 다운 중 하나만 생기면 대응이 이어지지만, 함께 생기면 '주문' 대응이 끊깁니다. 대신 응답하거나 승인할 사람·연락 수단이 남지 않습니다.",
+        "perturbations": [
+          {
+            "kind": "channel_down",
+            "target_id": "channel:phone",
+            "start_minute": 0.0,
+            "end_minute": null
+          },
+          {
+            "kind": "channel_down",
+            "target_id": "channel:slack",
+            "start_minute": 0.0,
+            "end_minute": null
+          }
+        ],
+        "assumptions": [],
+        "evidence": [
+          {
+            "doc_id": "doc-c6998bc94c89",
+            "start": 308,
+            "end": 323,
+            "quote": "정민혁 과장 (슬랙, 전화)",
+            "line": 18
+          }
+        ],
+        "status": "confirmed",
+        "verification": {
+          "scenario_id": "explore:hyp-12d2998a2145bb4f",
+          "scenario_fingerprint": "7d69dceda214cd2b",
+          "graph_hash": "8115e40a13326d0bb7405f528ceb0a8bca39044834cc3b7f22c75cbeca4a4a1c",
+          "deadline_minutes": 60.0,
+          "outcome": "fail",
+          "baseline_outcome": "pass",
+          "time_to_mitigate": null,
+          "failed_element": "owner",
+          "failed_at_id": "person:최영훈",
+          "reason": "담당 호출이 최영훈에서 끊김 — 상향 순환",
+          "result_hash": "68ca16cc1222fd1e2b34528be11b847313351b328914b52983c9bc4f4b532198",
+          "path_ids": [
+            "service:주문",
+            "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+            "trigger:주문체크아웃-주문-실패율-알람",
+            "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+            "person:정민혁",
+            "reachable_via:person:정민혁->channel:phone",
+            "channel:phone",
+            "reachable_via:person:정민혁->channel:slack",
+            "channel:slack",
+            "escalates_to:person:정민혁->person:최영훈",
+            "person:최영훈",
+            "reachable_via:person:최영훈->channel:slack"
+          ]
+        },
+        "required_info": []
+      },
+      {
+        "id": "hyp-c64a73f6ebe632a1",
+        "origin": "sweep",
+        "service_id": "service:주문",
+        "incident_type": "outage",
+        "title": "주문 · 정민혁 부재 + 슬랙 다운",
+        "explanation": "자동 전수 탐색: '주문' 대응 경로에 걸린 대상 7개를 하나씩, 둘씩 조합해 리허설로 찾은 최소 조합입니다. 정민혁 부재, 슬랙 다운 중 하나만 생기면 대응이 이어지지만, 함께 생기면 '주문' 대응이 끊깁니다. 대신 응답하거나 승인할 사람·연락 수단이 남지 않습니다.",
+        "perturbations": [
+          {
+            "kind": "person_unavailable",
+            "target_id": "person:정민혁",
+            "start_minute": 0.0,
+            "end_minute": null
+          },
+          {
+            "kind": "channel_down",
+            "target_id": "channel:slack",
+            "start_minute": 0.0,
+            "end_minute": null
+          }
+        ],
+        "assumptions": [],
+        "evidence": [
+          {
+            "doc_id": "doc-c6998bc94c89",
+            "start": 330,
+            "end": 358,
+            "quote": "정민혁 과장 15분 미응답 시 최영훈 차장에게 상향",
+            "line": 19
+          },
+          {
+            "doc_id": "doc-c6998bc94c89",
+            "start": 280,
+            "end": 301,
+            "quote": "주문 실패율 알람 → 정민혁 과장 호출",
+            "line": 17
+          },
+          {
+            "doc_id": "doc-c6998bc94c89",
+            "start": 316,
+            "end": 318,
+            "quote": "슬랙",
+            "line": 18
+          }
+        ],
+        "status": "confirmed",
+        "verification": {
+          "scenario_id": "explore:hyp-c64a73f6ebe632a1",
+          "scenario_fingerprint": "a3ef4b48cd1f9094",
+          "graph_hash": "8115e40a13326d0bb7405f528ceb0a8bca39044834cc3b7f22c75cbeca4a4a1c",
+          "deadline_minutes": 60.0,
+          "outcome": "fail",
+          "baseline_outcome": "pass",
+          "time_to_mitigate": null,
+          "failed_element": "owner",
+          "failed_at_id": "person:최영훈",
+          "reason": "담당 호출이 최영훈에서 끊김 — 상향 순환",
+          "result_hash": "0436d0180300960fd5ab080e8b4b23f800dd8e2fe018fb6b2aec2dcd4fbea790",
+          "path_ids": [
+            "service:주문",
+            "detected_by:service:주문->trigger:주문체크아웃-주문-실패율-알람",
+            "trigger:주문체크아웃-주문-실패율-알람",
+            "notifies:trigger:주문체크아웃-주문-실패율-알람->person:정민혁",
+            "person:정민혁",
+            "escalates_to:person:정민혁->person:최영훈",
+            "person:최영훈",
+            "reachable_via:person:최영훈->channel:slack",
+            "channel:slack"
+          ]
+        },
+        "required_info": []
+      }
+    ]
+  },
+  "B_ai": {
+    "status": "used",
+    "proposed": 5,
+    "kept": 5,
+    "dropped_invalid": 0,
+    "duplicates_of_engine": 0,
+    "over_cap": 0,
+    "drafts": [
+      {
+        "origin": "ai",
+        "service_id": "service:웹-프론트엔드",
+        "title": "사내 메신저 장애와 이수진 단일 연락 의존",
+        "explanation": "웹-프론트엔드·이메일·장바구니의 알람과 실행이 모두 이수진에게 몰려 있고, 이수진의 주 연락 수단인 사내 메신저는 상암 IDC에서 돌아갑니다. 상암 IDC가 멈추면 메신저가 끊기고 전화 대체 경로만 남아, 1등급 서비스 대응이 지연될 수 있습니다.",
+        "perturbations": [
+          "kind=<PerturbationKind.CHANNEL_DOWN: 'channel_down'> target_id='channel:phone' start_minute=0.0 end_minute=None",
+          "kind=<PerturbationKind.LOCATION_DOWN: 'location_down'> target_id='location:상암-idc' start_minute=0.0 end_minute=None"
+        ],
+        "incident_type": "outage",
+        "assumptions": [
+          "전화망이 상암 IDC 장애 때 별도 영향 없이 동작한다고 보장되지 않는다."
+        ]
+      },
+      {
+        "origin": "ai",
+        "service_id": "service:장바구니",
+        "title": "flagd 장애와 이수진 부재 동시 발생",
+        "explanation": "장바구니는 flagd와 valkey-cart에 의존하고, 롤백 실행자가 이수진 한 명입니다. flagd가 멈추고 이수진까지 자리를 비우면 실행자가 없어 복구가 늦어집니다.",
+        "perturbations": [
+          "kind=<PerturbationKind.PERSON_UNAVAILABLE: 'person_unavailable'> target_id='person:이수진' start_minute=0.0 end_minute=None",
+          "kind=<PerturbationKind.SYSTEM_DOWN: 'system_down'> target_id='system:flagd' start_minute=0.0 end_minute=None"
+        ],
+        "incident_type": "outage",
+        "assumptions": []
+      },
+      {
+        "origin": "ai",
+        "service_id": "service:광고",
+        "title": "강현우·박재현 연휴 동시 부재",
+        "explanation": "광고 플래그 off는 강현우가 실행하고 박재현이 승인하며, 강현우의 상향 대상도 박재현입니다. 둘이 연휴에 함께 자리를 비우면 실행과 승인, 상향이 모두 끊깁니다.",
+        "perturbations": [
+          "kind=<PerturbationKind.PERSON_UNAVAILABLE: 'person_unavailable'> target_id='person:강현우' start_minute=0.0 end_minute=None",
+          "kind=<PerturbationKind.PERSON_UNAVAILABLE: 'person_unavailable'> target_id='person:박재현' start_minute=0.0 end_minute=None"
+        ],
+        "incident_type": "outage",
+        "assumptions": [
+          "강현우와 박재현이 같은 연휴 기간에 함께 휴가를 쓸 수 있다."
+        ]
+      },
+      {
+        "origin": "ai",
+        "service_id": "service:추천",
+        "title": "추천 장애 중 상품 카탈로그 동시 장애",
+        "explanation": "추천은 상품-카탈로그에 의존하고 강현우가 알람 수신과 조치를 맡습니다. 카탈로그 장애가 동시에 일어나면 강현우의 대응이 갈라지고, 박재현 승인 경로도 함께 부담을 받습니다.",
+        "perturbations": [
+          "kind=<PerturbationKind.PERSON_UNAVAILABLE: 'person_unavailable'> target_id='person:강현우' start_minute=0.0 end_minute=None",
+          "kind=<PerturbationKind.CONCURRENT_INCIDENT: 'concurrent_incident'> target_id='service:상품-카탈로그' start_minute=0.0 end_minute=None"
+        ],
+        "incident_type": "outage",
+        "assumptions": []
+      },
+      {
+        "origin": "ai",
+        "service_id": "service:이메일",
+        "title": "주문 확인 메일 장애와 클라우드 리전 중단",
+        "explanation": "이메일 재시작은 이수진이 실행하고 박재현이 승인합니다. 클라우드 서울 리전이 멈추면 이메일과 flagd가 함께 영향을 받고, 알람과 조치 경로가 겹쳐 복구가 어려워집니다.",
+        "perturbations": [
+          "kind=<PerturbationKind.PERSON_UNAVAILABLE: 'person_unavailable'> target_id='person:이수진' start_minute=0.0 end_minute=None",
+          "kind=<PerturbationKind.LOCATION_DOWN: 'location_down'> target_id='location:클라우드-서울-리전' start_minute=0.0 end_minute=None"
+        ],
+        "incident_type": "outage",
+        "assumptions": []
+      }
+    ]
+  },
+  "C_verified_ai_only": [
+    {
+      "id": "hyp-09688ae4d4b61f94",
+      "origin": "ai",
+      "service_id": "service:추천",
+      "incident_type": "outage",
+      "title": "추천 장애 중 상품 카탈로그 동시 장애",
+      "explanation": "추천은 상품-카탈로그에 의존하고 강현우가 알람 수신과 조치를 맡습니다. 카탈로그 장애가 동시에 일어나면 강현우의 대응이 갈라지고, 박재현 승인 경로도 함께 부담을 받습니다.",
+      "perturbations": [
+        {
+          "kind": "person_unavailable",
+          "target_id": "person:강현우",
+          "start_minute": 0.0,
+          "end_minute": null
+        },
+        {
+          "kind": "concurrent_incident",
+          "target_id": "service:상품-카탈로그",
+          "start_minute": 0.0,
+          "end_minute": null
+        }
+      ],
+      "assumptions": [],
+      "evidence": [
+        {
+          "doc_id": "doc-c6998bc94c89",
+          "start": 547,
+          "end": 579,
+          "quote": "강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+          "line": 31
+        },
+        {
+          "doc_id": "doc-3183be527d24",
+          "start": 951,
+          "end": 1043,
+          "quote": "- 감지: 광고 API 오류율 알람 → 강현우 사원 호출\n- 담당: 강현우 사원 (슬랙, 전화)\n- 상향: 강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+          "line": 48
+        },
+        {
+          "doc_id": "doc-3183be527d24",
+          "start": 826,
+          "end": 858,
+          "quote": "강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+          "line": 43
+        },
+        {
+          "doc_id": "doc-3183be527d24",
+          "start": 772,
+          "end": 797,
+          "quote": "추천 API 오류율 알람 → 강현우 사원 호출",
+          "line": 41
+        },
+        {
+          "doc_id": "doc-3183be527d24",
+          "start": 331,
+          "end": 356,
+          "quote": "상품 카탈로그 (product-catalog)",
+          "line": 19
+        }
+      ],
+      "status": "confirmed",
+      "verification": {
+        "scenario_id": "explore:hyp-09688ae4d4b61f94",
+        "scenario_fingerprint": "d4da1661afd19495",
+        "graph_hash": "8115e40a13326d0bb7405f528ceb0a8bca39044834cc3b7f22c75cbeca4a4a1c",
+        "deadline_minutes": 1440.0,
+        "outcome": "fail",
+        "baseline_outcome": "pass",
+        "time_to_mitigate": null,
+        "failed_element": "owner",
+        "failed_at_id": "person:박재현",
+        "reason": "담당 호출이 박재현에서 끊김 — 상향 경로 없음",
+        "result_hash": "63721fd71472aed7815b7dd52a98e9f11111e0e8808bc028ace89bb369128138",
+        "path_ids": [
+          "service:추천",
+          "detected_by:service:추천->trigger:추천-api-오류율-알람",
+          "trigger:추천-api-오류율-알람",
+          "notifies:trigger:추천-api-오류율-알람->person:강현우",
+          "person:강현우",
+          "escalates_to:person:강현우->person:박재현",
+          "person:박재현"
+        ]
+      },
+      "required_info": []
+    },
+    {
+      "id": "hyp-2b1af0e362998ca7",
+      "origin": "ai",
+      "service_id": "service:광고",
+      "incident_type": "outage",
+      "title": "강현우·박재현 연휴 동시 부재",
+      "explanation": "광고 플래그 off는 강현우가 실행하고 박재현이 승인하며, 강현우의 상향 대상도 박재현입니다. 둘이 연휴에 함께 자리를 비우면 실행과 승인, 상향이 모두 끊깁니다.",
+      "perturbations": [
+        {
+          "kind": "person_unavailable",
+          "target_id": "person:강현우",
+          "start_minute": 0.0,
+          "end_minute": null
+        },
+        {
+          "kind": "person_unavailable",
+          "target_id": "person:박재현",
+          "start_minute": 0.0,
+          "end_minute": null
+        }
+      ],
+      "assumptions": [
+        "강현우와 박재현이 같은 연휴 기간에 함께 휴가를 쓸 수 있다."
+      ],
+      "evidence": [
+        {
+          "doc_id": "doc-c6998bc94c89",
+          "start": 547,
+          "end": 579,
+          "quote": "강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+          "line": 31
+        },
+        {
+          "doc_id": "doc-3183be527d24",
+          "start": 951,
+          "end": 1043,
+          "quote": "- 감지: 광고 API 오류율 알람 → 강현우 사원 호출\n- 담당: 강현우 사원 (슬랙, 전화)\n- 상향: 강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+          "line": 48
+        },
+        {
+          "doc_id": "doc-3183be527d24",
+          "start": 826,
+          "end": 858,
+          "quote": "강현우 사원 10분 미응답 시 박재현 팀장에게 전화로 상향",
+          "line": 43
+        },
+        {
+          "doc_id": "doc-3183be527d24",
+          "start": 957,
+          "end": 982,
+          "quote": "광고 API 오류율 알람 → 강현우 사원 호출",
+          "line": 48
+        }
+      ],
+      "status": "needs_info",
+      "verification": {
+        "scenario_id": "explore:hyp-2b1af0e362998ca7",
+        "scenario_fingerprint": "26da9c703f0f1f90",
+        "graph_hash": "8115e40a13326d0bb7405f528ceb0a8bca39044834cc3b7f22c75cbeca4a4a1c",
+        "deadline_minutes": 1440.0,
+        "outcome": "fail",
+        "baseline_outcome": "pass",
+        "time_to_mitigate": null,
+        "failed_element": "owner",
+        "failed_at_id": "person:박재현",
+        "reason": "담당 호출이 박재현에서 끊김 — 상향 경로 없음",
+        "result_hash": "88d1ab2a3c41cacde8fbe137b48ed7cae5eeec6f5276cb76c6d95938f679c91b",
+        "path_ids": [
+          "service:광고",
+          "detected_by:service:광고->trigger:광고-api-오류율-알람",
+          "trigger:광고-api-오류율-알람",
+          "notifies:trigger:광고-api-오류율-알람->person:강현우",
+          "person:강현우",
+          "escalates_to:person:강현우->person:박재현",
+          "person:박재현"
+        ]
+      },
+      "required_info": [
+        "전제 확인: 강현우와 박재현이 같은 연휴 기간에 함께 휴가를 쓸 수 있다."
+      ]
+    },
+    {
+      "id": "hyp-ab20a50292b9fb44",
+      "origin": "ai",
+      "service_id": "service:웹-프론트엔드",
+      "incident_type": "outage",
+      "title": "사내 메신저 장애와 이수진 단일 연락 의존",
+      "explanation": "웹-프론트엔드·이메일·장바구니의 알람과 실행이 모두 이수진에게 몰려 있고, 이수진의 주 연락 수단인 사내 메신저는 상암 IDC에서 돌아갑니다. 상암 IDC가 멈추면 메신저가 끊기고 전화 대체 경로만 남아, 1등급 서비스 대응이 지연될 수 있습니다.",
+      "perturbations": [
+        {
+          "kind": "channel_down",
+          "target_id": "channel:phone",
+          "start_minute": 0.0,
+          "end_minute": null
+        },
+        {
+          "kind": "location_down",
+          "target_id": "location:상암-idc",
+          "start_minute": 0.0,
+          "end_minute": null
+        }
+      ],
+      "assumptions": [
+        "전화망이 상암 IDC 장애 때 별도 영향 없이 동작한다고 보장되지 않는다."
+      ],
+      "evidence": [
+        {
+          "doc_id": "doc-3183be527d24",
+          "start": 508,
+          "end": 597,
+          "quote": "## 웹 프론트엔드 (frontend)\n\n| 항목 | 내용 |\n|---|---|\n| 담당 | 이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화",
+          "line": 27
+        },
+        {
+          "doc_id": "doc-3183be527d24",
+          "start": 148,
+          "end": 169,
+          "quote": "사내 메신저(1순위) → 안 되면 전화",
+          "line": 12
+        }
+      ],
+      "status": "needs_info",
+      "verification": {
+        "scenario_id": "explore:hyp-ab20a50292b9fb44",
+        "scenario_fingerprint": "319747b7f1568e50",
+        "graph_hash": "8115e40a13326d0bb7405f528ceb0a8bca39044834cc3b7f22c75cbeca4a4a1c",
+        "deadline_minutes": 60.0,
+        "outcome": "pass",
+        "baseline_outcome": "pass",
+        "time_to_mitigate": 35.0,
+        "failed_element": null,
+        "failed_at_id": null,
+        "reason": "목표 복구 시간 60분 안에 완화(35분)",
+        "result_hash": "9443e9f02de2b40ead8156e542ec54faa807340bacb042cd397c9e1d528c6669",
+        "path_ids": [
+          "service:웹-프론트엔드",
+          "detected_by:service:웹-프론트엔드->trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+          "trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속",
+          "notifies:trigger:웹-프론트엔드-5xx-오류율-알람-1-초과-5분-지속->person:이수진",
+          "person:이수진",
+          "reachable_via:person:이수진->channel:internal_messenger",
+          "channel:internal_messenger",
+          "fallback_to:channel:internal_messenger->channel:phone",
+          "channel:phone",
+          "escalates_to:person:이수진->person:박재현",
+          "person:박재현",
+          "reachable_via:person:박재현->channel:kakaotalk",
+          "channel:kakaotalk",
+          "mitigated_by:service:웹-프론트엔드->action:웹-프론트엔드-롤백",
+          "action:웹-프론트엔드-롤백",
+          "approved_by:action:웹-프론트엔드-롤백->person:박재현",
+          "executed_by:action:웹-프론트엔드-롤백->person:이수진"
+        ]
+      },
+      "required_info": [
+        "전제 확인: 전화망이 상암 IDC 장애 때 별도 영향 없이 동작한다고 보장되지 않는다."
+      ]
+    },
+    {
+      "id": "hyp-607162f44c87be9a",
+      "origin": "ai",
+      "service_id": "service:이메일",
+      "incident_type": "outage",
+      "title": "주문 확인 메일 장애와 클라우드 리전 중단",
+      "explanation": "이메일 재시작은 이수진이 실행하고 박재현이 승인합니다. 클라우드 서울 리전이 멈추면 이메일과 flagd가 함께 영향을 받고, 알람과 조치 경로가 겹쳐 복구가 어려워집니다.",
+      "perturbations": [
+        {
+          "kind": "person_unavailable",
+          "target_id": "person:이수진",
+          "start_minute": 0.0,
+          "end_minute": null
+        },
+        {
+          "kind": "location_down",
+          "target_id": "location:클라우드-서울-리전",
+          "start_minute": 0.0,
+          "end_minute": null
+        }
+      ],
+      "assumptions": [],
+      "evidence": [
+        {
+          "doc_id": "doc-c6998bc94c89",
+          "start": 694,
+          "end": 722,
+          "quote": "이수진 대리 10분 미응답 시 박재현 팀장에게 상향",
+          "line": 38
+        },
+        {
+          "doc_id": "doc-3183be527d24",
+          "start": 132,
+          "end": 253,
+          "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화 |\n| 감지 | cartFailure 오류율 알람 (장바구니 API 오류율 2% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향",
+          "line": 11
+        },
+        {
+          "doc_id": "doc-3183be527d24",
+          "start": 560,
+          "end": 666,
+          "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화 |\n| 감지 | 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향",
+          "line": 31
+        },
+        {
+          "doc_id": "doc-c6998bc94c89",
+          "start": 632,
+          "end": 661,
+          "quote": "주문 확인 메일 발송 실패 알람 → 이수진 대리 호출",
+          "line": 36
+        }
+      ],
+      "status": "refuted",
+      "verification": {
+        "scenario_id": "explore:hyp-607162f44c87be9a",
+        "scenario_fingerprint": "49f57767d9436442",
+        "graph_hash": "8115e40a13326d0bb7405f528ceb0a8bca39044834cc3b7f22c75cbeca4a4a1c",
+        "deadline_minutes": 1440.0,
+        "outcome": "pass",
+        "baseline_outcome": "pass",
+        "time_to_mitigate": 35.0,
+        "failed_element": null,
+        "failed_at_id": null,
+        "reason": "목표 복구 시간 1440분 안에 완화(35분)",
+        "result_hash": "bd40397f7e0f01b51c193076d758a323dd981381741dc3c38fa447e979455c83",
+        "path_ids": [
+          "service:이메일",
+          "detected_by:service:이메일->trigger:이메일-주문-확인-메일-발송-실패-알람",
+          "trigger:이메일-주문-확인-메일-발송-실패-알람",
+          "notifies:trigger:이메일-주문-확인-메일-발송-실패-알람->person:이수진",
+          "person:이수진",
+          "escalates_to:person:이수진->person:박재현",
+          "person:박재현",
+          "reachable_via:person:박재현->channel:kakaotalk",
+          "channel:kakaotalk",
+          "mitigated_by:service:이메일->action:이메일-재시작",
+          "action:이메일-재시작",
+          "approved_by:action:이메일-재시작->person:박재현"
+        ]
+      },
+      "required_info": []
+    },
+    {
+      "id": "hyp-7ce265761ba7e237",
+      "origin": "ai",
+      "service_id": "service:장바구니",
+      "incident_type": "outage",
+      "title": "flagd 장애와 이수진 부재 동시 발생",
+      "explanation": "장바구니는 flagd와 valkey-cart에 의존하고, 롤백 실행자가 이수진 한 명입니다. flagd가 멈추고 이수진까지 자리를 비우면 실행자가 없어 복구가 늦어집니다.",
+      "perturbations": [
+        {
+          "kind": "person_unavailable",
+          "target_id": "person:이수진",
+          "start_minute": 0.0,
+          "end_minute": null
+        },
+        {
+          "kind": "system_down",
+          "target_id": "system:flagd",
+          "start_minute": 0.0,
+          "end_minute": null
+        }
+      ],
+      "assumptions": [],
+      "evidence": [
+        {
+          "doc_id": "doc-c6998bc94c89",
+          "start": 694,
+          "end": 722,
+          "quote": "이수진 대리 10분 미응답 시 박재현 팀장에게 상향",
+          "line": 38
+        },
+        {
+          "doc_id": "doc-3183be527d24",
+          "start": 132,
+          "end": 253,
+          "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화 |\n| 감지 | cartFailure 오류율 알람 (장바구니 API 오류율 2% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향",
+          "line": 11
+        },
+        {
+          "doc_id": "doc-3183be527d24",
+          "start": 560,
+          "end": 666,
+          "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화 |\n| 감지 | 프론트엔드 5xx 오류율 알람 (1% 초과 5분 지속) |\n| 상향 | 10분 미응답 시 박재현 팀장 상향",
+          "line": 31
+        },
+        {
+          "doc_id": "doc-3183be527d24",
+          "start": 132,
+          "end": 223,
+          "quote": "이수진 대리 |\n| 연락 | 사내 메신저(1순위) → 안 되면 전화 |\n| 감지 | cartFailure 오류율 알람 (장바구니 API 오류율 2% 초과 5분 지속",
+          "line": 11
+        }
+      ],
+      "status": "refuted",
+      "verification": {
+        "scenario_id": "explore:hyp-7ce265761ba7e237",
+        "scenario_fingerprint": "9c99e44cceb2c539",
+        "graph_hash": "8115e40a13326d0bb7405f528ceb0a8bca39044834cc3b7f22c75cbeca4a4a1c",
+        "deadline_minutes": 60.0,
+        "outcome": "pass",
+        "baseline_outcome": "pass",
+        "time_to_mitigate": 35.0,
+        "failed_element": null,
+        "failed_at_id": null,
+        "reason": "목표 복구 시간 60분 안에 완화(35분)",
+        "result_hash": "2e5a948f64c7216ec727a19e4beebf67d5d5fcf21aff7f0400c81415cba1ab90",
+        "path_ids": [
+          "service:장바구니",
+          "detected_by:service:장바구니->trigger:장바구니-api-오류율-2-초과-5분-지속",
+          "trigger:장바구니-api-오류율-2-초과-5분-지속",
+          "notifies:trigger:장바구니-api-오류율-2-초과-5분-지속->person:이수진",
+          "person:이수진",
+          "escalates_to:person:이수진->person:박재현",
+          "person:박재현",
+          "reachable_via:person:박재현->channel:kakaotalk",
+          "channel:kakaotalk",
+          "mitigated_by:service:장바구니->action:장바구니-롤백",
+          "action:장바구니-롤백",
+          "approved_by:action:장바구니-롤백->person:박재현"
+        ]
+      },
+      "required_info": []
+    }
+  ],
+  "D_counts": {
+    "confirmed": 1,
+    "refuted": 2,
+    "needs_info": 2
+  },
+  "summary_with_ai": {
+    "method": "EXPLORE_V1",
+    "max_set_size": 2,
+    "services": [
+      {
+        "service_id": "service:결제",
+        "baseline": "pass",
+        "candidates": 7,
+        "candidates_total": 7,
+        "replays": 29,
+        "breaking": 2,
+        "exhausted": false,
+        "skipped_reason": null
+      },
+      {
+        "service_id": "service:배송",
+        "baseline": "fail",
+        "candidates": 0,
+        "candidates_total": 0,
+        "replays": 1,
+        "breaking": 0,
+        "exhausted": false,
+        "skipped_reason": "교란 없이도 리허설이 실패해 탐색하지 않았습니다(고정 규칙이 보고한 끊김을 먼저 고쳐야 합니다)."
+      },
+      {
+        "service_id": "service:상품-카탈로그",
+        "baseline": "fail",
+        "candidates": 0,
+        "candidates_total": 0,
+        "replays": 1,
+        "breaking": 0,
+        "exhausted": false,
+        "skipped_reason": "교란 없이도 리허설이 실패해 탐색하지 않았습니다(고정 규칙이 보고한 끊김을 먼저 고쳐야 합니다)."
+      },
+      {
+        "service_id": "service:웹-프론트엔드",
+        "baseline": "pass",
+        "candidates": 7,
+        "candidates_total": 7,
+        "replays": 23,
+        "breaking": 1,
+        "exhausted": false,
+        "skipped_reason": null
+      },
+      {
+        "service_id": "service:이상거래-탐지",
+        "baseline": "fail",
+        "candidates": 0,
+        "candidates_total": 0,
+        "replays": 1,
+        "breaking": 0,
+        "exhausted": false,
+        "skipped_reason": "교란 없이도 리허설이 실패해 탐색하지 않았습니다(고정 규칙이 보고한 끊김을 먼저 고쳐야 합니다)."
+      },
+      {
+        "service_id": "service:장바구니",
+        "baseline": "pass",
+        "candidates": 7,
+        "candidates_total": 7,
+        "replays": 23,
+        "breaking": 1,
+        "exhausted": false,
+        "skipped_reason": null
+      },
+      {
+        "service_id": "service:정산",
+        "baseline": "fail",
+        "candidates": 0,
+        "candidates_total": 0,
+        "replays": 1,
+        "breaking": 0,
+        "exhausted": false,
+        "skipped_reason": "교란 없이도 리허설이 실패해 탐색하지 않았습니다(고정 규칙이 보고한 끊김을 먼저 고쳐야 합니다)."
+      },
+      {
+        "service_id": "service:주문",
+        "baseline": "pass",
+        "candidates": 7,
+        "candidates_total": 7,
+        "replays": 23,
+        "breaking": 4,
+        "exhausted": false,
+        "skipped_reason": null
+      },
+      {
+        "service_id": "service:환율",
+        "baseline": "pass",
+        "candidates": 7,
+        "candidates_total": 7,
+        "replays": 23,
+        "breaking": 1,
+        "exhausted": false,
+        "skipped_reason": null
+      }
+    ],
+    "replays": 125,
+    "covered": [
+      {
+        "service_id": "service:웹-프론트엔드",
+        "target_ids": [
+          "person:박재현"
+        ],
+        "finding_ids": [
+          "JT-SPF-001:0b1a607452"
+        ]
+      },
+      {
+        "service_id": "service:장바구니",
+        "target_ids": [
+          "person:박재현"
+        ],
+        "finding_ids": [
+          "JT-SPF-001:ae2beb4e4e"
+        ]
+      },
+      {
+        "service_id": "service:주문",
+        "target_ids": [
+          "person:한서윤"
+        ],
+        "finding_ids": [
+          "JT-SPF-001:3bd033040d"
+        ]
+      },
+      {
+        "service_id": "service:주문",
+        "target_ids": [
+          "person:정민혁",
+          "person:최영훈"
+        ],
+        "finding_ids": [
+          "JT-ESC-002:6077cdadb4"
+        ]
+      },
+      {
+        "service_id": "service:환율",
+        "target_ids": [
+          "person:박재현"
+        ],
+        "finding_ids": [
+          "JT-SPF-001:64cd9ee8e6"
+        ]
+      }
+    ],
+    "ai_status": "used",
+    "ai_used": true,
+    "ai_proposed": 5,
+    "ai_kept": 5,
+    "ai_dropped": 0,
+    "ai_duplicates": 0,
+    "ai_over_cap": 0,
+    "ai_carried": 0,
+    "notes": []
+  }
+}
