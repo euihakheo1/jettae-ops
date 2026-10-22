@@ -80,6 +80,52 @@ class HypothesisVerification(BaseModel):
     path_ids: tuple[str, ...] = ()
 
 
+class FailingSubset(BaseModel):
+    """Part of an AI hypothesis' perturbations under which the replay still fails.
+
+    Replayed like the hypothesis itself: same service, incident type and policy deadline.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    perturbations: tuple[Perturbation, ...]
+    failed_element: Element | None = None
+    failed_at_id: str | None = None
+    reason: str = ""
+    result_hash: str
+    #: the replay breaks at another step (``failed_element``) or node (``failed_at_id``) than the
+    #: whole hypothesis' replay did — disclosed in the report, never hidden
+    point_differs: bool = False
+
+
+class HypothesisMinimization(BaseModel):
+    """최소 실패 조건 자동 검증 — which of an AI hypothesis' own perturbations its break needs.
+
+    Every non-empty proper subset of the perturbations of a ``confirmed`` AI hypothesis without
+    premises is replayed. A subset *reproduces the break* when its replay fails at the same node
+    (``failed_at_id``) as the whole hypothesis'; one that fails elsewhere is a different break —
+    listed in ``other_failures``, never used to drop a condition.
+
+    This only removes conditions from the model's own proposal: it does not look for causes the
+    proposal does not name (another person's absence may break the same service too). It never
+    changes the hypothesis' status, the findings or the score.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    #: proper subsets replayed (2ⁿ − 2 for n perturbations)
+    replays: int
+    #: the smallest perturbation sets that reproduce the break (no proper subset of one does),
+    #: smallest first; the whole hypothesis when no proper subset does
+    minimal_sets: tuple[FailingSubset, ...]
+    #: no proper subset reproduces the break: the proposal is already minimal
+    original_minimal: bool
+    #: perturbations of the hypothesis in no minimal set — the break does not need them
+    unnecessary: tuple[Perturbation, ...] = ()
+    #: the smallest proper subsets whose replay fails at another node (a different break)
+    other_failures: tuple[FailingSubset, ...] = ()
+
+
 class RiskHypothesis(BaseModel):
     """One proposed risk outside the fixed rules, with the replay's verdict on it.
 
@@ -104,6 +150,9 @@ class RiskHypothesis(BaseModel):
     verification: HypothesisVerification
     #: what the team must confirm before this hypothesis can be settled (Korean)
     required_info: tuple[str, ...] = ()
+    #: 최소 실패 조건 자동 검증 — set only for ``confirmed`` AI hypotheses of two or more
+    #: perturbations and no premises (``None`` otherwise, and in reports from before it existed)
+    minimization: HypothesisMinimization | None = None
 
     @staticmethod
     def fingerprint_of(

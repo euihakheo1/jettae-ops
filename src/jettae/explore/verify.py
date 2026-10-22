@@ -51,6 +51,7 @@ __all__ = [
     "BASELINE_FAILED_INFO",
     "STATUS_ORDER",
     "VERIFY_SCENARIO_PREFIX",
+    "clip_reason",
     "hypothesis_scenario",
     "verify_hypotheses",
 ]
@@ -95,7 +96,8 @@ def _baseline_scenario(service_id: str, incident_type: IncidentType) -> Scenario
     )
 
 
-def _clip(text: str) -> str:
+def clip_reason(text: str) -> str:
+    """A replay reason cut to what a hypothesis keeps (the full timeline stays in the replay)."""
     return text if len(text) <= _REASON_LIMIT else text[: _REASON_LIMIT - 1] + "…"
 
 
@@ -181,7 +183,7 @@ def verify_hypotheses(
             time_to_mitigate=result.time_to_mitigate,
             failed_element=result.failed_element,
             failed_at_id=result.failed_at_id,
-            reason=_clip(result.reason),
+            reason=clip_reason(result.reason),
             result_hash=result.result_hash(),
             path_ids=result.path_ids,
         )

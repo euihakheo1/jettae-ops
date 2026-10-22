@@ -1044,6 +1044,59 @@
         "title": "Extractor",
         "type": "string"
       },
+      "FailingSubset": {
+        "description": "Part of an AI hypothesis' perturbations under which the replay still fails.\n\nReplayed like the hypothesis itself: same service, incident type and policy deadline.",
+        "properties": {
+          "failed_at_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Failed At Id"
+          },
+          "failed_element": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Element"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "perturbations": {
+            "items": {
+              "$ref": "#/components/schemas/Perturbation"
+            },
+            "title": "Perturbations",
+            "type": "array"
+          },
+          "point_differs": {
+            "default": false,
+            "title": "Point Differs",
+            "type": "boolean"
+          },
+          "reason": {
+            "default": "",
+            "title": "Reason",
+            "type": "string"
+          },
+          "result_hash": {
+            "title": "Result Hash",
+            "type": "string"
+          }
+        },
+        "required": [
+          "perturbations",
+          "result_hash"
+        ],
+        "title": "FailingSubset",
+        "type": "object"
+      },
       "FieldError": {
         "description": "One invalid input value.",
         "properties": {
@@ -1723,6 +1776,49 @@
           "version"
         ],
         "title": "HealthStatus",
+        "type": "object"
+      },
+      "HypothesisMinimization": {
+        "description": "최소 실패 조건 자동 검증 — which of an AI hypothesis' own perturbations its break needs.\n\nEvery non-empty proper subset of the perturbations of a ``confirmed`` AI hypothesis without\npremises is replayed. A subset *reproduces the break* when its replay fails at the same node\n(``failed_at_id``) as the whole hypothesis'; one that fails elsewhere is a different break —\nlisted in ``other_failures``, never used to drop a condition.\n\nThis only removes conditions from the model's own proposal: it does not look for causes the\nproposal does not name (another person's absence may break the same service too). It never\nchanges the hypothesis' status, the findings or the score.",
+        "properties": {
+          "minimal_sets": {
+            "items": {
+              "$ref": "#/components/schemas/FailingSubset"
+            },
+            "title": "Minimal Sets",
+            "type": "array"
+          },
+          "original_minimal": {
+            "title": "Original Minimal",
+            "type": "boolean"
+          },
+          "other_failures": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/FailingSubset"
+            },
+            "title": "Other Failures",
+            "type": "array"
+          },
+          "replays": {
+            "title": "Replays",
+            "type": "integer"
+          },
+          "unnecessary": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Perturbation"
+            },
+            "title": "Unnecessary",
+            "type": "array"
+          }
+        },
+        "required": [
+          "replays",
+          "minimal_sets",
+          "original_minimal"
+        ],
+        "title": "HypothesisMinimization",
         "type": "object"
       },
       "HypothesisOrigin": {
@@ -2852,6 +2948,16 @@
           "incident_type": {
             "$ref": "#/components/schemas/IncidentType",
             "default": "outage"
+          },
+          "minimization": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/HypothesisMinimization"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "origin": {
             "$ref": "#/components/schemas/HypothesisOrigin"

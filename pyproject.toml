@@ -132,8 +132,9 @@ name = "Judgement path never calls an LLM"
 type = "forbidden"
 source_modules = [
   "jettae.check", "jettae.rehearse.simulator", "jettae.improve.validator", "jettae.improve.patching",
-  # 규칙 밖 위험 탐색: the exhaustive sweep and the verification that decides every hypothesis
-  "jettae.explore.sweep", "jettae.explore.verify", "jettae.explore.drafts",
+  # 규칙 밖 위험 탐색: the exhaustive sweep, the verification that decides every hypothesis and
+  # the minimal-failing-condition check of AI hypotheses (최소 실패 조건 자동 검증)
+  "jettae.explore.sweep", "jettae.explore.verify", "jettae.explore.drafts", "jettae.explore.minimize",
 ]
 forbidden_modules = ["jettae.llm", "anthropic", "openai"]
 

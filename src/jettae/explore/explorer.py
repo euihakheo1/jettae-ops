@@ -5,7 +5,9 @@ Two callers share every step:
 * the diagnosis pipeline's ``explore`` node runs :func:`~jettae.explore.sweep.sweep`, asks the model
   (:func:`~jettae.explore.ai.propose_hypotheses`) when one is configured — recording a note if it
   fails, so the sweep is never lost — carries earlier AI hypotheses over (:func:`carry_over`) and
-  verifies everything once (:func:`finish`);
+  verifies everything once (:func:`finish`), then reduces each confirmed AI hypothesis to the
+  conditions its break needs (:func:`~jettae.explore.minimize.minimize_hypotheses`, 최소 실패 조건
+  자동 검증);
 * :func:`explore_graph` is the re-judgement after an approval or a revert (no LLM, P4): the sweep
   again, plus the earlier AI hypotheses re-verified on the new graph while every node they name
   still exists.
@@ -37,6 +39,7 @@ from jettae.domain import (
 )
 from jettae.explore.ai import AiProposals
 from jettae.explore.drafts import HypothesisDraft, draft_from_hypothesis
+from jettae.explore.minimize import minimize_hypotheses
 from jettae.explore.sweep import DEFAULT_LIMITS, SweepLimits, SweepResult, known_breaks, sweep
 from jettae.explore.verify import verify_hypotheses
 
@@ -86,6 +89,10 @@ def finish(
 ) -> Exploration:
     """Verify the sweep's drafts, the new AI drafts and the carried ones; build the summary.
 
+    Confirmed AI hypotheses then get their minimal failing conditions (최소 실패 조건 자동 검증,
+    :mod:`jettae.explore.minimize`); that only adds a field to them, and a note when its replay
+    budget ran out.
+
     ``ai_status`` says why there are no new AI proposals when the caller never asked the model
     (re-judgement, LLM fallback, a failed call); by default it is the proposals' own status.
     """
@@ -96,7 +103,8 @@ def finish(
     for draft in (*fresh, *(d for d in carried if d.id not in repeated)):
         ai.setdefault(draft.id, draft)
     ai_drafts = list(ai.values())[:MAX_AI_HYPOTHESES]
-    hypotheses = verify_hypotheses(ctx, [*swept.drafts, *ai_drafts], config=config)
+    verified = verify_hypotheses(ctx, [*swept.drafts, *ai_drafts], config=config)
+    minimized = minimize_hypotheses(ctx, verified, config=config)
     extra = list(notes)
     if carried_gone:
         extra.append(
@@ -110,6 +118,7 @@ def finish(
         )
     if len(ai) > MAX_AI_HYPOTHESES:
         extra.append(f"AI 위험 가설은 최근 것부터 {MAX_AI_HYPOTHESES}건만 실었습니다(상한).")
+    extra += minimized.notes
     status = ai_status
     if status is None:
         status = proposals.status if proposals is not None else AiProposalStatus.OFF
@@ -128,7 +137,7 @@ def finish(
         ai_carried=sum(1 for d in ai_drafts if d.id not in fresh_ids),
         notes=(*swept.notes, *extra),
     )
-    return Exploration(hypotheses=hypotheses, summary=summary)
+    return Exploration(hypotheses=minimized.hypotheses, summary=summary)
 
 
 def explore_graph(

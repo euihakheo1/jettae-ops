@@ -35,11 +35,13 @@ from jettae.domain import (
     Element,
     ElementStatus,
     ExplorationSummary,
+    FailingSubset,
     Finding,
     FindingStatus,
     FixKind,
     GraphVersion,
     GroundingStatus,
+    HypothesisMinimization,
     HypothesisOrigin,
     HypothesisStatus,
     IncidentType,
@@ -78,6 +80,8 @@ __all__ = [
     "HYPOTHESIS_STATUS_LABEL_KO",
     "INJECTION_PATTERN_LABEL_KO",
     "KST",
+    "MINIMIZE_LABEL",
+    "MINIMIZE_SCOPE",
     "NO_QUOTE_NOTE",
     "OUTCOME_LABEL_KO",
     "RULES_INTRO",
@@ -352,6 +356,12 @@ EXPLORE_NOTHING_FOUND: Final = "고정 규칙이 보고한 것 밖에서 대응�
 #: How a model's explanation is labelled: only the listed perturbations were replayed.
 AI_EXPLANATION_PREFIX: Final = (
     "AI 설명(검증하지 않음 — 리허설이 확인한 것은 '함께 일어나는 일'의 교란뿐입니다): "
+)
+#: 최소 실패 조건 자동 검증 of a confirmed AI hypothesis — what it is called, and what it is not.
+MINIMIZE_LABEL: Final = "최소 실패 조건(자동 검증)"
+MINIMIZE_SCOPE: Final = (
+    "AI가 제안한 조건의 모든 부분 조합을 같은 서비스·같은 목표 시간으로 다시 리허설해, 필요 없는 조건만 "
+    "덜어 낸 결과입니다. 제안에 없는 다른 원인까지 찾지는 않습니다."
 )
 #: Why a run has no AI proposals, by status (USED and OFF are worded from the counts and the mode).
 _AI_STATUS_LINE: Final[dict[AiProposalStatus, str]] = {
@@ -631,6 +641,11 @@ class HypothesisRow:
     assumptions: tuple[str, ...]
     required_info: tuple[str, ...]
     quotes: tuple[EvidenceQuote, ...]
+    #: 최소 실패 조건 자동 검증 (confirmed AI hypotheses only): the result in one line —
+    #: "상품 카탈로그 동시 장애 — 불필요한 조건: 강현우 부재 (부분 조합 2개 리허설)" — or ``None``
+    minimal: str | None = None
+    #: where a minimal set breaks elsewhere than the whole hypothesis, other breaks, and the scope
+    minimal_notes: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -1063,6 +1078,14 @@ def _perturbation_label(perturbation: Perturbation, names: _Names) -> str:
     return f"{names.node(perturbation.target_id)} {PERTURBATION_SUFFIX_KO[perturbation.kind]}"
 
 
+def _failure_point(element: Element | None, at_id: str | None, names: _Names) -> str:
+    """'담당 · 최영훈' — the step and the node where a replay broke."""
+    pieces = [ELEMENT_LABEL_KO[element]] if element is not None else []
+    if at_id is not None:
+        pieces.append(names.ref(at_id))
+    return " · ".join(pieces) or "끊긴 지점 기록 없음"
+
+
 def _replay_line(hypothesis: RiskHypothesis, names: _Names) -> str:
     v = hypothesis.verification
     if v.baseline_outcome is Outcome.FAIL:
@@ -1070,11 +1093,50 @@ def _replay_line(hypothesis: RiskHypothesis, names: _Names) -> str:
     if v.outcome is Outcome.PASS:
         ended = f"T+{format_minutes(v.time_to_mitigate)} 완화" if v.time_to_mitigate is not None else "완화"
         return f"통과 — {ended}(시한 {format_minutes(v.deadline_minutes)})"
-    pieces = [ELEMENT_LABEL_KO[v.failed_element]] if v.failed_element is not None else []
-    if v.failed_at_id is not None:
-        pieces.append(names.ref(v.failed_at_id))
-    where = " · ".join(pieces) or "끊긴 지점 기록 없음"
+    where = _failure_point(v.failed_element, v.failed_at_id, names)
     return f"실패 — {where}(시한 {format_minutes(v.deadline_minutes)})"
+
+
+def _conditions(perturbations: Sequence[Perturbation], names: _Names) -> str:
+    return " + ".join(_perturbation_label(p, names) for p in perturbations)
+
+
+def _minimal_line(m: HypothesisMinimization, names: _Names) -> str:
+    """'상품 카탈로그 동시 장애 — 불필요한 조건: 강현우 부재 (부분 조합 2개 리허설)'."""
+    tried = f"(부분 조합 {m.replays}개 리허설)"
+    if m.original_minimal:
+        return f"제안한 조합 그대로 — 어느 조건을 빼도 같은 지점에서 끊기지 않음 {tried}"
+    line = " / ".join(_conditions(s.perturbations, names) for s in m.minimal_sets)
+    if len(m.minimal_sets) > 1:
+        line += " (어느 하나만으로도 같은 지점에서 끊김)"
+    if m.unnecessary:
+        line += f" — 불필요한 조건: {_conditions(m.unnecessary, names)}"
+    return f"{line} {tried}"
+
+
+def _subset_point(subset: FailingSubset, names: _Names) -> str:
+    where = _failure_point(subset.failed_element, subset.failed_at_id, names)
+    return f"{where}에서 끊김" + (f"({subset.reason})" if subset.reason else "")
+
+
+def _minimal_notes(hypothesis: RiskHypothesis, m: HypothesisMinimization, names: _Names) -> tuple[str, ...]:
+    """Disclosures next to the result: a minimal set breaking at another step of the same node, a
+    subset breaking at another node (a different break), and what the check does not do."""
+    v = hypothesis.verification
+    whole = _failure_point(v.failed_element, v.failed_at_id, names)
+    notes = [
+        f"끊긴 단계가 제안한 조합과 다름: {_conditions(s.perturbations, names)}만 있으면 "
+        f"{_subset_point(s, names)}. 제안한 조합 전체는 {whole}에서 끊김."
+        for s in m.minimal_sets
+        if s.point_differs
+    ]
+    notes += [
+        "다른 지점에서 끊기는 부분 조합(같은 위험의 재현으로 보지 않음): "
+        f"{_conditions(s.perturbations, names)} — {_subset_point(s, names)}"
+        for s in m.other_failures
+    ]
+    notes.append(MINIMIZE_SCOPE)
+    return tuple(notes)
 
 
 def _hypothesis_rows(report: DiagnosisReport, names: _Names) -> tuple[HypothesisRow, ...]:
@@ -1093,12 +1155,14 @@ def _hypothesis_rows(report: DiagnosisReport, names: _Names) -> tuple[Hypothesis
                 if h.origin is HypothesisOrigin.AI and h.explanation
                 else h.explanation
             ),
-            perturbations=" + ".join(_perturbation_label(p, names) for p in h.perturbations),
+            perturbations=_conditions(h.perturbations, names),
             replay=_replay_line(h, names),
             reason=h.verification.reason,
             assumptions=h.assumptions,
             required_info=h.required_info,
             quotes=_quotes(h.evidence, names),
+            minimal=_minimal_line(h.minimization, names) if h.minimization is not None else None,
+            minimal_notes=_minimal_notes(h, h.minimization, names) if h.minimization is not None else (),
         )
         for i, h in enumerate(report.risk_hypotheses, start=1)
     )

@@ -485,6 +485,32 @@ export interface HypothesisVerification {
   path_ids: string[];
 }
 
+/** AI 가설 교란 중 일부만으로 다시 리허설한 결과 (같은 서비스·같은 목표 시간) */
+export interface FailingSubset {
+  perturbations: Perturbation[];
+  failed_element: Element | null;
+  failed_at_id: string | null;
+  reason: string;
+  result_hash: string;
+  /** 제안한 조합 전체와 끊긴 단계·지점이 다름 (숨기지 않고 표시) */
+  point_differs: boolean;
+}
+
+/**
+ * 최소 실패 조건 자동 검증 — 확인됨 AI 가설(전제 없음, 교란 2개 이상)에서 필요 없는 조건만 덜어 낸 결과.
+ * 제안에 없는 다른 원인은 찾지 않으며, 상태·점수에 반영하지 않음.
+ */
+export interface HypothesisMinimization {
+  replays: number;
+  /** 같은 지점에서 끊기는 가장 작은 조합들 (부분 조합이 없으면 제안한 조합 그대로) */
+  minimal_sets: FailingSubset[];
+  original_minimal: boolean;
+  /** 어느 최소 조합에도 들지 않는 조건 */
+  unnecessary: Perturbation[];
+  /** 다른 지점에서 끊기는 부분 조합 — 같은 위험의 재현으로 보지 않음 */
+  other_failures: FailingSubset[];
+}
+
 export interface RiskHypothesis {
   id: string;
   origin: HypothesisOrigin;
@@ -499,6 +525,8 @@ export interface RiskHypothesis {
   status: HypothesisStatus;
   verification: HypothesisVerification;
   required_info: string[];
+  /** 최소 실패 조건 자동 검증 (해당 없거나 이전 보고서면 null) */
+  minimization: HypothesisMinimization | null;
 }
 
 export interface CoveredCut {

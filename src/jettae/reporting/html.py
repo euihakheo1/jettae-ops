@@ -41,6 +41,7 @@ from jettae.reporting.evidence import (
     ELEMENT_STATUS_SYMBOL,
     EXPLORE_INTRO,
     HISTORY_NOTE,
+    MINIMIZE_LABEL,
     NO_QUOTE_NOTE,
     OUTCOME_LABEL_KO,
     RULES_INTRO,
@@ -574,6 +575,9 @@ def _hypothesis(row: HypothesisRow) -> Html:
         meta.append(("리허설 기록", esc(row.reason)))
     meta += [("그래프에 없는 전제", esc(a)) for a in row.assumptions]
     meta += [("확인할 것", esc(r)) for r in row.required_info]
+    if row.minimal is not None:
+        notes = "".join(f"<br>{esc(note)}" for note in row.minimal_notes)
+        meta.append((MINIMIZE_LABEL, Html(f"{esc(row.minimal)}{notes}")))
     meta_html = "".join(f"<dt>{esc(k)}</dt><dd>{v}</dd>" for k, v in meta)
     parts: list[Html] = [
         Html(f'<article class="finding {esc(css)}" id="{esc(anchor)}">'),

@@ -10,12 +10,14 @@ risks outside that list and keeps the same division of labour as the rest of the
 * :mod:`~jettae.explore.ai` — optional generative proposals that may only choose among enumerated
   node ids and must state premises the graph lacks as ``assumptions``;
 * :mod:`~jettae.explore.verify` — the deterministic replay with the service's policy deadline
-  decides ``confirmed`` / ``refuted`` / ``needs_info`` for every proposal.
+  decides ``confirmed`` / ``refuted`` / ``needs_info`` for every proposal;
+* :mod:`~jettae.explore.minimize` — 최소 실패 조건 자동 검증: the same replay drops the conditions a
+  confirmed AI hypothesis' break does not need (it never looks for causes the proposal omits).
 
 Hypotheses never change the findings, the readiness score or the gate; reports show them in a
-separate section labelled "점수에 반영하지 않음". ``sweep``, ``verify`` and ``drafts`` cannot
-import an LLM client (import-linter contract), and nothing in ``check``/``rehearse``/``improve``
-can import this package.
+separate section labelled "점수에 반영하지 않음". ``sweep``, ``verify``, ``drafts`` and ``minimize``
+cannot import an LLM client (import-linter contract), and nothing in ``check``/``rehearse``/
+``improve`` can import this package.
 """
 
 from jettae.explore.ai import (
@@ -29,6 +31,12 @@ from jettae.explore.ai import (
 )
 from jettae.explore.drafts import HypothesisDraft, clean_text, draft_from_hypothesis, set_key
 from jettae.explore.explorer import MAX_AI_HYPOTHESES, Exploration, carry_over, explore_graph, finish
+from jettae.explore.minimize import (
+    MINIMIZE_MAX_REPLAYS,
+    Minimized,
+    minimizable,
+    minimize_hypotheses,
+)
 from jettae.explore.sweep import (
     DEFAULT_LIMITS,
     SweepLimits,
@@ -43,6 +51,7 @@ __all__ = [
     "DEFAULT_LIMITS",
     "EXPLORE_TASK",
     "MAX_AI_HYPOTHESES",
+    "MINIMIZE_MAX_REPLAYS",
     "STATUS_ORDER",
     "AiProposals",
     "Exploration",
@@ -50,6 +59,7 @@ __all__ = [
     "LlmRiskHypothesis",
     "LlmRiskPayload",
     "LlmRiskTarget",
+    "Minimized",
     "SweepLimits",
     "SweepResult",
     "carry_over",
@@ -60,6 +70,8 @@ __all__ = [
     "finish",
     "hypothesis_scenario",
     "known_breaks",
+    "minimizable",
+    "minimize_hypotheses",
     "perturbation_effect",
     "propose_hypotheses",
     "set_key",
