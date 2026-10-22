@@ -10,6 +10,8 @@
 1. **변환:** "무엇이 어디에 연결되고, 누가 맡고 승인하며, 언제까지 알리나"를 원문 위치가 붙은 **운영 그래프**로 만듭니다.
 2. **진단:** **고정 규칙**으로 끊긴 대응 경로와 **준비도 점수(0~100)**를 계산합니다.
 3. **리허설:** 담당 부재·메신저 다운·센터 장애를 그래프 위에서 **결정적으로 리허설**합니다. 실제 시스템은 건드리지 않습니다.
+   규칙이 묻지 않는 위험(두 사람이 함께 빠질 때, 연락 수단 두 개가 함께 멈출 때 등)은 자동 전수 탐색과 생성형 AI가 가설로 제안하고,
+   같은 리허설이 확인·기각·확인 필요를 정합니다(**규칙 밖 위험 탐색**, 점수에는 반영하지 않음 — [docs/explore.md](docs/explore.md)).
 4. **개선:** 고칠 문장을 제안하고, 그중 **팀 리드가 승인한 것만** 새 그래프 버전으로 반영합니다.
 
 ![진단 대시보드](docs/images/dashboard.png)
@@ -72,6 +74,7 @@ jettae scan ./my-runbooks --format sarif --out jettae.sarif --fail-under 60
 - 출력 형식: `text` · `json` · `md`(ISMS-P 증적 리포트 초안) · `html` · `sarif`(GitHub 코드 스캐닝)
 - 판정 규칙 전체 보기: `jettae rules` (규칙 ID·근거·법적 근거 공개 — [docs/rules.md](docs/rules.md))
 - 점수 산식: [docs/scoring.md](docs/scoring.md)
+- 규칙 밖 위험 탐색(가설 → 리허설 검증, 점수 미반영): 증적 리포트 9장·`--format json`의 `risk_hypotheses` — [docs/explore.md](docs/explore.md)
 
 ### 3) 생성형 AI 켜기
 
@@ -129,13 +132,14 @@ flowchart LR
   AS --> V[역번역 대조 → 판단 보류]
   V --> C[고정 규칙 35개 · 준비도 점수]
   C --> R[결정적 리허설]
-  R --> D[수정안 초안 → 무회귀 검증]
+  R --> E[규칙 밖 위험 탐색: 전수 탐색·AI 가설 → 리허설 검증]
+  E --> D[수정안 초안 → 무회귀 검증]
   D --> H{팀 리드 승인}
   H -->|승인분만| GV[(그래프 새 버전)]
   GV --> C
 ```
 
-레이어(위가 아래만 import): `api | cli | evalkit → orchestrator → improve | reporting → rehearse → extract | check | store → ingest | llm → domain`
+레이어(위가 아래만 import): `api | cli | evalkit → orchestrator → improve | reporting | explore → rehearse → extract | check | store → ingest | llm → domain`
 
 | 패키지 | 역할 |
 |---|---|
@@ -144,6 +148,7 @@ flowchart LR
 | `jettae.extract` | 한국어 규칙 파서, LLM 추출기(청크·동시성), 원문 정렬, 개체 해석, 역번역 대조 |
 | `jettae.check` | 고정 규칙(필수 경로·사람·상향·채널·시한·국내 신고·당직·카탈로그·단일 장애점), 점수, 영향 범위 |
 | `jettae.rehearse` | 결정적 이산사건 리플레이, 템플릿·사람·AI 시나리오 |
+| `jettae.explore` | 규칙 밖 위험 탐색: 결정적 전수 탐색(최소 조합)·AI 가설 제안 → 리허설 검증(확인됨·기각·확인 필요), 점수 미반영 |
 | `jettae.improve` | 패치 적용·역연산·diff, 템플릿/AI 초안, 무회귀 검증, 승인·되돌리기 버전 관리 |
 | `jettae.orchestrator` | LangGraph 파이프라인, 애플리케이션 서비스(API·CLI의 유일한 진입점) |
 | `jettae.api` / `jettae.cli` | FastAPI REST + 웹 정적 서빙 / Typer CLI |

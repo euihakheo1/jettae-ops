@@ -31,6 +31,7 @@ from typing_extensions import TypedDict
 from jettae.check.context import CheckContext
 from jettae.domain import (
     Document,
+    ExplorationSummary,
     Extraction,
     Finding,
     GroundingStatus,
@@ -41,6 +42,7 @@ from jettae.domain import (
     PatchStatus,
     ReadinessReport,
     RehearsalResult,
+    RiskHypothesis,
     Scenario,
     ScenarioOrigin,
     SecurityNotice,
@@ -92,7 +94,9 @@ class DiagnosisOptions(BaseModel):
     describe how the head came to be — the extraction it started from and the approved patches
     applied on top, in approval order — so a re-extraction can keep human decisions.
     ``carried_scenarios`` are previously resolved human/LLM drills (kept when their nodes still
-    exist); ``scenario_sources`` are ``scenarios.yaml`` sources to resolve onto the new graph, as
+    exist); ``carried_hypotheses`` are an earlier report's risk hypotheses, whose AI ones are
+    verified again on the new graph (sweep ones are recomputed anyway); ``scenario_sources`` are
+    ``scenarios.yaml`` sources to resolve onto the new graph, as
     :func:`~jettae.rehearse.scenarios_from_yaml` reads them: ``bytes`` is file content, a ``str`` is
     YAML text or — one line ending in ``.yaml`` — a path. Services pass uploaded *bytes* only, so a
     request can never name a server file.
@@ -108,6 +112,12 @@ class DiagnosisOptions(BaseModel):
     scenario_sources: tuple[str | bytes, ...] = ()
     rehearse: bool = True
     draft: bool = True
+    #: risk exploration (규칙 밖 위험 탐색) after the rehearsal; runs only when ``rehearse`` is on,
+    #: because the replay is its judge. Never changes findings, score or gate.
+    explore: bool = True
+    #: AI risk hypotheses asked for per run (0 = sweep only; ignored when the LLM is off)
+    llm_hypothesis_count: int = Field(default=3, ge=0, le=10)
+    carried_hypotheses: tuple[RiskHypothesis, ...] = ()
     #: restrict drafting to these finding ids (``None`` = every finding)
     draft_finding_ids: tuple[str, ...] | None = None
     llm_scenario_count: int = Field(default=3, ge=0, le=20)
@@ -157,6 +167,8 @@ class DiagnosisState(TypedDict, total=False):
     readiness: ReadinessReport
     scenarios: tuple[Scenario, ...]
     rehearsals: tuple[RehearsalResult, ...]
+    risk_hypotheses: tuple[RiskHypothesis, ...]
+    exploration: ExplorationSummary | None
     draft_base_version: int
     patches: tuple[Patch, ...]
     grounding: GroundingStatus
@@ -198,3 +210,6 @@ class DiagnosisOutcome:
     #: what the extractors proposed before grounding (rule parser first, then LLM chunks) — the
     #: input of ``assemble``, kept so a wrong graph can be traced to the proposal or to grounding
     extractions: tuple[Extraction, ...] = ()
+    #: 규칙 밖 위험 후보 (verified by the replay, not part of findings or score) and its bookkeeping
+    risk_hypotheses: tuple[RiskHypothesis, ...] = ()
+    exploration: ExplorationSummary | None = None

@@ -284,6 +284,8 @@ function buildReport(v: VersionState): DiagnosisReport {
       .filter(Boolean)
       .sort(),
     timings_ms: {},
+    risk_hypotheses: [],
+    exploration: null,
   };
 }
 

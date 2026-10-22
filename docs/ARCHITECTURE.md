@@ -8,7 +8,7 @@
 
 | # | 원칙 | 구현으로 보장하는 방법 |
 |---|---|---|
-| P1 | **AI는 제안, 판정은 규칙** — 끊김 판정·점수·리허설 판정·그래프 변경에 LLM이 관여하지 않는다 | `jettae.check`, `jettae.rehearse.simulator`, `jettae.improve.{validator,patching}` 은 `jettae.llm`/`anthropic`/`openai` import 금지 (import-linter 계약) |
+| P1 | **AI는 제안, 판정은 규칙** — 끊김 판정·점수·리허설 판정·그래프 변경에 LLM이 관여하지 않는다 | `jettae.check`, `jettae.rehearse.simulator`, `jettae.improve.{validator,patching}`, `jettae.explore.{sweep,verify,drafts}` 은 `jettae.llm`/`anthropic`/`openai` import 금지, 판정·점수 모듈은 `jettae.explore` import 금지 (import-linter 계약) |
 | P2 | **지어내기 금지** — 그래프의 모든 요소는 원문 span 또는 구조화 출처(명부·카탈로그·승인 패치)를 가진다 | `Provenance` 검증기(RUNBOOK 출처는 span 필수), `assemble`의 정렬 실패 요소 폐기 |
 | P3 | **확인 불가 ≠ 정상** — 모르면 통과가 아니라 `UNKNOWN`/`HOLD` | `FindingStatus.UNKNOWN`, `ElementStatus.UNKNOWN`은 점수 0 |
 | P4 | **LLM을 꺼도 동작** — `LlmMode.OFF`에서 규칙 파서 → 동일 파이프라인 | 모든 LLM 단계는 `LLMDisabledError` 시 결정적 폴백 |
@@ -39,6 +39,7 @@ src/jettae/
   extract/       rules(규칙 파서), llm_extractor, assemble(정렬·개체해석·그래프 조립), backtranslate(역번역 대조)
   check/         context, registry, rules/*, scoring, impact(영향 범위), spof(최소 절단 집합)
   rehearse/      scenarios(템플릿+LLM), simulator(결정적 이산사건 리플레이)
+  explore/       규칙 밖 위험 탐색: sweep(결정적 전수 탐색), ai(가설 제안), verify(리허설 검증), explorer
   improve/       patching(적용·역연산·diff), drafter(템플릿+LLM), validator, versioning
   store/         memory(테스트/데모), sql(SQLAlchemy 2.0; SQLite/Postgres), migrations(alembic)
   reporting/     markdown(증적 리포트), sarif, html
@@ -49,7 +50,7 @@ src/jettae/
   config.py      pydantic-settings (env prefix JETTAE_)
 ```
 
-레이어(위가 아래만 import): `api|cli|evalkit` → `orchestrator` → `improve|reporting` → `rehearse` → `extract|check|store` → `ingest|llm` → `domain`.
+레이어(위가 아래만 import): `api|cli|evalkit` → `orchestrator` → `improve|reporting|explore` → `rehearse` → `extract|check|store` → `ingest|llm` → `domain`.
 같은 레이어의 형제끼리는 import 금지(`|`). `config.py`는 어디서나 import 가능하지만 `domain`은 import하지 않는다.
 
 ## 3. 도메인 모델 요약 (정의: `src/jettae/domain/*.py` — 계약이므로 변경 시 전 모듈 영향)
@@ -64,7 +65,8 @@ src/jettae/
 - **ReadinessReport** 서비스별 5요소 점수 → 0~100
 - **Scenario / RehearsalResult / SimConfig** 리허설 계약
 - **Patch / PatchOp / PatchValidation / GraphVersion** 개선·버전 계약
-- **DiagnosisReport** 한 번의 진단 결과(그래프 버전, 끊김, 점수, 리허설, 수정안, 근거율, LLM 사용량)
+- **DiagnosisReport** 한 번의 진단 결과(그래프 버전, 끊김, 점수, 리허설, 수정안, 근거율, LLM 사용량, 규칙 밖 위험 후보)
+- **RiskHypothesis / ExplorationSummary** 규칙 밖 위험 가설(출처 sweep|ai, 교란, 전제, 상태 confirmed|refuted|needs_info, 재생 결과)과 탐색 범위
 
 ## 4. 모듈별 공개 API (구현 계약)
 
@@ -133,6 +135,18 @@ replay(graph, scenario, *, policy=Policy(), config=SimConfig(), roster=()) -> Re
 replay_all(graph, scenarios, *, policy, config, roster=()) -> list[RehearsalResult]
 ```
 
+### 4.5.1 explore (규칙 밖 위험 탐색 — [explore.md](explore.md))
+```python
+sweep(ctx, findings, *, config=None, limits=SweepLimits()) -> SweepResult   # LLM 0회: 핵심 서비스별 최소 끊김 조합(1·2개)
+perturbation_effect(ctx, perturbations, *, config=None) -> frozenset[str]     # 리허설에서 빠지는 사람·채널(동시 장애 = 끌려가는 사람)
+known_breaks(ctx, swept, drafts, *, config=None) -> frozenset[str]           # 이미 찾은 끊김 조합으로 설명되는 가설 id
+async propose_hypotheses(llm, ctx, findings, *, n=3, known=None, config=None) -> AiProposals  # 열거된 id 중 선택만, 전제는 assumptions
+verify_hypotheses(ctx, drafts, *, config=None) -> tuple[RiskHypothesis, ...]   # 서비스 정책 시한으로 재생 → 상태
+explore_graph(ctx, findings, *, config=None, previous=()) -> Exploration       # 재판정용(LLM 없음)
+```
+가설은 끊김·점수·통과 기준에 반영하지 않는다(보고서의 별도 필드 `risk_hypotheses`). 전제가 있거나, 판단 보류 대상을 가리키거나,
+교란 없이도 실패하는 서비스의 가설은 `needs_info`, 리허설이 끊기면 `confirmed`, 시한 안에 완화하면 `refuted`.
+
 ### 4.6 improve
 ```python
 apply_ops(graph, ops) -> tuple[OpsGraph, tuple[PatchOp, ...]]   # previous/snapshot 채워 역연산 가능
@@ -149,7 +163,7 @@ LLM 초안 안전장치: LLM에게는 끊김 설명과 **명부에서 뽑은 후
 ### 4.7 store / orchestrator / api / cli
 - `store.memory.MemoryStore` (모든 Repository 프로토콜 구현), `store.sql.SqlStore(url)` (동일 프로토콜, 낙관적 동시성)
 - `orchestrator.pipeline.build_diagnosis_graph()` — LangGraph `StateGraph`
-  노드: `guard → extract → assemble → verify → check → score → scenarios → rehearse → draft → finalize`
+  노드: `guard → extract → assemble → verify → check → score → scenarios → rehearse → explore → draft → finalize`
   LLM 실패 시 `extract`는 규칙 파서로 폴백하고 보고서에 기록.
 - `orchestrator.service.JettaeService` — API·CLI가 쓰는 유일한 진입점
 - API: `/api/v1/...` (§6), CLI: `jettae scan|rehearse|serve|demo|eval|rules`

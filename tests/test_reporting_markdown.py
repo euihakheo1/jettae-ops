@@ -48,6 +48,7 @@ SECTIONS = [
     "6. 판단 보류·확인 불가 항목",
     "7. 보안 알림",
     "8. 인증 기준 매핑",
+    "9. 규칙 밖 위험 후보 (점수에 반영하지 않음)",
     "부록 A. 점수 산식 (SCORING_V1)",
     "부록 B. 규칙 카탈로그",
 ]
@@ -246,7 +247,7 @@ def test_certification_mapping_and_appendices() -> None:
         ["대체 채널", "fallback_channel", "0.15"],
         ["롤백", "rollback", "0.20"],
     ]
-    rules = _table_after(tokens, SECTIONS[9])
+    rules = _table_after(tokens, SECTIONS[10])
     assert [row[0] for row in rules[1:]] == sorted(i.rule_id for i in rule_catalog())
     assert {row[0]: row[-1] for row in rules[1:]}["JT-PPL-001"] == "1"
 

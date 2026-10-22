@@ -106,6 +106,10 @@ def test_expired_windows_are_dropped_and_memory_stays_bounded() -> None:
 def test_no_key_ever_gets_more_than_the_limit_per_window(
     limit: int, requests: list[tuple[str, float]]
 ) -> None:
+    """Fixed windows (module docstring): a key's window starts at its first counted request and
+    lasts ``window`` seconds, and no window counts more than ``limit`` requests. A sliding interval
+    of the same length can straddle two consecutive windows (``limit`` at the end of one, ``limit``
+    at the start of the next), never three."""
     window = 10.0
     limiter, clock = _limiter(limit, window)
     allowed: dict[str, list[float]] = {}
@@ -114,8 +118,14 @@ def test_no_key_ever_gets_more_than_the_limit_per_window(
         if limiter.retry_after(key) is None:
             allowed.setdefault(key, []).append(clock.now)
     for times in allowed.values():
-        for start in times:
-            assert sum(1 for t in times if start <= t < start + window) <= limit
+        start, counted = times[0], 0
+        for t in times:
+            if t - start >= window:  # the previous window has ended: this request opens the next
+                start, counted = t, 0
+            counted += 1
+            assert counted <= limit
+        for first in times:
+            assert sum(1 for t in times if first <= t < first + window) <= 2 * limit
 
 
 @pytest.mark.parametrize(("limit", "window", "keys"), [(0, 60, 10), (1, 0, 10), (1, 60, 0)])

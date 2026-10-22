@@ -45,6 +45,7 @@ from jettae.reporting.evidence import (
     SEVERITY_LABEL_KO,
     current_rehearsals,
     format_datetime,
+    hypothesis_counts,
     judgement_path_statement,
     llm_usage_line,
     printable,
@@ -286,6 +287,9 @@ def _notes(report: DiagnosisReport, width: int) -> list[str]:
         lines += wrap_display(
             f"[판단 보류] {len(set(report.held_element_ids))}건: 사람이 원문과 대조해 확인해야 합니다.", width
         )
+    if report.exploration is not None or report.risk_hypotheses:
+        tally = hypothesis_counts(h.status for h in report.risk_hypotheses)
+        lines += wrap_display(f"[규칙 밖 위험 후보] {tally} (점수에 반영하지 않음)", width)
     if report.security:
         lines += wrap_display(
             f"[보안 알림] 문서 속 AI 지시문 {len(report.security)}건을 격리했습니다. "

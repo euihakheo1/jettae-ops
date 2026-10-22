@@ -28,16 +28,20 @@ from jettae.check.registry import rule_catalog, sort_findings
 from jettae.check.scoring import SCORING_V1
 from jettae.domain import (
     ELEMENT_LABEL_KO,
+    AiProposalStatus,
     DiagnosisReport,
     DocumentRef,
     EdgeKind,
     Element,
     ElementStatus,
+    ExplorationSummary,
     Finding,
     FindingStatus,
     FixKind,
     GraphVersion,
     GroundingStatus,
+    HypothesisOrigin,
+    HypothesisStatus,
     IncidentType,
     LlmMode,
     LlmUsageSummary,
@@ -47,9 +51,11 @@ from jettae.domain import (
     Patch,
     PatchAuthor,
     PatchStatus,
+    Perturbation,
     PerturbationKind,
     ReadinessReport,
     RehearsalResult,
+    RiskHypothesis,
     Scenario,
     SecurityNotice,
     Severity,
@@ -64,8 +70,12 @@ __all__ = [
     "ELEMENT_STATUS_LABEL_KO",
     "ELEMENT_STATUS_SYMBOL",
     "EVIDENCE_TITLE",
+    "EXPLORE_INTRO",
+    "EXPLORE_NOTHING_FOUND",
     "FINDING_STATUS_LABEL_KO",
     "HISTORY_NOTE",
+    "HYPOTHESIS_ORIGIN_LABEL_KO",
+    "HYPOTHESIS_STATUS_LABEL_KO",
     "INJECTION_PATTERN_LABEL_KO",
     "KST",
     "NO_QUOTE_NOTE",
@@ -88,6 +98,7 @@ __all__ = [
     "EvidenceView",
     "FindingView",
     "HeldRow",
+    "HypothesisRow",
     "PatchRow",
     "RehearsalRow",
     "RuleRow",
@@ -101,6 +112,7 @@ __all__ = [
     "distinct_spans",
     "format_datetime",
     "format_minutes",
+    "hypothesis_counts",
     "judgement_path_statement",
     "llm_usage_line",
     "mask_excerpt",
@@ -177,6 +189,26 @@ PATCH_STATUS_LABEL_KO: Final[dict[PatchStatus, str]] = {
     PatchStatus.APPROVED: "승인",
     PatchStatus.REJECTED: "거절",
     PatchStatus.SUPERSEDED: "무효(기준 버전 변경)",
+}
+
+#: Risk hypotheses (규칙 밖 위험 후보): the replay's verdict, worded for the reader.
+HYPOTHESIS_STATUS_LABEL_KO: Final[dict[HypothesisStatus, str]] = {
+    HypothesisStatus.CONFIRMED: "확인됨(리허설로 재현)",
+    HypothesisStatus.NEEDS_INFO: "확인 필요",
+    HypothesisStatus.REFUTED: "기각",
+}
+
+HYPOTHESIS_ORIGIN_LABEL_KO: Final[dict[HypothesisOrigin, str]] = {
+    HypothesisOrigin.SWEEP: "자동 전수 탐색",
+    HypothesisOrigin.AI: "생성형 AI 제안",
+}
+
+PERTURBATION_SUFFIX_KO: Final[dict[PerturbationKind, str]] = {
+    PerturbationKind.PERSON_UNAVAILABLE: "부재",
+    PerturbationKind.CHANNEL_DOWN: "다운",
+    PerturbationKind.SYSTEM_DOWN: "장애",
+    PerturbationKind.LOCATION_DOWN: "센터 장애",
+    PerturbationKind.CONCURRENT_INCIDENT: "동시 장애",
 }
 
 PATCH_AUTHOR_LABEL_KO: Final[dict[PatchAuthor, str]] = {
@@ -309,6 +341,29 @@ SCORING_METHOD: Final = (
 )
 TIER_FALLBACK_NOTE: Final = "표에 없는 등급은 가장 낮은 등급 가중치를 씁니다."
 RULES_INTRO: Final = "판정에 쓰는 고정 규칙 전체입니다. 고객이 판정 기준을 직접 감사할 수 있도록 공개합니다."
+EXPLORE_INTRO: Final = (
+    "고정 규칙이 묻지 않는 위험(두 사람이 함께 빠질 때, 연락 수단 두 개가 함께 멈출 때, 다른 서비스 장애와 "
+    "겹칠 때 등)을 자동 전수 탐색과 생성형 AI가 가설로 제안하고, 결정적 리허설이 서비스 목표 복구 시간으로 "
+    "확인한 결과입니다. 준비도 점수·끊김 판정·통과 기준에는 반영하지 않습니다. 그래프에 없는 전제가 붙은 "
+    "가설은 확인되기 전까지 '확인 필요'로 남습니다."
+)
+#: 9장, nothing to list and every critical service fully searched.
+EXPLORE_NOTHING_FOUND: Final = "고정 규칙이 보고한 것 밖에서 대응을 끊는 조합을 찾지 못했습니다."
+#: How a model's explanation is labelled: only the listed perturbations were replayed.
+AI_EXPLANATION_PREFIX: Final = (
+    "AI 설명(검증하지 않음 — 리허설이 확인한 것은 '함께 일어나는 일'의 교란뿐입니다): "
+)
+#: Why a run has no AI proposals, by status (USED and OFF are worded from the counts and the mode).
+_AI_STATUS_LINE: Final[dict[AiProposalStatus, str]] = {
+    AiProposalStatus.FAILED: "생성형 AI 제안 실패(사유는 아래 참고) — 자동 전수 탐색 결과만 실음",
+    AiProposalStatus.FALLBACK: "생성형 AI 제안 없음(추출 단계에서 LLM이 실패해 이 실행은 LLM을 더 쓰지 않음)",
+    AiProposalStatus.NOT_REQUESTED: "생성형 AI 제안을 요청하지 않음(제안 개수 0 또는 제안받을 서비스 없음)",
+    AiProposalStatus.REJUDGE: "생성형 AI 제안 없음(승인·되돌리기 뒤 재판정은 LLM을 쓰지 않음)",
+}
+_AI_OFF_REASON: Final[dict[LlmMode, str]] = {
+    LlmMode.OFF: "LLM 끔",
+    LlmMode.REPLAY: "녹화된 응답에 없는 요청",
+}
 #: Chapter titles by key, in report order (the HTML table of contents and both formats' headings).
 SECTION_TITLES: Final[dict[str, str]] = {
     "overview": "1. 개요",
@@ -319,6 +374,7 @@ SECTION_TITLES: Final[dict[str, str]] = {
     "undecided": "6. 판단 보류·확인 불가 항목",
     "security": "7. 보안 알림",
     "controls": "8. 인증 기준 매핑",
+    "explore": "9. 규칙 밖 위험 후보 (점수에 반영하지 않음)",
     "scoring": "부록 A. 점수 산식",
     "rules": "부록 B. 규칙 카탈로그",
 }
@@ -556,6 +612,28 @@ class RehearsalRow:
 
 
 @dataclass(frozen=True, slots=True)
+class HypothesisRow:
+    """One risk hypothesis as the evidence report shows it (규칙 밖 위험 후보)."""
+
+    number: str  # "9.1"
+    hypothesis_id: str
+    status: HypothesisStatus
+    status_label: str
+    origin_label: str
+    service: str
+    title: str
+    explanation: str
+    perturbations: str
+    #: one line: "실패 — 담당 · 최영훈" / "통과 — T+30분 완화(시한 1시간)"
+    replay: str
+    #: the replay's own reason (failures and passes alike)
+    reason: str
+    assumptions: tuple[str, ...]
+    required_info: tuple[str, ...]
+    quotes: tuple[EvidenceQuote, ...]
+
+
+@dataclass(frozen=True, slots=True)
 class VersionRow:
     number: int
     graph_hash: str
@@ -669,6 +747,24 @@ class EvidenceView:
     element_weights: tuple[WeightRow, ...]
     tier_weights: tuple[WeightRow, ...]
     rules: tuple[RuleRow, ...]
+    #: 규칙 밖 위험 후보 (verified hypotheses, not scored); ``exploration`` is ``None`` for reports
+    #: made before exploration existed or with it turned off
+    hypotheses: tuple[HypothesisRow, ...] = ()
+    exploration: str | None = None
+    exploration_notes: tuple[str, ...] = ()
+    #: what 9장 says when no hypothesis is listed — "nothing found" only when every critical
+    #: service was searched in full; otherwise what could not be searched (P3)
+    exploration_empty: str = EXPLORE_NOTHING_FOUND
+
+    @property
+    def hypothesis_summary(self) -> str:
+        """``확인됨(리허설로 재현) 2건 · 확인 필요 1건 · 기각 0건``."""
+        return hypothesis_counts(h.status for h in self.hypotheses)
+
+    @property
+    def explored(self) -> bool:
+        """Did this report run exploration at all (or carry hypotheses)?"""
+        return self.exploration is not None or bool(self.hypotheses)
 
     @property
     def broken_count(self) -> int:
@@ -955,6 +1051,124 @@ def _rehearsal_rows(
             )
         )
     return tuple(rows)
+
+
+def hypothesis_counts(statuses: Iterable[HypothesisStatus]) -> str:
+    """``확인됨(리허설로 재현) 2건 · 확인 필요 1건 · 기각 0건`` (every status, zeros included)."""
+    counts = Counter(statuses)
+    return " · ".join(f"{label} {counts[s]}건" for s, label in HYPOTHESIS_STATUS_LABEL_KO.items())
+
+
+def _perturbation_label(perturbation: Perturbation, names: _Names) -> str:
+    return f"{names.node(perturbation.target_id)} {PERTURBATION_SUFFIX_KO[perturbation.kind]}"
+
+
+def _replay_line(hypothesis: RiskHypothesis, names: _Names) -> str:
+    v = hypothesis.verification
+    if v.baseline_outcome is Outcome.FAIL:
+        return "기준 리허설부터 실패 — 가설만의 영향 확인 불가"
+    if v.outcome is Outcome.PASS:
+        ended = f"T+{format_minutes(v.time_to_mitigate)} 완화" if v.time_to_mitigate is not None else "완화"
+        return f"통과 — {ended}(시한 {format_minutes(v.deadline_minutes)})"
+    pieces = [ELEMENT_LABEL_KO[v.failed_element]] if v.failed_element is not None else []
+    if v.failed_at_id is not None:
+        pieces.append(names.ref(v.failed_at_id))
+    where = " · ".join(pieces) or "끊긴 지점 기록 없음"
+    return f"실패 — {where}(시한 {format_minutes(v.deadline_minutes)})"
+
+
+def _hypothesis_rows(report: DiagnosisReport, names: _Names) -> tuple[HypothesisRow, ...]:
+    """Hypotheses in the report's order (확인됨 → 확인 필요 → 기각, as verification sorted them)."""
+    return tuple(
+        HypothesisRow(
+            number=f"9.{i}",
+            hypothesis_id=h.id,
+            status=h.status,
+            status_label=HYPOTHESIS_STATUS_LABEL_KO[h.status],
+            origin_label=HYPOTHESIS_ORIGIN_LABEL_KO[h.origin],
+            service=names.service(h.service_id),
+            title=h.title,
+            explanation=(
+                f"{AI_EXPLANATION_PREFIX}{h.explanation}"
+                if h.origin is HypothesisOrigin.AI and h.explanation
+                else h.explanation
+            ),
+            perturbations=" + ".join(_perturbation_label(p, names) for p in h.perturbations),
+            replay=_replay_line(h, names),
+            reason=h.verification.reason,
+            assumptions=h.assumptions,
+            required_info=h.required_info,
+            quotes=_quotes(h.evidence, names),
+        )
+        for i, h in enumerate(report.risk_hypotheses, start=1)
+    )
+
+
+def _ai_line(summary: ExplorationSummary, mode: LlmMode) -> str:
+    """What the generative model contributed — or why it did not, in the case's own words."""
+    status = AiProposalStatus.USED if summary.ai_used else summary.ai_status
+    if status is AiProposalStatus.USED:
+        left: list[str] = []
+        if summary.ai_dropped:
+            left.append(f"목록에 없는 id·판단 보류·종류 불일치 등 {summary.ai_dropped}건 버림")
+        if summary.ai_duplicates:
+            left.append(f"중복이거나 이미 찾은 끊김 조합과 겹침 {summary.ai_duplicates}건 버림")
+        if summary.ai_over_cap:
+            left.append(f"요청 개수를 넘은 {summary.ai_over_cap}건 제외(상한)")
+        return f"생성형 AI 제안 {summary.ai_proposed}건 중 {summary.ai_kept}건 검증" + (
+            f"({', '.join(left)})" if left else ""
+        )
+    if status is AiProposalStatus.OFF:
+        return f"생성형 AI 제안 없음({_AI_OFF_REASON.get(mode, 'LLM을 쓸 수 없음 — 자격 증명 없음 등')})"
+    return _AI_STATUS_LINE[status]
+
+
+def _exploration_empty(summary: ExplorationSummary | None, names: _Names) -> str:
+    """9장 with no hypothesis: "nothing found" only where the search ran in full (P3)."""
+    if summary is None:
+        return EXPLORE_NOTHING_FOUND
+    if not summary.services:
+        return "핵심 서비스가 없어 탐색할 대상이 없었습니다."
+    searched = [s for s in summary.services if s.skipped_reason is None]
+    if not searched:
+        return (
+            "탐색할 수 있는 핵심 서비스가 없어 규칙 밖 위험을 확인하지 못했습니다"
+            "(모든 핵심 서비스가 교란 없이도 리허설에 실패했거나 리허설 예산을 다 씀). "
+            "위험이 없다는 뜻이 아닙니다."
+        )
+    skipped = [names.service(s.service_id) for s in summary.services if s.skipped_reason is not None]
+    partial = [
+        names.service(s.service_id) for s in searched if s.exhausted or s.candidates < s.candidates_total
+    ]
+    if not skipped and not partial:
+        return EXPLORE_NOTHING_FOUND
+    unchecked: list[str] = []
+    if skipped:
+        unchecked.append(f"탐색하지 못한 서비스({', '.join(skipped)})")
+    if partial:
+        unchecked.append(f"상한·예산으로 일부만 탐색한 서비스({', '.join(partial)})의 나머지 조합")
+    topic = "와 ".join(unchecked) + ("은" if partial else "는")
+    return (
+        f"탐색한 범위(핵심 서비스 {len(summary.services)}개 중 {len(searched)}개)에서는 "
+        f"{EXPLORE_NOTHING_FOUND} {topic} 확인하지 못한 것이지 위험이 없다는 뜻이 아닙니다."
+    )
+
+
+def _exploration_line(summary: ExplorationSummary, names: _Names, mode: LlmMode) -> str:
+    """How far the search went — what was searched, skipped, already covered, asked of the AI."""
+    searched = [s for s in summary.services if s.skipped_reason is None]
+    broken = sum(1 for s in summary.services if s.baseline is Outcome.FAIL)
+    parts = [
+        f"자동 전수 탐색({summary.method}): 핵심 서비스 {len(summary.services)}개 중 {len(searched)}개를 "
+        f"최대 {summary.max_set_size}개 조합까지 리허설 {summary.replays:,}회로 탐색"
+        + (f"(교란 없이도 실패하는 {broken}개는 고정 규칙의 끊김이 우선이라 제외)" if broken else "")
+    ]
+    if summary.covered:
+        parts.append(f"고정 규칙이 이미 보고한 조합 {len(summary.covered)}개는 다시 싣지 않음")
+    parts.append(_ai_line(summary, mode))
+    if summary.ai_carried:
+        parts.append(f"이전 진단의 AI 가설 {summary.ai_carried}건 다시 확인")
+    return " · ".join(parts)
 
 
 def _resolved_summary(finding_ids: Sequence[str]) -> str | None:
@@ -1247,4 +1461,12 @@ def build_evidence(
         element_weights=element_weights,
         tier_weights=tier_weights,
         rules=_rule_rows(findings),
+        hypotheses=_hypothesis_rows(report, names),
+        exploration=(
+            _exploration_line(report.exploration, names, report.llm.mode)
+            if report.exploration is not None
+            else None
+        ),
+        exploration_notes=report.exploration.notes if report.exploration is not None else (),
+        exploration_empty=_exploration_empty(report.exploration, names),
     )
