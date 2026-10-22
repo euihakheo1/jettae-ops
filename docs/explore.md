@@ -198,3 +198,7 @@ SARIF(코드 스캐닝 경고)에는 넣지 않습니다. 코드 스캐닝의 �
 | `src/jettae/explore/explorer.py` | 이전 AI 가설 이어받기, 요약, 재판정용 `explore_graph` |
 | `src/jettae/orchestrator/pipeline.py` | `explore` 노드, `evaluate_graph(explore=…)` |
 | `tests/test_explore.py` | 탐색·AI 검증·상태·점수 불변·리포트 테스트 |
+
+## 실제 모델로 돌린 기록
+
+- 2026-10-23, 별빛상점 v5에 AI 위험 가설 1회(claude-sonnet-5-5): 제안 5 → 확인됨 1 · 확인 필요 2 · 기각 2. 사례 1건이며 성능 평가가 아닙니다. 자세한 내용은 [eval/explore-ai](eval/explore-ai/README.md)에 있습니다.
