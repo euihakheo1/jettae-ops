@@ -59,7 +59,7 @@ all = ["jettae-ops[anthropic,openai,otel,postgres]"]
 jettae = "jettae.cli.main:app"
 
 [project.urls]
-Homepage = "https://github.com/jettae-ops/jettae-ops"
+Homepage = "https://github.com/euihakheo1/jettae-ops"
 
 [build-system]
 requires = ["hatchling>=1.25"]

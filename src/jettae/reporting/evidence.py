@@ -305,7 +305,8 @@ DISASTER_RULE_IDS: Final = ("JT-CAT-003", "JT-CHN-001")
 
 DISCLAIMER: Final = (
     "제때옵스(JETTAE Ops)가 고정 규칙과 결정적 리플레이로 자동 생성한 증적 초안입니다. "
-    "판정·점수·리허설에는 생성형 AI가 관여하지 않으며, "
+    "판정·점수 계산과 리허설 통과/실패 판정에는 생성형 AI를 쓰지 않으며"
+    "(LLM을 켠 진단에서는 AI가 리허설 시나리오를 제안하고, 역번역 대조에서 연결을 판단 보류로 돌릴 수 있음), "
     "인증 심사에 제출하기 전에 담당자가 내용을 확인해야 합니다."
 )
 NO_QUOTE_NOTE: Final = (
@@ -332,7 +333,8 @@ UNLINKED_PATCHES_TITLE: Final = "버전 기록과 연결되지 않은 수정안"
 #: The examples carry every drop reason (근거 없음, 격리 구간 인용, 형식 오류 …), not only "no source".
 DROPPED_EXAMPLES_TITLE: Final = "추출 단계에서 버린 요소 예시"
 SCORING_INTRO: Final = (
-    "점수는 고정 규칙으로만 계산하며 생성형 AI는 관여하지 않습니다. "
+    "점수는 고정 규칙으로만 계산하며 계산에 생성형 AI를 쓰지 않습니다. "
+    "LLM을 켠 진단에서 역번역 대조의 AI 판정으로 판단 보류된 연결은 충족 근거로 쓰지 않습니다. "
     "같은 그래프에는 언제나 같은 점수가 나옵니다."
 )
 SCORING_METHOD: Final = (

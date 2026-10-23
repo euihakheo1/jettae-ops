@@ -100,7 +100,7 @@ def test_rules_publish_the_whole_catalog_in_korean() -> None:
         assert rule["fullDescription"]["text"]
         assert rule["help"]["text"].startswith(info.title.replace("[", "\\[").replace("]", "\\]"))
         assert "판정 근거: " in rule["help"]["text"]
-        assert "생성형 AI는 판정에 관여하지 않습니다" in rule["help"]["text"]
+        assert "판정에 생성형 AI를 쓰지 않습니다" in rule["help"]["text"]
         assert rule["defaultConfiguration"]["level"] == LEVEL_BY_SEVERITY[info.severity]
         tags = rule["properties"]["tags"]
         assert tags[:3] == ["jettae", "runbook", "incident-response"]

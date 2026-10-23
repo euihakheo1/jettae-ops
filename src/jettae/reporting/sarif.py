@@ -65,7 +65,7 @@ SARIF_SCHEMA: Final = (
 SARIF_VERSION: Final = "2.1.0"
 TOOL_NAME: Final = "JETTAE Ops"
 TOOL_FULL_NAME: Final = "제때옵스(JETTAE Ops) 런북 준비도 진단"
-INFORMATION_URI: Final = "https://github.com/jettae-ops/jettae-ops"
+INFORMATION_URI: Final = "https://github.com/euihakheo1/jettae-ops"
 FINGERPRINT_KEY: Final = "jettaeFindingId/v1"
 
 #: critical/high block a merge (error), medium asks for attention (warning), the rest informs (note).
@@ -167,7 +167,9 @@ def _rule_help(info: RuleInfo) -> str:
     lines += [
         f"기본 심각도: {SEVERITY_LABEL_KO[info.severity]} · 점검 요소: {element}",
         "",
-        "고정 규칙으로만 판정하며 생성형 AI는 판정에 관여하지 않습니다. "
+        "고정 규칙으로만 판정하며 판정에 생성형 AI를 쓰지 않습니다. "
+        "LLM을 켠 진단에서는 역번역 대조의 AI 판정이 요소를 판단 보류로 돌릴 수 있고, "
+        "그 요소는 JT-INT-001로 알립니다. "
         "확인할 수 없는 항목은 정상으로 보지 않고 '확인 불가'로 알립니다.",
     ]
     return "\n".join(lines)

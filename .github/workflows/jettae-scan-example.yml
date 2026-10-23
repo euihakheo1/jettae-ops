@@ -1,7 +1,7 @@
 # 제때옵스 Action 사용 예제 — 런북 건강검진
 #
 # 이 저장소에서는 별빛상점 예제(examples/dmc-shop)를 로컬 Action(uses: ./)으로 진단합니다.
-# 다른 저장소에서는 uses: jettae-ops/jettae-ops@v1 처럼 태그를 지정해 쓰고, path에 런북 묶음 폴더를 적으세요.
+# 다른 저장소에서는 uses: euihakheo1/jettae-ops@main 처럼 쓰고(아직 버전 태그가 없어 고정하려면 커밋 SHA), path에 런북 묶음 폴더를 적으세요.
 #
 # 데이터 경계: 기본값 llm: off에서는 런북 원문이 러너 밖으로 나가지 않습니다. llm: live로 바꾸면 원문이
 # 아래 anthropic-api-key(사용자 자신의 키)로 그 제공자에게만 보내집니다. 판정·점수는 어떤 경우에도 고정 규칙입니다.
