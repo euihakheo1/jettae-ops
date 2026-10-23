@@ -7,7 +7,7 @@ LLM 추출의 가장 위험한 실패는 **결측 환각**이다. 런북에 승�
 제때옵스가 찾아야 할 끊김이 오히려 가려진다.
 
 ## 결정
-- 모든 추출기(규칙·LLM)는 공통 IR(`domain.extraction`)로 **원문을 그대로 옮긴 인용(quote)**을 낸다.
+- 모든 추출기(규칙·LLM)는 공통 IR(`domain.extraction`)로 원문을 그대로 옮긴 인용(quote)을 낸다.
 - `extract.align`이 인용을 원문 문자 위치에 정렬한다. 순서는 정확 일치 → 공백 정규화 → 퍼지(partial ratio ≥ 90)다.
   정렬에 실패한 요소는 **폐기**하고 `GroundingStatus.dropped_ungrounded`에 집계한다. 이 방식은 Google LangExtract의
   source grounding을 따른다.
