@@ -157,7 +157,7 @@ LlmDrafter(llm).adraft(ctx, findings, *, workspace_id, base_version) -> list[Pat
 validate_patch(ctx, patch, *, scenarios, config=SimConfig()) -> PatchValidation              # 재검사+과거 리허설 무회귀+명부 외 인물 0
 VersionService(graphs, patches, audit, clock).init / approve / reject / revert / history
 ```
-LLM 초안 안전장치: LLM에게는 끊김 설명과 **명부에서 뽑은 후보 목록(enum)**만 준다. LLM은 후보 중 선택 + 한국어 문장만 쓰고,
+LLM 초안 안전장치: LLM에게는 끊김 설명과 명부에서 뽑은 후보 목록(enum)만 준다. LLM은 후보 중 선택 + 한국어 문장만 쓰고,
 그래프 op는 `FixHint`+선택값으로 코드가 생성한다(LLM이 임의 노드를 만들 수 없음 → "명부 외 인물 생성 0건").
 
 ### 4.7 store / orchestrator / api / cli

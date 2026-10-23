@@ -31,7 +31,7 @@ language: en                                    # 선택: 보고서 언어
 같은 `--out` 폴더로 다시 실행하면 이미 끝난 사고는 `results.jsonl`에 있어 **다시 처리·과금하지 않고**,
 남은 사고만 처리합니다. `--reports`를 끝난 사고를 모두(같은 내용으로) 담은 더 큰 폴더(상위 집합)로
 바꿔도 됩니다 — 새 사고만 처리하고 N·k·m·κ는 전체(예: 27건)로 다시 계산합니다.
-두 번째 실행에도 **첫 실행과 같은 `--model`·`--effort`·`--coder-a`·`--coder-b`·`--bundle-language`**를
+두 번째 실행에도 첫 실행과 같은 `--model`·`--effort`·`--coder-a`·`--coder-b`·`--bundle-language`를
 그대로 붙이세요(빠뜨리면 기본값과 달라 `run.json` 검사에서 시작을 거부합니다).
 
 ```powershell
