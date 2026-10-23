@@ -8,7 +8,7 @@
 
 | # | 원칙 | 구현으로 보장하는 방법 |
 |---|---|---|
-| P1 | **AI는 제안, 판정은 규칙** — 끊김 판정·점수·리허설 판정·그래프 변경에 LLM이 관여하지 않는다 | `jettae.check`, `jettae.rehearse.simulator`, `jettae.improve.{validator,patching}`, `jettae.explore.{sweep,verify,drafts}` 은 `jettae.llm`/`anthropic`/`openai` import 금지, 판정·점수 모듈은 `jettae.explore` import 금지 (import-linter 계약) |
+| P1 | **AI는 제안, 판정은 규칙** — 끊김 판정·점수 계산·리허설 판정·그래프 변경(패치 적용)은 LLM이 하지 않는다. LLM을 켜면 역번역 대조의 AI 판정이 같은 뜻이 아니라고 본 연결을 판단 보류로 돌릴 수는 있다(보류는 확인 불가·0점이라 점수를 낮추거나 끊김을 확인 불가로 바꿀 수 있지만, 끊김을 확정하거나 연결을 더하거나 바꾸지는 못한다). LLM을 끄면 전부 결정적이다 | `jettae.check`, `jettae.rehearse.simulator`, `jettae.improve.{validator,patching}`, `jettae.explore.{sweep,verify,drafts,minimize}` 은 `jettae.llm`/`anthropic`/`openai` import 금지, `jettae.{check,rehearse,improve,extract,reporting}`은 `jettae.explore` import 금지 (import-linter 계약) |
 | P2 | **지어내기 금지** — 그래프의 모든 요소는 원문 span 또는 구조화 출처(명부·카탈로그·승인 패치)를 가진다 | `Provenance` 검증기(RUNBOOK 출처는 span 필수), `assemble`의 정렬 실패 요소 폐기 |
 | P3 | **확인 불가 ≠ 정상** — 모르면 통과가 아니라 `UNKNOWN`/`HOLD` | `FindingStatus.UNKNOWN`, `ElementStatus.UNKNOWN`은 점수 0 |
 | P4 | **LLM을 꺼도 동작** — `LlmMode.OFF`에서 규칙 파서 → 동일 파이프라인 | 모든 LLM 단계는 `LLMDisabledError` 시 결정적 폴백 |
@@ -23,7 +23,8 @@
  roster.csv / oncall.csv  ───┼─ingest─▶  extract ─▶ assemble ─▶ verify ─▶ check ─▶ score ─▶ rehearse   │
  catalog.yaml (Backstage/    │         │ (rule|LLM)  (grounding,  (역번역  (고정    (가중   (결정적     │
    compose/OTel deps)        │         │             entity res.) 대조)    규칙)    평균)   리플레이)   │
- policy.yaml ────────────────┘         │                                   └─▶ improve(초안→검증→승인) │
+ policy.yaml ────────────────┘         │                                   └─▶ explore(규칙 밖 위험 탐색)│
+                                       │                                       └─▶ improve(초안→검증→승인)│
                                        │  orchestrator (LangGraph StateGraph) · store(SQLAlchemy)       │
                                        └──────────┬──────────────────────────────┬────────────────────┘
                                          FastAPI REST + 정적 웹(React/React Flow)   CLI(Typer) / GitHub Action(SARIF)
@@ -39,7 +40,7 @@ src/jettae/
   extract/       rules(규칙 파서), llm_extractor, assemble(정렬·개체해석·그래프 조립), backtranslate(역번역 대조)
   check/         context, registry, rules/*, scoring, impact(영향 범위), spof(최소 절단 집합)
   rehearse/      scenarios(템플릿+LLM), simulator(결정적 이산사건 리플레이)
-  explore/       규칙 밖 위험 탐색: sweep(결정적 전수 탐색), ai(가설 제안), verify(리허설 검증), explorer
+  explore/       규칙 밖 위험 탐색: sweep(결정적 전수 탐색), ai(가설 제안), drafts(가설 초안), verify(리허설 검증), minimize(확인된 AI 가설의 최소 실패 조건), explorer
   improve/       patching(적용·역연산·diff), drafter(템플릿+LLM), validator, versioning
   store/         memory(테스트/데모), sql(SQLAlchemy 2.0; SQLite/Postgres), migrations(alembic)
   reporting/     markdown(증적 리포트), sarif, html
@@ -66,7 +67,7 @@ src/jettae/
 - **Scenario / RehearsalResult / SimConfig** 리허설 계약
 - **Patch / PatchOp / PatchValidation / GraphVersion** 개선·버전 계약
 - **DiagnosisReport** 한 번의 진단 결과(그래프 버전, 끊김, 점수, 리허설, 수정안, 근거율, LLM 사용량, 규칙 밖 위험 후보)
-- **RiskHypothesis / ExplorationSummary** 규칙 밖 위험 가설(출처 sweep|ai, 교란, 전제, 상태 confirmed|refuted|needs_info, 재생 결과)과 탐색 범위
+- **RiskHypothesis / ExplorationSummary** 규칙 밖 위험 가설(출처 sweep|ai, 교란, 전제, 상태 confirmed|refuted|needs_info, 재생 결과, 확인된 AI 가설의 최소 실패 조건 `minimization`)과 탐색 범위
 
 ## 4. 모듈별 공개 API (구현 계약)
 
@@ -124,12 +125,12 @@ score(ctx, findings) -> ReadinessReport                                     # SC
 blast_radius(graph, failed_ids) -> ImpactResult                            # 센터 1곳 장애 시 영향 서비스
 response_cut_sets(ctx, service_id, max_size=2) -> list[frozenset[str]]     # 대응 경로 최소 절단 집합(SPOF)
 ```
-규칙 ID 체계: `JT-PATH-*`(필수 경로), `JT-PPL-*`(사람), `JT-ESC-*`(상향), `JT-CHN-*`(채널), `JT-DDL-*`(시한),
-`JT-KR-*`(국내 신고 기준), `JT-ONC-*`(당직), `JT-CAT-*`(카탈로그 대조), `JT-INT-*`(판단 보류/무결성).
+규칙 ID 체계(고정 규칙 35개, 전체 목록은 [rules.md](rules.md)): `JT-PATH-*`(필수 경로), `JT-PPL-*`(사람), `JT-ESC-*`(상향), `JT-CHN-*`(채널), `JT-DDL-*`(시한),
+`JT-KR-*`(국내 신고 기준), `JT-ONC-*`(당직), `JT-CAT-*`(카탈로그 대조), `JT-SPF-*`(단일 장애점), `JT-INT-*`(판단 보류/무결성).
 
 ### 4.5 rehearse
 ```python
-template_scenarios(ctx, *, service_ids=None) -> list[Scenario]   # 기준·담당 부재·주 채널 다운·승인자 부재·센터 다운·동시 장애
+template_scenarios(ctx, *, service_ids=None) -> list[Scenario]   # 기준·담당 부재·주 채널 다운·승인자 부재·센터 다운·동시 장애·침해사고 신고(신고 의무가 있는 서비스)
 async llm_scenarios(llm, ctx, *, n=3) -> list[Scenario]          # 스키마·존재 id 검증 실패분 폐기
 replay(graph, scenario, *, policy=Policy(), config=SimConfig(), roster=()) -> RehearsalResult   # LLM 금지, 결정적
 replay_all(graph, scenarios, *, policy, config, roster=()) -> list[RehearsalResult]
@@ -143,9 +144,12 @@ known_breaks(ctx, swept, drafts, *, config=None) -> frozenset[str]           # �
 async propose_hypotheses(llm, ctx, findings, *, n=3, known=None, config=None) -> AiProposals  # 열거된 id 중 선택만, 전제는 assumptions
 verify_hypotheses(ctx, drafts, *, config=None) -> tuple[RiskHypothesis, ...]   # 서비스 정책 시한으로 재생 → 상태
 explore_graph(ctx, findings, *, config=None, previous=()) -> Exploration       # 재판정용(LLM 없음)
+minimize_hypotheses(ctx, hypotheses, *, config=None, max_replays=MINIMIZE_MAX_REPLAYS) -> Minimized  # LLM 0회
 ```
 가설은 끊김·점수·통과 기준에 반영하지 않는다(보고서의 별도 필드 `risk_hypotheses`). 전제가 있거나, 판단 보류 대상을 가리키거나,
 교란 없이도 실패하는 서비스의 가설은 `needs_info`, 리허설이 끊기면 `confirmed`, 시한 안에 완화하면 `refuted`.
+확인됐고 전제가 없는 AI 가설(교란 2~4개)은 교란의 모든 부분 조합을 같은 리허설로 다시 재생해, 같은 지점에서 끊기는 가장 작은 조합(최소 실패 조건)과
+필요 없는 조건을 `minimization`에 더한다(실행당 재생 100회 상한, 상태·점수·끊김 판정은 바꾸지 않고, 제안에 없는 원인은 찾지 않음).
 
 ### 4.6 improve
 ```python

@@ -19,9 +19,9 @@ function lineOf(doc: SourceDocument | undefined, offset: number): number | null 
 
 const TASK_LABEL: Record<string, string> = {
   extract: '추출',
-  verify: '역번역 대조',
+  backtranslate: '역번역 대조',
   scenarios: '시나리오 생성',
-  draft: '수정안 문장',
+  explore: '규칙 밖 위험 가설',
 };
 
 export function Trust() {
@@ -72,7 +72,7 @@ export function Trust() {
             LLM 호출 <span className="tnum text-ok">{llm.judgement_path_calls}회</span>
           </p>
           <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-fg-muted">
-            끊김 판정(고정 규칙 {rules.data?.length ?? '—'}개), 준비도 점수(공개 가중치 {data.readiness.weights_version}), 리허설 재생(결정적 리플레이)은 코드 계약으로 LLM 모듈을 가져올 수 없습니다. AI는 추출 후보와 수정안 문장만 제안합니다.
+            끊김 판정(고정 규칙 {rules.data?.length ?? '—'}개), 준비도 점수(공개 가중치 {data.readiness.weights_version}), 리허설 재생(결정적 리플레이)은 코드 계약으로 LLM 모듈을 가져올 수 없습니다. LLM을 켰을 때 AI는 추출 후보·수정안 문장·리허설 시나리오·규칙 밖 위험 가설을 제안하고, 역번역 대조에서 원문과 뜻이 다르다고 본 연결을 판단 보류로 돌릴 수만 있습니다(확정·추가·수정은 못 함).
           </p>
         </section>
 
@@ -97,7 +97,9 @@ export function Trust() {
               </tr>
             </thead>
             <tbody>
-              {Object.entries(llm.by_task).map(([task, n]) => (
+              {Object.entries(llm.by_task)
+                .filter(([task]) => task !== 'draft_fix') // 수정안 호출은 아래 줄에서 토큰과 함께 셉니다
+                .map(([task, n]) => (
                 <tr key={task}>
                   <td className="border-b border-line py-1.5">{TASK_LABEL[task] ?? task}</td>
                   <td className="tnum border-b border-line py-1.5 text-right">{n}</td>
